@@ -28,5 +28,4 @@ public class UserMapper {
     public List<UserDTO> convertToListDTO(List<User> users) {
         return users.stream().map(this::convertToDTO).toList();
     }
-
 }
