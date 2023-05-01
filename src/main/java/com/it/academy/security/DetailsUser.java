@@ -1,6 +1,6 @@
-package com.example.springbootonlineplatform.security;
+package com.it.academy.security;
 
-import com.example.springbootonlineplatform.models.User;
+import com.it.academy.models.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

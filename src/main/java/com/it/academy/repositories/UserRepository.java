@@ -1,6 +1,6 @@
-package com.example.springbootonlineplatform.repositories;
+package com.it.academy.repositories;
 
-import com.example.springbootonlineplatform.models.User;
+import com.it.academy.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

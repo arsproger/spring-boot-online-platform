@@ -1,8 +1,8 @@
-package com.example.springbootonlineplatform.controllers;
+package com.it.academy.controllers;
 
-import com.example.springbootonlineplatform.dtos.UserDTO;
-import com.example.springbootonlineplatform.mappers.UserMapper;
-import com.example.springbootonlineplatform.services.UserService;
+import com.it.academy.dtos.UserDTO;
+import com.it.academy.mappers.UserMapper;
+import com.it.academy.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

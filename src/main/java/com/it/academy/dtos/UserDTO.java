@@ -1,4 +1,4 @@
-package com.example.springbootonlineplatform.dtos;
+package com.it.academy.dtos;
 
 import lombok.Getter;
 import lombok.Setter;

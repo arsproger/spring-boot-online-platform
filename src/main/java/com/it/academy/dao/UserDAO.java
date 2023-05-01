@@ -1,4 +1,4 @@
-package com.example.springbootonlineplatform.dao;
+package com.it.academy.dao;
 
 import org.springframework.stereotype.Component;
 

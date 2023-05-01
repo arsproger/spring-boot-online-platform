@@ -1,4 +1,4 @@
-package com.example.springbootonlineplatform.security;
+package com.it.academy.security;
 
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import org.springframework.beans.factory.annotation.Autowired;

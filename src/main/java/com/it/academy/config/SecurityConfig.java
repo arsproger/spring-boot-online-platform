@@ -1,22 +1,29 @@
-package com.example.springbootonlineplatform.config;
+package com.it.academy.config;
 
-import com.example.springbootonlineplatform.security.DetailsUserService;
+import com.it.academy.security.DetailsUserService;
+import com.it.academy.security.JWTFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
+@EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final DetailsUserService detailsUserService;
+    private final JWTFilter jwtFilter;
 
     @Autowired
-    public SecurityConfig(DetailsUserService detailsUserService) {
+    public SecurityConfig(DetailsUserService detailsUserService, JWTFilter jwtFilter) {
         this.detailsUserService = detailsUserService;
+        this.jwtFilter = jwtFilter;
     }
 
     @Override
@@ -29,12 +36,29 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
+                .cors()
+                .and()
                 .authorizeRequests()
                 .antMatchers("/auth/**").anonymous()
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
-                .httpBasic();
+                .httpBasic()
+                .and()
+                .formLogin().loginPage("/login")
+                .loginProcessingUrl("/process_login")
+                .defaultSuccessUrl("/profile", true)
+                .failureUrl("/login?error")
+                .and()
+                .logout()
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/login")
+                .and()
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and().httpBasic();
+
+        http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
     @Bean

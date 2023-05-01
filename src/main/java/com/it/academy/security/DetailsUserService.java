@@ -1,7 +1,7 @@
-package com.example.springbootonlineplatform.security;
+package com.it.academy.security;
 
-import com.example.springbootonlineplatform.models.User;
-import com.example.springbootonlineplatform.services.UserService;
+import com.it.academy.models.User;
+import com.it.academy.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

@@ -1,4 +1,4 @@
-package com.example.springbootonlineplatform;
+package com.it.academy;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;

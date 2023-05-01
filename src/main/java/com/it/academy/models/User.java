@@ -1,4 +1,4 @@
-package com.example.springbootonlineplatform.models;
+package com.it.academy.models;
 
 import lombok.*;
 

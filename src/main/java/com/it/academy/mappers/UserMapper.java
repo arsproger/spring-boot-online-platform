@@ -1,7 +1,7 @@
-package com.example.springbootonlineplatform.mappers;
+package com.it.academy.mappers;
 
-import com.example.springbootonlineplatform.dtos.UserDTO;
-import com.example.springbootonlineplatform.models.User;
+import com.it.academy.dtos.UserDTO;
+import com.it.academy.models.User;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

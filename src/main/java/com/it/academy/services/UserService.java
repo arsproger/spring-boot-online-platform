@@ -1,7 +1,7 @@
-package com.example.springbootonlineplatform.services;
+package com.it.academy.services;
 
-import com.example.springbootonlineplatform.models.User;
-import com.example.springbootonlineplatform.repositories.UserRepository;
+import com.it.academy.models.User;
+import com.it.academy.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
