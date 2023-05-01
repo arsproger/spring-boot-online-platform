@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -42,6 +43,10 @@ public class UserService {
         user.setDateOfBirth(updatedUser.getDateOfBirth());
 
         return userRepository.save(user).getId();
+    }
+
+    public Optional<User> getByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 
 }
