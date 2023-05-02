@@ -2,20 +2,19 @@ package com.it.academy.controllers;
 
 import com.it.academy.dtos.AuthenticationDTO;
 import com.it.academy.dtos.UserDTO;
-import com.it.academy.enums.UserStatus;
 import com.it.academy.mappers.UserMapper;
-import com.it.academy.models.User;
 import com.it.academy.security.JWTUtil;
 import com.it.academy.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.util.Map;
-import java.util.Optional;
 
 @RestController
 public class AuthController {
@@ -33,12 +32,6 @@ public class AuthController {
         this.jwtUtil = jwtUtil;
     }
 
-
-    @GetMapping("/activate")
-    public String activateAccount(@RequestParam("email") String email, @RequestParam("token") String token) {
-        return userService.activateAccount(email, token);
-    }
-
     @PostMapping("/register")
     public Map<String, String> registerUser(@RequestBody @Valid UserDTO userDTO) {
         userService.save(userMapper.convertToEntity(userDTO));
@@ -49,8 +42,6 @@ public class AuthController {
 
     @PostMapping("/login")
     public Map<String, String> performLogin(@RequestBody @Valid AuthenticationDTO authenticationDTO) {
-        Optional<User> developer = userService.getByEmail(authenticationDTO.getUsername());
-
         UsernamePasswordAuthenticationToken authInputToken =
                 new UsernamePasswordAuthenticationToken(authenticationDTO.getUsername(),
                         authenticationDTO.getPassword());
@@ -60,9 +51,6 @@ public class AuthController {
         } catch (BadCredentialsException e) {
             return Map.of("message", "Incorrect credentials!");
         }
-
-        if (developer.isEmpty() || developer.get().getStatus() != UserStatus.ACTIVE)
-            return Map.of("message", "User is not active!");
 
         String token = jwtUtil.generateToken(authenticationDTO.getUsername());
         return Map.of("token", token);
