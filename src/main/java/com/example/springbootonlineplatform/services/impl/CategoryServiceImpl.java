@@ -31,8 +31,9 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void deleteById(Long id) {
+    public Long deleteById(Long id) {
         repo.deleteById(id);
+        return id;
     }
 
     @Override
@@ -40,8 +41,8 @@ public class CategoryServiceImpl implements CategoryService {
         Category category = repo.findById(id).orElseThrow(
                 () -> new EntityNotFoundException("Category not found with id: " + id));
 
-        category.setName(updatedCategory.getName());
+        category.setTitle(updatedCategory.getTitle());
         category.setCourses(updatedCategory.getCourses());
-        return id;
+        return repo.save(category).getId();
     }
 }

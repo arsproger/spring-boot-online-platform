@@ -1,12 +1,10 @@
 package com.example.springbootonlineplatform.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "comments")
@@ -24,5 +22,17 @@ public class Comment {
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
+/*
+    @ManyToOne
+    @JoinColumn(name = "course_id", referencedColumnName = "id")
+    private Course course;
+
+    @ManyToOne
+    @JoinColumn(name = "lesson_id", referencedColumnName = "id")
+    private Lesson lesson;
+
+    @ManyToOne
+    @JoinColumn(name = "article_id", referencedColumnName = "id")
+    private Article article;*/
 
 }

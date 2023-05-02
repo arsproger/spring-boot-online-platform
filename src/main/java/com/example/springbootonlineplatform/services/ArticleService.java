@@ -10,6 +10,6 @@ public interface ArticleService {
     Article getById(Long id);
     List<Article> getAll();
     Long save(Article article);
-    void deleteById(Long id);
+    Long deleteById(Long id);
     Long update(Long id, Article article);
 }

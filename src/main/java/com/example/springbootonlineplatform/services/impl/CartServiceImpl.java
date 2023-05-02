@@ -31,8 +31,9 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public void deleteById(Long id) {
+    public Long deleteById(Long id) {
         repo.deleteById(id);
+        return id;
     }
 
     @Override
@@ -41,6 +42,7 @@ public class CartServiceImpl implements CartService {
                 () -> new EntityNotFoundException("Cart not found with id: " + id));
 
         cart.setUser(updatedCart.getUser());
-        return id;
+        cart.setCourses(updatedCart.getCourses());
+        return repo.save(cart).getId();
     }
 }

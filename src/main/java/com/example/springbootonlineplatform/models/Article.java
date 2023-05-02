@@ -16,8 +16,8 @@ public class Article {
     private String text;
 
     @ManyToOne
-    @JoinColumn(name = "course_id", referencedColumnName = "id")
-    private Course course;
+    @JoinColumn(name = "lesson_id", referencedColumnName = "id")
+    private Lesson lesson;
 
     @OneToMany
     private List<Comment> comments;

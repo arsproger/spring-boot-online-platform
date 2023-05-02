@@ -31,8 +31,9 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public void deleteById(Long id) {
+    public Long deleteById(Long id) {
         repo.deleteById(id);
+        return id;
     }
 
     @Override
@@ -41,12 +42,13 @@ public class CourseServiceImpl implements CourseService {
                 () -> new EntityNotFoundException("Course not found with id: " + id));
 
         course.setName(updatedCourse.getName());
-        course.setArticles(updatedCourse.getArticles());
         course.setCategory(updatedCourse.getCategory());
         course.setPrice(updatedCourse.getPrice());
         course.setDescription(updatedCourse.getDescription());
         course.setComments(updatedCourse.getComments());
-
-        return id;
+        //course.setCarts(updatedCourse.getCarts());
+        course.setSubscriptions(updatedCourse.getSubscriptions());
+        course.setLessons(updatedCourse.getLessons());
+        return repo.save(course).getId();
     }
 }

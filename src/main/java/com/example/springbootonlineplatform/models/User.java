@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -22,4 +23,10 @@ public class User {
     private LocalDate dateOfBirth;
     private String email;
     private String password;
+
+    @OneToMany(mappedBy = "user")
+    private List<Subscription> subscriptions;
+
+    @OneToOne
+    private Cart cart;
 }

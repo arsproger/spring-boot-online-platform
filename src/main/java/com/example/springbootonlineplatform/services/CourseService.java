@@ -10,6 +10,6 @@ public interface CourseService {
     Course getById(Long id);
     List<Course> getAll();
     Long save(Course course);
-    void deleteById(Long id);
+    Long deleteById(Long id);
     Long update(Long id, Course course);
 }

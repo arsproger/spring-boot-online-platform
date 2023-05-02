@@ -31,8 +31,9 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public void deleteById(Long id) {
+    public Long deleteById(Long id) {
         repo.deleteById(id);
+        return id;
     }
 
     @Override
@@ -43,8 +44,7 @@ public class ArticleServiceImpl implements ArticleService {
         article.setComments(updatedArticle.getComments());
         article.setText(updatedArticle.getText());
         article.setTitle(updatedArticle.getTitle());
-        article.setCourse(updatedArticle.getCourse());
-        article.setComments(updatedArticle.getComments());
-        return id;
+        article.setLesson(updatedArticle.getLesson());
+        return repo.save(article).getId();
     }
 }

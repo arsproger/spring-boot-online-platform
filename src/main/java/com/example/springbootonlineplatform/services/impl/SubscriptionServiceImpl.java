@@ -32,8 +32,9 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     }
 
     @Override
-    public void deleteById(Long id) {
+    public Long deleteById(Long id) {
         repo.deleteById(id);
+        return id;
     }
 
     @Override
@@ -45,7 +46,6 @@ public class SubscriptionServiceImpl implements SubscriptionService {
         subscription.setUser(updatedSubscription.getUser());
         subscription.setDateFinish(updatedSubscription.getDateFinish());
         subscription.setDateStart(updatedSubscription.getDateStart());
-
-        return id;
+        return repo.save(subscription).getId();
     }
 }

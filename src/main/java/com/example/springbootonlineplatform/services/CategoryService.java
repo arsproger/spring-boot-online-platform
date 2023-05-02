@@ -10,6 +10,6 @@ public interface CategoryService {
     Category getById(Long id);
     List<Category> getAll();
     Long save(Category category);
-    void deleteById(Long id);
+    Long deleteById(Long id);
     Long update(Long id, Category category);
 }

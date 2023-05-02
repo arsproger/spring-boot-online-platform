@@ -25,8 +25,12 @@ public class Course {
     private Category category;
 
     @OneToMany(mappedBy = "course")
-    private List<Article> articles;
+    private List<Lesson> lessons;
 
     @OneToMany
     private List<Comment> comments;
+
+    @OneToMany(mappedBy = "course")
+    private List<Subscription> subscriptions;
+
 }

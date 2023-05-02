@@ -3,7 +3,6 @@ package com.example.springbootonlineplatform.controllers;
 import com.example.springbootonlineplatform.dtos.UserDTO;
 import com.example.springbootonlineplatform.mappers.UserMapper;
 import com.example.springbootonlineplatform.services.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,27 +15,27 @@ public class UserController {
     private final UserService userService;
     private final UserMapper userMapper;
 
-    @Autowired
     public UserController(UserService userService, UserMapper userMapper) {
         this.userService = userService;
         this.userMapper = userMapper;
     }
 
+
     @GetMapping
     public ResponseEntity<List<UserDTO>> getAllUsers() {
-        List<UserDTO> users = userMapper.convertToListDTO(userService.getAll());
+        List<UserDTO> users = userMapper.map(userService.getAll());
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<UserDTO> getUserById(@PathVariable Long id) {
-        UserDTO user = userMapper.convertToDTO(userService.getById(id));
+        UserDTO user = userMapper.map(userService.getById(id));
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @PostMapping
     public ResponseEntity<Long> createUser(@RequestBody UserDTO user) {
-        Long id = userService.save(userMapper.convertToEntity(user));
+        Long id = userService.save(userMapper.map(user));
         return new ResponseEntity<>(id, HttpStatus.CREATED);
     }
 
@@ -48,7 +47,7 @@ public class UserController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Long> updateUserById(@PathVariable Long id, @RequestBody UserDTO user) {
-        Long updatedId = userService.updateById(id, userMapper.convertToEntity(user));
+        Long updatedId = userService.updateById(id, userMapper.map(user));
         return new ResponseEntity<>(updatedId, HttpStatus.OK);
     }
 

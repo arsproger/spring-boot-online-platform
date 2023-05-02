@@ -31,8 +31,9 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public void deleteById(Long id) {
+    public Long deleteById(Long id) {
         repo.deleteById(id);
+        return id;
     }
 
     @Override
@@ -44,7 +45,6 @@ public class CommentServiceImpl implements CommentService {
         comment.setUser(updatedComment.getUser());
         comment.setTitle(updatedComment.getTitle());
         comment.setDescription(updatedComment.getDescription());
-
-        return id;
+        return repo.save(comment).getId();
     }
 }
