@@ -1,9 +1,11 @@
 package com.it.academy.models;
 
+import com.it.academy.enums.UserStatus;
 import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "users")
@@ -24,4 +26,13 @@ public class User {
     private String password;
     @Enumerated(EnumType.STRING)
     private Role role;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status")
+    private UserStatus status;
+    @Column(name = "activation_token")
+    private String activationToken;
+    @Column(name = "reset_token")
+    private String resetToken;
+    @Column(name = "reset_token_expire_time")
+    private LocalDateTime resetTokenExpireTime;
 }
