@@ -1,8 +1,8 @@
-package com.example.springbootonlineplatform.controllers;
+package com.it.academy.controllers;
 
-import com.example.springbootonlineplatform.dtos.CartDto;
-import com.example.springbootonlineplatform.mappers.CartMapper;
-import com.example.springbootonlineplatform.services.CartService;
+import com.it.academy.dtos.CartDto;
+import com.it.academy.mappers.CartMapper;
+import com.it.academy.services.CartService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

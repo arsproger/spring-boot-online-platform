@@ -1,16 +1,11 @@
-package com.example.springbootonlineplatform.mappers;
+package com.it.academy.mappers;
 
-import com.example.springbootonlineplatform.dtos.CartDto;
-import com.example.springbootonlineplatform.models.Cart;
-import com.example.springbootonlineplatform.models.Course;
+import com.it.academy.dtos.CartDto;
+import com.it.academy.models.Cart;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.Named;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
 public interface CartMapper {
