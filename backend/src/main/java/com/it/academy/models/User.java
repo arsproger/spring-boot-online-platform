@@ -1,5 +1,6 @@
 package com.it.academy.models;
 
+import com.it.academy.enums.Role;
 import com.it.academy.enums.UserStatus;
 import lombok.*;
 

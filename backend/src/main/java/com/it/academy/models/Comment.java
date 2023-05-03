@@ -22,17 +22,5 @@ public class Comment {
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
-/*
-    @ManyToOne
-    @JoinColumn(name = "course_id", referencedColumnName = "id")
-    private Course course;
-
-    @ManyToOne
-    @JoinColumn(name = "lesson_id", referencedColumnName = "id")
-    private Lesson lesson;
-
-    @ManyToOne
-    @JoinColumn(name = "article_id", referencedColumnName = "id")
-    private Article article;*/
 
 }

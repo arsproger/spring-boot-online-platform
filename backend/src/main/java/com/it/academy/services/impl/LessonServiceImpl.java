@@ -43,8 +43,8 @@ public class LessonServiceImpl implements LessonService {
         lesson.setDescription(updatedLesson.getDescription());
         lesson.setComments(updatedLesson.getComments());
         lesson.setArticles(updatedLesson.getArticles());
-        lesson.setCourse(updatedLesson.getCourse());
         lesson.setTitle(updatedLesson.getTitle());
         return repo.save(lesson).getId();
     }
+
 }

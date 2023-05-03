@@ -6,7 +6,4 @@ import lombok.Data;
 public class LessonDto {
     private String title;
     private String description;
-    private Long courseId;
-   /* private List<Article> articles;
-    private List<Comment> comments;*/
 }
