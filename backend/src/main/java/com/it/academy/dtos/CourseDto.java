@@ -1,6 +1,5 @@
 package com.it.academy.dtos;
 
-import com.example.springbootonlineplatform.models.*;
 import com.it.academy.models.Category;
 import lombok.AllArgsConstructor;
 import lombok.Data;

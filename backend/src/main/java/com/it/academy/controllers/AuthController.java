@@ -34,7 +34,7 @@ public class AuthController {
 
     @PostMapping("/register")
     public Map<String, String> registerUser(@RequestBody @Valid UserDTO userDTO) {
-        userService.save(userMapper.convertToEntity(userDTO));
+        userService.save(userMapper.map(userDTO));
 
         String token = jwtUtil.generateToken(userDTO.getEmail());
         return Map.of("token", token);
