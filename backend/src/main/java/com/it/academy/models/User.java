@@ -6,6 +6,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -27,7 +28,6 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role;
     @Enumerated(EnumType.STRING)
-    @Column(name = "status")
     private UserStatus status;
     @Column(name = "activation_token")
     private String activationToken;
@@ -35,4 +35,14 @@ public class User {
     private String resetToken;
     @Column(name = "reset_token_expire_time")
     private LocalDateTime resetTokenExpireTime;
+
+    @OneToMany(mappedBy = "user")
+    private List<Subscription> subscriptions;
+
+    @OneToOne
+    private Cart cart;
+
+    @OneToMany(mappedBy = "user")
+    private List<Course> courses;
+
 }

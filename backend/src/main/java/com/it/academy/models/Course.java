@@ -18,14 +18,22 @@ public class Course {
     private String name;
     private String description;
     private BigDecimal price;
+    private Integer amountStudents;
 
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     private Category category;
 
+//    @OneToMany(mappedBy = "course")
+//    private List<Lesson> lessons;
+
+    @ManyToOne
+    @JoinColumn(name = "author_id", referencedColumnName = "id")
+    private User user;
+
     @OneToMany(mappedBy = "course")
-    private List<Lesson> lessons;
+    private List<Section> sections;
 
     @OneToMany
     private List<Comment> comments;
