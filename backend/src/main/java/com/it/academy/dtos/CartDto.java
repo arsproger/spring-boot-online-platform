@@ -1,14 +1,10 @@
 package com.it.academy.dtos;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
-import java.util.List;
-
-@AllArgsConstructor
-@NoArgsConstructor
-@Data
+@Setter
+@Getter
 public class CartDto {
     private Long userId;
 }

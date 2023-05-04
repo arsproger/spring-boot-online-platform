@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getById(Long id) {
         return userRepository.findById(id).orElseThrow(
-                () -> new EntityNotFoundException("Subscription not found with id: " + id));
+                () -> new EntityNotFoundException("User not found with id: " + id));
     }
 
     @Override
@@ -49,9 +49,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Long updateById(Long id, User updatedUser) {
         User user = userRepository.findById(id).orElseThrow(
-                () -> new EntityNotFoundException("Subscription not found with id: " + id));
-
-        if (user == null) return null;
+                () -> new EntityNotFoundException("User not found with id: " + id));
 
         user.setName(updatedUser.getName());
         user.setSurname(updatedUser.getSurname());

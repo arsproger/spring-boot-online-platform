@@ -1,6 +1,6 @@
 package com.it.academy.mappers;
 
-import com.it.academy.dtos.UserDTO;
+import com.it.academy.dtos.UserDto;
 import com.it.academy.models.User;
 import org.mapstruct.Mapper;
 import org.springframework.stereotype.Component;
@@ -10,9 +10,9 @@ import java.util.List;
 @Component
 @Mapper(componentModel = "spring")
 public interface UserMapper {
-    User map(UserDTO dto);
+    User map(UserDto dto);
 
-    UserDTO map(User entity);
+    UserDto map(User entity);
 
-    List<UserDTO> map(List<User> entities);
+    List<UserDto> map(List<User> entities);
 }

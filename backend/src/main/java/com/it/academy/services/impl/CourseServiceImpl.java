@@ -4,6 +4,7 @@ import com.it.academy.models.Course;
 import com.it.academy.repositories.CourseRepository;
 import com.it.academy.services.CourseService;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -45,9 +46,31 @@ public class CourseServiceImpl implements CourseService {
         course.setCategory(updatedCourse.getCategory());
         course.setPrice(updatedCourse.getPrice());
         course.setDescription(updatedCourse.getDescription());
-        course.setComments(updatedCourse.getComments());
+        course.setReviews(updatedCourse.getReviews());
         course.setSubscriptions(updatedCourse.getSubscriptions());
         course.setSections(updatedCourse.getSections());
         return repo.save(course).getId();
     }
+
+    @Override
+    public List<Course> getByAuthorId(Long id) {
+        return repo.findByAuthorId(id);
+    }
+
+
+    @Override
+    public List<Course> filterByPriceAsk() {
+        return repo.findAll(Sort.by("price").ascending());
+    }
+
+    @Override
+    public List<Course> filterByPriceDesc() {
+        return repo.findAll(Sort.by("price").descending());
+    }
+
+    @Override
+    public List<Course> getByLanguage(String language) {
+        return repo.findByLanguage(language);
+    }
+
 }

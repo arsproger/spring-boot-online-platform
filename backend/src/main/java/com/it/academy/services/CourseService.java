@@ -14,4 +14,13 @@ public interface CourseService {
     Long deleteById(Long id);
 
     Long update(Long id, Course course);
+
+    List<Course> getByAuthorId(Long id);
+
+    List<Course> filterByPriceAsk();
+
+    List<Course> filterByPriceDesc();
+
+    List<Course> getByLanguage(String language);
+
 }

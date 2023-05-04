@@ -1,12 +1,14 @@
 package com.it.academy.dtos;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
-@Data
-public class AuthenticationDTO {
+@Setter
+@Getter
+public class AuthenticationDto {
     @Email(message = "Не корректный email!")
     private String username;
 

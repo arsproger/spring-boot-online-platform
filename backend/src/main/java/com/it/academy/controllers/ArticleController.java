@@ -46,4 +46,5 @@ public class ArticleController {
         Long updatedId = service.update(id, mapper.map(article));
         return new ResponseEntity<>(updatedId, HttpStatus.OK);
     }
+
 }

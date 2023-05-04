@@ -1,19 +1,18 @@
 package com.it.academy.dtos;
 
 import com.it.academy.models.Category;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Data
+@Setter
+@Getter
 public class CourseDto {
     private String name;
     private String description;
     private BigDecimal price;
     private Category category;
     private Integer amountStudents;
+    private String language;
 }

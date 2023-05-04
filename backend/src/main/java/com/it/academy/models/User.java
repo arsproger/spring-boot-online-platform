@@ -40,10 +40,13 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Subscription> subscriptions;
 
-    @OneToOne
+    @OneToOne(mappedBy = "user")
     private Cart cart;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "author")
     private List<Course> courses;
+
+    @OneToMany(mappedBy = "user")
+    private List<Comment> comments;
 
 }

@@ -19,8 +19,8 @@ public class LessonController {
 
     @GetMapping
     public ResponseEntity<List<LessonDto>> getAllArticles() {
-        List<LessonDto> dtos = mapper.map(service.getAll());
-        return new ResponseEntity<>(dtos, HttpStatus.OK);
+        List<LessonDto> lessons = mapper.map(service.getAll());
+        return new ResponseEntity<>(lessons, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
@@ -46,4 +46,5 @@ public class LessonController {
         Long updatedId = service.update(id, mapper.map(dto));
         return new ResponseEntity<>(updatedId, HttpStatus.OK);
     }
+
 }

@@ -46,4 +46,28 @@ public class CourseController {
         Long updatedId = service.update(id, mapper.map(course));
         return new ResponseEntity<>(updatedId, HttpStatus.OK);
     }
+
+    @GetMapping("/author/{id}")
+    public ResponseEntity<List<CourseDto>> getByAuthorId(@PathVariable("id") Long authorId) {
+        List<CourseDto> courses = mapper.map(service.getByAuthorId(authorId));
+        return new ResponseEntity<>(courses, HttpStatus.OK);
+    }
+
+    @GetMapping("/filter/price")
+    public ResponseEntity<List<CourseDto>> priceFilter(
+            @RequestParam(defaultValue = "ask") String filter) {
+        List<CourseDto> courses = filter.equals("desc")
+                ? mapper.map(service.filterByPriceDesc())
+                : mapper.map(service.filterByPriceAsk());
+
+        return new ResponseEntity<>(courses, HttpStatus.OK);
+    }
+
+    @GetMapping("/language")
+    public ResponseEntity<List<CourseDto>> getByLanguage(@RequestParam String language) {
+        List<CourseDto> courses = mapper.map(service.getByLanguage(language));
+        return new ResponseEntity<>(courses, HttpStatus.OK);
+    }
+
+
 }

@@ -8,10 +8,10 @@ import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "comments")
+@Table(name = "reviews")
 @Setter
 @Getter
-public class Comment {
+public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -26,7 +26,7 @@ public class Comment {
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "lesson_id", referencedColumnName = "id")
-    private Lesson lesson;
+    @JoinColumn(name = "course_id", referencedColumnName = "id")
+    private Course course;
 
 }

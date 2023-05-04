@@ -9,7 +9,7 @@ public interface CommentService {
 
     List<Comment> getAll();
 
-    Long save(Comment comment);
+    Long save(Long userId, Long lessonId, Comment comment);
 
     Long deleteById(Long id);
 

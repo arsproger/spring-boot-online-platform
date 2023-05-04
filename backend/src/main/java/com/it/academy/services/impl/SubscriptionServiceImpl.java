@@ -1,6 +1,7 @@
 package com.it.academy.services.impl;
 
 import com.it.academy.models.Subscription;
+import com.it.academy.models.User;
 import com.it.academy.repositories.SubscriptionRepository;
 import com.it.academy.services.SubscriptionService;
 import lombok.AllArgsConstructor;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -47,4 +49,11 @@ public class SubscriptionServiceImpl implements SubscriptionService {
         subscription.setDateStart(updatedSubscription.getDateStart());
         return repo.save(subscription).getId();
     }
+
+    @Override
+    public List<User> getUserByCourseId(Long id) {
+        List<Subscription> subscriptions = repo.findByCourseId(id);
+        return subscriptions.stream().map(Subscription::getUser).collect(Collectors.toList());
+    }
+
 }
