@@ -1,5 +1,6 @@
 package com.it.academy.controllers;
 
+import com.it.academy.dao.CourseDao;
 import com.it.academy.dtos.CourseDto;
 import com.it.academy.mappers.CourseMapper;
 import com.it.academy.services.CourseService;
@@ -16,6 +17,7 @@ import java.util.List;
 public class CourseController {
     private final CourseService service;
     private final CourseMapper mapper;
+    private final CourseDao courseDao;
 
     @GetMapping
     public ResponseEntity<List<CourseDto>> getAllCourses() {
@@ -49,7 +51,7 @@ public class CourseController {
 
     @GetMapping("/author/{id}")
     public ResponseEntity<List<CourseDto>> getByAuthorId(@PathVariable("id") Long authorId) {
-        List<CourseDto> courses = mapper.map(service.getByAuthorId(authorId));
+        List<CourseDto> courses = mapper.map(courseDao.getByAuthorId(authorId));
         return new ResponseEntity<>(courses, HttpStatus.OK);
     }
 
