@@ -16,8 +16,8 @@ import java.util.List;
 @AllArgsConstructor
 public class CourseController {
     private final CourseService service;
-    private final CourseMapper mapper;
     private final CourseDao courseDao;
+    private final CourseMapper mapper;
 
     @GetMapping
     public ResponseEntity<List<CourseDto>> getAllCourses() {
@@ -59,15 +59,15 @@ public class CourseController {
     public ResponseEntity<List<CourseDto>> priceFilter(
             @RequestParam(defaultValue = "ask") String filter) {
         List<CourseDto> courses = filter.equals("desc")
-                ? mapper.map(service.filterByPriceDesc())
-                : mapper.map(service.filterByPriceAsk());
+                ? mapper.map(courseDao.filterByPriceDesc())
+                : mapper.map(courseDao.filterByPriceAsk());
 
         return new ResponseEntity<>(courses, HttpStatus.OK);
     }
 
     @GetMapping("/language")
     public ResponseEntity<List<CourseDto>> getByLanguage(@RequestParam String language) {
-        List<CourseDto> courses = mapper.map(service.getByLanguage(language));
+        List<CourseDto> courses = mapper.map(courseDao.getByLanguage(language));
         return new ResponseEntity<>(courses, HttpStatus.OK);
     }
 

@@ -17,6 +17,7 @@ public class Lesson {
 
     private String title;
     private String description;
+    private Double duration;
 
     @ManyToOne
     @JoinColumn(name = "section_id", referencedColumnName = "id")

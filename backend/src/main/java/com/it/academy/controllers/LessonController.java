@@ -1,5 +1,6 @@
 package com.it.academy.controllers;
 
+import com.it.academy.dao.LessonDao;
 import com.it.academy.dtos.LessonDto;
 import com.it.academy.mappers.LessonMapper;
 import com.it.academy.services.impl.LessonServiceImpl;
@@ -15,6 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 public class LessonController {
     private final LessonServiceImpl service;
+    private final LessonDao lessonDao;
     private final LessonMapper mapper;
 
     @GetMapping
@@ -45,6 +47,14 @@ public class LessonController {
     public ResponseEntity<Long> updateArticleById(@PathVariable Long id, @RequestBody LessonDto dto) {
         Long updatedId = service.update(id, mapper.map(dto));
         return new ResponseEntity<>(updatedId, HttpStatus.OK);
+    }
+
+    @GetMapping("/filter/duration")
+    public ResponseEntity<List<LessonDto>> durationFilter(
+            @RequestParam Integer from,
+            @RequestParam Integer to) {
+        List<LessonDto> lessons = mapper.map(lessonDao.filterByDuration(from, to));
+        return new ResponseEntity<>(lessons, HttpStatus.OK);
     }
 
 }

@@ -16,5 +16,4 @@ public interface SubscriptionService {
 
     Long update(Long id, Subscription subscription);
 
-    List<User> getUserByCourseId(Long id);
 }
