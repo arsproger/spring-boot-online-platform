@@ -42,7 +42,7 @@ public class CategoryServiceImpl implements CategoryService {
                 () -> new EntityNotFoundException("Category not found with id: " + id));
 
         category.setTitle(updatedCategory.getTitle());
-        category.setCourses(updatedCategory.getCourses());
+
         return repo.save(category).getId();
     }
 }

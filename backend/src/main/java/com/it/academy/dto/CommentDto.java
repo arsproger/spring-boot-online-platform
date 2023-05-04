@@ -1,11 +1,11 @@
-package com.it.academy.dtos;
+package com.it.academy.dto;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Setter
 @Getter
-public class ReviewDto {
+public class CommentDto {
     private String title;
     private String description;
 }

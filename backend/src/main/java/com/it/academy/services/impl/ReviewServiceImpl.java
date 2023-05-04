@@ -33,17 +33,17 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public Long save(Long userId, Long courseId, Review comment) {
+    public Long save(Long userId, Long courseId, Review review) {
         Course course = courseRepository.findById(courseId).orElseThrow(
                 () -> new EntityNotFoundException("Course not found with id: " + courseId));
         User user = userRepository.findById(userId).orElseThrow(
                 () -> new EntityNotFoundException("User not found with id: " + userId));
 
-        comment.setDate(LocalDate.now());
-        comment.setCourse(course);
-        comment.setUser(user);
+        review.setDate(LocalDate.now());
+        review.setCourse(course);
+        review.setUser(user);
 
-        return repo.save(comment).getId();
+        return repo.save(review).getId();
     }
 
     @Override
@@ -54,14 +54,14 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public Long update(Long id, Review updatedReview) {
-        Review comment = repo.findById(id).orElseThrow(
+        Review review = repo.findById(id).orElseThrow(
                 () -> new EntityNotFoundException("Review not found with id: " + id));
 
-        comment.setDate(updatedReview.getDate());
-        comment.setUser(updatedReview.getUser());
-        comment.setTitle(updatedReview.getTitle());
-        comment.setDescription(updatedReview.getDescription());
-        return repo.save(comment).getId();
+        review.setTitle(updatedReview.getTitle());
+        review.setDescription(updatedReview.getDescription());
+        review.setDate(updatedReview.getDate());
+
+        return repo.save(review).getId();
     }
 
 }

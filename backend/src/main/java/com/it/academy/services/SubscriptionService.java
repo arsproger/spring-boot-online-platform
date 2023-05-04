@@ -1,7 +1,6 @@
 package com.it.academy.services;
 
 import com.it.academy.models.Subscription;
-import com.it.academy.models.User;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.it.academy.dtos;
+package com.it.academy.dto;
 
 import com.it.academy.models.Category;
 import lombok.Getter;

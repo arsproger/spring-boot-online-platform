@@ -9,9 +9,9 @@ public interface ReviewService {
 
     List<Review> getAll();
 
-    Long save(Long userId, Long courseId, Review comment);
+    Long save(Long userId, Long courseId, Review review);
 
     Long deleteById(Long id);
 
-    Long update(Long id, Review comment);
+    Long update(Long id, Review review);
 }

@@ -1,6 +1,6 @@
 package com.it.academy.mappers;
 
-import com.it.academy.dtos.SubscriptionDto;
+import com.it.academy.dto.SubscriptionDto;
 import com.it.academy.models.Subscription;
 import org.mapstruct.Mapper;
 import org.springframework.stereotype.Component;

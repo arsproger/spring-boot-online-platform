@@ -1,11 +1,10 @@
-package com.it.academy.dtos;
+package com.it.academy.dto;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDate;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Setter
 @Getter
 public class SubscriptionDto {

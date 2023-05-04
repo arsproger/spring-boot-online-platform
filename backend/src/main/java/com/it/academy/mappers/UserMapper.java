@@ -1,6 +1,6 @@
 package com.it.academy.mappers;
 
-import com.it.academy.dtos.UserDto;
+import com.it.academy.dto.UserDto;
 import com.it.academy.models.User;
 import org.mapstruct.Mapper;
 import org.springframework.stereotype.Component;

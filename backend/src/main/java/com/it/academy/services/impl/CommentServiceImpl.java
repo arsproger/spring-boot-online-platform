@@ -57,10 +57,9 @@ public class CommentServiceImpl implements CommentService {
         Comment comment = repo.findById(id).orElseThrow(
                 () -> new EntityNotFoundException("Comment not found with id: " + id));
 
-        comment.setDate(updatedComment.getDate());
-        comment.setUser(updatedComment.getUser());
         comment.setTitle(updatedComment.getTitle());
         comment.setDescription(updatedComment.getDescription());
+
         return repo.save(comment).getId();
     }
 

@@ -1,6 +1,6 @@
 package com.it.academy.mappers;
 
-import com.it.academy.dtos.CourseDto;
+import com.it.academy.dto.CourseDto;
 import com.it.academy.models.Course;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

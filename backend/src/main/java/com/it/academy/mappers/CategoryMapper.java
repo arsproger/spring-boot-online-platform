@@ -1,6 +1,6 @@
 package com.it.academy.mappers;
 
-import com.it.academy.dtos.CategoryDto;
+import com.it.academy.dto.CategoryDto;
 import com.it.academy.models.Category;
 import org.mapstruct.Mapper;
 import org.springframework.stereotype.Component;

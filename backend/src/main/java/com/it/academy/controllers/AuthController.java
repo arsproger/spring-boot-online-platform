@@ -1,12 +1,11 @@
 package com.it.academy.controllers;
 
-import com.it.academy.dtos.AuthenticationDto;
-import com.it.academy.dtos.UserDto;
+import com.it.academy.dto.AuthenticationDto;
+import com.it.academy.dto.UserDto;
 import com.it.academy.mappers.UserMapper;
 import com.it.academy.security.JWTUtil;
 import com.it.academy.services.UserService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

@@ -1,6 +1,6 @@
 package com.it.academy.mappers;
 
-import com.it.academy.dtos.CommentDto;
+import com.it.academy.dto.CommentDto;
 import com.it.academy.models.Comment;
 import org.mapstruct.Mapper;
 import org.springframework.stereotype.Component;

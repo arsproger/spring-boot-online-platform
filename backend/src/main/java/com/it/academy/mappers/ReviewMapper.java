@@ -1,6 +1,6 @@
 package com.it.academy.mappers;
 
-import com.it.academy.dtos.ReviewDto;
+import com.it.academy.dto.ReviewDto;
 import com.it.academy.models.Review;
 import org.mapstruct.Mapper;
 import org.springframework.stereotype.Component;

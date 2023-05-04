@@ -1,6 +1,6 @@
 package com.it.academy.controllers;
 
-import com.it.academy.dtos.ArticleDto;
+import com.it.academy.dto.ArticleDto;
 import com.it.academy.mappers.ArticleMapper;
 import com.it.academy.services.ArticleService;
 import lombok.AllArgsConstructor;

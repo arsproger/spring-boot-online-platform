@@ -1,7 +1,7 @@
 package com.it.academy.controllers;
 
 import com.it.academy.dao.CourseDao;
-import com.it.academy.dtos.CourseDto;
+import com.it.academy.dto.CourseDto;
 import com.it.academy.mappers.CourseMapper;
 import com.it.academy.services.CourseService;
 import lombok.AllArgsConstructor;

@@ -1,12 +1,10 @@
-package com.it.academy.dtos;
-
+package com.it.academy.dto;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Setter
 @Getter
-public class ArticleDto {
+public class CategoryDto {
     private String title;
-    private String text;
 }

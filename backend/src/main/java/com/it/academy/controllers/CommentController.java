@@ -1,6 +1,6 @@
 package com.it.academy.controllers;
 
-import com.it.academy.dtos.CommentDto;
+import com.it.academy.dto.CommentDto;
 import com.it.academy.mappers.CommentMapper;
 import com.it.academy.services.CommentService;
 import lombok.AllArgsConstructor;
@@ -18,19 +18,19 @@ public class CommentController {
     private final CommentMapper mapper;
 
     @GetMapping
-    public ResponseEntity<List<CommentDto>> getAllArticles() {
+    public ResponseEntity<List<CommentDto>> getAllComments() {
         List<CommentDto> comments = mapper.map(service.getAll());
         return new ResponseEntity<>(comments, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CommentDto> getArticleById(@PathVariable Long id) {
+    public ResponseEntity<CommentDto> getCommentById(@PathVariable Long id) {
         CommentDto dto = mapper.map(service.getById(id));
         return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<Long> createArticle(
+    public ResponseEntity<Long> createComment(
             @RequestParam Long userId,
             @RequestParam Long lessonId,
             @RequestBody CommentDto dto) {
@@ -39,13 +39,13 @@ public class CommentController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Long> deleteArticleById(@PathVariable Long id) {
+    public ResponseEntity<Long> deleteCommentById(@PathVariable Long id) {
         Long deletedId = service.deleteById(id);
         return new ResponseEntity<>(deletedId, HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Long> updateArticleById(@PathVariable Long id, @RequestBody CommentDto dto) {
+    public ResponseEntity<Long> updateCommentById(@PathVariable Long id, @RequestBody CommentDto dto) {
         Long updatedId = service.update(id, mapper.map(dto));
         return new ResponseEntity<>(updatedId, HttpStatus.OK);
     }
