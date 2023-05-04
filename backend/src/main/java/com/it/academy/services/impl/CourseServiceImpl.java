@@ -46,9 +46,8 @@ public class CourseServiceImpl implements CourseService {
         course.setPrice(updatedCourse.getPrice());
         course.setDescription(updatedCourse.getDescription());
         course.setComments(updatedCourse.getComments());
-        //course.setCarts(updatedCourse.getCarts());
         course.setSubscriptions(updatedCourse.getSubscriptions());
-        course.setLessons(updatedCourse.getLessons());
+        course.setSections(updatedCourse.getSections());
         return repo.save(course).getId();
     }
 }

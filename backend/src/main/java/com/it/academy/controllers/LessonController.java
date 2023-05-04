@@ -2,7 +2,7 @@ package com.it.academy.controllers;
 
 import com.it.academy.dtos.LessonDto;
 import com.it.academy.mappers.LessonMapper;
-import com.it.academy.services.LessonService;
+import com.it.academy.services.impl.LessonServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +14,7 @@ import java.util.List;
 @RequestMapping("/lesson")
 @AllArgsConstructor
 public class LessonController {
-    private final LessonService service;
+    private final LessonServiceImpl service;
     private final LessonMapper mapper;
 
     @GetMapping

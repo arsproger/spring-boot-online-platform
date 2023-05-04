@@ -15,7 +15,5 @@ public class CourseDto {
     private String description;
     private BigDecimal price;
     private Category category;
-   /* private List<Lesson> lessons;
-    private List<Comment> comments;
-    private List<Subscription> subscriptions;*/
+    private Integer amountStudents;
 }

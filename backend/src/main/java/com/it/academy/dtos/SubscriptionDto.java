@@ -10,8 +10,6 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Data
 public class SubscriptionDto {
-    private Long userId;
-    private Long courseId;
     private LocalDate dateStart;
     private LocalDate dateFinish;
 }

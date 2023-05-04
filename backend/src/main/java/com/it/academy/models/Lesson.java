@@ -16,9 +16,12 @@ public class Lesson {
     private String title;
     private String description;
 
+//    @ManyToOne
+//    @JoinColumn(name = "course_id", referencedColumnName = "id")
+//    private Course course;
     @ManyToOne
-    @JoinColumn(name = "course_id", referencedColumnName = "id")
-    private Course course;
+    @JoinColumn(name = "section_id", referencedColumnName = "id")
+    private Section section;
 
     @OneToMany(mappedBy = "lesson")
     private List<Article> articles;

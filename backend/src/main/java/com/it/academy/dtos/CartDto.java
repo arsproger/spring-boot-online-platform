@@ -11,5 +11,4 @@ import java.util.List;
 @Data
 public class CartDto {
     private Long userId;
-    private List<Long> coursesId;
 }
