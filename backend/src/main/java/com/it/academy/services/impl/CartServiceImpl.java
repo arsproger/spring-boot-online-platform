@@ -1,8 +1,10 @@
 package com.it.academy.services.impl;
 
 import com.it.academy.models.Cart;
+import com.it.academy.models.User;
 import com.it.academy.repositories.CartRepository;
 import com.it.academy.services.CartService;
+import com.it.academy.services.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 public class CartServiceImpl implements CartService {
     private final CartRepository repo;
+    private final UserService userService;
 
     @Override
     public Cart getById(Long id) {
@@ -44,5 +47,11 @@ public class CartServiceImpl implements CartService {
         cart.setUser(updatedCart.getUser());
         cart.setCourses(updatedCart.getCourses());
         return repo.save(cart).getId();
+    }
+
+    @Override
+    public Cart getByUserId(Long userId) {
+        User user = userService.getById(userId);
+        return user.getCart();
     }
 }

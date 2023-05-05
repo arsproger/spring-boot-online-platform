@@ -11,11 +11,8 @@ import java.util.List;
 @Component
 @Mapper(componentModel = "spring")
 public interface CartMapper {
-    @Mapping(source = "userId", target = "user.id")
     Cart map(CartDto dto);
 
-
-    @Mapping(source = "user.id", target = "userId")
     CartDto map(Cart entity);
 
     List<CartDto> map(List<Cart> entities);

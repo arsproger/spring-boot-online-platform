@@ -16,7 +16,6 @@ public class Cart {
     @OneToOne
     private User user;
 
-    //@ManyToMany
     @OneToMany
     private List<Course> courses;
 }
