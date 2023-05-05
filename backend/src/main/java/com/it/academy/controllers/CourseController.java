@@ -46,4 +46,10 @@ public class CourseController {
         Long updatedId = service.update(id, mapper.map(course));
         return new ResponseEntity<>(updatedId, HttpStatus.OK);
     }
+
+    @GetMapping("/user-courses/{userId}")
+    private ResponseEntity<List<CourseDto>> getAllByUserId(@PathVariable Long userId) {
+        List<CourseDto> courses = mapper.map(service.getAllByUserId(userId));
+        return new ResponseEntity<>(courses, HttpStatus.OK);
+    }
 }

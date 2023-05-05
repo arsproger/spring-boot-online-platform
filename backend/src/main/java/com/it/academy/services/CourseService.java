@@ -14,4 +14,5 @@ public interface CourseService {
     Long deleteById(Long id);
 
     Long update(Long id, Course course);
+    List<Course> getAllByUserId(Long userId);
 }

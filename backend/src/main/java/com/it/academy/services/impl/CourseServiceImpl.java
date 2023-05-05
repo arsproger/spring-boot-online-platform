@@ -1,5 +1,7 @@
 package com.it.academy.services.impl;
 
+import com.it.academy.dao.CourseDao;
+import com.it.academy.dtos.CourseDto;
 import com.it.academy.models.Course;
 import com.it.academy.repositories.CourseRepository;
 import com.it.academy.services.CourseService;
@@ -13,6 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 public class CourseServiceImpl implements CourseService {
     private final CourseRepository repo;
+    private final CourseDao courseDao;
 
     @Override
     public Course getById(Long id) {
@@ -49,5 +52,10 @@ public class CourseServiceImpl implements CourseService {
         course.setSubscriptions(updatedCourse.getSubscriptions());
         course.setSections(updatedCourse.getSections());
         return repo.save(course).getId();
+    }
+
+    @Override
+    public List<Course> getAllByUserId(Long userId) {
+        return courseDao.getAllByUserId(userId);
     }
 }
