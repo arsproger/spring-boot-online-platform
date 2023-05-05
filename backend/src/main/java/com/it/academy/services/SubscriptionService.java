@@ -14,4 +14,5 @@ public interface SubscriptionService {
     Long deleteById(Long id);
 
     Long update(Long id, Subscription subscription);
+    public List<Subscription> getActiveSubscriptionsByUserId(Long userId);
 }

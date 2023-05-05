@@ -1,8 +1,10 @@
 package com.it.academy.services.impl;
 
+import com.it.academy.dao.SubscriptionDao;
 import com.it.academy.models.Subscription;
 import com.it.academy.repositories.SubscriptionRepository;
 import com.it.academy.services.SubscriptionService;
+import com.it.academy.services.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,8 @@ import java.util.List;
 @AllArgsConstructor
 public class SubscriptionServiceImpl implements SubscriptionService {
     private final SubscriptionRepository repo;
+    private final UserService userService;
+    private final SubscriptionDao subscriptionDao;
 
     @Override
     public Subscription getById(Long id) {
@@ -46,5 +50,10 @@ public class SubscriptionServiceImpl implements SubscriptionService {
         subscription.setDateFinish(updatedSubscription.getDateFinish());
         subscription.setDateStart(updatedSubscription.getDateStart());
         return repo.save(subscription).getId();
+    }
+
+    @Override
+    public List<Subscription> getActiveSubscriptionsByUserId(Long userId) {
+        return subscriptionDao.getActiveSubscriptionsByUserId(userId);
     }
 }
