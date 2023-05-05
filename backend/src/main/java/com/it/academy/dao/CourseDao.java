@@ -15,14 +15,13 @@ import java.util.List;
 @AllArgsConstructor
 public class CourseDao {
     private final JdbcTemplate jdbcTemplate;
-
     public List<Course> getAllByUserId(Long userId) {
-        String sql = "select * from courses join subscriptions s on courses.id = s.course_id join categories c on c.id = courses.category_id where s.user_id = ?;";
-        return jdbcTemplate.query(sql, new Object[]{userId}, new CourseRowMapper());
+        String sql = "select * from courses join subscriptions s on courses.id = s.course_id " +
+                "join categories c on c.id = courses.category_id where s.user_id = ?;";
+        return jdbcTemplate.query(sql, new CourseRowMapper(), userId);
     }
 
     private static class CourseRowMapper implements RowMapper<Course> {
-
         @Override
         public Course mapRow(ResultSet rs, int rowNum) throws SQLException {
             Course course = new Course();
