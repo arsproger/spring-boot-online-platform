@@ -15,4 +15,6 @@ public interface CourseService {
 
     Long update(Long id, Course course);
     List<Course> getAllByUserId(Long userId);
+    List<Course> getByCategoryId(Long categoryId);
+    List<Course> getByCategoryTitle(String title);
 }

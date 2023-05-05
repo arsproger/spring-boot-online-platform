@@ -47,9 +47,21 @@ public class CourseController {
         return new ResponseEntity<>(updatedId, HttpStatus.OK);
     }
 
-    @GetMapping("/user-courses/{userId}")
+    @GetMapping("/user/{userId}")
     private ResponseEntity<List<CourseDto>> getAllByUserId(@PathVariable Long userId) {
         List<CourseDto> courses = mapper.map(service.getAllByUserId(userId));
+        return new ResponseEntity<>(courses, HttpStatus.OK);
+    }
+
+    @GetMapping("/category/{categoryId}")
+    public ResponseEntity<List<CourseDto>> getByCategoryId(@PathVariable Long categoryId) {
+        List<CourseDto> courses = mapper.map(service.getByCategoryId(categoryId));
+        return new ResponseEntity<>(courses, HttpStatus.OK);
+    }
+
+    @GetMapping("/category-title/{title}")
+    public ResponseEntity<List<CourseDto>> getByCategoryTitle(@PathVariable String title) {
+        List<CourseDto> courses = mapper.map(service.getByCategoryTitle(title));
         return new ResponseEntity<>(courses, HttpStatus.OK);
     }
 }

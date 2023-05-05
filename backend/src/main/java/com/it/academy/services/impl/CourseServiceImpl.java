@@ -58,4 +58,14 @@ public class CourseServiceImpl implements CourseService {
     public List<Course> getAllByUserId(Long userId) {
         return courseDao.getAllByUserId(userId);
     }
+
+    @Override
+    public List<Course> getByCategoryId(Long categoryId) {
+        return repo.findAllByCategoryId(categoryId);
+    }
+
+    @Override
+    public List<Course> getByCategoryTitle(String title) {
+        return courseDao.getByCategoryTitle(title);
+    }
 }

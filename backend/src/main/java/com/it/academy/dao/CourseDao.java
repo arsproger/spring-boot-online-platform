@@ -21,6 +21,13 @@ public class CourseDao {
         return jdbcTemplate.query(sql, new CourseRowMapper(), userId);
     }
 
+    public List<Course> getByCategoryTitle(String title) {
+        String sql = "select * from courses join categories on categories.id = courses.category_id" +
+                " where categories.title ILIKE ?;";
+        return jdbcTemplate.query(sql, new CourseRowMapper(), ("%" + title + "%"));
+    }
+
+
     private static class CourseRowMapper implements RowMapper<Course> {
         @Override
         public Course mapRow(ResultSet rs, int rowNum) throws SQLException {
