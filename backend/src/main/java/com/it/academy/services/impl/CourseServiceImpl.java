@@ -73,4 +73,9 @@ public class CourseServiceImpl implements CourseService {
     public List<Course> getByName(String name) {
         return courseDao.getByName(name);
     }
+
+    @Override
+    public List<Course> getByByAuthorId(Long authorId) {
+        return repo.findAllByAuthorId(authorId);
+    }
 }

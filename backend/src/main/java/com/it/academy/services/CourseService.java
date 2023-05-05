@@ -18,5 +18,6 @@ public interface CourseService {
     List<Course> getByCategoryId(Long categoryId);
     List<Course> getByCategoryTitle(String title);
     List<Course> getByName(String name);
+    List<Course> getByByAuthorId(Long authorId);
 
 }

@@ -30,7 +30,7 @@ public class Course {
 
     @ManyToOne
     @JoinColumn(name = "author_id", referencedColumnName = "id")
-    private User user;
+    private User author;
 
     @OneToMany(mappedBy = "course")
     private List<Section> sections;

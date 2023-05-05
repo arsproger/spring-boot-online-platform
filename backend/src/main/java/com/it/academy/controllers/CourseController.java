@@ -70,4 +70,9 @@ public class CourseController {
         List<CourseDto> courses = mapper.map(service.getByName(name));
         return new ResponseEntity<>(courses, HttpStatus.OK);
     }
+    @GetMapping("/author/{authorId}")
+    public ResponseEntity<List<CourseDto>> getCourseByAuthorId(@PathVariable Long authorId) {
+        List<CourseDto> courses = mapper.map(service.getByByAuthorId(authorId));
+        return new ResponseEntity<>(courses, HttpStatus.OK);
+    }
 }
