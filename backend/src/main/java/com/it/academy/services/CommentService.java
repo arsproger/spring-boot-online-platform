@@ -14,4 +14,6 @@ public interface CommentService {
     Long deleteById(Long id);
 
     Long update(Long id, Comment comment);
+    List<Comment> getCourseCommentsByAuthorId(Long authorId);
+    List<Comment> getCommentsByCourseId(Long courseId);
 }

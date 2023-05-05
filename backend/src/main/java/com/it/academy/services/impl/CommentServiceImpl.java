@@ -1,5 +1,6 @@
 package com.it.academy.services.impl;
 
+import com.it.academy.dao.CommentDao;
 import com.it.academy.models.Comment;
 import com.it.academy.repositories.CommentRepository;
 import com.it.academy.services.CommentService;
@@ -13,6 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 public class CommentServiceImpl implements CommentService {
     private final CommentRepository repo;
+    private final CommentDao commentDao;
 
     @Override
     public Comment getById(Long id) {
@@ -46,5 +48,15 @@ public class CommentServiceImpl implements CommentService {
         comment.setTitle(updatedComment.getTitle());
         comment.setDescription(updatedComment.getDescription());
         return repo.save(comment).getId();
+    }
+
+    @Override
+    public List<Comment> getCourseCommentsByAuthorId(Long authorId) {
+        return commentDao.getCourseCommentsByAuthorId(authorId);
+    }
+
+    @Override
+    public List<Comment> getCommentsByCourseId(Long courseId) {
+        return commentDao.getCommentsByCourseId(courseId);
     }
 }
