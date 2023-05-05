@@ -27,6 +27,10 @@ public class CourseDao {
         return jdbcTemplate.query(sql, new CourseRowMapper(), ("%" + title + "%"));
     }
 
+    public List<Course> getByName(String name) {
+        String sql = "select * from courses join categories on categories.id = courses.category_id where courses.name ILIKE ?;";
+        return jdbcTemplate.query(sql, new CourseRowMapper(), ("%" + name + "%"));
+    }
 
     private static class CourseRowMapper implements RowMapper<Course> {
         @Override
@@ -38,7 +42,8 @@ public class CourseDao {
             course.setPrice(rs.getBigDecimal("price"));
             Category category = new Category();
             category.setId(rs.getLong("category_id"));
-            category.setTitle(rs.getString("title"));
+            if(rs.getString("title") != null) {
+            category.setTitle(rs.getString("title"));}
             course.setCategory(category);
             course.setAmountStudents(rs.getInt("amount_students"));
             return course;

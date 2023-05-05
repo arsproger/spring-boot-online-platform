@@ -64,4 +64,10 @@ public class CourseController {
         List<CourseDto> courses = mapper.map(service.getByCategoryTitle(title));
         return new ResponseEntity<>(courses, HttpStatus.OK);
     }
+
+    @GetMapping("/name/{name}")
+    public ResponseEntity<List<CourseDto>> getCourseByName(@PathVariable String name) {
+        List<CourseDto> courses = mapper.map(service.getByName(name));
+        return new ResponseEntity<>(courses, HttpStatus.OK);
+    }
 }

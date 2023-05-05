@@ -68,4 +68,9 @@ public class CourseServiceImpl implements CourseService {
     public List<Course> getByCategoryTitle(String title) {
         return courseDao.getByCategoryTitle(title);
     }
+
+    @Override
+    public List<Course> getByName(String name) {
+        return courseDao.getByName(name);
+    }
 }
