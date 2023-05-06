@@ -14,10 +14,12 @@ public interface CourseService {
     Long deleteById(Long id);
 
     Long update(Long id, Course course);
-    List<Course> getAllByUserId(Long userId);
+    List<Course> getAllCoursesByUserId(Long userId);
     List<Course> getByCategoryId(Long categoryId);
-    List<Course> getByCategoryTitle(String title);
-    List<Course> getByName(String name);
+    List<Course> getCoursesByCategoryTitle(String title);
+    List<Course> getCourseByName(String name);
     List<Course> getByByAuthorId(Long authorId);
+    Integer getUsersAmountByAuthor(Long authorId);
+    Integer getUsersAmountByCourse(Long courseId);
 
 }

@@ -15,21 +15,34 @@ import java.util.List;
 @AllArgsConstructor
 public class CourseDao {
     private final JdbcTemplate jdbcTemplate;
-    public List<Course> getAllByUserId(Long userId) {
+
+    public List<Course> getAllCoursesByUserId(Long userId) {
         String sql = "select * from courses join subscriptions s on courses.id = s.course_id " +
                 "join categories c on c.id = courses.category_id where s.user_id = ?;";
         return jdbcTemplate.query(sql, new CourseRowMapper(), userId);
     }
 
-    public List<Course> getByCategoryTitle(String title) {
+    public List<Course> getCoursesByCategoryTitle(String title) {
         String sql = "select * from courses join categories on categories.id = courses.category_id" +
                 " where categories.title ILIKE ?;";
         return jdbcTemplate.query(sql, new CourseRowMapper(), ("%" + title + "%"));
     }
 
-    public List<Course> getByName(String name) {
+    public List<Course> getCourseByName(String name) {
         String sql = "select * from courses join categories on categories.id = courses.category_id where courses.name ILIKE ?;";
         return jdbcTemplate.query(sql, new CourseRowMapper(), ("%" + name + "%"));
+    }
+
+    public Integer getUsersAmountByAuthor(Long authorId) {
+        String sql = "SELECT COUNT(DISTINCT s.user_id) AS total_students FROM courses c " +
+                "JOIN subscriptions s ON s.course_id = c.id WHERE c.author_id = ?;";
+        return jdbcTemplate.queryForObject(sql, Integer.class, authorId);
+    }
+
+    public Integer getUsersAmountByCourse(Long courseId) {
+        String sql = "SELECT COUNT(DISTINCT s.user_id) AS total_students FROM courses c " +
+                "JOIN subscriptions s ON s.course_id = c.id WHERE c.id = ?;";
+        return jdbcTemplate.queryForObject(sql, Integer.class, courseId);
     }
 
     private static class CourseRowMapper implements RowMapper<Course> {
@@ -45,7 +58,6 @@ public class CourseDao {
             if(rs.getString("title") != null) {
             category.setTitle(rs.getString("title"));}
             course.setCategory(category);
-            course.setAmountStudents(rs.getInt("amount_students"));
             return course;
         }
     }

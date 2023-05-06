@@ -18,7 +18,6 @@ public class Course {
     private String name;
     private String description;
     private BigDecimal price;
-    private Integer amountStudents;
 
     @JsonIgnore
     @ManyToOne

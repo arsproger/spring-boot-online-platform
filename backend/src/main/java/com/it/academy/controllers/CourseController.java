@@ -48,8 +48,8 @@ public class CourseController {
     }
 
     @GetMapping("/user/{userId}")
-    private ResponseEntity<List<CourseDto>> getAllByUserId(@PathVariable Long userId) {
-        List<CourseDto> courses = mapper.map(service.getAllByUserId(userId));
+    private ResponseEntity<List<CourseDto>> getAllCoursesByUserId(@PathVariable Long userId) {
+        List<CourseDto> courses = mapper.map(service.getAllCoursesByUserId(userId));
         return new ResponseEntity<>(courses, HttpStatus.OK);
     }
 
@@ -60,19 +60,33 @@ public class CourseController {
     }
 
     @GetMapping("/category-title/{title}")
-    public ResponseEntity<List<CourseDto>> getByCategoryTitle(@PathVariable String title) {
-        List<CourseDto> courses = mapper.map(service.getByCategoryTitle(title));
+    public ResponseEntity<List<CourseDto>> getCoursesByCategoryTitle(@PathVariable String title) {
+        List<CourseDto> courses = mapper.map(service.getCoursesByCategoryTitle(title));
         return new ResponseEntity<>(courses, HttpStatus.OK);
     }
 
     @GetMapping("/name/{name}")
     public ResponseEntity<List<CourseDto>> getCourseByName(@PathVariable String name) {
-        List<CourseDto> courses = mapper.map(service.getByName(name));
+        List<CourseDto> courses = mapper.map(service.getCourseByName(name));
         return new ResponseEntity<>(courses, HttpStatus.OK);
     }
+
     @GetMapping("/author/{authorId}")
     public ResponseEntity<List<CourseDto>> getCourseByAuthorId(@PathVariable Long authorId) {
         List<CourseDto> courses = mapper.map(service.getByByAuthorId(authorId));
         return new ResponseEntity<>(courses, HttpStatus.OK);
     }
+
+    @GetMapping("/users-amount/{authorId}")
+    public ResponseEntity<Integer> getUsersAmountByAuthor(@PathVariable Long authorId) {
+        Integer amount = service.getUsersAmountByAuthor(authorId);
+        return new ResponseEntity<>(amount, HttpStatus.OK);
+    }
+
+    @GetMapping("/users-amount-in-course/{courseId}")
+    public ResponseEntity<Integer> getUsersAmountByCourse(@PathVariable Long courseId) {
+        Integer amount = service.getUsersAmountByCourse(courseId);
+        return new ResponseEntity<>(amount, HttpStatus.OK);
+    }
+
 }
