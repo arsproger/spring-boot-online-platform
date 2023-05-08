@@ -4,6 +4,7 @@ import com.it.academy.dto.CourseDto;
 import com.it.academy.models.Course;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -11,11 +12,10 @@ import java.util.List;
 @Component
 @Mapper(componentModel = "spring")
 public interface CourseMapper {
-    @Mapping(target = "category", source = "category")
-    @Mapping(target = "sections", ignore = true)
+    @Mapping(source = "categoryTitle", target = "category.title")
     Course map(CourseDto dto);
 
-    @Mapping(target = "category", source = "category")
+    @Mapping(source = "category.title", target = "categoryTitle")
     CourseDto map(Course entity);
 
     List<CourseDto> map(List<Course> entity);

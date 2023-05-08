@@ -18,6 +18,6 @@ public class Cart {
     @OneToOne(mappedBy = "cart")
     private User user;
 
-    @ManyToMany
+    @OneToMany
     private List<Course> courses;
 }

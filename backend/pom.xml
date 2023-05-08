@@ -8,7 +8,7 @@
         <version>2.7.10</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.example</groupId>
+    <groupId>com.it.academy</groupId>
     <artifactId>spring-boot-online-platform</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>spring-boot-online-platform</name>
@@ -119,7 +119,6 @@
             <version>3.18.3</version>
         </dependency>
     </dependencies>
-
     <build>
         <plugins>
             <plugin>
