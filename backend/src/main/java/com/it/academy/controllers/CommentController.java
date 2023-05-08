@@ -1,9 +1,7 @@
 package com.it.academy.controllers;
 
 import com.it.academy.dtos.CommentDto;
-import com.it.academy.dtos.CourseDto;
 import com.it.academy.mappers.CommentMapper;
-import com.it.academy.models.Comment;
 import com.it.academy.services.CommentService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -22,7 +20,7 @@ public class CommentController {
     private final CommentService service;
     private final CommentMapper mapper;
 
-    @GetMapping("/author-courses/{authorId}")
+    @GetMapping("/author/{authorId}")
     public ResponseEntity<List<CommentDto>> getCourseCommentsByAuthorId(@PathVariable Long authorId) {
         List<CommentDto> comments = mapper.map(service.getCourseCommentsByAuthorId(authorId));
         return new ResponseEntity<>(comments, HttpStatus.OK);

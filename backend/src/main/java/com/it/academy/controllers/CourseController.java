@@ -48,13 +48,13 @@ public class CourseController {
     }
 
     @GetMapping("/user/{userId}")
-    private ResponseEntity<List<CourseDto>> getAllCoursesByUserId(@PathVariable Long userId) {
+    private ResponseEntity<List<CourseDto>> getCoursesByUserId(@PathVariable Long userId) {
         List<CourseDto> courses = mapper.map(service.getAllCoursesByUserId(userId));
         return new ResponseEntity<>(courses, HttpStatus.OK);
     }
 
     @GetMapping("/category/{categoryId}")
-    public ResponseEntity<List<CourseDto>> getByCategoryId(@PathVariable Long categoryId) {
+    public ResponseEntity<List<CourseDto>> getCoursesByCategoryId(@PathVariable Long categoryId) {
         List<CourseDto> courses = mapper.map(service.getByCategoryId(categoryId));
         return new ResponseEntity<>(courses, HttpStatus.OK);
     }
@@ -66,24 +66,24 @@ public class CourseController {
     }
 
     @GetMapping("/name/{name}")
-    public ResponseEntity<List<CourseDto>> getCourseByName(@PathVariable String name) {
+    public ResponseEntity<List<CourseDto>> getCoursesByName(@PathVariable String name) {
         List<CourseDto> courses = mapper.map(service.getCourseByName(name));
         return new ResponseEntity<>(courses, HttpStatus.OK);
     }
 
     @GetMapping("/author/{authorId}")
-    public ResponseEntity<List<CourseDto>> getCourseByAuthorId(@PathVariable Long authorId) {
+    public ResponseEntity<List<CourseDto>> getCoursesByAuthorId(@PathVariable Long authorId) {
         List<CourseDto> courses = mapper.map(service.getByByAuthorId(authorId));
         return new ResponseEntity<>(courses, HttpStatus.OK);
     }
 
-    @GetMapping("/users-amount/{authorId}")
+    @GetMapping("/author/{authorId}/users-amount")
     public ResponseEntity<Integer> getUsersAmountByAuthor(@PathVariable Long authorId) {
         Integer amount = service.getUsersAmountByAuthor(authorId);
         return new ResponseEntity<>(amount, HttpStatus.OK);
     }
 
-    @GetMapping("/users-amount-in-course/{courseId}")
+    @GetMapping("/{courseId}/users-amount")
     public ResponseEntity<Integer> getUsersAmountByCourse(@PathVariable Long courseId) {
         Integer amount = service.getUsersAmountByCourse(courseId);
         return new ResponseEntity<>(amount, HttpStatus.OK);

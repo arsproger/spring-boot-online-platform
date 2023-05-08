@@ -1,5 +1,4 @@
 package com.it.academy.controllers;
-
 import com.it.academy.dtos.AuthenticationDTO;
 import com.it.academy.dtos.UserDTO;
 import com.it.academy.mappers.UserMapper;

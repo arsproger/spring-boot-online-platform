@@ -19,14 +19,14 @@ public class LessonController {
 
     @GetMapping
     public ResponseEntity<List<LessonDto>> getAllLessons() {
-        List<LessonDto> dtos = mapper.map(service.getAll());
-        return new ResponseEntity<>(dtos, HttpStatus.OK);
+        List<LessonDto> lessons = mapper.map(service.getAll());
+        return new ResponseEntity<>(lessons, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<LessonDto> getLessonById(@PathVariable Long id) {
-        LessonDto dto = mapper.map(service.getById(id));
-        return new ResponseEntity<>(dto, HttpStatus.OK);
+        LessonDto lesson = mapper.map(service.getById(id));
+        return new ResponseEntity<>(lesson, HttpStatus.OK);
     }
 
     @PostMapping

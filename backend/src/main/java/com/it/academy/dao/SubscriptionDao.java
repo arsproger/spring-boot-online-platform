@@ -33,10 +33,9 @@ public class SubscriptionDao {
 
             subscription.setId(rs.getLong("id"));
             subscription.setCourse(course);
-
             subscription.setDateStart(rs.getDate("date_start").toLocalDate());
             subscription.setUser(user);
-            if(rs.getDate("date_finish") != null) {
+            if (rs.getDate("date_finish") != null) {
                 subscription.setDateFinish(rs.getDate("date_finish").toLocalDate());
             }
             return subscription;

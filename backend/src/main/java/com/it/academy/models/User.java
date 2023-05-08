@@ -1,5 +1,6 @@
 package com.it.academy.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.it.academy.enums.Role;
 import com.it.academy.enums.UserStatus;
 import lombok.*;
@@ -43,7 +44,7 @@ public class User {
     @OneToOne
     private Cart cart;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "author")
     private List<Course> courses;
 
 }

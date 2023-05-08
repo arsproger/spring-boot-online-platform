@@ -1,8 +1,6 @@
 package com.it.academy.dao;
 
-import com.it.academy.models.Category;
 import com.it.academy.models.Comment;
-import com.it.academy.models.Course;
 import com.it.academy.models.User;
 import lombok.AllArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -37,7 +35,7 @@ public class CommentDao {
             Comment comment = new Comment();
             comment.setId(rs.getLong("id"));
 
-            if(rs.getDate("date") != null) {
+            if (rs.getDate("date") != null) {
                 comment.setDate(rs.getDate("date").toLocalDate());
             }
             comment.setDescription(rs.getString("description"));

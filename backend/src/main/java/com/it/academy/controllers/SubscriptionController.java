@@ -19,8 +19,8 @@ public class SubscriptionController {
 
     @GetMapping
     public ResponseEntity<List<SubscriptionDto>> getAllSubscription() {
-        List<SubscriptionDto> dtos = mapper.map(service.getAll());
-        return new ResponseEntity<>(dtos, HttpStatus.OK);
+        List<SubscriptionDto> subscriptions = mapper.map(service.getAll());
+        return new ResponseEntity<>(subscriptions, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
@@ -47,7 +47,7 @@ public class SubscriptionController {
         return new ResponseEntity<>(updatedId, HttpStatus.OK);
     }
 
-    @GetMapping("/user-active-subscriptions/{userId}")
+    @GetMapping("/user/{userId}")
     public ResponseEntity<List<SubscriptionDto>> getActiveSubscriptionsByUserId(@PathVariable Long userId) {
         List<SubscriptionDto> subscriptions = mapper.map(service.getActiveSubscriptionsByUserId(userId));
         return new ResponseEntity<>(subscriptions, HttpStatus.OK);

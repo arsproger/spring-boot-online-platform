@@ -1,5 +1,4 @@
 package com.it.academy.controllers;
-
 import com.it.academy.dtos.UserDTO;
 import com.it.academy.mappers.UserMapper;
 import com.it.academy.services.UserService;

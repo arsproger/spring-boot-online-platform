@@ -1,7 +1,6 @@
 package com.it.academy.controllers;
 
 import com.it.academy.dtos.CartDto;
-import com.it.academy.dtos.CourseDto;
 import com.it.academy.mappers.CartMapper;
 import com.it.academy.services.CartService;
 import lombok.AllArgsConstructor;
@@ -19,7 +18,7 @@ public class CartController {
     private final CartService service;
     private final CartMapper mapper;
 
-    @GetMapping("/user-cart/{userId}")
+    @GetMapping("/user/{userId}")
     public ResponseEntity<CartDto> getCartByUserId(@PathVariable Long userId) {
         CartDto cart = mapper.map(service.getByUserId(userId));
         return new ResponseEntity<>(cart, HttpStatus.OK);

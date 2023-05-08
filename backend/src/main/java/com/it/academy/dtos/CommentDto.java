@@ -1,6 +1,5 @@
 package com.it.academy.dtos;
 
-import com.it.academy.models.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

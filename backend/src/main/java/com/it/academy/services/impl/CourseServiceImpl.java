@@ -55,8 +55,8 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public List<Course> getAllByUserId(Long userId) {
-        return courseDao.getAllByUserId(userId);
+    public List<Course> getAllCoursesByUserId(Long userId) {
+        return courseDao.getAllCoursesByUserId(userId);
     }
 
     @Override
@@ -65,17 +65,27 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public List<Course> getByCategoryTitle(String title) {
-        return courseDao.getByCategoryTitle(title);
+    public List<Course> getCoursesByCategoryTitle(String title) {
+        return courseDao.getCoursesByCategoryTitle(title);
     }
 
     @Override
-    public List<Course> getByName(String name) {
-        return courseDao.getByName(name);
+    public List<Course> getCourseByName(String name) {
+        return courseDao.getCourseByName(name);
     }
 
     @Override
     public List<Course> getByByAuthorId(Long authorId) {
         return repo.findAllByAuthorId(authorId);
+    }
+
+    @Override
+    public Integer getUsersAmountByAuthor(Long authorId) {
+        return courseDao.getUsersAmountByAuthor(authorId);
+    }
+
+    @Override
+    public Integer getUsersAmountByCourse(Long courseId) {
+        return courseDao.getUsersAmountByCourse(courseId);
     }
 }

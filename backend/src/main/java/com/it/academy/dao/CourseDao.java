@@ -55,8 +55,9 @@ public class CourseDao {
             course.setPrice(rs.getBigDecimal("price"));
             Category category = new Category();
             category.setId(rs.getLong("category_id"));
-            if(rs.getString("title") != null) {
-            category.setTitle(rs.getString("title"));}
+            if (rs.getString("title") != null) {
+                category.setTitle(rs.getString("title"));
+            }
             course.setCategory(category);
             return course;
         }

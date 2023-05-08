@@ -4,7 +4,6 @@ import com.it.academy.enums.Role;
 import com.it.academy.enums.UserStatus;
 import com.it.academy.models.User;
 import com.it.academy.repositories.UserRepository;
-import com.it.academy.services.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -15,7 +14,7 @@ import java.util.UUID;
 
 @Service
 @AllArgsConstructor
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements com.it.academy.services.UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
@@ -27,7 +26,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getById(Long id) {
         return userRepository.findById(id).orElseThrow(
-                () -> new EntityNotFoundException("Subscription not found with id: " + id));
+                () -> new EntityNotFoundException("User not found with id: " + id));
     }
 
     @Override
@@ -39,7 +38,6 @@ public class UserServiceImpl implements UserService {
 
         return userRepository.save(user).getId();
     }
-
     @Override
     public Long deleteById(Long id) {
         userRepository.deleteById(id);
@@ -49,7 +47,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Long updateById(Long id, User updatedUser) {
         User user = userRepository.findById(id).orElseThrow(
-                () -> new EntityNotFoundException("Subscription not found with id: " + id));
+                () -> new EntityNotFoundException("User not found with id: " + id));
 
         if (user == null) return null;
 
