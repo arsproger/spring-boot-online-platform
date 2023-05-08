@@ -1,11 +1,11 @@
 package com.it.academy.controllers;
 
-import com.it.academy.dtos.AuthenticationDTO;
-import com.it.academy.dtos.UserDTO;
+import com.it.academy.dto.AuthenticationDto;
+import com.it.academy.dto.UserDto;
 import com.it.academy.mappers.UserMapper;
 import com.it.academy.security.JWTUtil;
 import com.it.academy.services.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -17,23 +17,15 @@ import javax.validation.Valid;
 import java.util.Map;
 
 @RestController
+@AllArgsConstructor
 public class AuthController {
     private final UserService userService;
     private final UserMapper userMapper;
     private final AuthenticationManager authenticationManager;
     private final JWTUtil jwtUtil;
 
-    @Autowired
-    public AuthController(UserService userService, UserMapper userMapper,
-                          AuthenticationManager authenticationManager, JWTUtil jwtUtil) {
-        this.userService = userService;
-        this.userMapper = userMapper;
-        this.authenticationManager = authenticationManager;
-        this.jwtUtil = jwtUtil;
-    }
-
     @PostMapping("/register")
-    public Map<String, String> registerUser(@RequestBody @Valid UserDTO userDTO) {
+    public Map<String, String> registerUser(@RequestBody @Valid UserDto userDTO) {
         userService.save(userMapper.map(userDTO));
 
         String token = jwtUtil.generateToken(userDTO.getEmail());
@@ -41,7 +33,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public Map<String, String> performLogin(@RequestBody @Valid AuthenticationDTO authenticationDTO) {
+    public Map<String, String> performLogin(@RequestBody @Valid AuthenticationDto authenticationDTO) {
         UsernamePasswordAuthenticationToken authInputToken =
                 new UsernamePasswordAuthenticationToken(authenticationDTO.getUsername(),
                         authenticationDTO.getPassword());

@@ -1,4 +1,4 @@
-package com.it.academy.models;
+package com.it.academy.enums;
 
 public enum Role {
     ROLE_STUDENT,

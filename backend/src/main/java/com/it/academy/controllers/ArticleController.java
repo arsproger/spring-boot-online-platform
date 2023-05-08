@@ -1,6 +1,6 @@
 package com.it.academy.controllers;
 
-import com.it.academy.dtos.ArticleDto;
+import com.it.academy.dto.ArticleDto;
 import com.it.academy.mappers.ArticleMapper;
 import com.it.academy.services.ArticleService;
 import lombok.AllArgsConstructor;
@@ -46,4 +46,5 @@ public class ArticleController {
         Long updatedId = service.update(id, mapper.map(article));
         return new ResponseEntity<>(updatedId, HttpStatus.OK);
     }
+
 }

@@ -20,7 +20,9 @@ target/
 *.ipr
 .mvn
 target
-src/main/resources/config.properties
+
+backend/src/main/java/com/it/academy/video
+backend/src/main/resources/config.properties
 
 
 ### NetBeans ###

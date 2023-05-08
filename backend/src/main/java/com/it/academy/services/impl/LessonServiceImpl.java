@@ -40,11 +40,11 @@ public class LessonServiceImpl implements LessonService {
     public Long update(Long id, Lesson updatedLesson) {
         Lesson lesson = repo.findById(id).orElseThrow(
                 () -> new EntityNotFoundException("Lesson not found with id: " + id));
-        lesson.setDescription(updatedLesson.getDescription());
-        lesson.setComments(updatedLesson.getComments());
-        lesson.setArticles(updatedLesson.getArticles());
-        lesson.setCourse(updatedLesson.getCourse());
+
         lesson.setTitle(updatedLesson.getTitle());
+        lesson.setDescription(updatedLesson.getDescription());
+
         return repo.save(lesson).getId();
     }
+
 }

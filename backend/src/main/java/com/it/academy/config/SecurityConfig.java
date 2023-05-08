@@ -10,7 +10,6 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -40,24 +39,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .cors()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/auth/**").anonymous()
-                .antMatchers("/swagger-ui/**").permitAll()
-                .antMatchers("/admin/**").hasRole("ADMIN")
-                .anyRequest().authenticated()
-                .and()
-                .httpBasic()
-                .and()
-                .formLogin().loginPage("/login")
-                .loginProcessingUrl("/process_login")
-                .defaultSuccessUrl("/profile", true)
-                .failureUrl("/login?error")
-                .and()
-                .logout()
-                .logoutUrl("/logout")
-                .logoutSuccessUrl("/login")
-                .and()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .anyRequest().permitAll()
+//                .antMatchers("/auth/**").anonymous()
+//                .antMatchers("/swagger-ui/**").permitAll()
+//                .antMatchers("/admin/**").hasRole("ADMIN")
+//                .anyRequest().authenticated()
+//                .and()
+//                .formLogin().loginPage("/login")
+//                .loginProcessingUrl("/process_login")
+//                .defaultSuccessUrl("/profile", true)
+//                .failureUrl("/login?error")
+//                .and()
+//                .logout()
+//                .logoutUrl("/logout")
+//                .logoutSuccessUrl("/login")
+//                .and()
+//                .sessionManagement()
+//                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().httpBasic();
 
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);

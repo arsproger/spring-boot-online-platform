@@ -1,6 +1,6 @@
 package com.it.academy.controllers;
 
-import com.it.academy.dtos.SubscriptionDto;
+import com.it.academy.dto.SubscriptionDto;
 import com.it.academy.mappers.SubscriptionMapper;
 import com.it.academy.services.SubscriptionService;
 import lombok.AllArgsConstructor;
@@ -18,32 +18,33 @@ public class SubscriptionController {
     private final SubscriptionMapper mapper;
 
     @GetMapping
-    public ResponseEntity<List<SubscriptionDto>> getAllArticles() {
-        List<SubscriptionDto> dtos = mapper.map(service.getAll());
-        return new ResponseEntity<>(dtos, HttpStatus.OK);
+    public ResponseEntity<List<SubscriptionDto>> getAllSubscriptions() {
+        List<SubscriptionDto> subscriptions = mapper.map(service.getAll());
+        return new ResponseEntity<>(subscriptions, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<SubscriptionDto> getArticleById(@PathVariable Long id) {
+    public ResponseEntity<SubscriptionDto> getSubscriptionById(@PathVariable Long id) {
         SubscriptionDto dto = mapper.map(service.getById(id));
         return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<Long> createArticle(@RequestBody SubscriptionDto dto) {
+    public ResponseEntity<Long> createSubscription(@RequestBody SubscriptionDto dto) {
         Long id = service.save(mapper.map(dto));
         return new ResponseEntity<>(id, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Long> deleteArticleById(@PathVariable Long id) {
+    public ResponseEntity<Long> deleteSubscriptionById(@PathVariable Long id) {
         Long deletedId = service.deleteById(id);
         return new ResponseEntity<>(deletedId, HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Long> updateArticleById(@PathVariable Long id, @RequestBody SubscriptionDto dto) {
+    public ResponseEntity<Long> updateSubscriptionById(@PathVariable Long id, @RequestBody SubscriptionDto dto) {
         Long updatedId = service.update(id, mapper.map(dto));
         return new ResponseEntity<>(updatedId, HttpStatus.OK);
     }
+
 }

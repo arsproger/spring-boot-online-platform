@@ -1,4 +1,4 @@
-package com.it.academy.dtos;
+package com.it.academy.dto;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -7,7 +7,7 @@ import java.time.LocalDate;
 
 @Setter
 @Getter
-public class UserDTO {
+public class UserDto {
     private String name;
     private String surname;
     private LocalDate dateOfBirth;
