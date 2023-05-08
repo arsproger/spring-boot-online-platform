@@ -14,5 +14,4 @@ public interface CartService {
     Long deleteById(Long id);
 
     Long update(Long id, Cart cart);
-    Cart getByUserId(Long userId);
 }

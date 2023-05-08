@@ -40,4 +40,7 @@ public class Course {
     @OneToMany(mappedBy = "course")
     private List<Subscription> subscriptions;
 
+    @ManyToMany(mappedBy = "courses")
+    private List<Cart> carts;
+
 }
