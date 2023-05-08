@@ -13,6 +13,5 @@ public class CourseDto {
     private String description;
     private BigDecimal price;
     private Category category;
-    private Integer amountStudents;
     private String language;
 }
