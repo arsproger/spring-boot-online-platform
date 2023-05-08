@@ -21,7 +21,7 @@ public class CartController {
     private final CourseDao courseDao;
 
     @GetMapping("/user/{userId}")
-    public ResponseEntity<List<CourseDto>> getCartByUserId(@PathVariable Long userId) {
+    public ResponseEntity<List<CourseDto>> getCoursesByUserCart(@PathVariable Long userId) {
         List<CourseDto> courses = mapper.map(courseDao.getCoursesByUserCart(userId));
         return new ResponseEntity<>(courses, HttpStatus.OK);
     }
