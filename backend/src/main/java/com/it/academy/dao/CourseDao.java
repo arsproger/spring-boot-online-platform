@@ -32,4 +32,11 @@ public class CourseDao {
                 Course.class, language);
     }
 
+    public List<Course> getCoursesByUserCart(Long userId) {
+        return jdbcTemplate.queryForList("SELECT * FROM courses WHERE id IN " +
+                        "(SELECT course_id FROM carts_courses WHERE cart_id IN " +
+                        "(SELECT cart_id FROM users WHERE id = ?))",
+                Course.class, userId);
+    }
+
 }
