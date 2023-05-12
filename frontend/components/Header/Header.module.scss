@@ -1,0 +1,97 @@
+$maxWidth: 1440;
+
+@mixin adaptiv-font($pcSize, $mobSize) {
+  @media screen and (max-width: 1440px) {
+    $addSize: $pcSize - $mobSize;
+    $maxWidth: $maxWidth - 320;
+    font-size: calc(
+      #{$mobSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidth})
+    );
+  }
+}
+
+.header {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  background: #10b582;
+  .aboveHeader {
+    max-width: 1440px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 400;
+    @include adaptiv-font(18, 15);
+    line-height: 130%;
+    color: #fdfdfd;
+    padding: 0 5%;
+    box-sizing: border-box;
+    margin: 0 auto;
+    .social {
+      width: 20px;
+    }
+  }
+
+  .header__content {
+    max-width: 1440px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #fdfdfd;
+    border-radius: 5rem;
+    box-shadow: 0 4px 4.25px 0.75px rgba(0, 0, 0, 0.13);
+    padding: 0 5%;
+    box-sizing: border-box;
+    margin: 0 auto;
+
+    .logo {
+      width: 80px;
+      color: #10b582;
+    }
+
+    .header__nav {
+      .header__list {
+        display: flex;
+        justify-content: space-between;
+        li {
+          a {
+            font-weight: 400;
+            @include adaptiv-font(18, 15);
+            line-height: 130%;
+            color: #10b582;
+            padding: 40px;
+          }
+        }
+      }
+    }
+
+    .header__buttons {
+      button {
+        width: 40px;
+        height: 40px;
+        font-weight: 400;
+        line-height: 130%;
+        color: #fdfdfd;
+        border: none;
+        border-radius: 50%;
+        margin: 10px;
+      }
+      & :nth-child(1) {
+        background: #c8122e;
+        box-shadow: 0 3px 3px 0 rgba(255, 0, 0, 0.27);
+      }
+
+      & :nth-child(2) {
+        background-color: #236f21;
+        box-shadow: 0px 3px 3px 0px rgba(35, 111, 33, 0.27);
+      }
+
+      & :nth-child(3) {
+        box-shadow: 0 3px 3px 0 rgba(56, 75, 194, 0.27);
+        background: #4b57a5;
+      }
+    }
+  }
+}
