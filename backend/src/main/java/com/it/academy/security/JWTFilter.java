@@ -2,6 +2,7 @@ package com.it.academy.security;
 
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.Nullable;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,6 +15,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Objects;
 
 @Component
 public class JWTFilter extends OncePerRequestFilter {
@@ -27,14 +29,14 @@ public class JWTFilter extends OncePerRequestFilter {
     }
 
     @Override
-    protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest httpServletRequest, @Nullable HttpServletResponse httpServletResponse, @Nullable FilterChain filterChain) throws ServletException, IOException {
         String authHeader = httpServletRequest.getHeader("Authorization");
 
         if (authHeader != null && !authHeader.isBlank() && authHeader.startsWith("Bearer ")) {
             String jwt = authHeader.substring(7);
 
             if (jwt.isBlank()) {
-                httpServletResponse.sendError(HttpServletResponse.SC_BAD_REQUEST,
+                Objects.requireNonNull(httpServletResponse).sendError(HttpServletResponse.SC_BAD_REQUEST,
                         "Invalid JWT Token in Bearer Header");
             } else {
                 try {
@@ -50,12 +52,12 @@ public class JWTFilter extends OncePerRequestFilter {
                         SecurityContextHolder.getContext().setAuthentication(authToken);
                     }
                 } catch (JWTVerificationException exc) {
-                    httpServletResponse.sendError(HttpServletResponse.SC_BAD_REQUEST,
+                    Objects.requireNonNull(httpServletResponse).sendError(HttpServletResponse.SC_BAD_REQUEST,
                             "Invalid JWT Token");
                 }
             }
         }
 
-        filterChain.doFilter(httpServletRequest, httpServletResponse);
+        Objects.requireNonNull(filterChain).doFilter(httpServletRequest, httpServletResponse);
     }
 }

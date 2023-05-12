@@ -1,6 +1,7 @@
 package com.it.academy.models;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -8,7 +9,8 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "comments")
-@Data
+@Setter
+@Getter
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,17 +24,9 @@ public class Comment {
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
-/*
-    @ManyToOne
-    @JoinColumn(name = "course_id", referencedColumnName = "id")
-    private Course course;
 
     @ManyToOne
     @JoinColumn(name = "lesson_id", referencedColumnName = "id")
     private Lesson lesson;
-
-    @ManyToOne
-    @JoinColumn(name = "article_id", referencedColumnName = "id")
-    private Article article;*/
 
 }

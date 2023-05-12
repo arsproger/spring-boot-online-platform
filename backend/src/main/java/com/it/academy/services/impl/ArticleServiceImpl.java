@@ -41,10 +41,10 @@ public class ArticleServiceImpl implements ArticleService {
         Article article = repo.findById(id).orElseThrow(
                 () -> new EntityNotFoundException("Article not found with id: " + id));
 
-        article.setComments(updatedArticle.getComments());
         article.setText(updatedArticle.getText());
         article.setTitle(updatedArticle.getTitle());
-        article.setLesson(updatedArticle.getLesson());
+
         return repo.save(article).getId();
     }
+
 }

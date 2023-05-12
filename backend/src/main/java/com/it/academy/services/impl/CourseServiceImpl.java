@@ -42,13 +42,11 @@ public class CourseServiceImpl implements CourseService {
                 () -> new EntityNotFoundException("Course not found with id: " + id));
 
         course.setName(updatedCourse.getName());
-        course.setCategory(updatedCourse.getCategory());
-        course.setPrice(updatedCourse.getPrice());
         course.setDescription(updatedCourse.getDescription());
-        course.setComments(updatedCourse.getComments());
-        //course.setCarts(updatedCourse.getCarts());
-        course.setSubscriptions(updatedCourse.getSubscriptions());
-        course.setLessons(updatedCourse.getLessons());
+        course.setPrice(updatedCourse.getPrice());
+        course.setCategory(updatedCourse.getCategory());
+
         return repo.save(course).getId();
     }
+
 }
