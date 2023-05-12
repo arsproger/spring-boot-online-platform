@@ -1,8 +1,8 @@
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
+!src/main/**/target/
+!src/test/**/target/
 
 ### STS ###
 .apt_generated
@@ -20,7 +20,9 @@ target/
 *.ipr
 .mvn
 target
-src/main/resources/config.properties
+
+backend/src/main/java/com/it/academy/video
+backend/src/main/resources/config.properties
 
 
 ### NetBeans ###
@@ -30,8 +32,8 @@ src/main/resources/config.properties
 /nbdist/
 /.nb-gradle/
 build/
-!**/src/main/**/build/
-!**/src/test/**/build/
+!src/main/**/build/
+!src/test/**/build/
 
 ### VS Code ###
 .vscode/
