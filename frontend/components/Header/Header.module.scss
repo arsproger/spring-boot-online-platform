@@ -3,7 +3,7 @@
 .header {
   width: 100%;
   position: fixed;
-  z-index: 10;
+  z-index: 11;
   top: 40px;
   transition: 0.3s;
   
@@ -20,9 +20,9 @@
     margin: 0 auto;
     transition: 1s;
 
-    .logo {
+    .header__logo {
       width: 60px;
-      color: #03d665;
+      color: #7329c2;
     }
 
     .header__nav {
@@ -54,28 +54,10 @@
       button {
         width: 30px;
         height: 30px;
+        color: #7329c2;
         cursor: pointer;
-        font-weight: 400;
-        font-size: 10px;
-        line-height: 130%;
-        color: #fdfdfd;
         border: none;
         border-radius: 50%;
-        margin: 10px;
-      }
-      & :nth-child(1) {
-        background: #c8122e;
-        box-shadow: 0 3px 3px 0 rgba(255, 0, 0, 0.27);
-      }
-
-      & :nth-child(2) {
-        background-color: #236f21;
-        box-shadow: 0px 3px 3px 0px rgba(35, 111, 33, 0.27);
-      }
-
-      & :nth-child(3) {
-        box-shadow: 0 3px 3px 0 rgba(56, 75, 194, 0.27);
-        background: #4b57a5;
       }
     }
   }

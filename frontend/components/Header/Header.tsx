@@ -2,7 +2,7 @@ import React, { FC, useEffect, useRef, useState } from "react";
 import s from "./Header.module.scss";
 import cn from "classnames";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGraduationCap } from "@fortawesome/free-solid-svg-icons";
+import { faGlobe, faGraduationCap } from "@fortawesome/free-solid-svg-icons";
 
 interface Line {
   width: number;
@@ -83,7 +83,7 @@ const Header: FC = () => {
       className={isHeaderActive ? cn(s.header, s.headerActive) : s.header}
     >
       <div className={s.header__content}>
-        <FontAwesomeIcon icon={faGraduationCap} className={s.logo} />
+        <FontAwesomeIcon icon={faGraduationCap} className={s.header__logo} />
         <nav className={s.header__nav}>
           <ul className={s.header__list}>
             <li ref={blockRefFirst}>
@@ -147,9 +147,7 @@ const Header: FC = () => {
         </nav>
 
         <div className={s.header__buttons}>
-          <button>Eng</button>
-          <button>Kgz</button>
-          <button>Rus</button>
+          <button><FontAwesomeIcon icon={faGlobe} /></button>
         </div>
       </div>
     </header>

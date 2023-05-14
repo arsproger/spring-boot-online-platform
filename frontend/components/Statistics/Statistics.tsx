@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { FC, useEffect, useRef, useState } from "react";
 import s from "./Statistics.module.scss";
 
-const Statistics: React.FC = () => {
+const Statistics: FC = () => {
   const ref = useRef<HTMLTableSectionElement>(null);
   const [inView, setInView] = useState<boolean>(false);
 

@@ -7,16 +7,6 @@ import { faPhone } from "@fortawesome/free-solid-svg-icons";
 const Hero: FC = () => {
   return (
     <section className={s.hero}>
-      <header className={s.hero__header}>
-        <span>Все меню</span>
-
-        <div className={s.contacts}>
-          <span>+996 707 777 777</span>
-          <FontAwesomeIcon icon={faInstagram} className={s.social} />
-          <FontAwesomeIcon icon={faPhone} className={s.social} />
-          <FontAwesomeIcon icon={faTelegram} className={s.social} />
-        </div>
-      </header>
 
       <div className={s.hero__title}>
         <h1>Образовательная <br /> онлайн-платформа</h1>
@@ -35,7 +25,7 @@ const Hero: FC = () => {
           />
         </div>
 
-        {/* <div className={s.x1}>
+        <div className={s.x1}>
           <div className={s.cloud}></div>
         </div>
 
@@ -49,7 +39,7 @@ const Hero: FC = () => {
 
         <div className={s.x4}>
           <div className={s.cloud}></div>
-        </div> */}
+        </div>
       </div>
     </section>
   );
