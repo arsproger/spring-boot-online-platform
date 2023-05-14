@@ -1,3 +1,5 @@
+import Hero from '@/components/Hero/Hero'
+import Statistics from '@/components/Statistics/Statistics'
 import Head from 'next/head'
 
 
@@ -10,6 +12,8 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <Hero/>
+      <Statistics/>
    
     </>
   )
