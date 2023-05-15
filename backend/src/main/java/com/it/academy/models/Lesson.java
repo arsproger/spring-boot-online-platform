@@ -28,4 +28,8 @@ public class Lesson {
 
     @OneToMany(mappedBy = "lesson")
     private List<Comment> comments;
+
+    @OneToOne(mappedBy = "lesson")
+    private Video video;
+
 }

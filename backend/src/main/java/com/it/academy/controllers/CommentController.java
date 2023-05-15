@@ -2,6 +2,7 @@ package com.it.academy.controllers;
 
 import com.it.academy.dto.CommentDto;
 import com.it.academy.mappers.CommentMapper;
+import com.it.academy.models.Comment;
 import com.it.academy.services.CommentService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -49,5 +50,6 @@ public class CommentController {
         Long updatedId = service.update(id, mapper.map(dto));
         return new ResponseEntity<>(updatedId, HttpStatus.OK);
     }
+
 
 }
