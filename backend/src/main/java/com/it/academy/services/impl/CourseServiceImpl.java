@@ -1,7 +1,9 @@
 package com.it.academy.services.impl;
 
 import com.it.academy.models.Course;
+import com.it.academy.repositories.CategoryRepository;
 import com.it.academy.repositories.CourseRepository;
+import com.it.academy.repositories.UserRepository;
 import com.it.academy.services.CourseService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,6 +15,8 @@ import java.util.List;
 @AllArgsConstructor
 public class CourseServiceImpl implements CourseService {
     private final CourseRepository repo;
+    private final UserRepository userRepository;
+    private final CategoryRepository categoryRepository;
 
     @Override
     public Course getById(Long id) {
@@ -26,7 +30,11 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public Long save(Course course) {
+    public Long save(Long authorId, Long categoryId, Course course) {
+        course.setAuthor(userRepository.findById(authorId).orElseThrow(
+                () -> new EntityNotFoundException("User not found with id: " + authorId)));
+        course.setCategory(categoryRepository.findById(categoryId).orElseThrow(
+                () -> new EntityNotFoundException("Category not found with id: " + categoryId)));
         return repo.save(course).getId();
     }
 

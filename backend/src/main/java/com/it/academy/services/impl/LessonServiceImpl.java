@@ -2,6 +2,7 @@ package com.it.academy.services.impl;
 
 import com.it.academy.models.Lesson;
 import com.it.academy.repositories.LessonRepository;
+import com.it.academy.repositories.SectionRepository;
 import com.it.academy.services.LessonService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 public class LessonServiceImpl implements LessonService {
     private final LessonRepository repo;
+    private final SectionRepository sectionRepository;
 
     @Override
     public Lesson getById(Long id) {
@@ -26,7 +28,9 @@ public class LessonServiceImpl implements LessonService {
     }
 
     @Override
-    public Long save(Lesson lesson) {
+    public Long save(Long sectionId, Lesson lesson) {
+        lesson.setSection(sectionRepository.findById(sectionId).orElseThrow(
+                () -> new EntityNotFoundException("Section not found with id: " + sectionId)));
         return repo.save(lesson).getId();
     }
 

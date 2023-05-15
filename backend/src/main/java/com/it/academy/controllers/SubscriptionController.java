@@ -30,8 +30,9 @@ public class SubscriptionController {
     }
 
     @PostMapping
-    public ResponseEntity<Long> createSubscription(@RequestBody SubscriptionDto dto) {
-        Long id = service.save(mapper.map(dto));
+    public ResponseEntity<Long> createSubscription(@RequestParam Long userId,
+                                                   @RequestParam Long courseId) {
+        Long id = service.save(userId, courseId);
         return new ResponseEntity<>(id, HttpStatus.CREATED);
     }
 

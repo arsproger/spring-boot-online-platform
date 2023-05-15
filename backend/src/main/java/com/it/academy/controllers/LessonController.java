@@ -32,8 +32,8 @@ public class LessonController {
     }
 
     @PostMapping
-    public ResponseEntity<Long> createLesson(@RequestBody LessonDto dto) {
-        Long id = service.save(mapper.map(dto));
+    public ResponseEntity<Long> createLesson(@RequestParam Long sectionId, @RequestBody LessonDto dto) {
+        Long id = service.save(sectionId, mapper.map(dto));
         return new ResponseEntity<>(id, HttpStatus.CREATED);
     }
 

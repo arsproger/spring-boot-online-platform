@@ -32,8 +32,10 @@ public class CourseController {
     }
 
     @PostMapping
-    public ResponseEntity<Long> createCourse(@RequestBody CourseDto course) {
-        Long id = service.save(mapper.map(course));
+    public ResponseEntity<Long> createCourse(@RequestParam Long authorId,
+                                             @RequestParam Long categoryId,
+                                             @RequestBody CourseDto course) {
+        Long id = service.save(authorId, categoryId, mapper.map(course));
         return new ResponseEntity<>(id, HttpStatus.CREATED);
     }
 

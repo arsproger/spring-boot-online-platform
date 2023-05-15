@@ -9,7 +9,7 @@ public interface LessonService {
 
     List<Lesson> getAll();
 
-    Long save(Lesson lesson);
+    Long save(Long sectionId, Lesson lesson);
 
     Long deleteById(Long id);
 

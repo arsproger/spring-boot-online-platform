@@ -3,6 +3,7 @@ package com.it.academy.controllers;
 import com.it.academy.dto.ArticleDto;
 import com.it.academy.mappers.ArticleMapper;
 import com.it.academy.services.ArticleService;
+import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

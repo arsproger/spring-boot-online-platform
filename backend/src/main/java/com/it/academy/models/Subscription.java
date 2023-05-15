@@ -1,7 +1,6 @@
 package com.it.academy.models;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -11,6 +10,9 @@ import java.time.LocalDate;
 @Table(name = "subscriptions")
 @Setter
 @Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Subscription {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

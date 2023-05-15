@@ -1,18 +1,23 @@
 package com.it.academy.services.impl;
 
 import com.it.academy.models.Subscription;
+import com.it.academy.repositories.CourseRepository;
 import com.it.academy.repositories.SubscriptionRepository;
+import com.it.academy.repositories.UserRepository;
 import com.it.academy.services.SubscriptionService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
 @AllArgsConstructor
 public class SubscriptionServiceImpl implements SubscriptionService {
     private final SubscriptionRepository repo;
+    private final UserRepository userRepository;
+    private final CourseRepository courseRepository;
 
     @Override
     public Subscription getById(Long id) {
@@ -26,7 +31,13 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     }
 
     @Override
-    public Long save(Subscription subscription) {
+    public Long save(Long userId, Long courseId) {
+        Subscription subscription = Subscription.builder()
+                .dateStart(LocalDate.now())
+                .user(userRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException("User not found with id: " + userId)))
+                .course(courseRepository.findById(courseId).orElseThrow(() -> new EntityNotFoundException("Course not found with id: " + courseId)))
+                .build();
+
         return repo.save(subscription).getId();
     }
 
