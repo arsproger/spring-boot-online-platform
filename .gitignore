@@ -20,6 +20,7 @@ target/
 *.ipr
 .mvn
 target
+/backend/uploads/
 
 backend/src/main/java/com/it/academy/video
 backend/src/main/resources/config.properties

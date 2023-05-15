@@ -17,7 +17,7 @@ public class CommentDao {
     private final JdbcTemplate jdbcTemplate;
 
     public List<Comment> getCourseCommentsByAuthorId(Long authorId) {
-        String sql = "select * from comments join courses_comments cc on comments.id = cc.comments_id " +
+        String sql = "select * from comments join course_ cc on comments.id = cc.comments_id " +
                 "join courses c on c.id = cc.course_id where c.author_id = ?;";
         return jdbcTemplate.query(sql, new CommentRowMapper(), authorId);
     }
@@ -27,7 +27,6 @@ public class CommentDao {
                 "join courses on courses.id = cc.course_id where courses.id = ?;";
         return jdbcTemplate.query(sql, new CommentRowMapper(), courseId);
     }
-
 
     private static class CommentRowMapper implements RowMapper<Comment> {
         @Override
