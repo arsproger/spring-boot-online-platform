@@ -3,10 +3,11 @@ package com.it.academy.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.Hibernate;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
@@ -25,8 +26,9 @@ public class Video implements Serializable {
     private String title;
     private double size;
     private String url;
-    private Date created;
-    private Date modified;
+    private LocalDate created;
+    @DateTimeFormat(pattern = "dd:mm:yyyy")
+    private LocalDate modified;
 
     @OneToOne
     @JoinColumn(name = "user_id")

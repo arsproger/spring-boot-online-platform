@@ -22,6 +22,8 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.time.LocalDate;
 
 @Service
 @RequiredArgsConstructor
@@ -57,6 +59,7 @@ public class VideoServiceImpl implements VideoService {
                 .title(title)
                 .size(file.getSize())
                 .url(fileName)
+                .created(LocalDate.now())
                 .build();
         videoRepository.save(video);
 

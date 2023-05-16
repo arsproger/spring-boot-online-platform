@@ -18,6 +18,11 @@ public class VideoController {
     private final VideoService videoService;
     private final VideoMapper videoMapper;
 
+    @GetMapping("/get/{id:.+}")
+    public VideoDto getVideo(@PathVariable Long id) {
+        return videoMapper.map(videoService.getById(id));
+    }
+
     @GetMapping
     public VideoDto getByLessonId(@RequestParam Long lessonId) {
         return videoMapper.map(videoService.getByLessonId(lessonId));
@@ -28,11 +33,6 @@ public class VideoController {
                                 @RequestPart("file") MultipartFile file,
                                 @RequestPart("title") String title) {
         return videoMapper.map(videoService.uploadVideo(file, title, lessonId));
-    }
-
-    @GetMapping("/get/{id:.+}")
-    public VideoDto getVideo(@PathVariable Long id) {
-        return videoMapper.map(videoService.getById(id));
     }
 
     @GetMapping("/download/{id:.+}")
