@@ -3,7 +3,7 @@ package com.it.academy.controllers;
 import com.it.academy.dto.VideoDto;
 import com.it.academy.mappers.VideoMapper;
 import com.it.academy.services.VideoService;
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/video")
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class VideoController {
     private final VideoService videoService;
     private final VideoMapper videoMapper;
@@ -24,9 +24,9 @@ public class VideoController {
     }
 
     @PostMapping("/upload")
-    public VideoDto uploadVideo(@RequestPart("file") MultipartFile file,
-                                @RequestPart("title") String title,
-                                @RequestPart("lessonId") Long lessonId) {
+    public VideoDto uploadVideo(@RequestParam("lessonId") Long lessonId,
+                                @RequestPart("file") MultipartFile file,
+                                @RequestPart("title") String title) {
         return videoMapper.map(videoService.uploadVideo(file, title, lessonId));
     }
 

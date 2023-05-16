@@ -73,5 +73,11 @@ public class CourseController {
         return new ResponseEntity<>(courses, HttpStatus.OK);
     }
 
+    @GetMapping("/category/{id}")
+    public ResponseEntity<List<CourseDto>> getCourseByCategoryId(@PathVariable("id") Long categoryId) {
+        List<CourseDto> courses = mapper.map(courseDao.getCourseByCategoryId(categoryId));
+        return new ResponseEntity<>(courses, HttpStatus.OK);
+    }
+
 
 }

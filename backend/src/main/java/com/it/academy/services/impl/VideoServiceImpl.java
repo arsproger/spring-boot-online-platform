@@ -10,6 +10,8 @@ import com.it.academy.services.VideoService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -23,6 +25,7 @@ import java.io.IOException;
 
 @Service
 @RequiredArgsConstructor
+@CacheConfig(cacheNames = "video")
 public class VideoServiceImpl implements VideoService {
     private static final Logger logger = LoggerFactory.getLogger(VideoController.class);
 
@@ -61,6 +64,7 @@ public class VideoServiceImpl implements VideoService {
     }
 
     @Override
+    @Cacheable
     public ResponseEntity<Resource> downloadFile(Long id, HttpServletRequest request) {
         Video video = videoRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException("Video not found with id: " + id));
