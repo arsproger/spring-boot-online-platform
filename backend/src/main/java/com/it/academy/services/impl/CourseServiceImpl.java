@@ -1,8 +1,12 @@
 package com.it.academy.services.impl;
 
 import com.it.academy.models.Course;
+import com.it.academy.models.User;
 import com.it.academy.repositories.CourseRepository;
 import com.it.academy.services.CourseService;
+import com.it.academy.services.PaymentService;
+import com.it.academy.services.UserService;
+import com.stripe.exception.StripeException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,33 +16,57 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class CourseServiceImpl implements CourseService {
-    private final CourseRepository repo;
+    private final CourseRepository courseRepository;
+    private final UserService userService;
+    private final PaymentService paymentService;
 
     @Override
     public Course getById(Long id) {
-        return repo.findById(id).orElseThrow(
+        return courseRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException("Course not found with id: " + id));
     }
 
     @Override
     public List<Course> getAll() {
-        return repo.findAll();
+        return courseRepository.findAll();
     }
 
     @Override
-    public Long save(Course course) {
-        return repo.save(course).getId();
+    public Long create(Course course, Long authorId) {
+        User author = userService.getById(authorId);
+        Course createdCourse = Course.builder()
+                .author(author)
+                .category(course.getCategory())
+                .name(course.getName())
+                .description(course.getDescription())
+                .language(course.getLanguage())
+                .sections(course.getSections())
+                .reviews(course.getReviews())
+                .price(course.getPrice())
+                .subscriptions(course.getSubscriptions())
+                .build();
+
+        if (author.getStripeAccountId() == null || author.getStripeAccountId().isEmpty()) {
+            try {
+                author.setStripeAccountId(paymentService.createStripeAccount(authorId));
+                userService.save(author);
+            } catch (StripeException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        return courseRepository.save(createdCourse).getId();
     }
 
     @Override
     public Long deleteById(Long id) {
-        repo.deleteById(id);
+        courseRepository.deleteById(id);
         return id;
     }
 
     @Override
     public Long update(Long id, Course updatedCourse) {
-        Course course = repo.findById(id).orElseThrow(
+        Course course = courseRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException("Course not found with id: " + id));
 
         course.setName(updatedCourse.getName());
@@ -46,7 +74,7 @@ public class CourseServiceImpl implements CourseService {
         course.setPrice(updatedCourse.getPrice());
         course.setCategory(updatedCourse.getCategory());
 
-        return repo.save(course).getId();
+        return courseRepository.save(course).getId();
     }
 
 }

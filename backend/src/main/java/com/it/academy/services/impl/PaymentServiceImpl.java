@@ -2,13 +2,16 @@ package com.it.academy.services.impl;
 
 import com.it.academy.config.PaymentConfig;
 import com.it.academy.models.Subscription;
+import com.it.academy.models.User;
 import com.it.academy.services.PaymentService;
 import com.it.academy.services.SubscriptionService;
 import com.it.academy.services.UserService;
 import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
+import com.stripe.model.Account;
 import com.stripe.model.Charge;
 import com.stripe.model.Token;
+import com.stripe.param.AccountCreateParams;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.stereotype.Service;
@@ -57,9 +60,36 @@ public class PaymentServiceImpl implements PaymentService {
 
 
     @Override
-    public String createStripeAccount(Long userId) {
-        return null;
-    }
+    public String createStripeAccount(Long userId) throws StripeException {
+            User user = userService.getById(userId);
+            String email = user.getEmail();
+            String firstName = user.getName();
+            String lastName = user.getSurname();
+
+            //Stripe.apiKey = paymentConfig.getSecretKey();
+
+            AccountCreateParams params = AccountCreateParams.builder()
+                    .setType(AccountCreateParams.Type.EXPRESS)
+                    .setEmail(email)
+                    .setBusinessType(AccountCreateParams.BusinessType.INDIVIDUAL)
+                    .setCapabilities(AccountCreateParams.Capabilities.builder()
+                            .setTransfers(AccountCreateParams.Capabilities.Transfers.builder().build())
+                            .build())
+                    .setIndividual(
+                            AccountCreateParams.Individual.builder()
+                                    .setFirstName(firstName)
+                                    .setLastName(lastName)
+                                    .build()
+                    )
+                    .build();
+
+            Account account = Account.create(params);
+
+            user.setStripeAccountId(account.getId());
+            userService.save(user);
+
+            return account.getId();
+        }
 
     @Override
     public void addBankAccount(Long userId, String bankAccountNumber, String routingNumber) {

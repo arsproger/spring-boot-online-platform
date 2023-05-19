@@ -32,8 +32,8 @@ public class CourseController {
     }
 
     @PostMapping
-    public ResponseEntity<Long> createCourse(@RequestBody CourseDto course) {
-        Long id = service.save(mapper.map(course));
+    public ResponseEntity<Long> createCourse(@RequestBody CourseDto course, @PathVariable Long authorId) {
+        Long id = service.create(mapper.map(course), authorId);
         return new ResponseEntity<>(id, HttpStatus.CREATED);
     }
 

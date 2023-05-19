@@ -9,7 +9,7 @@ public interface CourseService {
 
     List<Course> getAll();
 
-    Long save(Course course);
+    Long create(Course course, Long authorId);
 
     Long deleteById(Long id);
 
