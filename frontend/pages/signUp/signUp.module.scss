@@ -1,0 +1,54 @@
+.sign-up-container {
+    max-width: 400px;
+    margin: 200px auto;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+  
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #7329c2;
+    }
+  
+    .ant-form-item {
+      margin-bottom: 20px;
+    }
+  
+    .ant-input {
+      border-radius: 4px;
+    }
+  
+    .ant-input-prefix svg {
+      color: #03d665;
+    }
+  
+    .ant-btn {
+      width: 100%;
+      height: 40px;
+      border-radius: 4px;
+      background-color: #03d665;
+      border-color: #03d665;
+  
+      &:hover,
+      &:focus {
+        background-color: #7329c2;
+        border-color: #7329c2;
+      }
+  
+      &-primary {
+        color: #fff;
+        background-color: #03d665;
+        border-color: #03d665;
+  
+        &:hover,
+        &:focus {
+          color: #fff;
+          background-color: #7329c2;
+          border-color: #7329c2;
+        }
+      }
+    }
+  }
+  

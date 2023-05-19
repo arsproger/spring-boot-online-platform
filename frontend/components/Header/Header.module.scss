@@ -1,97 +1,104 @@
-$maxWidth: 1440;
-
-@mixin adaptiv-font($pcSize, $mobSize) {
-  @media screen and (max-width: 1440px) {
-    $addSize: $pcSize - $mobSize;
-    $maxWidth: $maxWidth - 320;
-    font-size: calc(
-      #{$mobSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidth})
-    );
-  }
-}
+@import "../../styles/varibales.scss";
 
 .header {
   width: 100%;
   position: fixed;
-  top: 0;
-  background: #10b582;
-  .aboveHeader {
-    max-width: 1440px;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-weight: 400;
-    @include adaptiv-font(18, 15);
-    line-height: 130%;
-    color: #fdfdfd;
-    padding: 0 5%;
-    box-sizing: border-box;
-    margin: 0 auto;
-    .social {
-      width: 20px;
-    }
-  }
+  z-index: 11;
+  top: 40px;
+  transition: 0.3s;
 
   .header__content {
-    max-width: 1440px;
-    height: 100px;
+    max-width: 65rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
     background: #fdfdfd;
     border-radius: 5rem;
     box-shadow: 0 4px 4.25px 0.75px rgba(0, 0, 0, 0.13);
-    padding: 0 5%;
+    padding: 1% 5%;
     box-sizing: border-box;
     margin: 0 auto;
+    transition: 1s;
 
-    .logo {
-      width: 80px;
-      color: #10b582;
+    .header__logo {
+      width: 60px;
+      color: #7329c2;
     }
 
     .header__nav {
       .header__list {
+        position: relative;
         display: flex;
         justify-content: space-between;
+        gap: 60px;
+
         li {
           a {
             font-weight: 400;
-            @include adaptiv-font(18, 15);
+            @include adaptiv-font(18, 10);
             line-height: 130%;
-            color: #10b582;
-            padding: 40px;
           }
+        }
+        .animateLine {
+          height: 4px;
+          position: absolute;
+          bottom: -15px;
+          background: #03d665;
+          border-radius: 10px;
+          transition: 0.3s;
         }
       }
     }
 
     .header__buttons {
-      button {
-        width: 40px;
-        height: 40px;
-        font-weight: 400;
-        line-height: 130%;
-        color: #fdfdfd;
-        border: none;
-        border-radius: 50%;
-        margin: 10px;
-      }
-      & :nth-child(1) {
-        background: #c8122e;
-        box-shadow: 0 3px 3px 0 rgba(255, 0, 0, 0.27);
+      display: flex;
+      align-items: center;
+      gap: 20px;
+
+      .header__signButton {
+        button {
+          background: #7329c2;
+          span {
+            @include adaptiv-font(15, 10);
+          }
+        }
       }
 
-      & :nth-child(2) {
-        background-color: #236f21;
-        box-shadow: 0px 3px 3px 0px rgba(35, 111, 33, 0.27);
-      }
-
-      & :nth-child(3) {
-        box-shadow: 0 3px 3px 0 rgba(56, 75, 194, 0.27);
-        background: #4b57a5;
+      .header__languageButton {
+        button {
+          width: 30px;
+          background: none;
+          border-radius: 50%;
+          cursor: pointer;
+          border: none;
+          color: #7329c2;
+        }
       }
     }
   }
+}
+
+.headerActive {
+  top: 0;
+  background: #fdfdfd;
+  box-shadow: 0 8px 40px -5px rgba(9, 31, 67, 0.1);
+  transition: 0.7s;
+  .header__content {
+    max-width: 1440px;
+    border-radius: 0;
+    box-shadow: none;
+    transition: 0.3s;
+  }
+}
+
+@media screen and (max-width: 1440px) {
+}
+
+@media screen and (max-width: 1024px) {
+}
+
+@media screen and (max-width: 768px) {
+}
+
+@media screen and (max-width: 425px) {
 }

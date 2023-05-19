@@ -1,0 +1,60 @@
+@import "../../styles/varibales.scss";
+
+.footer {
+  @include centering();
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 60px;
+  background: #fdfdfd;
+  box-shadow: 0px -8px 40px -5px rgba(9, 31, 67, 0.1);
+  padding: 100px 5%;
+  box-sizing: border-box;
+
+  .footer__contacts {
+    text-align: center;
+
+    p {
+      width: 300px;
+      text-align: center;
+      font-weight: 400;
+      line-height: 130%;
+      @include adaptiv-font(12, 10);
+      color: #7f7f7f;
+    }
+
+    .footer__logo {
+      width: 60px;
+      color: #7329c2;
+    }
+
+    .footer__socialMedia {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+
+      .footer__social {
+        width: 20px;
+        color: #7329c2;
+      }
+    }
+  }
+
+  .footer__list {
+    li {
+      .footer__title {
+        font-weight: 400;
+        @include adaptiv-font(20, 15);
+        line-height: 300%;
+        color: #03d665;
+      }
+
+      a {
+        font-weight: 400;
+        @include adaptiv-font(18, 15);
+        line-height: 130%;
+        color: #7f7f7f;
+      }
+    }
+  }
+}

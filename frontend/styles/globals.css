@@ -1,14 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@700&display=swap');
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   text-decoration: none;
   list-style: none;
-  font-family: "Poppins", sans-serif;
+  font-family: "Nunito", sans-serif;
   font-style: normal;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 @font-face {
-  font-family: "Poppins", sans-serif;
-  src: url(../fonts/Poppins-Regular.ttf);
+  font-family: "Nunito", sans-serif;
+  src: url(../fonts/static/Nunito-Black.ttf);
+  src: url(../fonts/static/Nunito-Bold.ttf);
+  src: url(../fonts/static/Nunito-ExtraLight.ttf);
+  src: url(../fonts/static/Nunito-Light.ttf);
+  src: url(../fonts/static/Nunito-Medium.ttf);
+  src: url(../fonts/static/Nunito-Black.ttf);
+  src: url(../fonts/static/Nunito-Regular.ttf);
+  src: url(../fonts/static/Nunito-SemiBold.ttf);
 }
