@@ -44,7 +44,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
         Subscription subscription = new Subscription();
         subscription.setCourse(course);
         subscription.setUser(user);
-        subscription.setDateStart(LocalDate.now());
+        subscription.setCreationDate(LocalDate.now());
         subscriptionRepository.save(subscription);
 
         return subscription;
@@ -60,9 +60,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     public Long update(Long id, Subscription updatedSubscription) {
         Subscription subscription = subscriptionRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException("Subscription not found with id: " + id));
-
-        subscription.setDateFinish(updatedSubscription.getDateFinish());
-        subscription.setDateStart(updatedSubscription.getDateStart());
+        subscription.setCreationDate(updatedSubscription.getCreationDate());
 
         return subscriptionRepository.save(subscription).getId();
     }

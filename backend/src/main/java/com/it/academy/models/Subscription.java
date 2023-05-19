@@ -5,6 +5,7 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.time.LocalDate;
 
 @Entity
@@ -17,17 +18,17 @@ public class Subscription {
     private Long id;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate dateStart;
-
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate dateFinish;
+    @NotEmpty(message = "Cannot be empty")
+    private LocalDate creationDate;
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @NotEmpty(message = "Cannot be empty")
     private User user;
 
     @ManyToOne
     @JoinColumn(name = "course_id", referencedColumnName = "id")
+    @NotEmpty(message = "Cannot be empty")
     private Course course;
 
 }
