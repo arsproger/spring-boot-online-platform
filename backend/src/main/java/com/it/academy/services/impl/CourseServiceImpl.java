@@ -13,12 +13,13 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
+import static com.it.academy.enums.Role.ROLE_TRAINER;
+
 @Service
 @AllArgsConstructor
 public class CourseServiceImpl implements CourseService {
     private final CourseRepository courseRepository;
     private final UserService userService;
-    private final PaymentService paymentService;
 
     @Override
     public Course getById(Long id) {
@@ -34,6 +35,9 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public Long create(Course course, Long authorId) {
         User author = userService.getById(authorId);
+        author.setRole(ROLE_TRAINER);
+        userService.save(author);
+
         Course createdCourse = Course.builder()
                 .author(author)
                 .category(course.getCategory())

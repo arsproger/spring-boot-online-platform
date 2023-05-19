@@ -33,7 +33,7 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public void makePayment(Long subscriptionId, String cardNumber, String expMonth, String expYear, String cvc) throws StripeException {
-        //Stripe.apiKey = paymentConfig.getSecretKey();
+        Stripe.apiKey = paymentConfig.getSecretKey();
         Subscription subscription = subscriptionService.getById(subscriptionId);
 
         Map<String, Object> cardParams = new HashMap<>();
@@ -48,14 +48,13 @@ public class PaymentServiceImpl implements PaymentService {
         Token token = Token.create(tokenParams);
 
         Map<String, Object> chargeParams = new HashMap<>();
-        //chargeParams.put("amount", subscription.getCourse().getPrice().multiply(new BigDecimal(100)));
         chargeParams.put("amount", subscription.getCourse().getPrice().multiply(new BigDecimal(100)).intValue());
         chargeParams.put("currency", "USD");
         chargeParams.put("description", "Payment for subscription to the course " + subscription.getCourse().getName());
         chargeParams.put("source", token.getId());
         chargeParams.put("application_fee_amount", (subscription.getCourse().getPrice().multiply(new BigDecimal(0.1)).intValue()));
-        //chargeParams.put("transfer_data", Collections.singletonMap("destination", subscription.getCourse().getAuthor().getStripeAccountId()));
-        chargeParams.put("transfer_data", Collections.singletonMap("destination", "acct_1N7tFTDOKky9CwBJ")); //for testing
+        chargeParams.put("transfer_data", Collections.singletonMap("destination", subscription.getCourse().getAuthor().getStripeAccountId()));
+        //chargeParams.put("transfer_data", Collections.singletonMap("destination", "acct_1N7tFTDOKky9CwBJ")); //for testing
 
         Charge charge = Charge.create(chargeParams);
     }
@@ -68,7 +67,7 @@ public class PaymentServiceImpl implements PaymentService {
             String firstName = user.getName();
             String lastName = user.getSurname();
 
-            //Stripe.apiKey = paymentConfig.getSecretKey();
+            Stripe.apiKey = paymentConfig.getSecretKey();
 
             AccountCreateParams params = AccountCreateParams.builder()
                     .setType(AccountCreateParams.Type.EXPRESS)
@@ -92,21 +91,6 @@ public class PaymentServiceImpl implements PaymentService {
 
             return account.getId();
         }
-
-    @Override
-    public void addBankAccount(Long userId, String bankAccountNumber, String routingNumber) {
-
-    }
-
-    @Override
-    public void addDebitCardToAccount(String accountId, String cardNumber, int expMonth, int expYear, String cvc) {
-
-    }
-
-    @Override
-    public String getAuthUrl() {
-        return null;
-    }
 
     @Override
     public String generateOnboardingLink(String accountId) throws StripeException {
