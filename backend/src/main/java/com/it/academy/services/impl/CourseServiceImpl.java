@@ -47,12 +47,7 @@ public class CourseServiceImpl implements CourseService {
                 .build();
 
         if (author.getStripeAccountId() == null || author.getStripeAccountId().isEmpty()) {
-            try {
-                author.setStripeAccountId(paymentService.createStripeAccount(authorId));
-                userService.save(author);
-            } catch (StripeException e) {
-                throw new RuntimeException(e);
-            }
+            return null;
         }
 
         return courseRepository.save(createdCourse).getId();

@@ -9,6 +9,6 @@ public interface PaymentService {
     void addBankAccount(Long userId, String bankAccountNumber, String routingNumber);
     void addDebitCardToAccount(String accountId, String cardNumber, int expMonth, int expYear, String cvc);
     String getAuthUrl();
-    String generateOnboardingLink(String accountId);
+    String generateOnboardingLink(String accountId) throws StripeException;
 
 }

@@ -4,6 +4,8 @@ import com.it.academy.dao.CourseDao;
 import com.it.academy.dto.CourseDto;
 import com.it.academy.mappers.CourseMapper;
 import com.it.academy.services.CourseService;
+import com.it.academy.services.PaymentService;
+import com.stripe.exception.StripeException;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +20,7 @@ public class CourseController {
     private final CourseService service;
     private final CourseDao courseDao;
     private final CourseMapper mapper;
+    private final PaymentService paymentService;
 
     @GetMapping
     public ResponseEntity<List<CourseDto>> getAllCourses() {
@@ -31,9 +34,22 @@ public class CourseController {
         return new ResponseEntity<>(course, HttpStatus.OK);
     }
 
-    @PostMapping
+    /*@PostMapping("/create/{authorId}")
     public ResponseEntity<Long> createCourse(@RequestBody CourseDto course, @PathVariable Long authorId) {
         Long id = service.create(mapper.map(course), authorId);
+        return new ResponseEntity<>(id, HttpStatus.CREATED);
+    }*/
+
+    @PostMapping("/create/{authorId}")
+    public ResponseEntity<?> createCourse(@RequestBody CourseDto course, @PathVariable Long authorId) throws StripeException {
+        Long id = service.create((mapper.map(course)), authorId);
+        if (id == null) {
+            String link = paymentService.generateOnboardingLink(paymentService.createStripeAccount(authorId));
+            /*HttpHeaders headers = new HttpHeaders();
+            headers.setLocation(URI.create(link));
+            return new ResponseEntity<>(headers, HttpStatus.FOUND);*/
+            return new ResponseEntity<>(link, HttpStatus.FOUND);
+        }
         return new ResponseEntity<>(id, HttpStatus.CREATED);
     }
 

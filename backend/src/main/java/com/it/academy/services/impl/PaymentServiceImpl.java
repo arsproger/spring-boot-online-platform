@@ -9,9 +9,11 @@ import com.it.academy.services.UserService;
 import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
 import com.stripe.model.Account;
+import com.stripe.model.AccountLink;
 import com.stripe.model.Charge;
 import com.stripe.model.Token;
 import com.stripe.param.AccountCreateParams;
+import com.stripe.param.AccountLinkCreateParams;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.stereotype.Service;
@@ -107,7 +109,16 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     @Override
-    public String generateOnboardingLink(String accountId) {
-        return null;
+    public String generateOnboardingLink(String accountId) throws StripeException {
+        AccountLinkCreateParams params = AccountLinkCreateParams.builder()
+                .setAccount(accountId)
+                .setRefreshUrl("http://localhost:8080/course/create")
+                .setReturnUrl("http://localhost:8080/course/create")
+                .setType(AccountLinkCreateParams.Type.ACCOUNT_ONBOARDING)
+                .build();
+
+        AccountLink accountLink = AccountLink.create(params);
+
+        return accountLink.getUrl();
     }
 }
