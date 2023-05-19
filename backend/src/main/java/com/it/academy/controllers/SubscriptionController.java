@@ -29,10 +29,10 @@ public class SubscriptionController {
         return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 
-    @PostMapping
-    public ResponseEntity<Long> createSubscription(@RequestBody SubscriptionDto dto) {
-        Long id = service.save(mapper.map(dto));
-        return new ResponseEntity<>(id, HttpStatus.CREATED);
+    @PostMapping("/create/{userId}/{courseId}")
+    public ResponseEntity<SubscriptionDto> createSubscription(@PathVariable Long userId, @PathVariable Long courseId) {
+        SubscriptionDto dto = mapper.map(service.create(userId, courseId));
+        return new ResponseEntity<>(dto, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")

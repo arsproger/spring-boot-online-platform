@@ -1,50 +1,70 @@
 package com.it.academy.services.impl;
 
+import com.it.academy.models.Course;
 import com.it.academy.models.Subscription;
+import com.it.academy.models.User;
 import com.it.academy.repositories.SubscriptionRepository;
+import com.it.academy.services.CourseService;
 import com.it.academy.services.SubscriptionService;
+import com.it.academy.services.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
 @AllArgsConstructor
 public class SubscriptionServiceImpl implements SubscriptionService {
-    private final SubscriptionRepository repo;
+    private final SubscriptionRepository subscriptionRepository;
+    private final CourseService courseService;
+    private final UserService userService;
 
     @Override
     public Subscription getById(Long id) {
-        return repo.findById(id).orElseThrow(
+        return subscriptionRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException("Subscription not found with id: " + id));
     }
 
     @Override
     public List<Subscription> getAll() {
-        return repo.findAll();
+        return subscriptionRepository.findAll();
     }
 
     @Override
     public Long save(Subscription subscription) {
-        return repo.save(subscription).getId();
+        return subscriptionRepository.save(subscription).getId();
+    }
+
+    @Override
+    public Subscription create(Long userId, Long courseId) {
+        Course course = courseService.getById(courseId);
+        User user = userService.getById(userId);
+        Subscription subscription = new Subscription();
+        subscription.setCourse(course);
+        subscription.setUser(user);
+        subscription.setDateStart(LocalDate.now());
+        subscriptionRepository.save(subscription);
+
+        return subscription;
     }
 
     @Override
     public Long deleteById(Long id) {
-        repo.deleteById(id);
+        subscriptionRepository.deleteById(id);
         return id;
     }
 
     @Override
     public Long update(Long id, Subscription updatedSubscription) {
-        Subscription subscription = repo.findById(id).orElseThrow(
+        Subscription subscription = subscriptionRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException("Subscription not found with id: " + id));
 
         subscription.setDateFinish(updatedSubscription.getDateFinish());
         subscription.setDateStart(updatedSubscription.getDateStart());
 
-        return repo.save(subscription).getId();
+        return subscriptionRepository.save(subscription).getId();
     }
 
 }
