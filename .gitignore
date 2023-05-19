@@ -25,6 +25,7 @@ backend/src/main/resources/application.yml
 
 backend/src/main/java/com/it/academy/video
 backend/src/main/resources/config.properties
+/backend/src/main/resources/config.yml
 
 
 ### NetBeans ###

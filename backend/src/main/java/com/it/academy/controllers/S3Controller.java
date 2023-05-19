@@ -1,6 +1,6 @@
 package com.it.academy.controllers;
 
-import com.it.academy.services.FileService;
+import com.it.academy.services.S3Service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -14,14 +14,14 @@ import java.util.List;
 @RequestMapping("/s3")
 @RequiredArgsConstructor
 public class S3Controller {
-    private final FileService s3Service;
+    private final S3Service s3Service;
 
-    @PostMapping("upload")
-    public String upload(@RequestParam("file") MultipartFile file) {
-        return s3Service.saveFile(file);
+    @PostMapping("/upload")
+    public String upload(@RequestParam Long lessonId, @RequestParam("file") MultipartFile file) {
+        return s3Service.saveFile(lessonId, file);
     }
 
-    @GetMapping("download/{filename:.+}")
+    @GetMapping("/download/{filename:.+}")
     public ResponseEntity<byte[]> download(@PathVariable("filename") String filename) {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-type", "video/mp4");
@@ -30,12 +30,12 @@ public class S3Controller {
         return ResponseEntity.status(HttpStatus.OK).headers(headers).body(bytes);
     }
 
-    @DeleteMapping("{filename}")
+    @DeleteMapping("/{filename}")
     public String deleteFile(@PathVariable("filename") String filename) {
         return s3Service.deleteFile(filename);
     }
 
-    @GetMapping("list")
+    @GetMapping("/list")
     public List<String> getAllFiles() {
         return s3Service.listAllFiles();
     }
