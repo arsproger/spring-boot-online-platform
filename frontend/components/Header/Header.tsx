@@ -3,6 +3,8 @@ import s from "./Header.module.scss";
 import cn from "classnames";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGlobe, faGraduationCap } from "@fortawesome/free-solid-svg-icons";
+import MyButton from "../MUI/MyButton/MyButton";
+import Link from "next/link";
 
 interface Line {
   width: number;
@@ -27,7 +29,6 @@ const Header: FC = () => {
   const blockRefSecond = useRef<HTMLLIElement>(null);
   const blockRefThree = useRef<HTMLLIElement>(null);
   const blockRefFour = useRef<HTMLLIElement>(null);
-  const blockRefFive = useRef<HTMLLIElement>(null);
 
   // Жизненный цикл изменяет цвет и позицию линии
   useEffect(() => {
@@ -43,14 +44,14 @@ const Header: FC = () => {
           left: blockRefFirst.current!.offsetLeft,
         });
       }
-      if (window.scrollY >= 630) {
+      if (window.scrollY >= 600) {
         setNavColor(2);
         setNavBarPosition({
           width: blockRefSecond.current!.offsetWidth,
           left: blockRefSecond.current!.offsetLeft,
         });
       }
-      if (window.scrollY >= 1600) {
+      if (window.scrollY >= 1100) {
         setNavColor(3);
         setNavBarPosition({
           width: blockRefThree.current!.offsetWidth,
@@ -62,13 +63,6 @@ const Header: FC = () => {
         setNavBarPosition({
           width: blockRefFour.current!.offsetWidth,
           left: blockRefFour.current!.offsetLeft,
-        });
-      }
-      if (window.scrollY >= 5400) {
-        setNavColor(5);
-        setNavBarPosition({
-          width: blockRefFive.current!.offsetWidth,
-          left: blockRefFive.current!.offsetLeft,
         });
       }
     };
@@ -83,7 +77,10 @@ const Header: FC = () => {
       className={isHeaderActive ? cn(s.header, s.headerActive) : s.header}
     >
       <div className={s.header__content}>
-        <FontAwesomeIcon icon={faGraduationCap} className={s.header__logo} />
+        <Link href={"/"}>
+          <FontAwesomeIcon icon={faGraduationCap} className={s.header__logo} />
+        </Link>
+
         <nav className={s.header__nav}>
           <ul className={s.header__list}>
             <li ref={blockRefFirst}>
@@ -93,12 +90,12 @@ const Header: FC = () => {
                   navColor === 1 ? { color: "#03d665" } : { color: "#322f55" }
                 }
               >
-                Программы
+                Главная
               </a>
             </li>
             <li ref={blockRefSecond}>
               <a
-                href="#"
+                href="#categories"
                 style={
                   navColor === 2 ? { color: "#03d665" } : { color: "#322f55" }
                 }
@@ -108,32 +105,22 @@ const Header: FC = () => {
             </li>
             <li ref={blockRefThree}>
               <a
-                href="#"
+                href="#recommendations"
                 style={
                   navColor === 3 ? { color: "#03d665" } : { color: "#322f55" }
                 }
               >
-                Блог
+                Рекомендации
               </a>
             </li>
             <li ref={blockRefFour}>
               <a
-                href="#"
+                href="#contacts"
                 style={
                   navColor === 4 ? { color: "#03d665" } : { color: "#322f55" }
                 }
               >
                 Контакты
-              </a>
-            </li>
-            <li ref={blockRefFive}>
-              <a
-                href="#"
-                style={
-                  navColor === 5 ? { color: "#03d665" } : { color: "#322f55" }
-                }
-              >
-                Вопросы
               </a>
             </li>
             <span
@@ -147,7 +134,15 @@ const Header: FC = () => {
         </nav>
 
         <div className={s.header__buttons}>
-          <button><FontAwesomeIcon icon={faGlobe} /></button>
+          <Link href="/signUp/signUp" className={s.header__signButton}>
+            <MyButton>Регистрация</MyButton>
+          </Link>
+
+          <div className={s.header__languageButton}>
+            <button>
+              <FontAwesomeIcon icon={faGlobe} />
+            </button>
+          </div>
         </div>
       </div>
     </header>

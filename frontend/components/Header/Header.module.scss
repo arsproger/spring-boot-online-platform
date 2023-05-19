@@ -6,7 +6,7 @@
   z-index: 11;
   top: 40px;
   transition: 0.3s;
-  
+
   .header__content {
     max-width: 65rem;
     display: flex;
@@ -35,7 +35,7 @@
         li {
           a {
             font-weight: 400;
-            @include adaptiv-font(18, 15);
+            @include adaptiv-font(18, 10);
             line-height: 130%;
           }
         }
@@ -51,13 +51,28 @@
     }
 
     .header__buttons {
-      button {
-        width: 30px;
-        height: 30px;
-        color: #7329c2;
-        cursor: pointer;
-        border: none;
-        border-radius: 50%;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+
+      .header__signButton {
+        button {
+          background: #7329c2;
+          span {
+            @include adaptiv-font(15, 10);
+          }
+        }
+      }
+
+      .header__languageButton {
+        button {
+          width: 30px;
+          background: none;
+          border-radius: 50%;
+          cursor: pointer;
+          border: none;
+          color: #7329c2;
+        }
       }
     }
   }
@@ -74,4 +89,16 @@
     box-shadow: none;
     transition: 0.3s;
   }
+}
+
+@media screen and (max-width: 1440px) {
+}
+
+@media screen and (max-width: 1024px) {
+}
+
+@media screen and (max-width: 768px) {
+}
+
+@media screen and (max-width: 425px) {
 }

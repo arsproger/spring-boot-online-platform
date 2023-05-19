@@ -10,6 +10,10 @@
   font-style: normal;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 @font-face {
   font-family: "Nunito", sans-serif;
   src: url(../fonts/static/Nunito-Black.ttf);

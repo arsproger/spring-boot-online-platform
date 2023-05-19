@@ -1,8 +1,5 @@
 import React, { FC } from "react";
 import s from "./Hero.module.scss";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faInstagram, faTelegram } from "@fortawesome/free-brands-svg-icons";
-import { faPhone } from "@fortawesome/free-solid-svg-icons";
 
 const Hero: FC = () => {
   return (

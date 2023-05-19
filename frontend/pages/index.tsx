@@ -1,3 +1,4 @@
+import Categories from '@/components/Categories/Categories'
 import Hero from '@/components/Hero/Hero'
 import RecommendedSiders from '@/components/RecommendedSiders/RecommendedSiders'
 import Statistics from '@/components/Statistics/Statistics'
@@ -16,8 +17,8 @@ export default function Home() {
       </Head>
       <Hero/>
       <Statistics/>
-      <RecommendedSiders/>
-   
+      <Categories/>
+      <RecommendedSiders/>   
     </>
   )
 }

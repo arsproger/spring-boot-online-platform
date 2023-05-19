@@ -6,6 +6,7 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 
 import { Navigation, Pagination, Autoplay, Keyboard } from "swiper";
+import MyButton from "../MUI/MyButton/MyButton";
 
 const RecommendedSiders: FC = () => {
   return (
@@ -15,7 +16,7 @@ const RecommendedSiders: FC = () => {
         clickable: true,
       }}
       autoplay={{
-        delay: 3000,
+        delay: 5000,
         disableOnInteraction: false,
       }}
       keyboard={{
@@ -25,6 +26,7 @@ const RecommendedSiders: FC = () => {
       grabCursor={true}
       modules={[Navigation, Pagination, Autoplay, Keyboard]}
       className="mySwiper"
+      id="recommendations"
     >
       <SwiperSlide>
         <div className="mySwiper__content">
@@ -38,6 +40,7 @@ const RecommendedSiders: FC = () => {
               id. Magnam dignissimos aut, officiis obcaecati voluptas aspernatur
               impedit ullam voluptates ab.
             </p>
+            <MyButton>Перейти</MyButton>
           </div>
           <img src="./slideFirst.jpg" alt="Slide image" />
         </div>

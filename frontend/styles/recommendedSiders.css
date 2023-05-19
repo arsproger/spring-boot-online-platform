@@ -40,6 +40,10 @@
   line-height: 130%;
 }
 
+.mySwiper__button{
+  background: #7329c2;
+}
+
 .swiper-button-prev,
 .swiper-button-next {
   width: 50px !important;

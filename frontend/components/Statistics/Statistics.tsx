@@ -44,7 +44,7 @@ const Statistics: FC = () => {
             <p>теоретических и практических курсов для разного уровня</p>
           </div>
 
-          <div className={s.statistics__item}>
+          <div className={s.statistics__item} id="categories">
             <span className={`${s.__num} ${s.__num1}`}></span>
             <p>теоретических и практических курсов для разного уровня</p>
           </div>

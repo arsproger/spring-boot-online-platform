@@ -6,7 +6,7 @@ import { faInstagram, faTelegram } from "@fortawesome/free-brands-svg-icons";
 
 const Footer: FC = () => {
   return (
-    <footer className={s.footer}>
+    <footer className={s.footer} id="contacts">
 
       <div className={s.footer__contacts}>
         <FontAwesomeIcon icon={faGraduationCap} className={s.footer__logo} />
