@@ -23,7 +23,7 @@
     transition: 1s;
 
     .header__logo {
-      width: 60px;
+      @include adaptive-value("width", 60, 30);
       color: #7329c2;
     }
 
@@ -32,7 +32,7 @@
         position: relative;
         display: flex;
         justify-content: space-between;
-        gap: 50px;
+        @include adaptive-value("gap", 50, 30);
 
         li {
           a {
@@ -55,22 +55,24 @@
     .header__buttons {
       display: flex;
       align-items: center;
-      gap: 20px;
+      gap: 10px;
 
       .header__signButton {
         button {
+          @include adaptive-value("height", 32, 20);
           background: #7329c2;
         }
       }
 
       .header__languageButton {
         button {
-          width: 30px;
-          background: none;
-          border-radius: 50%;
-          cursor: pointer;
-          border: none;
-          color: #7329c2;
+          @include adaptive-value("height", 32, 20);
+          background: #7329c2;
+
+          svg {
+            @include adaptive-value("height", 20, 10);
+            color: #ffffff;
+          }
         }
       }
     }
@@ -82,6 +84,7 @@
   background: #fdfdfd;
   box-shadow: 0 8px 40px -5px rgba(9, 31, 67, 0.1);
   transition: 0.7s;
+
   .header__content {
     max-width: 1440px;
     border-radius: 0;
@@ -90,41 +93,14 @@
   }
 }
 
-@media screen and (max-width: 1440px) {
-}
-
 @media screen and (max-width: 1024px) {
   .header {
     .header__content {
-      gap: 20px;
-
-      .header__logo {
-        width: 40px;
-      }
-
       .header__nav {
         .header__list {
-          gap: 30px;
-
           .animateLine {
             height: 3px;
             bottom: -10px;
-          }
-        }
-      }
-
-      .header__buttons {
-        gap: 20px;
-
-        .header__signButton {
-          button {
-            height: 30px;
-          }
-        }
-
-        .header__languageButton {
-          button {
-            width: 20px;
           }
         }
       }
@@ -135,30 +111,9 @@
 @media screen and (max-width: 768px) {
   .header {
     .header__content {
-      .header__logo {
-        width: 30px;
-      }
-
       .header__nav {
         display: none;
       }
-
-      .header__buttons {
-        .header__signButton {
-          button {
-            height: 20px;
-          }
-        }
-
-        .header__languageButton {
-          button {
-            width: 15px;
-          }
-        }
-      }
     }
   }
-}
-
-@media screen and (max-width: 425px) {
 }

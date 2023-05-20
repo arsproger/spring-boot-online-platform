@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import s from "./Categories.module.scss";
+
 import Link from "next/link";
 
 const Categories: FC = () => {
