@@ -2,6 +2,7 @@ package com.it.academy.security;
 
 import com.it.academy.models.User;
 import com.it.academy.repositories.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -12,12 +13,8 @@ import java.util.Optional;
 
 @Component
 public class DetailsUserService implements UserDetailsService {
-    private final UserRepository userRepository;
-
     @Autowired
-    public DetailsUserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    private UserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

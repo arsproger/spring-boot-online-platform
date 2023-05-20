@@ -5,7 +5,7 @@ import com.it.academy.enums.Role;
 import com.it.academy.enums.UserStatus;
 import lombok.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;

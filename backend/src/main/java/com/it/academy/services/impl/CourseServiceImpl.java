@@ -5,10 +5,10 @@ import com.it.academy.repositories.CategoryRepository;
 import com.it.academy.repositories.CourseRepository;
 import com.it.academy.repositories.UserRepository;
 import com.it.academy.services.CourseService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @Service

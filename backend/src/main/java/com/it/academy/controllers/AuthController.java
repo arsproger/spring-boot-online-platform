@@ -5,6 +5,7 @@ import com.it.academy.dto.UserDto;
 import com.it.academy.mappers.UserMapper;
 import com.it.academy.security.JWTUtil;
 import com.it.academy.services.UserService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -13,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
 import java.util.Map;
 
 @RestController

@@ -2,8 +2,9 @@ package com.it.academy.models;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Cascade;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
@@ -29,6 +30,8 @@ public class Lesson {
     @OneToMany(mappedBy = "lesson")
     private List<Comment> comments;
 
-    @OneToOne
+    @OneToOne(mappedBy = "lesson")
+    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
     private S3 s3;
+
 }

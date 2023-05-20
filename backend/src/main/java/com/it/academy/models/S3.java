@@ -2,16 +2,16 @@ package com.it.academy.models;
 
 import lombok.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "s3")
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @Setter
 @Getter
+@Builder
 public class S3 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,7 +21,8 @@ public class S3 {
     private String url;
     private LocalDate createDate;
 
-    @OneToOne(mappedBy = "s3")
+    @OneToOne
+    @JoinColumn(name = "lesson_id", referencedColumnName = "id")
     private Lesson lesson;
 
 }
