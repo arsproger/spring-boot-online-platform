@@ -1,0 +1,12 @@
+@import "../../../styles/varibales.scss";
+
+.myButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  span {
+    font-weight: 400;
+    @include adaptive-value("font-size", 15, 8);
+    line-height: 130%;
+  }
+}

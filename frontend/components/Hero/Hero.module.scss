@@ -1,21 +1,22 @@
 @import "../../styles/varibales.scss";
+
 .hero {
-  position: relative;
-  display: flex;
-  justify-content: space-between;
-  flex-direction: column;
   height: 100vh;
+  position: relative;
   overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   .hero__title {
+    width: 100%;
     position: absolute;
     z-index: 10;
-    top: 30%;
-    left: 30%;
+
     h1 {
       text-align: center;
       font-weight: 700;
-      @include adaptiv-font(55, 20);
+      @include adaptive-value("font-size", 55, 20);
       line-height: 130%;
       color: #03d665;
       letter-spacing: 2px;
@@ -24,7 +25,7 @@
     p {
       text-align: center;
       font-weight: 400;
-      @include adaptiv-font(20, 10);
+      @include adaptive-value("font-size", 20, 8);
       line-height: 130%;
       color: #7f7f7f;
       letter-spacing: 2px;
@@ -32,13 +33,14 @@
   }
 
   .sky {
-    margin: 200px 0 0 0;
+    margin: 100px 0 0 0;
     .sun {
+      @include adaptive-value("width", 250, 80);
       position: absolute;
-      top: -80px;
-      right: -80px;
-      max-width: 250px;
+      @include adaptive-value("top", -90, -25);
+      @include adaptive-value("right", -90, -25);
       animation: 1s ease-out 0s 1 sunAnimated;
+
       .sunAnimated {
         width: 100%;
         animation-name: spin;
@@ -76,8 +78,8 @@
 
     /* OBJECTS */
     .cloud {
-      width: 350px;
-      height: 120px;
+      @include adaptive-value("width", 350, 200);
+      @include adaptive-value("height", 120, 100);
       position: relative;
       background: #ffffff;
       background: linear-gradient(top, #ffffff 5%, #f1f1f1 100%);
@@ -97,17 +99,17 @@
     }
 
     .cloud:after {
-      width: 100px;
-      height: 100px;
-      left: 50px;
-      top: -50px;
+      @include adaptive-value("width", 100, 80);
+      @include adaptive-value("height", 100, 80);
+      @include adaptive-value("top", -50, -20);
+      @include adaptive-value("left", 50, 20);
     }
 
     .cloud:before {
-      width: 180px;
-      height: 180px;
-      right: 50px;
-      top: -90px;
+      @include adaptive-value("width", 180, 120);
+      @include adaptive-value("height", 180, 120);
+      @include adaptive-value("top", -90, -50);
+      @include adaptive-value("right", 50, 30);
     }
 
     /* KEYFRAMES */
@@ -131,11 +133,23 @@
 
     @keyframes animateCloud {
       0% {
-        margin-left: -1000px;
+        margin-left: -1200px;
       }
       100% {
         margin-left: 100%;
       }
     }
   }
+}
+
+@media screen and (max-width: 1024px) {
+  
+}
+
+@media screen and (max-width: 768px) {
+  
+}
+
+@media screen and (max-width: 425px) {
+
 }

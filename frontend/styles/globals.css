@@ -25,3 +25,11 @@ html {
   src: url(../fonts/static/Nunito-Regular.ttf);
   src: url(../fonts/static/Nunito-SemiBold.ttf);
 }
+
+html {
+  scroll-behavior: smooth;
+}
+
+h1 , h2 , h3 ,h4 , h5 ,h6 , a , p , span , li , ul , input{
+  font-family: "Nunito", sans-serif;
+}
