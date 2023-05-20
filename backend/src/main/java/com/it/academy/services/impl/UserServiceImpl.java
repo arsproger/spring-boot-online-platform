@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -56,6 +57,11 @@ public class UserServiceImpl implements UserService {
         user.setDateOfBirth(updatedUser.getDateOfBirth());
 
         return userRepository.save(user).getId();
+    }
+
+    @Override
+    public Optional<User> getByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 
 }
