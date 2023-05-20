@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import s from "./Menu.module.scss";
+
 import cn from "classnames";
 
 interface MenuProps {

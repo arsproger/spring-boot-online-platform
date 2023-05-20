@@ -1,18 +1,24 @@
 import React, { useState } from "react";
+import s from "./signUp.module.scss";
+
 import { Form, Input, Button } from "antd";
-import { UserOutlined, LockOutlined, MailOutlined } from "@ant-design/icons";
-import styles from "./signUp.module.scss";
+import {
+  UserOutlined,
+  LockOutlined,
+  MailOutlined,
+  GoogleOutlined,
+  GithubOutlined,
+} from "@ant-design/icons";
 
 const SignUp: React.FC = () => {
   const [loading, setLoading] = useState(false);
 
-  const onFinish = (values: any) => {
+  const onFinish = () => {
     setLoading(true);
-    // Handle sign up logic
   };
 
   return (
-    <div className={styles["sign-up-container"]}>
+    <div className={s.signUp}>
       <h1>Sign Up</h1>
       <Form name="sign-up-form" onFinish={onFinish}>
         <Form.Item
@@ -26,6 +32,7 @@ const SignUp: React.FC = () => {
         >
           <Input prefix={<UserOutlined />} placeholder="Name" />
         </Form.Item>
+
         <Form.Item
           name="email"
           rules={[
@@ -41,21 +48,23 @@ const SignUp: React.FC = () => {
         >
           <Input prefix={<MailOutlined />} placeholder="Email" />
         </Form.Item>
+
         <Form.Item
           name="password"
           rules={[
             {
-              required: true,
-              message: "Please enter your password",
-            },
-            {
               min: 6,
               message: "Password must be at least 6 characters long",
+            },
+            {
+              required: true,
+              message: "Please enter your password",
             },
           ]}
         >
           <Input.Password prefix={<LockOutlined />} placeholder="Password" />
         </Form.Item>
+
         <Form.Item
           name="confirmPassword"
           dependencies={["password"]}
@@ -79,39 +88,20 @@ const SignUp: React.FC = () => {
             placeholder="Confirm Password"
           />
         </Form.Item>
+
         <Form.Item>
-          <Button
-            type="primary"
-            htmlType="submit"
-            loading={loading}
-            className={styles["submit-btn"]}
-          >
+          <Button type="primary" htmlType="submit" loading={loading}>
             Sign Up
           </Button>
         </Form.Item>
-        <div className={styles["social-btn-container"]}>
-          <Button
-            className={styles["social-btn"]}
-            type="primary"
-            icon={<i className="fab fa-google"></i>}
-          >
-            Google
-          </Button>
-          <Button
-            className={styles["social-btn"]}
-            type="primary"
-            icon={<i className="fab fa-facebook"></i>}
-          >
-            Facebook
-          </Button>
-          <Button
-            className={styles["social-btn"]}
-            type="primary"
-            icon={<i className="fab fa-linkedin"></i>}
-          >
-            LinkedIn
-          </Button>
-        </div>
+
+        <Button type="primary" icon={<GoogleOutlined />}>
+          Google
+        </Button>
+
+        <Button type="primary" icon={<GithubOutlined />}>
+          GitHub
+        </Button>
       </Form>
     </div>
   );

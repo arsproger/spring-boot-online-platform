@@ -1,5 +1,6 @@
 import React, { FC, useEffect, useRef, useState } from "react";
 import s from "./Header.module.scss";
+
 import cn from "classnames";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,6 +8,9 @@ import { faGlobe, faGraduationCap } from "@fortawesome/free-solid-svg-icons";
 
 import MyButton from "../MUI/MyButton/MyButton";
 import BurgerMenu from "../BurgerMenu/BurgerMenu";
+import MyModal from "../MUI/MyModal/MyModal";
+import { useRouter } from "next/router";
+import { log } from "console";
 
 interface HeaderProps {
   menuActive: boolean;
@@ -19,6 +23,9 @@ interface Line {
 }
 
 const Header: FC<HeaderProps> = ({ menuActive, setMenuActive }) => {
+  // Состояние - для модалки
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
   // Состояние - для header (для цвета)
   const [isHeaderActive, setIsHeaderActive] = useState<boolean>(false);
 
@@ -30,6 +37,9 @@ const Header: FC<HeaderProps> = ({ menuActive, setMenuActive }) => {
 
   // Состояние - для изменение цвета навигации
   const [navColor, setNavColor] = useState<number>(0);
+
+  // Чтобы получить информацию о текущем маршруте
+  const { pathname } = useRouter();
 
   // С помощью useRef получаем размер и позицию элемента
   const blockRefFirst = useRef<HTMLLIElement>(null);
@@ -86,86 +96,99 @@ const Header: FC<HeaderProps> = ({ menuActive, setMenuActive }) => {
   }, [menuActive]);
 
   return (
-    <header
-      className={isHeaderActive ? cn(s.header, s.headerActive) : s.header}
-    >
-      <div className={s.header__content}>
-        <Link href={"/"}>
-          <FontAwesomeIcon icon={faGraduationCap} className={s.header__logo} />
-        </Link>
+    <>
+      <MyModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
 
-        <nav className={s.header__nav}>
-          <ul className={s.header__list}>
-            <li ref={blockRefFirst}>
-              <a
-                href="#"
-                style={
-                  navColor === 1 ? { color: "#03d665" } : { color: "#322f55" }
-                }
-              >
-                Главная
-              </a>
-            </li>
-            <li ref={blockRefSecond}>
-              <a
-                href="#categories"
-                style={
-                  navColor === 2 ? { color: "#03d665" } : { color: "#322f55" }
-                }
-              >
-                Курсы
-              </a>
-            </li>
-            <li ref={blockRefThree}>
-              <a
-                href="#recommendations"
-                style={
-                  navColor === 3 ? { color: "#03d665" } : { color: "#322f55" }
-                }
-              >
-                Рекомендации
-              </a>
-            </li>
-            <li ref={blockRefFour}>
-              <a
-                href="#contacts"
-                style={
-                  navColor === 4 ? { color: "#03d665" } : { color: "#322f55" }
-                }
-              >
-                Контакты
-              </a>
-            </li>
-            <span
-              className={s.animateLine}
-              style={{
-                left: navBarPosition.left,
-                width: navBarPosition.width,
-              }}
-            ></span>
-          </ul>
-        </nav>
-
-        <div className={s.header__buttons}>
-          <Link href="/signUp/signUp" className={s.header__signButton}>
-            <MyButton>Регистрация</MyButton>
+      <header
+        className={isHeaderActive ? cn(s.header, s.headerActive) : s.header}
+      >
+        <div className={s.header__content}>
+          <Link href={"/"}>
+            <FontAwesomeIcon
+              icon={faGraduationCap}
+              className={s.header__logo}
+            />
           </Link>
 
-          <div className={s.header__languageButton}>
-            <button>
-              <FontAwesomeIcon icon={faGlobe} />
-            </button>
-          </div>
+          <nav className={s.header__nav}>
+            <ul className={s.header__list}>
+              <li ref={blockRefFirst}>
+                <a
+                  href="#"
+                  style={
+                    navColor === 1 ? { color: "#03d665" } : { color: "#322f55" }
+                  }
+                >
+                  Главная
+                </a>
+              </li>
+              <li ref={blockRefSecond}>
+                <a
+                  href="#categories"
+                  style={
+                    navColor === 2 ? { color: "#03d665" } : { color: "#322f55" }
+                  }
+                >
+                  Курсы
+                </a>
+              </li>
+              <li ref={blockRefThree}>
+                <a
+                  href="#recommendations"
+                  style={
+                    navColor === 3 ? { color: "#03d665" } : { color: "#322f55" }
+                  }
+                >
+                  Рекомендации
+                </a>
+              </li>
+              <li ref={blockRefFour}>
+                <a
+                  href="#contacts"
+                  style={
+                    navColor === 4 ? { color: "#03d665" } : { color: "#322f55" }
+                  }
+                >
+                  Контакты
+                </a>
+              </li>
+              <span
+                className={s.animateLine}
+                style={{
+                  left: navBarPosition.left,
+                  width: navBarPosition.width,
+                }}
+              ></span>
+            </ul>
+          </nav>
 
-          <BurgerMenu
-            isHeaderActive={isHeaderActive}
-            setIsHeaderActive={setIsHeaderActive}
-            menuActive={menuActive}
-            setMenuActive={setMenuActive}
-          />
+          <div className={s.header__buttons}>
+            {pathname === "/signUp/signUp" ? (
+              <Link href="/signIn/signIn" className={s.header__signButton}>
+                <MyButton>Войти</MyButton>
+              </Link>
+            ) : (
+              <Link href="/signUp/signUp" className={s.header__signButton}>
+                <MyButton>Регистрация</MyButton>
+              </Link>
+            )}
+
+            <div className={s.header__languageButton}>
+              <MyButton onClick={() => setIsModalOpen(true)}>
+                <FontAwesomeIcon icon={faGlobe} />
+              </MyButton>
+            </div>
+
+            <BurgerMenu
+              isHeaderActive={isHeaderActive}
+              setIsHeaderActive={setIsHeaderActive}
+              menuActive={menuActive}
+              setMenuActive={setMenuActive}
+            />
+          </div>
         </div>
-      </div>
-    </header>
+      </header>
+    </>
   );
 };
 
