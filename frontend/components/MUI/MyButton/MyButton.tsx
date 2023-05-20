@@ -1,9 +1,17 @@
-import React, { FC, PropsWithChildren } from "react";
-import { Button } from "antd";
+import React, { FC, ReactNode } from "react";
 import s from "./MyButton.module.scss";
 
-const MyButton: FC<PropsWithChildren> = ({ children, ...props }) => (
-  <Button {...props} type="primary">{children}</Button>
+import { Button } from "antd";
+
+interface MyButtonProps {
+  children: ReactNode;
+  onClick?: () => void;
+}
+
+const MyButton: FC<MyButtonProps> = ({ children, onClick, ...props }) => (
+  <Button className={s.myButton} onClick={onClick} {...props} type="primary">
+    {children}
+  </Button>
 );
 
 export default MyButton;

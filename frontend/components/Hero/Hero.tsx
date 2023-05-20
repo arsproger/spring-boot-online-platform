@@ -1,16 +1,27 @@
 import React, { FC } from "react";
 import s from "./Hero.module.scss";
 
+import { useRouter } from "next/router";
+
+import en from "../../locales/EN/translation.json";
+import ru from "../../locales/RU/translation.json";
+
 const Hero: FC = () => {
+  const { locale } = useRouter();
+
+  // Функции - для смены текста
+  const t = locale === "en" ? en : ru;
+
   return (
     <section className={s.hero}>
-
       <div className={s.hero__title}>
-        <h1>Образовательная <br /> онлайн-платформа</h1>
-        <p>
-          Курсы и видео-лекции по дизайну, копирайтингу, <br /> SMM, таргету и многим
-          другим направлениям
-        </p>
+        <div className={s.hero__title_container}>
+          <h1>{t.title}</h1>
+        </div>
+
+        <div className={s.hero__subTitle_container}>
+          <p>{t.subTitle}</p>
+        </div>
       </div>
 
       <div className={s.sky}>
@@ -35,6 +46,10 @@ const Hero: FC = () => {
         </div>
 
         <div className={s.x4}>
+          <div className={s.cloud}></div>
+        </div>
+
+        <div className={s.x5}>
           <div className={s.cloud}></div>
         </div>
       </div>

@@ -4,14 +4,16 @@
   width: 100%;
   position: fixed;
   z-index: 11;
-  top: 40px;
+  top: 5%;
   transition: 0.3s;
 
   .header__content {
-    max-width: 65rem;
+    max-width: 74vw;
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 20px;
     background: #fdfdfd;
     border-radius: 5rem;
     box-shadow: 0 4px 4.25px 0.75px rgba(0, 0, 0, 0.13);
@@ -21,7 +23,7 @@
     transition: 1s;
 
     .header__logo {
-      width: 60px;
+      @include adaptive-value("width", 60, 30);
       color: #7329c2;
     }
 
@@ -30,12 +32,12 @@
         position: relative;
         display: flex;
         justify-content: space-between;
-        gap: 60px;
+        @include adaptive-value("gap", 50, 30);
 
         li {
           a {
             font-weight: 400;
-            @include adaptiv-font(18, 10);
+            @include adaptive-value("font-size", 18, 5);
             line-height: 130%;
           }
         }
@@ -53,25 +55,24 @@
     .header__buttons {
       display: flex;
       align-items: center;
-      gap: 20px;
+      gap: 10px;
 
       .header__signButton {
         button {
+          @include adaptive-value("height", 32, 20);
           background: #7329c2;
-          span {
-            @include adaptiv-font(15, 10);
-          }
         }
       }
 
       .header__languageButton {
         button {
-          width: 30px;
-          background: none;
-          border-radius: 50%;
-          cursor: pointer;
-          border: none;
-          color: #7329c2;
+          @include adaptive-value("height", 32, 20);
+          background: #7329c2;
+
+          svg {
+            @include adaptive-value("height", 20, 10);
+            color: #ffffff;
+          }
         }
       }
     }
@@ -83,6 +84,7 @@
   background: #fdfdfd;
   box-shadow: 0 8px 40px -5px rgba(9, 31, 67, 0.1);
   transition: 0.7s;
+
   .header__content {
     max-width: 1440px;
     border-radius: 0;
@@ -91,14 +93,27 @@
   }
 }
 
-@media screen and (max-width: 1440px) {
-}
-
 @media screen and (max-width: 1024px) {
+  .header {
+    .header__content {
+      .header__nav {
+        .header__list {
+          .animateLine {
+            height: 3px;
+            bottom: -10px;
+          }
+        }
+      }
+    }
+  }
 }
 
 @media screen and (max-width: 768px) {
-}
-
-@media screen and (max-width: 425px) {
+  .header {
+    .header__content {
+      .header__nav {
+        display: none;
+      }
+    }
+  }
 }

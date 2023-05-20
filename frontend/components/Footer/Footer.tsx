@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import s from "./Footer.module.scss";
+
 import { faGraduationCap, faPhone } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInstagram, faTelegram } from "@fortawesome/free-brands-svg-icons";
