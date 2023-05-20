@@ -18,8 +18,8 @@
       width: 300px;
       text-align: center;
       font-weight: 400;
+      @include adaptive-value("font-size", 12, 10);
       line-height: 130%;
-      @include adaptiv-font(12, 10);
       color: #7f7f7f;
     }
 
@@ -44,14 +44,14 @@
     li {
       .footer__title {
         font-weight: 400;
-        @include adaptiv-font(20, 15);
+        @include adaptive-value("font-size", 20, 15);
         line-height: 300%;
         color: #03d665;
       }
 
       a {
         font-weight: 400;
-        @include adaptiv-font(18, 15);
+        @include adaptive-value("font-size", 18, 15);
         line-height: 130%;
         color: #7f7f7f;
       }

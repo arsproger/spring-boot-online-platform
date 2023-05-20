@@ -4,7 +4,6 @@ import s from "./Hero.module.scss";
 const Hero: FC = () => {
   return (
     <section className={s.hero}>
-
       <div className={s.hero__title}>
         <h1>Образовательная <br /> онлайн-платформа</h1>
         <p>
@@ -35,6 +34,10 @@ const Hero: FC = () => {
         </div>
 
         <div className={s.x4}>
+          <div className={s.cloud}></div>
+        </div>
+
+        <div className={s.x5}>
           <div className={s.cloud}></div>
         </div>
       </div>

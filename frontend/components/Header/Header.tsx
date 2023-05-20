@@ -1,17 +1,24 @@
 import React, { FC, useEffect, useRef, useState } from "react";
 import s from "./Header.module.scss";
 import cn from "classnames";
+import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGlobe, faGraduationCap } from "@fortawesome/free-solid-svg-icons";
+
 import MyButton from "../MUI/MyButton/MyButton";
-import Link from "next/link";
+import BurgerMenu from "../BurgerMenu/BurgerMenu";
+
+interface HeaderProps {
+  menuActive: boolean;
+  setMenuActive: (active: boolean) => void;
+}
 
 interface Line {
   width: number;
   left: number;
 }
 
-const Header: FC = () => {
+const Header: FC<HeaderProps> = ({ menuActive, setMenuActive }) => {
   // Состояние - для header (для цвета)
   const [isHeaderActive, setIsHeaderActive] = useState<boolean>(false);
 
@@ -34,8 +41,11 @@ const Header: FC = () => {
   useEffect(() => {
     const handleScroll = (): void => {
       if (window.scrollY === 0) {
-        setIsHeaderActive(false);
+        if (!menuActive) {
+          setIsHeaderActive(false);
+        }
       }
+
       if (window.scrollY > 1) {
         setIsHeaderActive(!false);
         setNavColor(1);
@@ -44,6 +54,7 @@ const Header: FC = () => {
           left: blockRefFirst.current!.offsetLeft,
         });
       }
+
       if (window.scrollY >= 600) {
         setNavColor(2);
         setNavBarPosition({
@@ -51,6 +62,7 @@ const Header: FC = () => {
           left: blockRefSecond.current!.offsetLeft,
         });
       }
+
       if (window.scrollY >= 1100) {
         setNavColor(3);
         setNavBarPosition({
@@ -58,6 +70,7 @@ const Header: FC = () => {
           left: blockRefThree.current!.offsetLeft,
         });
       }
+
       if (window.scrollY >= 2600) {
         setNavColor(4);
         setNavBarPosition({
@@ -70,7 +83,7 @@ const Header: FC = () => {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [menuActive]);
 
   return (
     <header
@@ -143,6 +156,13 @@ const Header: FC = () => {
               <FontAwesomeIcon icon={faGlobe} />
             </button>
           </div>
+
+          <BurgerMenu
+            isHeaderActive={isHeaderActive}
+            setIsHeaderActive={setIsHeaderActive}
+            menuActive={menuActive}
+            setMenuActive={setMenuActive}
+          />
         </div>
       </div>
     </header>
