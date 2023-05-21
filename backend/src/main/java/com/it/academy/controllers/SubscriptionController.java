@@ -1,5 +1,6 @@
 package com.it.academy.controllers;
 
+import com.it.academy.dao.SubscriptionDao;
 import com.it.academy.dto.SubscriptionDto;
 import com.it.academy.mappers.SubscriptionMapper;
 import com.it.academy.services.SubscriptionService;
@@ -16,6 +17,7 @@ import java.util.List;
 public class SubscriptionController {
     private final SubscriptionService service;
     private final SubscriptionMapper mapper;
+    private final SubscriptionDao subscriptionDao;
 
     @GetMapping
     public ResponseEntity<List<SubscriptionDto>> getAllSubscriptions() {
@@ -27,6 +29,12 @@ public class SubscriptionController {
     public ResponseEntity<SubscriptionDto> getSubscriptionById(@PathVariable Long id) {
         SubscriptionDto dto = mapper.map(service.getById(id));
         return new ResponseEntity<>(dto, HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<SubscriptionDto>> getActiveSubscriptionsByUserId(Long userId) {
+        List<SubscriptionDto> subscriptions = mapper.map(subscriptionDao.getActiveSubscriptionsByUserId(userId));
+        return new ResponseEntity<>(subscriptions, HttpStatus.OK);
     }
 
     @PostMapping
