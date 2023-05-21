@@ -17,14 +17,15 @@ public class CommentDao {
     private final JdbcTemplate jdbcTemplate;
 
     public List<Comment> getCourseCommentsByAuthorId(Long authorId) {
-        String sql = "select * from comments join course_ cc on comments.id = cc.comments_id " +
-                "join courses c on c.id = cc.course_id where c.author_id = ?;";
+        String sql = "select * from reviews " +
+                "join courses on(reviews.course_id = courses.id) " +
+                "where author_id = ?";
         return jdbcTemplate.query(sql, new CommentRowMapper(), authorId);
     }
 
     public List<Comment> getCommentsByCourseId(Long courseId) {
-        String sql = "select * from comments join courses_comments cc on comments.id = cc.comments_id " +
-                "join courses on courses.id = cc.course_id where courses.id = ?;";
+        String sql = "select * from reviews " +
+                "where course_id = ?";
         return jdbcTemplate.query(sql, new CommentRowMapper(), courseId);
     }
 
