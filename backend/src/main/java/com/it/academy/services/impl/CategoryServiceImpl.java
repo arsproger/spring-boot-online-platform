@@ -38,8 +38,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Long update(Long id, Category updatedCategory) {
-        Category category = repo.findById(id).orElseThrow(
-                () -> new EntityNotFoundException("Category not found with id: " + id));
+        Category category = getById(id);
 
         category.setTitle(updatedCategory.getTitle());
 

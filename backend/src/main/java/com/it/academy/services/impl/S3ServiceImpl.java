@@ -4,15 +4,14 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.*;
 import com.amazonaws.util.IOUtils;
 import com.it.academy.models.S3;
-import com.it.academy.repositories.LessonRepository;
 import com.it.academy.repositories.S3Repository;
+import com.it.academy.services.LessonService;
 import com.it.academy.services.S3Service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import jakarta.persistence.EntityNotFoundException;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -30,7 +29,7 @@ public class S3ServiceImpl implements S3Service {
 
     private final AmazonS3 s3;
     private final S3Repository s3Repository;
-    private final LessonRepository lessonRepository;
+    private final LessonService lessonService;
 
     @Override
     public String saveFile(Long lessonId, MultipartFile file) {
@@ -43,8 +42,7 @@ public class S3ServiceImpl implements S3Service {
                 PutObjectResult putObjectResult = s3.putObject(bucketName, originalFilename, newFile);
 
                 S3 s3 = S3.builder()
-                        .lesson(lessonRepository.findById(lessonId).orElseThrow(
-                                () -> new EntityNotFoundException("Lesson not found with id: " + lessonId)))
+                        .lesson(lessonService.getById(lessonId))
                         .createDate(LocalDate.now())
                         .url(file.getOriginalFilename())
                         .size(file.getSize())

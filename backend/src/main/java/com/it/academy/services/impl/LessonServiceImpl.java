@@ -2,19 +2,19 @@ package com.it.academy.services.impl;
 
 import com.it.academy.models.Lesson;
 import com.it.academy.repositories.LessonRepository;
-import com.it.academy.repositories.SectionRepository;
 import com.it.academy.services.LessonService;
+import com.it.academy.services.SectionService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 
 @Service
 @AllArgsConstructor
 public class LessonServiceImpl implements LessonService {
     private final LessonRepository repo;
-    private final SectionRepository sectionRepository;
+    private final SectionService sectionService;
 
     @Override
     public Lesson getById(Long id) {
@@ -29,8 +29,7 @@ public class LessonServiceImpl implements LessonService {
 
     @Override
     public Long save(Long sectionId, Lesson lesson) {
-        lesson.setSection(sectionRepository.findById(sectionId).orElseThrow(
-                () -> new EntityNotFoundException("Section not found with id: " + sectionId)));
+        lesson.setSection(sectionService.getById(sectionId));
         return repo.save(lesson).getId();
     }
 
@@ -42,8 +41,7 @@ public class LessonServiceImpl implements LessonService {
 
     @Override
     public Long update(Long id, Lesson updatedLesson) {
-        Lesson lesson = repo.findById(id).orElseThrow(
-                () -> new EntityNotFoundException("Lesson not found with id: " + id));
+        Lesson lesson = getById(id);
 
         lesson.setTitle(updatedLesson.getTitle());
         lesson.setDescription(updatedLesson.getDescription());

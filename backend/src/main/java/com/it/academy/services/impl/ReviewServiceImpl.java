@@ -3,14 +3,14 @@ package com.it.academy.services.impl;
 import com.it.academy.models.Course;
 import com.it.academy.models.Review;
 import com.it.academy.models.User;
-import com.it.academy.repositories.CourseRepository;
 import com.it.academy.repositories.ReviewRepository;
-import com.it.academy.repositories.UserRepository;
+import com.it.academy.services.CourseService;
 import com.it.academy.services.ReviewService;
+import com.it.academy.services.UserService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import jakarta.persistence.EntityNotFoundException;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -18,8 +18,8 @@ import java.util.List;
 @AllArgsConstructor
 public class ReviewServiceImpl implements ReviewService {
     private final ReviewRepository repo;
-    private final UserRepository userRepository;
-    private final CourseRepository courseRepository;
+    private final UserService userService;
+    private final CourseService courseService;
 
     @Override
     public Review getById(Long id) {
@@ -34,10 +34,8 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public Long save(Long userId, Long courseId, Review review) {
-        Course course = courseRepository.findById(courseId).orElseThrow(
-                () -> new EntityNotFoundException("Course not found with id: " + courseId));
-        User user = userRepository.findById(userId).orElseThrow(
-                () -> new EntityNotFoundException("User not found with id: " + userId));
+        Course course = courseService.getById(courseId);
+        User user = userService.getById(userId);
 
         review.setDate(LocalDate.now());
         review.setCourse(course);
@@ -54,8 +52,7 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public Long update(Long id, Review updatedReview) {
-        Review review = repo.findById(id).orElseThrow(
-                () -> new EntityNotFoundException("Review not found with id: " + id));
+        Review review = getById(id);
 
         review.setTitle(updatedReview.getTitle());
         review.setDescription(updatedReview.getDescription());
