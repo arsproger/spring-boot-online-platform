@@ -3,6 +3,7 @@ package com.it.academy.controllers;
 import com.it.academy.dto.CategoryDto;
 import com.it.academy.mappers.CategoryMapper;
 import com.it.academy.services.CategoryService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/category")
 @AllArgsConstructor
+@Tag(name = "Контроллер для категорий к курсу")
 public class CategoryController {
     private final CategoryService service;
     private final CategoryMapper mapper;

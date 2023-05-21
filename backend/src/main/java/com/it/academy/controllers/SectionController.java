@@ -4,6 +4,8 @@ import com.it.academy.dao.SectionDao;
 import com.it.academy.dto.SectionDto;
 import com.it.academy.mappers.SectionMapper;
 import com.it.academy.services.SectionService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/section")
 @AllArgsConstructor
+@Tag(name = "Контроллер разделов курса")
 public class SectionController {
     private final SectionService service;
     private final SectionDao sectionDao;
@@ -52,6 +55,7 @@ public class SectionController {
     }
 
     @GetMapping("/course/{id}")
+    @Operation(summary = "Получение всех разделов определенного курса")
     public ResponseEntity<List<SectionDto>> getSectionByCourseId(@PathVariable("id") Long courseId) {
         List<SectionDto> sections = mapper.map(sectionDao.getSectionByCourseId(courseId));
         return new ResponseEntity<>(sections, HttpStatus.OK);

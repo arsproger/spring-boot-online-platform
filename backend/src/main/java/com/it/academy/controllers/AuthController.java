@@ -6,6 +6,8 @@ import com.it.academy.mappers.UserMapper;
 import com.it.academy.security.JWTUtil;
 import com.it.academy.services.UserService;
 import com.it.academy.util.UserValidator;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -23,6 +25,7 @@ import java.util.Objects;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/auth")
+@Tag(name = "Контроллер для регистрации и авторизации")
 public class AuthController {
     private final UserService userService;
     private final UserMapper userMapper;
@@ -31,6 +34,9 @@ public class AuthController {
     private final UserValidator userValidator;
 
     @PostMapping("/register")
+    @Operation(summary = "Регистрация пользователя",
+            description = "Если при регистрации email будет уже занят, " +
+                    "отработает валидация и отправит ответ с ключом message и его сообщением")
     public Map<String, String> registerUser(@RequestBody @Valid UserDto userDTO, BindingResult bindingResult) {
         userValidator.validate(userMapper.map(userDTO), bindingResult);
 
@@ -44,6 +50,9 @@ public class AuthController {
     }
 
     @PostMapping("/login")
+    @Operation(summary = "Авторизация пользователя",
+            description = "Если при авторизации данные будут неверными, " +
+                    "отработает отправится ответ с ключом message и его сообщением")
     public Map<String, String> performLogin(@RequestBody @Valid AuthenticationDto authenticationDTO) {
         UsernamePasswordAuthenticationToken authInputToken =
                 new UsernamePasswordAuthenticationToken(authenticationDTO.getUsername(),

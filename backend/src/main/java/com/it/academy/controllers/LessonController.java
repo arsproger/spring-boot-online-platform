@@ -4,6 +4,9 @@ import com.it.academy.dao.LessonDao;
 import com.it.academy.dto.LessonDto;
 import com.it.academy.mappers.LessonMapper;
 import com.it.academy.services.impl.LessonServiceImpl;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +17,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/lesson")
 @AllArgsConstructor
+@Tag(name = "Контроллер для уроков")
 public class LessonController {
     private final LessonServiceImpl service;
     private final LessonDao lessonDao;
@@ -50,9 +54,10 @@ public class LessonController {
     }
 
     @GetMapping("/filter/duration")
+    @Operation(summary = "Фильтрация уроков по их длительности")
     public ResponseEntity<List<LessonDto>> durationFilter(
-            @RequestParam Integer from,
-            @RequestParam Integer to) {
+            @RequestParam @Parameter(description = "Длительность от") Integer from,
+            @RequestParam @Parameter(description = "Длительность до") Integer to) {
         List<LessonDto> lessons = mapper.map(lessonDao.filterByDuration(from, to));
         return new ResponseEntity<>(lessons, HttpStatus.OK);
     }

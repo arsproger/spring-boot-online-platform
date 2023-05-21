@@ -3,6 +3,7 @@ package com.it.academy.controllers;
 import com.it.academy.dto.ArticleDto;
 import com.it.academy.mappers.ArticleMapper;
 import com.it.academy.services.ArticleService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/article")
 @AllArgsConstructor
+@Tag(name = "Контроллер для статей к урокам")
 public class ArticleController {
     private final ArticleService service;
     private final ArticleMapper mapper;

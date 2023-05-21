@@ -18,5 +18,6 @@ public class LoggingAspect {
         String className = joinPoint.getTarget().getClass().getSimpleName();
         logger.info("Executing method {} from class {}", methodName, className);
     }
+
 }
 
