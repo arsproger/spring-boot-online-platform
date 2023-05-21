@@ -1,6 +1,7 @@
 package com.it.academy.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.it.academy.enums.Provider;
 import com.it.academy.enums.Role;
 import com.it.academy.enums.UserStatus;
 import lombok.*;
@@ -37,6 +38,8 @@ public class User {
     private String resetToken;
     @Column(name = "reset_token_expire_time")
     private LocalDateTime resetTokenExpireTime;
+    @Enumerated(EnumType.STRING)
+    private Provider provider;
 
     @OneToMany(mappedBy = "user")
     private List<Subscription> subscriptions;

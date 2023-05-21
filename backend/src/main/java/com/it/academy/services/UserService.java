@@ -17,4 +17,7 @@ public interface UserService {
     Long updateById(Long id, User updatedUser);
 
     Optional<User> getByEmail(String email);
+
+    void processOAuthPostLogin(String username, String name, String registrationId);
+
 }

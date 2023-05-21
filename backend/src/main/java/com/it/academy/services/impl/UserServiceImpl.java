@@ -1,15 +1,16 @@
 package com.it.academy.services.impl;
 
+import com.it.academy.enums.Provider;
 import com.it.academy.enums.Role;
 import com.it.academy.enums.UserStatus;
 import com.it.academy.models.User;
 import com.it.academy.repositories.UserRepository;
 import com.it.academy.services.UserService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -62,6 +63,21 @@ public class UserServiceImpl implements UserService {
     @Override
     public Optional<User> getByEmail(String email) {
         return userRepository.findByEmail(email);
+    }
+
+    @Override
+    public void processOAuthPostLogin(String username, String name, String registrationId) {
+        if (userRepository.findByEmail(username).isEmpty()) {
+            User user = new User();
+            user.setRole(Role.ROLE_STUDENT);
+            user.setProvider(registrationId.equals("google")
+                    ? Provider.GOOGLE
+                    : Provider.GITHUB);
+            user.setName(name);
+            user.setEmail(username);
+
+            userRepository.save(user);
+        }
     }
 
 }
