@@ -38,6 +38,7 @@ public class UserServiceImpl implements UserService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setStatus(UserStatus.PENDING);
         user.setRole(Role.ROLE_STUDENT);
+        user.setProvider(Provider.LOCAL);
 
         return userRepository.save(user).getId();
     }
@@ -53,8 +54,7 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException("User not found with id: " + id));
 
-        user.setName(updatedUser.getName());
-        user.setSurname(updatedUser.getSurname());
+        user.setFullName(updatedUser.getFullName());
         user.setDateOfBirth(updatedUser.getDateOfBirth());
 
         return userRepository.save(user).getId();
@@ -73,8 +73,9 @@ public class UserServiceImpl implements UserService {
             user.setProvider(registrationId.equals("google")
                     ? Provider.GOOGLE
                     : Provider.GITHUB);
-            user.setName(name);
+            user.setFullName(name);
             user.setEmail(username);
+            user.setStatus(UserStatus.ACTIVE);
 
             userRepository.save(user);
         }

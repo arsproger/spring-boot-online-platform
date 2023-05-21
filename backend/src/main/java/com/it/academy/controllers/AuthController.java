@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
+import java.util.Objects;
 
 @RestController
 @AllArgsConstructor
@@ -34,7 +35,7 @@ public class AuthController {
         userValidator.validate(userMapper.map(userDTO), bindingResult);
 
         if (bindingResult.hasErrors())
-            return Map.of("message", bindingResult.getFieldErrors().toString());
+            return Map.of("message", Objects.requireNonNull(Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage()));
 
         userService.save(userMapper.map(userDTO));
 
