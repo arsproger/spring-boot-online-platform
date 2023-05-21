@@ -1,4 +1,4 @@
-@import "../../styles/varibales.scss";
+@import "../../styles/varibales.module.scss";
 
 .menu {
   width: 100vw;
@@ -31,7 +31,7 @@
       width: 100%;
       font-weight: 400;
       @include adaptive-value("font-size", 30, 15);
-      line-height: 130%;
+              line-height: 130%;
       color: #03d665;
       text-align: center;
       padding: 10px;
@@ -45,16 +45,13 @@
     .menu__list li a {
       font-weight: 400;
       @include adaptive-value("font-size", 18, 10);
-      line-height: 130%;
+              line-height: 130%;
     }
   }
 }
 
 .active {
   transform: translateX(0);
-}
-
-@media screen and (max-width: 768px) {
 }
 
 @media screen and (max-width: 425px) {

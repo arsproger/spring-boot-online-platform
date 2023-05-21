@@ -1,12 +1,12 @@
-@import "../../styles/varibales.scss";
+@import "../../styles/varibales.module.scss";
 
 .hero {
   height: 100vh;
   position: relative;
-  overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 
   .hero__title {
     width: 100%;
@@ -14,12 +14,12 @@
     z-index: 10;
 
     .hero__title_container {
-      max-width: 500px;
+      max-width: 600px;
       margin: 0 auto;
       h1 {
         font-weight: 700;
-        @include adaptive-value("font-size", 55, 20);
-        line-height: 130%;
+        @include adaptive-value("font-size", 55, 22);
+                line-height: 130%;
         color: #03d665;
         letter-spacing: 2px;
         text-align: center;
@@ -31,8 +31,8 @@
       margin: 0 auto;
       p {
         font-weight: 400;
-        @include adaptive-value("font-size", 20, 8);
-        line-height: 130%;
+        @include adaptive-value("font-size", 20, 10);
+                line-height: 130%;
         color: #7f7f7f;
         letter-spacing: 2px;
         text-align: center;
@@ -150,11 +150,3 @@
   }
 }
 
-@media screen and (max-width: 1024px) {
-}
-
-@media screen and (max-width: 768px) {
-}
-
-@media screen and (max-width: 425px) {
-}

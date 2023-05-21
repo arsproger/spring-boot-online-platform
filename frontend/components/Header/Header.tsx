@@ -3,14 +3,13 @@ import s from "./Header.module.scss";
 
 import cn from "classnames";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGlobe, faGraduationCap } from "@fortawesome/free-solid-svg-icons";
 
 import MyButton from "../MUI/MyButton/MyButton";
 import BurgerMenu from "../BurgerMenu/BurgerMenu";
 import MyModal from "../MUI/MyModal/MyModal";
-import { useRouter } from "next/router";
-import { log } from "console";
 
 interface HeaderProps {
   menuActive: boolean;
@@ -56,36 +55,36 @@ const Header: FC<HeaderProps> = ({ menuActive, setMenuActive }) => {
         }
       }
 
-      if (window.scrollY > 1) {
+      if (window.scrollY > 1 && blockRefFirst.current) {
         setIsHeaderActive(!false);
         setNavColor(1);
         setNavBarPosition({
-          width: blockRefFirst.current!.offsetWidth,
-          left: blockRefFirst.current!.offsetLeft,
+          width: blockRefFirst.current.offsetWidth,
+          left: blockRefFirst.current.offsetLeft,
         });
       }
 
-      if (window.scrollY >= 600) {
+      if (window.scrollY >= 600 && blockRefSecond.current) {
         setNavColor(2);
         setNavBarPosition({
-          width: blockRefSecond.current!.offsetWidth,
-          left: blockRefSecond.current!.offsetLeft,
+          width: blockRefSecond.current.offsetWidth,
+          left: blockRefSecond.current.offsetLeft,
         });
       }
 
-      if (window.scrollY >= 1100) {
+      if (window.scrollY >= 1200 && blockRefThree.current) {
         setNavColor(3);
         setNavBarPosition({
-          width: blockRefThree.current!.offsetWidth,
-          left: blockRefThree.current!.offsetLeft,
+          width: blockRefThree.current.offsetWidth,
+          left: blockRefThree.current.offsetLeft,
         });
       }
 
-      if (window.scrollY >= 2600) {
+      if (window.scrollY >= 1800 && blockRefFour.current) {
         setNavColor(4);
         setNavBarPosition({
-          width: blockRefFour.current!.offsetWidth,
-          left: blockRefFour.current!.offsetLeft,
+          width: blockRefFour.current.offsetWidth,
+          left: blockRefFour.current.offsetLeft,
         });
       }
     };
@@ -102,7 +101,7 @@ const Header: FC<HeaderProps> = ({ menuActive, setMenuActive }) => {
       <header
         className={isHeaderActive ? cn(s.header, s.headerActive) : s.header}
       >
-        <div className={s.header__content}>
+        <nav className={s.header__nav}>
           <Link href={"/"}>
             <FontAwesomeIcon
               icon={faGraduationCap}
@@ -110,71 +109,85 @@ const Header: FC<HeaderProps> = ({ menuActive, setMenuActive }) => {
             />
           </Link>
 
-          <nav className={s.header__nav}>
-            <ul className={s.header__list}>
-              <li ref={blockRefFirst}>
-                <a
-                  href="#"
-                  style={
-                    navColor === 1 ? { color: "#03d665" } : { color: "#322f55" }
-                  }
-                >
-                  Главная
-                </a>
-              </li>
-              <li ref={blockRefSecond}>
-                <a
-                  href="#categories"
-                  style={
-                    navColor === 2 ? { color: "#03d665" } : { color: "#322f55" }
-                  }
-                >
-                  Курсы
-                </a>
-              </li>
-              <li ref={blockRefThree}>
-                <a
-                  href="#recommendations"
-                  style={
-                    navColor === 3 ? { color: "#03d665" } : { color: "#322f55" }
-                  }
-                >
-                  Рекомендации
-                </a>
-              </li>
-              <li ref={blockRefFour}>
-                <a
-                  href="#contacts"
-                  style={
-                    navColor === 4 ? { color: "#03d665" } : { color: "#322f55" }
-                  }
-                >
-                  Контакты
-                </a>
-              </li>
-              <span
-                className={s.animateLine}
-                style={{
-                  left: navBarPosition.left,
-                  width: navBarPosition.width,
-                }}
-              ></span>
-            </ul>
-          </nav>
+          <ul className={s.header__list}>
+            <li ref={blockRefFirst}>
+              <a
+                href="#"
+                style={
+                  navColor === 1 ? { color: "#03d665" } : { color: "#322f55" }
+                }
+              >
+                Главная
+              </a>
+            </li>
+            <li ref={blockRefSecond}>
+              <a
+                href="#categories"
+                style={
+                  navColor === 2 ? { color: "#03d665" } : { color: "#322f55" }
+                }
+              >
+                Курсы
+              </a>
+            </li>
+            <li ref={blockRefThree}>
+              <a
+                href="#recommendations"
+                style={
+                  navColor === 3 ? { color: "#03d665" } : { color: "#322f55" }
+                }
+              >
+                Рекомендации
+              </a>
+            </li>
+            <li ref={blockRefFour}>
+              <a
+                href="#contacts"
+                style={
+                  navColor === 4 ? { color: "#03d665" } : { color: "#322f55" }
+                }
+              >
+                Контакты
+              </a>
+            </li>
+            <span
+              className={s.animateLine}
+              style={{
+                left: navBarPosition.left,
+                width: navBarPosition.width,
+              }}
+            ></span>
+          </ul>
 
           <div className={s.header__buttons}>
             {pathname === "/signUp/signUp" ? (
               <Link href="/signIn/signIn" className={s.header__signButton}>
-                <MyButton>Войти</MyButton>
+                <MyButton
+                  background="#03d665"
+                  hoverBackground="#7329c2"
+                  type="primary"
+                >
+                  Войти
+                </MyButton>
               </Link>
             ) : (
               <Link href="/signUp/signUp" className={s.header__signButton}>
-                <MyButton>Регистрация</MyButton>
+                <MyButton
+                  background="#03d665"
+                  hoverBackground="#7329c2"
+                  type="primary"
+                >
+                  Регистрация
+                </MyButton>
               </Link>
             )}
 
             <div className={s.header__languageButton}>
-              <MyButton onClick={() => setIsModalOpen(true)}>
+              <MyButton
+                background="#03d665"
+                hoverBackground="#7329c2"
+                onClick={() => setIsModalOpen(true)}
+              >
                 <FontAwesomeIcon icon={faGlobe} />
               </MyButton>
             </div>
@@ -186,7 +199,7 @@ const Header: FC<HeaderProps> = ({ menuActive, setMenuActive }) => {
               setMenuActive={setMenuActive}
             />
           </div>
-        </div>
+        </nav>
       </header>
     </>
   );
