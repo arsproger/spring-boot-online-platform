@@ -1,14 +1,14 @@
 package com.it.academy.services.impl;
 
 import com.it.academy.models.Subscription;
-import com.it.academy.repositories.CourseRepository;
 import com.it.academy.repositories.SubscriptionRepository;
-import com.it.academy.repositories.UserRepository;
+import com.it.academy.services.CourseService;
 import com.it.academy.services.SubscriptionService;
+import com.it.academy.services.UserService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import jakarta.persistence.EntityNotFoundException;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -16,8 +16,8 @@ import java.util.List;
 @AllArgsConstructor
 public class SubscriptionServiceImpl implements SubscriptionService {
     private final SubscriptionRepository repo;
-    private final UserRepository userRepository;
-    private final CourseRepository courseRepository;
+    private final UserService userService;
+    private final CourseService courseService;
 
     @Override
     public Subscription getById(Long id) {
@@ -34,8 +34,8 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     public Long save(Long userId, Long courseId) {
         Subscription subscription = Subscription.builder()
                 .dateStart(LocalDate.now())
-                .user(userRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException("User not found with id: " + userId)))
-                .course(courseRepository.findById(courseId).orElseThrow(() -> new EntityNotFoundException("Course not found with id: " + courseId)))
+                .user(userService.getById(userId))
+                .course(courseService.getById(courseId))
                 .build();
 
         return repo.save(subscription).getId();
@@ -49,8 +49,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
 
     @Override
     public Long update(Long id, Subscription updatedSubscription) {
-        Subscription subscription = repo.findById(id).orElseThrow(
-                () -> new EntityNotFoundException("Subscription not found with id: " + id));
+        Subscription subscription = getById(id);
 
         subscription.setDateStart(updatedSubscription.getDateStart());
 

@@ -38,8 +38,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public Long update(Long id, Article updatedArticle) {
-        Article article = repo.findById(id).orElseThrow(
-                () -> new EntityNotFoundException("Article not found with id: " + id));
+        Article article = getById(id);
 
         article.setText(updatedArticle.getText());
         article.setTitle(updatedArticle.getTitle());

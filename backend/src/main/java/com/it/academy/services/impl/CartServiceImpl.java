@@ -38,8 +38,7 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public Long update(Long id, Cart updatedCart) {
-        Cart cart = repo.findById(id).orElseThrow(
-                () -> new EntityNotFoundException("Cart not found with id: " + id));
+        Cart cart = getById(id);
 
         cart.setUser(updatedCart.getUser());
         cart.setCourses(updatedCart.getCourses());

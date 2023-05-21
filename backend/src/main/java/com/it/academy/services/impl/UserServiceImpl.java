@@ -18,17 +18,17 @@ import java.util.UUID;
 @Service
 @AllArgsConstructor
 public class UserServiceImpl implements UserService {
-    private final UserRepository userRepository;
+    private final UserRepository repo;
     private final PasswordEncoder passwordEncoder;
 
     @Override
     public List<User> getAll() {
-        return userRepository.findAll();
+        return repo.findAll();
     }
 
     @Override
     public User getById(Long id) {
-        return userRepository.findById(id).orElseThrow(
+        return repo.findById(id).orElseThrow(
                 () -> new EntityNotFoundException("User not found with id: " + id));
     }
 
@@ -40,14 +40,14 @@ public class UserServiceImpl implements UserService {
         user.setRole(Role.ROLE_STUDENT);
         user.setProvider(Provider.LOCAL);
 
-        return userRepository.save(user).getId();
+        return repo.save(user).getId();
     }
 
     @Override
     public Long deleteById(Long id) {
         User user = getById(id);
         user.setStatus(UserStatus.DELETED);
-        return userRepository.save(user).getId();
+        return repo.save(user).getId();
     }
 
     @Override
@@ -57,17 +57,17 @@ public class UserServiceImpl implements UserService {
         user.setFullName(updatedUser.getFullName());
         user.setDateOfBirth(updatedUser.getDateOfBirth());
 
-        return userRepository.save(user).getId();
+        return repo.save(user).getId();
     }
 
     @Override
     public Optional<User> getByEmail(String email) {
-        return userRepository.findByEmail(email);
+        return repo.findByEmail(email);
     }
 
     @Override
     public void processOAuthPostLogin(String username, String name, String registrationId) {
-        if (userRepository.findByEmail(username).isEmpty()) {
+        if (repo.findByEmail(username).isEmpty()) {
             User user = new User();
             user.setRole(Role.ROLE_STUDENT);
             user.setProvider(registrationId.equals("google")
@@ -77,7 +77,7 @@ public class UserServiceImpl implements UserService {
             user.setEmail(username);
             user.setStatus(UserStatus.ACTIVE);
 
-            userRepository.save(user);
+            repo.save(user);
         }
     }
 
