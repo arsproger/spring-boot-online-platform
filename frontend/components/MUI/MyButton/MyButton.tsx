@@ -1,17 +1,65 @@
-import React, { FC, ReactNode } from "react";
+import React, { FC, ReactNode, useRef } from "react";
+import Button, { ButtonProps } from "antd/lib/button";
 import s from "./MyButton.module.scss";
 
-import { Button } from "antd";
-
-interface MyButtonProps {
+interface MyButtonProps extends ButtonProps {
   children: ReactNode;
-  onClick?: () => void;
+  background?: string;
+  hoverBackground?: string;
 }
 
-const MyButton: FC<MyButtonProps> = ({ children, onClick, ...props }) => (
-  <Button className={s.myButton} onClick={onClick} {...props} type="primary">
-    {children}
-  </Button>
-);
+const MyButton: FC<MyButtonProps> = ({
+  children,
+  background,
+  hoverBackground,
+  type,
+  icon,
+  loading,
+  onClick,
+  ...props
+}) => {
+  // С помощью useRef получаем элемента
+  const spanElement = useRef<HTMLSpanElement>(null);
+
+  // Функция - при входе курсора
+  const handleMouseEnter = () => {
+    if (spanElement.current) {
+      spanElement.current.style.height = "100%";
+      spanElement.current.style.top = "auto";
+      spanElement.current.style.bottom = "0";
+    }
+  };
+
+  // Функция - при выходе курсора
+  const handleMouseLeave = () => {
+    if (spanElement.current) {
+      spanElement.current.style.height = "0";
+      spanElement.current.style.top = "0";
+    }
+  };
+
+  return (
+    <Button
+      className={s.myButton}
+      style={{ background }}
+      type={type}
+      htmlType="submit"
+      icon={icon}
+      loading={loading}
+      onClick={onClick}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      {...props}
+    >
+      {children}
+
+      <span
+        className={s.myButton__hover}
+        style={{ background: hoverBackground }}
+        ref={spanElement}
+      ></span>
+    </Button>
+  );
+};
 
 export default MyButton;

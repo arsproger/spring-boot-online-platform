@@ -13,7 +13,7 @@ const Layout: FC<PropsWithChildren> = ({ children }) => {
       <Header menuActive={menuActive} setMenuActive={setMenuActive}/>
       <Menu menuActive={menuActive} setMenuActive={setMenuActive}/>
       {children}
-      {/* <Footer /> */}
+      <Footer />
     </>
   );
 };

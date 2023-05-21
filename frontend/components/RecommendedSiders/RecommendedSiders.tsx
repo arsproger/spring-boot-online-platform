@@ -1,23 +1,28 @@
 import React, { FC } from "react";
+import s from "./RecommendedSiders.module.scss";
 
+import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination, Autoplay, Keyboard } from "swiper";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 
-import { Navigation, Pagination, Autoplay, Keyboard } from "swiper";
 import MyButton from "../MUI/MyButton/MyButton";
+import slideFirst from "../../public/slideFirst.jpg";
+import slideSecond from "../../public/slideSecond.png";
 
 const RecommendedSiders: FC = () => {
   return (
     <Swiper
+      speed={2500}
+      autoplay={{
+        delay: 2500,
+        disableOnInteraction: false,
+      }}
       navigation={true}
       pagination={{
         clickable: true,
-      }}
-      autoplay={{
-        delay: 5000,
-        disableOnInteraction: false,
       }}
       keyboard={{
         enabled: true,
@@ -29,8 +34,8 @@ const RecommendedSiders: FC = () => {
       id="recommendations"
     >
       <SwiperSlide>
-        <div className="mySwiper__content">
-          <div className="mySwiper__info">
+        <div className={s.mySwiper__content}>
+          <div className={s.mySwiper__info}>
             <h1>
               <span>Курс</span> Java
             </h1>
@@ -42,12 +47,13 @@ const RecommendedSiders: FC = () => {
             </p>
             <MyButton>Перейти</MyButton>
           </div>
-          <img src="./slideFirst.jpg" alt="Slide image" />
+          <Image src={slideFirst} alt="Slide image" />
         </div>
       </SwiperSlide>
+
       <SwiperSlide>
-        <div className="mySwiper__content">
-          <div className="mySwiper__info">
+        <div className={s.mySwiper__content}>
+          <div className={s.mySwiper__info}>
             <h1>
               <span>Курс</span> Java
             </h1>
@@ -57,13 +63,15 @@ const RecommendedSiders: FC = () => {
               id. Magnam dignissimos aut, officiis obcaecati voluptas aspernatur
               impedit ullam voluptates ab.
             </p>
+            <MyButton>Перейти</MyButton>
           </div>
-          <img src="./slideSecond.png" alt="Slide image" />
+          <Image src={slideSecond} alt="Slide image" />
         </div>
       </SwiperSlide>
+
       <SwiperSlide>
-        <div className="mySwiper__content">
-          <div className="mySwiper__info">
+        <div className={s.mySwiper__content}>
+          <div className={s.mySwiper__info}>
             <h1>
               <span>Курс</span> Java
             </h1>
@@ -73,13 +81,15 @@ const RecommendedSiders: FC = () => {
               id. Magnam dignissimos aut, officiis obcaecati voluptas aspernatur
               impedit ullam voluptates ab.
             </p>
+            <MyButton>Перейти</MyButton>
           </div>
-          <img src="./slideFirst.jpg" alt="Slide image" />
+          <Image src={slideFirst} alt="Slide image" />
         </div>
       </SwiperSlide>
+
       <SwiperSlide>
-        <div className="mySwiper__content">
-          <div className="mySwiper__info">
+        <div className={s.mySwiper__content}>
+          <div className={s.mySwiper__info}>
             <h1>
               <span>Курс</span> Java
             </h1>
@@ -89,8 +99,9 @@ const RecommendedSiders: FC = () => {
               id. Magnam dignissimos aut, officiis obcaecati voluptas aspernatur
               impedit ullam voluptates ab.
             </p>
+            <MyButton>Перейти</MyButton>
           </div>
-          <img src="./slideSecond.png" alt="Slide image" />
+          <Image src={slideSecond} alt="Slide image" />
         </div>
       </SwiperSlide>
     </Swiper>
