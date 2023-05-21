@@ -31,12 +31,6 @@ public class UserController {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-    @PostMapping
-    public ResponseEntity<Long> createUser(@RequestBody UserDto user) {
-        Long id = userService.save(mapper.map(user));
-        return new ResponseEntity<>(id, HttpStatus.CREATED);
-    }
-
     @DeleteMapping("/{id}")
     public ResponseEntity<Long> deleteUserById(@PathVariable Long id) {
         Long deletedId = userService.deleteById(id);

@@ -33,9 +33,11 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf().disable()
-//                .cors()
-//                .and()
-                .authorizeRequests()
+                .cors()
+                .and()
+                .authorizeHttpRequests()
+                .requestMatchers("/auth").anonymous()
+                .requestMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().permitAll()
 //                .antMatchers("/auth/**").anonymous()
 //                .antMatchers("/swagger-ui/**").permitAll()
