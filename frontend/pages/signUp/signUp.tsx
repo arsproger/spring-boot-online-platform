@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import s from "./signUp.module.scss";
 
-import { Form, Input, Button } from "antd";
+import { Form, Input } from "antd";
 import {
   UserOutlined,
   LockOutlined,
@@ -9,6 +9,9 @@ import {
   GoogleOutlined,
   GithubOutlined,
 } from "@ant-design/icons";
+
+import MyButton from "../../components/MUI/MyButton/MyButton";
+import { GoogleLogin } from "@react-oauth/google";
 
 const SignUp: React.FC = () => {
   const [loading, setLoading] = useState(false);
@@ -19,7 +22,7 @@ const SignUp: React.FC = () => {
 
   return (
     <div className={s.signUp}>
-      <h1>Sign Up</h1>
+      <h1>Register</h1>
       <Form name="sign-up-form" onFinish={onFinish}>
         <Form.Item
           name="name"
@@ -90,18 +93,19 @@ const SignUp: React.FC = () => {
         </Form.Item>
 
         <Form.Item>
-          <Button type="primary" htmlType="submit" loading={loading}>
-            Sign Up
-          </Button>
+          <MyButton loading={loading}>Sign Up</MyButton>
         </Form.Item>
 
-        <Button type="primary" icon={<GoogleOutlined />}>
-          Google
-        </Button>
-
-        <Button type="primary" icon={<GithubOutlined />}>
-          GitHub
-        </Button>
+        <Form.Item>
+          <GoogleLogin
+            onSuccess={(credentialResponse) => {
+              console.log(credentialResponse);
+            }}
+            onError={() => {
+              console.log("Login Failed");
+            }}
+          />
+        </Form.Item>
       </Form>
     </div>
   );

@@ -1,4 +1,4 @@
-@import "../../styles/varibales.scss";
+@import "../../styles/varibales.module.scss";
 
 @property --num {
   syntax: "<integer>";
@@ -8,44 +8,48 @@
 
 .statistics {
   max-width: 1440px;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  padding: 0 5%;
+  padding: 10% 5% 5%;
   box-sizing: border-box;
   margin: 0 auto;
 
-  .statistics__item {
-    text-align: center;
+  .statisticsSlider {
+    @include adaptive-value("height", 220, 150);
 
-    .__num {
-      font-weight: 400;
-      @include adaptive-value("font-size", 58, 15);
-      line-height: 130%;
-      animation-fill-mode: forwards;
-      counter-reset: num var(--num);
-      color: #03d665;
+    .statistics__item {
+      max-width: 300px;
+      width: 100%;
+      text-align: center;
+      margin: 0 auto;
 
-      &::before {
-        content: counter(num);
+      .__num {
+        font-weight: 400;
+        @include adaptive-value("font-size", 58, 30);
+        line-height: 130%;
+        animation-fill-mode: forwards;
+        counter-reset: num var(--num);
+        color: #03d665;
+
+        &::before {
+          content: counter(num);
+        }
+
+        &::after {
+          content: "+";
+        }
       }
 
-      &::after {
-        content: "+";
+      .__num1 {
+        animation: counter-to-20 2s alternate ease-in-out;
+        animation-fill-mode: forwards;
       }
-    }
 
-    .__num1 {
-      animation: counter-to-20 2s alternate ease-in-out;
-      animation-fill-mode: forwards;
-    }
-
-    p {
-      font-weight: 400;
-      @include adaptive-value("font-size", 15, 8);
-      line-height: 130%;
-      color: #7f7f7f;
-      letter-spacing: 1px;
+      p {
+        font-weight: 400;
+        @include adaptive-value("font-size", 15, 10);
+        line-height: 130%;
+        color: #7f7f7f;
+        letter-spacing: 1px;
+      }
     }
   }
 }

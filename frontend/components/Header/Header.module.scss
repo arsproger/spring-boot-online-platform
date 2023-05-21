@@ -1,4 +1,4 @@
-@import "../../styles/varibales.scss";
+@import "../../styles/varibales.module.scss";
 
 .header {
   width: 100%;
@@ -7,7 +7,7 @@
   top: 5%;
   transition: 0.3s;
 
-  .header__content {
+  .header__nav {
     max-width: 74vw;
     position: relative;
     display: flex;
@@ -23,11 +23,10 @@
     transition: 1s;
 
     .header__logo {
-      @include adaptive-value("width", 60, 30);
+      @include adaptive-value("font-size", 50, 30);
       color: #7329c2;
     }
 
-    .header__nav {
       .header__list {
         position: relative;
         display: flex;
@@ -50,7 +49,7 @@
           transition: 0.3s;
         }
       }
-    }
+    
 
     .header__buttons {
       display: flex;
@@ -60,17 +59,17 @@
       .header__signButton {
         button {
           @include adaptive-value("height", 32, 20);
-          background: #7329c2;
+          // background: #7329c2;
         }
       }
 
       .header__languageButton {
         button {
           @include adaptive-value("height", 32, 20);
-          background: #7329c2;
+          // background: #7329c2;
 
           svg {
-            @include adaptive-value("height", 20, 10);
+            @include adaptive-value("font-size", 20, 10);
             color: #ffffff;
           }
         }
@@ -85,7 +84,7 @@
   box-shadow: 0 8px 40px -5px rgba(9, 31, 67, 0.1);
   transition: 0.7s;
 
-  .header__content {
+  .header__nav {
     max-width: 1440px;
     border-radius: 0;
     box-shadow: none;
@@ -95,23 +94,21 @@
 
 @media screen and (max-width: 1024px) {
   .header {
-    .header__content {
-      .header__nav {
+    .header__nav {
         .header__list {
           .animateLine {
             height: 3px;
             bottom: -10px;
           }
         }
-      }
     }
   }
 }
 
 @media screen and (max-width: 768px) {
   .header {
-    .header__content {
-      .header__nav {
+    .header__nav {
+      .header__list {
         display: none;
       }
     }
