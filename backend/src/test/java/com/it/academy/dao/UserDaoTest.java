@@ -30,10 +30,10 @@ public class UserDaoTest {
         // Mocking the query results
         List<User> expectedUsers = new ArrayList<>();
         User user1 = User.builder()
-                .name("Arsen")
+                .fullName("Arsen")
                 .build();
         User user2 = User.builder()
-                .name("Bob")
+                .fullName("Bob")
                 .build();
         expectedUsers.add(user1);
         expectedUsers.add(user2);
