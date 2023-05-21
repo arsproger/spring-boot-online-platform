@@ -44,4 +44,9 @@ public class CourseDao {
                 Course.class, categoryId);
     }
 
+    public List<Course> getCourseByName(String name) {
+        return jdbcTemplate.queryForList("SELECT * FROM courses WHERE name = ?",
+                Course.class, name);
+    }
+
 }

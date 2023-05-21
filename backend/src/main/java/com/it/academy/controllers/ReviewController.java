@@ -31,14 +31,14 @@ public class ReviewController {
         return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 
-    @GetMapping
-    public ResponseEntity<List<ReviewDto>> getCourseCommentsByAuthorId(Long authorId) {
+    @GetMapping("/author/{id}")
+    public ResponseEntity<List<ReviewDto>> getCourseCommentsByAuthorId(@PathVariable("id") Long authorId) {
         List<ReviewDto> reviews = mapper.map(reviewDao.getCourseCommentsByAuthorId(authorId));
         return new ResponseEntity<>(reviews, HttpStatus.OK);
     }
 
-    @GetMapping
-    public ResponseEntity<List<ReviewDto>> getCommentsByCourseId(Long courseId) {
+    @GetMapping("/course/{id}")
+    public ResponseEntity<List<ReviewDto>> getCommentsByCourseId(@PathVariable("id") Long courseId) {
         List<ReviewDto> reviews = mapper.map(reviewDao.getCommentsByCourseId(courseId));
         return new ResponseEntity<>(reviews, HttpStatus.OK);
     }

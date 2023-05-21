@@ -21,9 +21,6 @@ public class Subscription {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateStart;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate dateFinish;
-
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;

@@ -31,8 +31,8 @@ public class SubscriptionController {
         return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 
-    @GetMapping
-    public ResponseEntity<List<SubscriptionDto>> getActiveSubscriptionsByUserId(Long userId) {
+    @GetMapping("/user/{id}")
+    public ResponseEntity<List<SubscriptionDto>> getActiveSubscriptionsByUserId(@PathVariable("id") Long userId) {
         List<SubscriptionDto> subscriptions = mapper.map(subscriptionDao.getActiveSubscriptionsByUserId(userId));
         return new ResponseEntity<>(subscriptions, HttpStatus.OK);
     }

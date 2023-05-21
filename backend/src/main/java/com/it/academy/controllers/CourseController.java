@@ -3,6 +3,7 @@ package com.it.academy.controllers;
 import com.it.academy.dao.CourseDao;
 import com.it.academy.dto.CourseDto;
 import com.it.academy.mappers.CourseMapper;
+import com.it.academy.models.Course;
 import com.it.academy.services.CourseService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -76,6 +77,12 @@ public class CourseController {
     @GetMapping("/category/{id}")
     public ResponseEntity<List<CourseDto>> getCourseByCategoryId(@PathVariable("id") Long categoryId) {
         List<CourseDto> courses = mapper.map(courseDao.getCourseByCategoryId(categoryId));
+        return new ResponseEntity<>(courses, HttpStatus.OK);
+    }
+
+    @GetMapping("name/{name}")
+    public ResponseEntity<List<CourseDto>> getCourseByName(@PathVariable String name) {
+        List<CourseDto> courses = mapper.map(courseDao.getCourseByName(name));
         return new ResponseEntity<>(courses, HttpStatus.OK);
     }
 

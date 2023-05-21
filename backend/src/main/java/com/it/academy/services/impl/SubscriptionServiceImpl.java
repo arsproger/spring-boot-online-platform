@@ -52,7 +52,6 @@ public class SubscriptionServiceImpl implements SubscriptionService {
         Subscription subscription = repo.findById(id).orElseThrow(
                 () -> new EntityNotFoundException("Subscription not found with id: " + id));
 
-        subscription.setDateFinish(updatedSubscription.getDateFinish());
         subscription.setDateStart(updatedSubscription.getDateStart());
 
         return repo.save(subscription).getId();

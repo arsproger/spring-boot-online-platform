@@ -13,9 +13,8 @@ public class SubscriptionDao {
     private final JdbcTemplate jdbcTemplate;
 
     public List<Subscription> getActiveSubscriptionsByUserId(Long userId) {
-        String sql = "SELECT * FROM subscriptions WHERE date_finish >= CURRENT_DATE OR date_finish IS NULL AND user_id = ?";
+        String sql = "SELECT * FROM subscriptions WHERE user_id = ?";
         return jdbcTemplate.queryForList(sql, Subscription.class, userId);
     }
-
 
 }
