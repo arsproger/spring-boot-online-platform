@@ -45,14 +45,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Long deleteById(Long id) {
-        userRepository.deleteById(id);
-        return id;
+        User user = getById(id);
+        user.setStatus(UserStatus.DELETED);
+        return userRepository.save(user).getId();
     }
 
     @Override
     public Long updateById(Long id, User updatedUser) {
-        User user = userRepository.findById(id).orElseThrow(
-                () -> new EntityNotFoundException("User not found with id: " + id));
+        User user = getById(id);
 
         user.setFullName(updatedUser.getFullName());
         user.setDateOfBirth(updatedUser.getDateOfBirth());
