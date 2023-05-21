@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class S3ServiceImpl implements S3Service {
 
-    @Value("${bucketName}")
+    @Value("${aws-s3-bucketName}")
     private String bucketName;
 
     private final AmazonS3 s3;

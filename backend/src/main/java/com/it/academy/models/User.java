@@ -22,8 +22,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
-    private String surname;
+    private String fullName;
     @Column(name = "date_of_birth")
     private LocalDate dateOfBirth;
     private String email;
