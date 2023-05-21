@@ -52,7 +52,7 @@ public class AuthController {
     @PostMapping("/login")
     @Operation(summary = "Авторизация пользователя",
             description = "Если при авторизации данные будут неверными, " +
-                    "отработает отправится ответ с ключом message и его сообщением")
+                    "отправится ответ с ключом message и его сообщением")
     public Map<String, String> performLogin(@RequestBody @Valid AuthenticationDto authenticationDTO) {
         UsernamePasswordAuthenticationToken authInputToken =
                 new UsernamePasswordAuthenticationToken(authenticationDTO.getUsername(),
