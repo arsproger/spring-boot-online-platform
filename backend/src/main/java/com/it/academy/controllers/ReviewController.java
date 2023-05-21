@@ -1,5 +1,6 @@
 package com.it.academy.controllers;
 
+import com.it.academy.dao.ReviewDao;
 import com.it.academy.dto.ReviewDto;
 import com.it.academy.mappers.ReviewMapper;
 import com.it.academy.services.ReviewService;
@@ -16,6 +17,7 @@ import java.util.List;
 public class ReviewController {
     private final ReviewService service;
     private final ReviewMapper mapper;
+    private final ReviewDao reviewDao;
 
     @GetMapping
     public ResponseEntity<List<ReviewDto>> getAllReviews() {
@@ -27,6 +29,18 @@ public class ReviewController {
     public ResponseEntity<ReviewDto> getReviewById(@PathVariable Long id) {
         ReviewDto dto = mapper.map(service.getById(id));
         return new ResponseEntity<>(dto, HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<ReviewDto>> getCourseCommentsByAuthorId(Long authorId) {
+        List<ReviewDto> reviews = mapper.map(reviewDao.getCourseCommentsByAuthorId(authorId));
+        return new ResponseEntity<>(reviews, HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<ReviewDto>> getCommentsByCourseId(Long courseId) {
+        List<ReviewDto> reviews = mapper.map(reviewDao.getCommentsByCourseId(courseId));
+        return new ResponseEntity<>(reviews, HttpStatus.OK);
     }
 
     @PostMapping
