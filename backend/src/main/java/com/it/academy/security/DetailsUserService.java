@@ -12,17 +12,13 @@ import java.util.Optional;
 
 @Component
 public class DetailsUserService implements UserDetailsService {
-    private final UserRepository userRepository;
-
     @Autowired
-    public DetailsUserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    private UserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<User> user = userRepository.findByEmail(username);
-        if(user.isEmpty())
+        if (user.isEmpty())
             throw new UsernameNotFoundException("Пользователь не найден!");
 
         return new DetailsUser(user.get());

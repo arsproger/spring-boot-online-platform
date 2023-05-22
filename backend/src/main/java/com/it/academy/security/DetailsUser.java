@@ -1,4 +1,5 @@
 package com.it.academy.security;
+
 import com.it.academy.models.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

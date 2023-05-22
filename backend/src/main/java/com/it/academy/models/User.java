@@ -1,11 +1,12 @@
 package com.it.academy.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.it.academy.enums.Provider;
 import com.it.academy.enums.Role;
 import com.it.academy.enums.UserStatus;
 import lombok.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -21,8 +22,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
-    private String surname;
+    private String fullName;
     @Column(name = "date_of_birth")
     private LocalDate dateOfBirth;
     private String email;
@@ -37,6 +37,8 @@ public class User {
     private String resetToken;
     @Column(name = "reset_token_expire_time")
     private LocalDateTime resetTokenExpireTime;
+    @Enumerated(EnumType.STRING)
+    private Provider provider;
 
     @OneToMany(mappedBy = "user")
     private List<Subscription> subscriptions;

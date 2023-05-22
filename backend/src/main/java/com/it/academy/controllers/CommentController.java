@@ -2,10 +2,14 @@ package com.it.academy.controllers;
 
 import com.it.academy.dto.CommentDto;
 import com.it.academy.mappers.CommentMapper;
+import com.it.academy.security.DetailsUser;
 import com.it.academy.services.CommentService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,6 +17,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/comment")
 @AllArgsConstructor
+@Tag(name = "Контроллер комментариев в урокам")
 public class CommentController {
     private final CommentService service;
     private final CommentMapper mapper;
@@ -30,11 +35,13 @@ public class CommentController {
     }
 
     @PostMapping
+    @Operation(summary = "Создание комментария к уроку",
+            description = "Автором комментария будет назначен текущий пользователь")
     public ResponseEntity<Long> createComment(
-            @RequestParam Long userId,
+            @AuthenticationPrincipal DetailsUser detailsUser,
             @RequestParam Long lessonId,
             @RequestBody CommentDto dto) {
-        Long id = service.save(userId, lessonId, mapper.map(dto));
+        Long id = service.save(detailsUser.getUser().getId(), lessonId, mapper.map(dto));
         return new ResponseEntity<>(id, HttpStatus.CREATED);
     }
 
@@ -49,5 +56,6 @@ public class CommentController {
         Long updatedId = service.update(id, mapper.map(dto));
         return new ResponseEntity<>(updatedId, HttpStatus.OK);
     }
+
 
 }

@@ -6,7 +6,7 @@ import com.it.academy.services.CartService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 
 @Service
@@ -38,8 +38,7 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public Long update(Long id, Cart updatedCart) {
-        Cart cart = repo.findById(id).orElseThrow(
-                () -> new EntityNotFoundException("Cart not found with id: " + id));
+        Cart cart = getById(id);
 
         cart.setUser(updatedCart.getUser());
         cart.setCourses(updatedCart.getCourses());

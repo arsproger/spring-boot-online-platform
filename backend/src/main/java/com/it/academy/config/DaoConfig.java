@@ -15,7 +15,7 @@ import java.util.Objects;
 @PropertySource("classpath:application.properties")
 @AllArgsConstructor
 public class DaoConfig {
-    private Environment environment;
+    private final Environment environment;
 
     @Bean
     public DataSource dataSource() {

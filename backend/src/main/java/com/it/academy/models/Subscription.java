@@ -1,16 +1,18 @@
 package com.it.academy.models;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "subscriptions")
 @Setter
 @Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Subscription {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,9 +20,6 @@ public class Subscription {
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateStart;
-
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate dateFinish;
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
