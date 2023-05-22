@@ -17,7 +17,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/comment")
 @AllArgsConstructor
-@Tag(name = "Контроллер комментариев в урокам")
+@Tag(name = "Контроллер комментариев к урокам")
 public class CommentController {
     private final CommentService service;
     private final CommentMapper mapper;

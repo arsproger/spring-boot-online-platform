@@ -19,6 +19,7 @@ target/
 *.iml
 *.ipr
 .mvn
+*.log
 target
 /backend/uploads/
 backend/src/main/resources/application.yml

@@ -40,7 +40,7 @@ public class SecurityConfig {
                 .cors()
                 .and()
                 .authorizeHttpRequests()
-                .requestMatchers("/auth", "/oauth/**").anonymous()
+                .requestMatchers("/auth/**", "/oauth/**").anonymous()
                 .requestMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().permitAll()
                 .and()
