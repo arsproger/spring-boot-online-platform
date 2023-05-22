@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService {
     public Long save(User user) {
         user.setActivationToken(UUID.randomUUID().toString());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setStatus(UserStatus.PENDING);
+        user.setStatus(UserStatus.ACTIVE);
         user.setRole(Role.ROLE_STUDENT);
         user.setProvider(Provider.LOCAL);
 
@@ -63,6 +63,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public Optional<User> getByEmail(String email) {
         return repo.findByEmail(email);
+    }
+
+    @Override
+    public Optional<User> getByResetToken(String resetToken) {
+        return repo.findByResetToken(resetToken);
     }
 
     @Override

@@ -18,6 +18,8 @@ public interface UserService {
 
     Optional<User> getByEmail(String email);
 
+    Optional<User> getByResetToken(String resetToken);
+
     void processOAuthPostLogin(String username, String name, String registrationId);
 
 }
