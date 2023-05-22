@@ -10,6 +10,6 @@ import javax.validation.constraints.Size;
 @Getter
 public class CategoryDto {
     @NotBlank(message = "Title cannot be empty")
-    @Size(max = 100, message = "Title must have a maximum of {max} characters")
+    @Size(max = 155, message = "Title must have a maximum of 155 characters")
     private String title;
 }

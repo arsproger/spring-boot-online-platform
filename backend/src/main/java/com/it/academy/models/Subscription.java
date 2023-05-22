@@ -6,6 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Entity
@@ -18,17 +19,17 @@ public class Subscription {
     private Long id;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @NotEmpty(message = "Cannot be empty")
+    @NotNull
     private LocalDate creationDate;
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    @NotEmpty(message = "Cannot be empty")
+    @NotNull
     private User user;
 
     @ManyToOne
     @JoinColumn(name = "course_id", referencedColumnName = "id")
-    @NotEmpty(message = "Cannot be empty")
+    @NotNull
     private Course course;
 
 }

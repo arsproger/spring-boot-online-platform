@@ -62,7 +62,7 @@ public class User {
     private List<Subscription> subscriptions;
 
     @OneToOne
-    @NotEmpty(message = "Cannot be empty")
+    //@NotEmpty(message = "Cannot be empty")
     private Cart cart;
 
     @OneToMany(mappedBy = "author")

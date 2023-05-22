@@ -12,39 +12,39 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class CartServiceImpl implements CartService {
-    private final CartRepository repo;
+    private final CartRepository cartRepository;
 
     @Override
     public Cart getById(Long id) {
-        return repo.findById(id).orElseThrow(
+        return cartRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException("Cart not found with id: " + id));
     }
 
     @Override
     public List<Cart> getAll() {
-        return repo.findAll();
+        return cartRepository.findAll();
     }
 
     @Override
     public Long save(Cart cart) {
-        return repo.save(cart).getId();
+        return cartRepository.save(cart).getId();
     }
 
     @Override
     public Long deleteById(Long id) {
-        repo.deleteById(id);
+        cartRepository.deleteById(id);
         return id;
     }
 
     @Override
     public Long update(Long id, Cart updatedCart) {
-        Cart cart = repo.findById(id).orElseThrow(
+        Cart cart = cartRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException("Cart not found with id: " + id));
 
         cart.setUser(updatedCart.getUser());
         cart.setCourses(updatedCart.getCourses());
 
-        return repo.save(cart).getId();
+        return cartRepository.save(cart).getId();
     }
 
 }

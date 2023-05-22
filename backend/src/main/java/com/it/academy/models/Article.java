@@ -1,10 +1,11 @@
 package com.it.academy.models;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
 
@@ -12,22 +13,23 @@ import java.util.List;
 @Table(name = "articles")
 @Setter
 @Getter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Article {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "Title cannot be empty")
-    @Size(max = 100, message = "Title must have a maximum of {max} characters")
+    @NotNull
+    @Size(min = 1, max = 155)
     private String title;
 
-    @NotBlank(message = "Text cannot be empty")
+    @NotNull
     private String text;
 
     @ManyToOne
     @JoinColumn(name = "lesson_id", referencedColumnName = "id")
+    @NotNull
     private Lesson lesson;
-
-    @OneToMany
-    private List<Comment> comments;
 }

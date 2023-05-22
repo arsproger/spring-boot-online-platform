@@ -20,7 +20,6 @@ public class UserDto {
     @Size(max = 100, message = "Surname must have a maximum of {max} characters")
     private String surname;
 
-    @Column(name = "date_of_birth")
     private LocalDate dateOfBirth;
 
     @Email(message = "Invalid email address")

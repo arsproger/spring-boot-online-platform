@@ -1,5 +1,6 @@
 package com.it.academy.validation;
 
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import javax.validation.ConstraintViolation;
@@ -11,6 +12,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Component
+@AllArgsConstructor
 public class ObjectValidator<T> {
     private final ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
     private final Validator validator = factory.getValidator();

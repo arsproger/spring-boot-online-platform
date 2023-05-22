@@ -8,6 +8,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
 
@@ -22,13 +23,13 @@ public class Section {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "Name cannot be empty")
-    @Size(max = 100, message = "Name must have a maximum of {max} characters")
+    @NotNull
+    @Size(max = 155)
     private String name;
 
     @ManyToOne
     @JoinColumn(name = "course_id", referencedColumnName = "id")
-    @NotEmpty(message = "Cannot be empty")
+    @NotNull
     private Course course;
 
     @OneToMany(mappedBy = "section")

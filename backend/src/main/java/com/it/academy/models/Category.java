@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
 
@@ -17,8 +18,9 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "Title cannot be empty")
-    @Size(max = 100, message = "Title must have a maximum of {max} characters")
+    @NotNull
+    @Size(min = 1, max = 100)
+    @Column(unique = true)
     private String title;
 
     @OneToMany(mappedBy = "category")

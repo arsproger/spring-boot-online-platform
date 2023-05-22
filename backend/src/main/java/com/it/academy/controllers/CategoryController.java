@@ -3,6 +3,8 @@ package com.it.academy.controllers;
 import com.it.academy.dto.CategoryDto;
 import com.it.academy.mappers.CategoryMapper;
 import com.it.academy.services.CategoryService;
+import com.it.academy.validation.CategoryDtoValidator;
+import com.it.academy.validation.ObjectValidator;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +18,7 @@ import java.util.List;
 public class CategoryController {
     private final CategoryService service;
     private final CategoryMapper mapper;
+    private final CategoryDtoValidator validator;
 
     @GetMapping
     public ResponseEntity<List<CategoryDto>> getAllCategories() {
@@ -30,7 +33,8 @@ public class CategoryController {
     }
 
     @PostMapping
-    public ResponseEntity<Long> createCategory(@RequestBody CategoryDto dto) {
+    public ResponseEntity<?> createCategory(@RequestBody CategoryDto dto) {
+        if (!validator.validate(dto).isEmpty()) return new ResponseEntity<>(validator.validate(dto), HttpStatus.BAD_REQUEST);
         Long id = service.save(mapper.map(dto));
         return new ResponseEntity<>(id, HttpStatus.CREATED);
     }
@@ -42,7 +46,8 @@ public class CategoryController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Long> updateCategoryById(@PathVariable Long id, @RequestBody CategoryDto dto) {
+    public ResponseEntity<?> updateCategoryById(@PathVariable Long id, @RequestBody CategoryDto dto) {
+        if (!validator.validate(dto).isEmpty()) return new ResponseEntity<>(validator.validate(dto), HttpStatus.BAD_REQUEST);
         Long updatedId = service.update(id, mapper.map(dto));
         return new ResponseEntity<>(updatedId, HttpStatus.OK);
     }

@@ -10,10 +10,10 @@ import javax.validation.constraints.Size;
 @Setter
 @Getter
 public class ArticleDto {
-    @NotBlank(message = "Title cannot be empty")
-    @Size(max = 100, message = "Title must have a maximum of {max} characters")
+    @NotBlank(message = "Title cannot be empty!")
+    @Size(max = 155, message = "Title must have a maximum of 155 characters!")
     private String title;
 
-    @NotBlank(message = "Text cannot be empty")
+    @NotBlank(message = "Text cannot be empty!")
     private String text;
 }

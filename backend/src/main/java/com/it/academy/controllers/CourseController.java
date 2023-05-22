@@ -5,8 +5,7 @@ import com.it.academy.dto.CourseDto;
 import com.it.academy.mappers.CourseMapper;
 import com.it.academy.services.CourseService;
 import com.it.academy.services.PaymentService;
-import com.it.academy.validation.CourseValidator;
-import com.it.academy.validation.ObjectValidator;
+import com.it.academy.validation.CourseDtoValidator;
 import com.stripe.exception.StripeException;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -23,7 +22,7 @@ public class CourseController {
     private final CourseDao courseDao;
     private final CourseMapper mapper;
     private final PaymentService paymentService;
-    private final CourseValidator validator;
+    private final CourseDtoValidator validator;
 
     @GetMapping
     public ResponseEntity<List<CourseDto>> getAllCourses() {

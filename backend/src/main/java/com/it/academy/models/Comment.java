@@ -7,6 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
@@ -19,25 +20,25 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "Title cannot be empty")
-    @Size(max = 100, message = "Title must have a maximum of {max} characters")
+    @NotNull
+    @Size(max = 155)
     private String title;
 
-    @NotBlank(message = "Description cannot be empty")
+    @NotNull
     private String description;
 
+    @NotNull
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @NotEmpty(message = "Cannot be empty")
     private LocalDate date;
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    @NotEmpty(message = "Cannot be empty")
     private User user;
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "lesson_id", referencedColumnName = "id")
-    @NotEmpty(message = "Cannot be empty")
     private Lesson lesson;
 
 }

@@ -4,6 +4,7 @@ import com.it.academy.dao.LessonDao;
 import com.it.academy.dto.LessonDto;
 import com.it.academy.mappers.LessonMapper;
 import com.it.academy.services.impl.LessonServiceImpl;
+import com.it.academy.validation.ObjectValidator;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,7 @@ public class LessonController {
     private final LessonServiceImpl service;
     private final LessonDao lessonDao;
     private final LessonMapper mapper;
+    private final ObjectValidator<LessonDto> validator;
 
     @GetMapping
     public ResponseEntity<List<LessonDto>> getAllLessons() {
@@ -32,7 +34,8 @@ public class LessonController {
     }
 
     @PostMapping
-    public ResponseEntity<Long> createLesson(@RequestBody LessonDto dto) {
+    public ResponseEntity<?> createLesson(@RequestBody LessonDto dto) {
+        if (!validator.validate(dto).isEmpty()) return new ResponseEntity<>(validator.validate(dto), HttpStatus.BAD_REQUEST);
         Long id = service.save(mapper.map(dto));
         return new ResponseEntity<>(id, HttpStatus.CREATED);
     }
@@ -44,7 +47,8 @@ public class LessonController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Long> updateLessonById(@PathVariable Long id, @RequestBody LessonDto dto) {
+    public ResponseEntity<?> updateLessonById(@PathVariable Long id, @RequestBody LessonDto dto) {
+        if (!validator.validate(dto).isEmpty()) return new ResponseEntity<>(validator.validate(dto), HttpStatus.BAD_REQUEST);
         Long updatedId = service.update(id, mapper.map(dto));
         return new ResponseEntity<>(updatedId, HttpStatus.OK);
     }

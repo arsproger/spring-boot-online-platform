@@ -1,5 +1,6 @@
 package com.it.academy.services;
 
+import com.it.academy.models.Cart;
 import com.it.academy.models.Course;
 
 import java.util.List;
@@ -14,5 +15,6 @@ public interface CourseService {
     Long deleteById(Long id);
 
     Long update(Long id, Course course);
+    Cart addCourseToCart(Long userId, Long courseId);
 
 }
