@@ -30,7 +30,7 @@ public class PasswordResetService {
         user.get().setResetTokenExpireTime(LocalDateTime.now().plusMinutes(30)); // установка срока действия токена
         userService.save(user.get());
 
-        String resetUrl = "http://localhost:8080/api/password/reset/" + resetToken;
+        String resetUrl = "http://localhost:8080/password/reset/" + resetToken;
         String emailText = "Для сброса пароля перейдите по ссылке: " + resetUrl;
 
         emailConfig.sendSimpleMessage(email, "Сброс пароля", emailText);
