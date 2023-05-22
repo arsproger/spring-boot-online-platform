@@ -33,7 +33,11 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public Long save(Long userId, Long lessonId, Comment comment) {
+    public Long save(Comment comment) {
+        return repo.save(comment).getId();
+    }
+
+    public Long create(Long userId, Long lessonId, Comment comment) {
         Lesson lesson = lessonRepository.findById(lessonId).orElseThrow(
                 () -> new EntityNotFoundException("Lesson not found with id: " + lessonId));
         User user = userRepository.findById(userId).orElseThrow(
