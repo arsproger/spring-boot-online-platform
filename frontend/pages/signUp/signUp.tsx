@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import s from "./signUp.module.scss";
 
 import Link from "next/link";
@@ -6,31 +6,45 @@ import { Form, Input } from "antd";
 import { UserOutlined, LockOutlined, MailOutlined } from "@ant-design/icons";
 
 import MyButton from "../../components/MUI/MyButton/MyButton";
-import { GoogleLogin } from "@react-oauth/google";
 import axios from "axios";
+import { useRouter } from "next/router";
 
 const SignUp: React.FC = () => {
-  // Данные пользователя для регистрации
+  //  Состояния - для данных пользователя регистрации
   const [userRegister, setUserRegister] = useState({
-    fullName: "test",
-    email: "test@gmail.com",
-    password: "123456",
+    fullName: "",
+    email: "",
+    password: "",
   });
 
-  console.log(userRegister);
-
-  const onFinish = () => {
-    setLoading(true);
-  };
-
+  // Состояния - для загрузки кнопки
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async () => {
-    const BASE_URL = "http://localhost:8080/auth/register";
-    try {
-      const response = await axios.post(BASE_URL, userRegister);
-      console.log(response);
+  // Функция - для загрузки кнопки
+  const onFinish = () => {
+    setLoading(!loading);
+  };
 
+  // Для - маршутизации
+  const router = useRouter();
+
+  // Функция - для отправки формы
+  const handleSubmit = async () => {
+    const BASE_URL = "http://localhost:8080";
+    try {
+      const response = await axios.post(
+        BASE_URL + "/auth/register",
+        userRegister
+      );
+      // Сохраняем токен пользователя
+      localStorage.setItem("token", JSON.stringify(response.data.token));
+
+      // Достаем токен пользовотеля
+      const token = JSON.parse(localStorage.getItem("token"));
+
+      if (!!token) {
+        router.push("/profile/profile");
+      }
       setUserRegister({
         fullName: "",
         email: "",
@@ -41,14 +55,10 @@ const SignUp: React.FC = () => {
     }
   };
 
-  useEffect(() => {
-    handleSubmit()
-  },[])
-
   return (
     <div className={s.signUp}>
       <h1>Register</h1>
-      <Form name="sign-up-form" onFinish={onFinish} onSubmit={handleSubmit}>
+      <Form name="sign-up-form" onFinish={onFinish}>
         <Form.Item
           name="name"
           rules={[
@@ -59,7 +69,7 @@ const SignUp: React.FC = () => {
           ]}
         >
           <Input
-            value={userRegister.fullName}
+            defaultValue={userRegister.fullName}
             onChange={(e) => {
               setUserRegister({ ...userRegister, fullName: e.target.value });
             }}
@@ -82,7 +92,7 @@ const SignUp: React.FC = () => {
           ]}
         >
           <Input
-            value={userRegister.email}
+            defaultValue={userRegister.email}
             onChange={(e) => {
               setUserRegister({ ...userRegister, email: e.target.value });
             }}
@@ -105,7 +115,7 @@ const SignUp: React.FC = () => {
           ]}
         >
           <Input.Password
-            value={userRegister.password}
+            defaultValue={userRegister.password}
             onChange={(e) => {
               setUserRegister({ ...userRegister, password: e.target.value });
             }}
@@ -133,10 +143,7 @@ const SignUp: React.FC = () => {
           ]}
         >
           <Input.Password
-            value={userRegister.password}
-            onChange={(e) => {
-              setUserRegister({ ...userRegister, password: e.target.value });
-            }}
+            defaultValue={userRegister.password}
             prefix={<LockOutlined />}
             placeholder="Confirm Password"
           />
@@ -148,21 +155,19 @@ const SignUp: React.FC = () => {
             hoverBackground="#03d665"
             type="primary"
             loading={loading}
-            
+            onClick={handleSubmit}
           >
             Sign Up
           </MyButton>
         </Form.Item>
 
         <Form.Item>
-          <GoogleLogin
-            onSuccess={(credentialResponse) => {
-              console.log(credentialResponse);
-            }}
-            onError={() => {
-              console.log("Login Failed");
-            }}
-          />
+          <a
+            href="http://localhost:8080/oauth2/authorization/google"
+            target="_blank"
+          >
+            Войдите в аккаунт Google
+          </a>
         </Form.Item>
 
         <Form.Item>
