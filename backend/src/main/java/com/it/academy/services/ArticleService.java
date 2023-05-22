@@ -10,6 +10,7 @@ public interface ArticleService {
     List<Article> getAll();
 
     Long save(Article article);
+    Long create(Article article, Long lessonId);
 
     Long deleteById(Long id);
 
