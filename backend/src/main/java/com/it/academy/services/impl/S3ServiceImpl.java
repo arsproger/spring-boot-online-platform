@@ -39,7 +39,8 @@ public class S3ServiceImpl implements S3Service {
         while (true) {
             try {
                 File newFile = convertMultiPartToFile(file);
-                PutObjectResult putObjectResult = s3.putObject(bucketName, originalFilename, newFile);
+//                PutObjectResult putObjectResult =
+                        s3.putObject(bucketName, originalFilename, newFile);
 
                 S3 s3 = S3.builder()
                         .lesson(lessonService.getById(lessonId))
@@ -49,7 +50,7 @@ public class S3ServiceImpl implements S3Service {
                         .build();
                 s3Repository.save(s3);
 
-                return putObjectResult.getContentMd5();
+                return file.getOriginalFilename();
             } catch (IOException e) {
                 if (++count == maxTries) throw new RuntimeException(e.getMessage());
             }
@@ -80,9 +81,8 @@ public class S3ServiceImpl implements S3Service {
                 .stream().map(S3ObjectSummary::getKey).collect(Collectors.toList());
     }
 
-
     private File convertMultiPartToFile(MultipartFile file) throws IOException {
-        File convFile = new File(Objects.requireNonNull(file.getOriginalFilename()));
+        File convFile = File.createTempFile("prefix-", "-suffix");
         FileOutputStream fos = new FileOutputStream(convFile);
         fos.write(file.getBytes());
         fos.close();
