@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useState } from "react";
 import s from "./design.module.scss";
 
 import Image from "next/image";
@@ -7,6 +7,9 @@ import { cards, ICards } from "../../constants/cardData";
 
 import Rating from "@/components/Rating/Rating";
 import MyButton from "@/components/MUI/MyButton/MyButton";
+import { Select } from "antd";
+import { Option } from "antd/es/mentions";
+import MySelect from "@/components/MUI/MySelect/MySelect";
 
 const Design: FC = () => {
   const [cardData, setCardData] = useState<ICards[]>(cards);
@@ -17,7 +20,8 @@ const Design: FC = () => {
     setRating(newRating);
   };
 
-  const handleClick = (id: number) => {
+  const handleClick = (event: any, id: number) => {
+    event.preventDefault();
     setCardData(
       cardData.map((card) =>
         card.id === id ? { ...card, rating: rating } : card
@@ -31,16 +35,13 @@ const Design: FC = () => {
 
       <header className={s.card__header}>
         <div className={s.filteredButton}>
-          {/* <MyButton type={}></MyButton> */}
-          <button type="button">Фильтировать</button>
+          <MyButton>Фильтировать</MyButton>
 
-          <select>
-            <option value="rating">С наивысшим рейтингом</option>
-            <option value="price">По цене</option>
-          </select>
+          <MySelect />
+          
         </div>
 
-        <span>{cardData.length} результата</span>
+        <span className={s.result}>{cardData.length} результата</span>
       </header>
 
       <ul className={s.card__list}>
@@ -73,7 +74,7 @@ const Design: FC = () => {
                   </li>
                   <li>
                     <pre>{card.rating} </pre>
-                    <span onClick={() => handleClick(card.id)}>
+                    <span onClick={(event) => handleClick(event, card.id)}>
                       <Rating value={card.rating} onChange={handleChange} />
                     </span>
                   </li>

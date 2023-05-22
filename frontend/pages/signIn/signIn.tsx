@@ -4,6 +4,7 @@ import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import s from "./signIn.module.scss";
 import MyButton from "@/components/MUI/MyButton/MyButton";
 import { GoogleLogin } from "@react-oauth/google";
+import Link from "next/link";
 
 const SignIn: React.FC = () => {
   const [loading, setLoading] = useState(false);
@@ -45,7 +46,14 @@ const SignIn: React.FC = () => {
         </Form.Item>
 
         <Form.Item>
-          <MyButton loading={loading}>Sign In</MyButton>
+          <MyButton
+            background="#03d665"
+            hoverBackground="#7329c2"
+            type="primary"
+            loading={loading}
+          >
+            Sign In
+          </MyButton>
         </Form.Item>
 
         <Form.Item>
@@ -57,6 +65,16 @@ const SignIn: React.FC = () => {
               console.log("Login Failed");
             }}
           />
+        </Form.Item>
+
+        <Form.Item>
+          <Link href="/paymentPage/paymentPage">Payment page</Link>
+        </Form.Item>
+
+        <Form.Item>
+          <Link href="/passwordRecovery/passwordRecovery">
+            Восстановления пароля
+          </Link>
         </Form.Item>
       </Form>
     </div>

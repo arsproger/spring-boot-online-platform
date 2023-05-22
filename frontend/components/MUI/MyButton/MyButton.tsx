@@ -15,6 +15,7 @@ const MyButton: FC<MyButtonProps> = ({
   type,
   icon,
   loading,
+  ghost,
   onClick,
   ...props
 }) => {

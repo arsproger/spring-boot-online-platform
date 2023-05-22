@@ -34,8 +34,17 @@
       line-height: 130%;
     }
 
-    button{
-      background-color: none;
+    button {
+      border: 1px solid #7329c2;
+      color: #7329c2;
+      transition: all 0.5s;
+    }
+
+    button:hover {
+      background-color: #7329c2;
+      border: 1px solid #7329c2;
+      color: #FFFFFF;
+      transition: all 0.5s;
     }
   }
 

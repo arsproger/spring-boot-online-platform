@@ -1,9 +1,10 @@
 import React, { FC } from "react";
 
-import { Button, Col, Modal, Row } from "antd";
+import { Col, Modal, Row } from "antd";
 import { useRouter } from "next/router";
 import en from "../../../locales/EN/translation.json";
 import ru from "../../../locales/RU/translation.json";
+import MyButton from "../MyButton/MyButton";
 
 interface MyModalProps {
   isModalOpen: boolean;
@@ -29,34 +30,34 @@ const MyModal: FC<MyModalProps> = ({ isModalOpen, setIsModalOpen }) => {
     >
       <Row justify="center" gutter={[20, 30]} style={{ padding: 10 }}>
         <Col xs={24} sm={12} md={8}>
-          <Button onClick={() => handleClick("en")} icon={"🇺🇸 "} block>
+          <MyButton onClick={() => handleClick("en")} icon={"🇺🇸"} block>
             English
-          </Button>
+          </MyButton>
         </Col>
         <Col xs={24} sm={12} md={8}>
-          <Button icon={"🇩🇪 "} block>
+          <MyButton onClick={() => handleClick("de")} icon={"🇩🇪"} block>
             Deutsch
-          </Button>
+          </MyButton>
         </Col>
         <Col xs={24} sm={12} md={8}>
-          <Button onClick={() => handleClick("ru")} icon={"🇷🇺 "} block>
+          <MyButton onClick={() => handleClick("ru")} icon={"🇷🇺"} block>
             Russia
-          </Button>
+          </MyButton>
         </Col>
         <Col xs={24} sm={12} md={8}>
-          <Button icon={"🇨🇳 "} block>
+          <MyButton onClick={() => handleClick("ch")} icon={"🇨🇳"} block>
             China
-          </Button>
+          </MyButton>
         </Col>
         <Col xs={24} sm={12} md={8}>
-          <Button icon={"🇫🇷 "} block>
+          <MyButton onClick={() => handleClick("fr")} icon={"🇫🇷"} block>
             France
-          </Button>
+          </MyButton>
         </Col>
         <Col xs={24} sm={12} md={8}>
-          <Button icon={"🇺🇦 "} block>
+          <MyButton onClick={() => handleClick("uk")} icon={"🇺🇦"} block>
             Ukraine
-          </Button>
+          </MyButton>
         </Col>
       </Row>
     </Modal>

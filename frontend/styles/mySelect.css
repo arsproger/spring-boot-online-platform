@@ -1,0 +1,11 @@
+.ant-select-selector {
+  height: 100% !important;
+  display: flex;
+  align-items: center;
+  border: 1px solid #7329c2;
+}
+
+.ant-select-selector:hover {
+  border: 1px solid #7329c2 !important;
+  transition: all 0.4s !important;
+}

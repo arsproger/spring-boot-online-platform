@@ -1,0 +1,13 @@
+@import "../../../styles/varibales.module.scss";
+
+.mySelect {
+  @include adaptive-value("height", 62, 32);
+  transition: all 0.4s;
+
+  span {
+    font-weight: 400;
+    @include adaptive-value("font-size", 18, 10);
+    line-height: 130%;
+    color: #7329c2;
+  }
+}

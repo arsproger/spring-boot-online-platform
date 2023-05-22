@@ -163,8 +163,8 @@ const Header: FC<HeaderProps> = ({ menuActive, setMenuActive }) => {
             {pathname === "/signUp/signUp" ? (
               <Link href="/signIn/signIn" className={s.header__signButton}>
                 <MyButton
-                  background="#03d665"
-                  hoverBackground="#7329c2"
+                  background="#7329c2"
+                  hoverBackground="#03d665"
                   type="primary"
                 >
                   Войти
@@ -173,8 +173,8 @@ const Header: FC<HeaderProps> = ({ menuActive, setMenuActive }) => {
             ) : (
               <Link href="/signUp/signUp" className={s.header__signButton}>
                 <MyButton
-                  background="#03d665"
-                  hoverBackground="#7329c2"
+                  background="#7329c2"
+                  hoverBackground="#03d665"
                   type="primary"
                 >
                   Регистрация
@@ -184,8 +184,8 @@ const Header: FC<HeaderProps> = ({ menuActive, setMenuActive }) => {
 
             <div className={s.header__languageButton}>
               <MyButton
-                background="#03d665"
-                hoverBackground="#7329c2"
+                background="#7329c2"
+                hoverBackground="#03d665"
                 onClick={() => setIsModalOpen(true)}
               >
                 <FontAwesomeIcon icon={faGlobe} />
