@@ -5,6 +5,8 @@ import com.it.academy.dto.CourseDto;
 import com.it.academy.mappers.CourseMapper;
 import com.it.academy.services.CourseService;
 import com.it.academy.services.PaymentService;
+import com.it.academy.validation.CourseValidator;
+import com.it.academy.validation.ObjectValidator;
 import com.stripe.exception.StripeException;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,6 +23,7 @@ public class CourseController {
     private final CourseDao courseDao;
     private final CourseMapper mapper;
     private final PaymentService paymentService;
+    private final CourseValidator validator;
 
     @GetMapping
     public ResponseEntity<List<CourseDto>> getAllCourses() {
@@ -34,14 +37,9 @@ public class CourseController {
         return new ResponseEntity<>(course, HttpStatus.OK);
     }
 
-    /*@PostMapping("/create/{authorId}")
-    public ResponseEntity<Long> createCourse(@RequestBody CourseDto course, @PathVariable Long authorId) {
-        Long id = service.create(mapper.map(course), authorId);
-        return new ResponseEntity<>(id, HttpStatus.CREATED);
-    }*/
-
     @PostMapping("/create/{authorId}")
     public ResponseEntity<?> createCourse(@RequestBody CourseDto course, @PathVariable Long authorId) throws StripeException {
+        if (!validator.validate(course).isEmpty()) return new ResponseEntity<>(validator.validate(course), HttpStatus.BAD_REQUEST);
         Long id = service.create((mapper.map(course)), authorId);
         if (id == null) {
             String link = paymentService.generateOnboardingLink(paymentService.createStripeAccount(authorId));
@@ -60,7 +58,8 @@ public class CourseController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Long> updateCourseById(@PathVariable Long id, @RequestBody CourseDto course) {
+    public ResponseEntity<?> updateCourseById(@PathVariable Long id, @RequestBody CourseDto course) {
+        if (!validator.validate(course).isEmpty()) return new ResponseEntity<>(validator.validate(course), HttpStatus.BAD_REQUEST);
         Long updatedId = service.update(id, mapper.map(course));
         return new ResponseEntity<>(updatedId, HttpStatus.OK);
     }
@@ -86,6 +85,5 @@ public class CourseController {
         List<CourseDto> courses = mapper.map(courseDao.getByLanguage(language));
         return new ResponseEntity<>(courses, HttpStatus.OK);
     }
-
 
 }
