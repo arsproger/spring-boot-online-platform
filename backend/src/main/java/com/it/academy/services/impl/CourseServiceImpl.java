@@ -1,25 +1,26 @@
 package com.it.academy.services.impl;
 
+import com.it.academy.enums.Role;
+import com.it.academy.models.Cart;
 import com.it.academy.models.Course;
 import com.it.academy.models.User;
 import com.it.academy.repositories.CourseRepository;
+import com.it.academy.services.CartService;
 import com.it.academy.services.CourseService;
-import com.it.academy.services.PaymentService;
 import com.it.academy.services.UserService;
-import com.stripe.exception.StripeException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.Collections;
 import java.util.List;
-
-import static com.it.academy.enums.Role.ROLE_TRAINER;
 
 @Service
 @AllArgsConstructor
 public class CourseServiceImpl implements CourseService {
     private final CourseRepository courseRepository;
     private final UserService userService;
+    private final CartService cartService;
 
     @Override
     public Course getById(Long id) {
@@ -35,7 +36,7 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public Long create(Course course, Long authorId) {
         User author = userService.getById(authorId);
-        author.setRole(ROLE_TRAINER);
+        author.setRole(Role.ROLE_TRAINER);
         userService.save(author);
 
         Course createdCourse = Course.builder()
@@ -50,9 +51,7 @@ public class CourseServiceImpl implements CourseService {
                 .subscriptions(course.getSubscriptions())
                 .build();
 
-        if (author.getStripeAccountId() == null || author.getStripeAccountId().isEmpty()) {
-            return null;
-        }
+        if (author.getStripeAccountId() == null || author.getStripeAccountId().isEmpty()) return null;
 
         return courseRepository.save(createdCourse).getId();
     }
@@ -74,6 +73,16 @@ public class CourseServiceImpl implements CourseService {
         course.setCategory(updatedCourse.getCategory());
 
         return courseRepository.save(course).getId();
+    }
+
+    @Override
+    public Cart addCourseToCart(Long userId, Long courseId) {
+        User user = userService.getById(userId);
+        Course course = getById(courseId);
+        Cart cart = user.getCart();
+        cart.setCourses(Collections.singletonList(course));
+        cartService.save(cart);
+        return user.getCart();
     }
 
 }
