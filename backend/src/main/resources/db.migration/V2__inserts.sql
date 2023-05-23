@@ -1,0 +1,78 @@
+INSERT INTO categories (title) VALUES
+                                   ('IT & Software'),
+                                   ('Web Development'),
+                                   ('Mobile Development'),
+                                   ('Data Science'),
+                                   ('Cybersecurity'),
+                                   ('Cloud Computing'),
+                                   ('Artificial Intelligence'),
+                                   ('Machine Learning'),
+                                   ('Development'),
+                                   ('Business'),
+                                   ('Design'),
+                                   ('Music'),
+                                   ('Marketing'),
+                                   ('Health & Fitness'),
+                                   ('Language');
+
+INSERT INTO users (date_of_birth, email, name, password)
+VALUES
+      ('john.doe@example.com', 'John Doe', '$2a$10$m61wNP4RDJo.X/.p15daPuR2ejd9XNU9n2BRZevKrtPXVmefREbCS'),
+      ('jane.smith@example.com', 'Jane Smith', '$2a$10$m61wNP4RDJo.X/.p15daPuR2ejd9XNU9n2BRZevKrtPXVmefREbCS'),
+      ('michael.brown@example.com', 'Michael Brown', '$2a$10$m61wNP4RDJo.X/.p15daPuR2ejd9XNU9n2BRZevKrtPXVmefREbCS'),
+      ('sarah.johnson@example.com', 'Sarah Johnson', '$2a$10$m61wNP4RDJo.X/.p15daPuR2ejd9XNU9n2BRZevKrtPXVmefREbCS'),
+      ('robert.wilson@example.com', 'Robert Wilson', '$2a$10$m61wNP4RDJo.X/.p15daPuR2ejd9XNU9n2BRZevKrtPXVmefREbCS'),
+      ('linda.thomas@example.com', 'Linda Thomas', '$2a$10$m61wNP4RDJo.X/.p15daPuR2ejd9XNU9n2BRZevKrtPXVmefREbCS'),
+      ('william.jones@example.com', 'William Jones', '$2a$10$m61wNP4RDJo.X/.p15daPuR2ejd9XNU9n2BRZevKrtPXVmefREbCS'),
+      ('jessica.jackson@example.com', 'Jessica Jackson', '$2a$10$m61wNP4RDJo.X/.p15daPuR2ejd9XNU9n2BRZevKrtPXVmefREbCS'),
+      ('david.davis@example.com', 'David Davis', '$2a$10$m61wNP4RDJo.X/.p15daPuR2ejd9XNU9n2BRZevKrtPXVmefREbCS'),
+      ('olivia.thompson@example.com', 'Olivia Thompson', '$2a$10$m61wNP4RDJo.X/.p15daPuR2ejd9XNU9n2BRZevKrtPXVmefREbCS');
+
+INSERT INTO courses (description, language, name, price, author_id, category_id)
+VALUES ('Learn Python programming language from scratch', 'English', 'Python for Beginners', 49.99, 1, 1),
+       ('Master web development with HTML, CSS, and JavaScript', 'English', 'Full Stack Web Development', 129.99, 1, 1),
+       ('Develop essential business skills for effective management', 'English', 'Business Administration', 79.99, 1, 2),
+       ('Learn advanced strategies for successful marketing campaigns', 'English', 'Digital Marketing Mastery', 149.99, 4, 2),
+       ('Unlock your creativity and become a skilled graphic designer', 'English', 'Graphic Design Fundamentals', 69.99, 5, 11),
+       ('Master user experience (UX) design principles and techniques', 'English', 'User Experience Design', 109.99, 6, 11),
+       ('Get fit and improve your athletic performance with personalized workout plans', 'English', 'Fitness and Strength Training', 89.99, 7, 14),
+       ('Learn the fundamentals of sports coaching and develop effective training programs', 'English', 'Sports Coaching Essentials', 119.99, 8, 14);
+
+INSERT INTO sections (name, course_id) VALUES ('Section 1', 1),
+                                              ('Section 2', 1),
+                                              ('Section 3', 1),
+                                              ('Section 1', 2),
+                                              ('Section 2', 2),
+                                              ('Section 3', 2),
+                                              ('Section 1', 3),
+                                              ('Section 2', 3),
+                                              ('Section 1', 4),
+                                              ('Section 2', 4),
+                                              ('Section 3', 4),
+                                              ('Section 4', 4),
+                                              ('Section 1', 5),
+                                              ('Section 1', 6),
+                                              ('Section 1', 7),
+                                              ('Section 1', 8),
+                                              ('Section 1', 9),
+                                              ('Section 1', 10);
+
+INSERT INTO lessons (description, duration, title, section_id) VALUES
+                                                                   ('Description', 5, 'Lesson 1', 1),
+                                                                   ('Description', 5, 'Lesson 2', 2),
+                                                                   ('Description', 5, 'Lesson 3', 3),
+                                                                   ('Description', 5, 'Lesson 1', 4),
+                                                                   ('Description', 5, 'Lesson 2', 5),
+                                                                   ('Description', 5, 'Lesson 3', 6),
+                                                                   ('Description', 5, 'Lesson 1', 7),
+                                                                   ('Description', 5, 'Lesson 2', 8),
+                                                                   ('Description', 5, 'Lesson 1', 9),
+                                                                   ('Description', 5, 'Lesson 2', 10),
+                                                                   ('Description', 5, 'Lesson 3', 11),
+                                                                   ('Description', 5, 'Lesson 4', 12),
+                                                                   ('Description', 5, 'Lesson 1', 13),
+                                                                   ('Description', 5, 'Lesson 1', 14),
+                                                                   ('Description', 5, 'Lesson 1', 15),
+                                                                   ('Description', 5, 'Lesson 1', 16),
+                                                                   ('Description', 5, 'Lesson 1', 17),
+                                                                   ('Description', 5, 'Lesson 1', 18);
