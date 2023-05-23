@@ -25,4 +25,9 @@ public class ReviewDao {
         return jdbcTemplate.queryForList(sql, Review.class, courseId);
     }
 
+    public Double getCourseAvgGrade(Long courseId) {
+        return jdbcTemplate.queryForObject("SELECT avg(grade) FROM reviews WHERE course_id = ?",
+                Double.class, courseId);
+    }
+
 }

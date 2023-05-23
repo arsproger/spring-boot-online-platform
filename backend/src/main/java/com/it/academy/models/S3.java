@@ -25,4 +25,8 @@ public class S3 {
     @JoinColumn(name = "lesson_id", referencedColumnName = "id")
     private Lesson lesson;
 
+    @OneToOne
+    @JoinColumn(name = "course_id", referencedColumnName = "id")
+    private Course course;
+
 }

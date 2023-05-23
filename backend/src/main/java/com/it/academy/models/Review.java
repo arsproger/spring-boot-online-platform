@@ -17,6 +17,7 @@ public class Review {
     private Long id;
     private String title;
     private String description;
+    private Double grade;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;

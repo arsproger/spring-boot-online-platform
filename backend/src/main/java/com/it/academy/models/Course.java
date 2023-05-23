@@ -1,9 +1,11 @@
 package com.it.academy.models;
 
-import lombok.*;
-
 import jakarta.persistence.*;
+import lombok.*;
+import org.hibernate.annotations.Cascade;
+
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -22,6 +24,7 @@ public class Course {
     private String description;
     private BigDecimal price;
     private String language;
+    private LocalDate created;
 
     @ManyToOne
     @JoinColumn(name = "category_id", referencedColumnName = "id")
@@ -42,5 +45,9 @@ public class Course {
 
     @ManyToMany(mappedBy = "courses")
     private List<Cart> carts;
+
+    @OneToOne(mappedBy = "course")
+    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
+    private S3 s3;
 
 }

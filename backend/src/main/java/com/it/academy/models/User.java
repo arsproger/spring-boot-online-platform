@@ -1,12 +1,11 @@
 package com.it.academy.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.it.academy.enums.Provider;
 import com.it.academy.enums.Role;
 import com.it.academy.enums.UserStatus;
+import jakarta.persistence.*;
 import lombok.*;
 
-import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
