@@ -1,5 +1,6 @@
 package com.it.academy.dao;
 
+import com.it.academy.dto.CourseDto;
 import com.it.academy.models.Course;
 import lombok.AllArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -13,7 +14,7 @@ public class CourseDao {
     private final JdbcTemplate jdbcTemplate;
 
     public List<Course> getByAuthorId(Long id) {
-        return jdbcTemplate.queryForList("SELECT * FROM Courses WHERE author_id = ?",
+        return jdbcTemplate.queryForList("SELECT * FROM courses WHERE author_id = ?",
                 Course.class, id);
     }
 
@@ -44,9 +45,9 @@ public class CourseDao {
                 Course.class, categoryId);
     }
 
-    public List<Course> getCourseByName(String name) {
-        return jdbcTemplate.queryForList("SELECT * FROM courses WHERE name = ?",
-                Course.class, name);
+    public List<CourseDto> getCourseByName(String name) {
+        return jdbcTemplate.query("SELECT id, name, description, price, language, created FROM courses WHERE name = ?",
+                new CourseRowMapper(), name);
     }
 
     public Double getCourseDurationSum(Long courseId) {
