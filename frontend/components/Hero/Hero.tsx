@@ -10,7 +10,7 @@ const Hero: FC = () => {
   const { locale } = useRouter();
 
   // Функции - для смены текста
-  const t = locale === "en" ? en : ru;
+  const t = locale === "ru" ? ru : en;
 
   return (
     <section className={s.hero}>

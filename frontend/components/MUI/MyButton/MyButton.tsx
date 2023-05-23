@@ -2,13 +2,13 @@ import React, { FC, ReactNode, useRef } from "react";
 import Button, { ButtonProps } from "antd/lib/button";
 import s from "./MyButton.module.scss";
 
-interface MyButtonProps extends ButtonProps {
+interface IMyButtonProps extends ButtonProps {
   children: ReactNode;
   background?: string;
   hoverBackground?: string;
 }
 
-const MyButton: FC<MyButtonProps> = ({
+const MyButton: FC<IMyButtonProps> = ({
   children,
   background,
   hoverBackground,

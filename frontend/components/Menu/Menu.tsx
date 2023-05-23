@@ -3,12 +3,12 @@ import s from "./Menu.module.scss";
 
 import cn from "classnames";
 
-interface MenuProps {
+interface IMenuProps {
   menuActive: boolean;
   setMenuActive: (active: boolean) => void;
 }
 
-const Menu: FC<MenuProps> = ({ menuActive, setMenuActive }) => {
+const Menu: FC<IMenuProps> = ({ menuActive, setMenuActive }) => {
   return (
     <div
       className={menuActive ? cn(s.menu, s.active) : s.menu}

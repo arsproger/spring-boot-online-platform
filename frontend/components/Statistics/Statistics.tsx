@@ -58,7 +58,7 @@ const Statistics: FC = () => {
             },
             1440: {
               slidesPerView: 4,
-            }
+            },
           }}
           className={s.statisticsSlider}
         >
