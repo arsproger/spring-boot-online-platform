@@ -6,7 +6,7 @@ import com.it.academy.services.ArticleService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 
 @Service
@@ -38,8 +38,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public Long update(Long id, Article updatedArticle) {
-        Article article = repo.findById(id).orElseThrow(
-                () -> new EntityNotFoundException("Article not found with id: " + id));
+        Article article = getById(id);
 
         article.setText(updatedArticle.getText());
         article.setTitle(updatedArticle.getTitle());

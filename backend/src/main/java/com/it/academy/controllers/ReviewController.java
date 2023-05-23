@@ -1,11 +1,17 @@
 package com.it.academy.controllers;
 
+import com.it.academy.dao.ReviewDao;
 import com.it.academy.dto.ReviewDto;
 import com.it.academy.mappers.ReviewMapper;
+import com.it.academy.security.DetailsUser;
 import com.it.academy.services.ReviewService;
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,9 +19,11 @@ import java.util.List;
 @RestController
 @RequestMapping("/review")
 @AllArgsConstructor
+@Tag(name = "Контроллер отзывов к курсу")
 public class ReviewController {
     private final ReviewService service;
     private final ReviewMapper mapper;
+    private final ReviewDao reviewDao;
 
     @GetMapping
     public ResponseEntity<List<ReviewDto>> getAllReviews() {
@@ -29,12 +37,29 @@ public class ReviewController {
         return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 
+    @GetMapping("/author/{id}")
+    @Operation(summary = "Получение всех отзывов определенного пользователя",
+            description = "Нужно передать id пользователя")
+    public ResponseEntity<List<ReviewDto>> getCourseCommentsByAuthorId(@PathVariable("id") Long authorId) {
+        List<ReviewDto> reviews = mapper.map(reviewDao.getCourseCommentsByAuthorId(authorId));
+        return new ResponseEntity<>(reviews, HttpStatus.OK);
+    }
+
+    @GetMapping("/course/{id}")
+    @Operation(summary = "Получение отзывов определенного курса")
+    public ResponseEntity<List<ReviewDto>> getCommentsByCourseId(@PathVariable("id") Long courseId) {
+        List<ReviewDto> reviews = mapper.map(reviewDao.getCommentsByCourseId(courseId));
+        return new ResponseEntity<>(reviews, HttpStatus.OK);
+    }
+
     @PostMapping
+    @Operation(summary = "Создание отзыва к курсу",
+            description = "Автором отзыва будет назначен текущий пользователь")
     public ResponseEntity<Long> createReview(
-            @RequestParam Long userId,
+            @AuthenticationPrincipal DetailsUser detailsUser,
             @RequestParam Long courseId,
             @RequestBody ReviewDto dto) {
-        Long id = service.save(userId, courseId, mapper.map(dto));
+        Long id = service.save(detailsUser.getUser().getId(), courseId, mapper.map(dto));
         return new ResponseEntity<>(id, HttpStatus.CREATED);
     }
 

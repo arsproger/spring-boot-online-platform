@@ -9,7 +9,7 @@ public interface SubscriptionService {
 
     List<Subscription> getAll();
 
-    Long save(Subscription subscription);
+    Long save(Long userId, Long courseId);
 
     Long deleteById(Long id);
 

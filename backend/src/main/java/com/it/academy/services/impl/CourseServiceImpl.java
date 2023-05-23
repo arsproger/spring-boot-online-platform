@@ -2,17 +2,21 @@ package com.it.academy.services.impl;
 
 import com.it.academy.models.Course;
 import com.it.academy.repositories.CourseRepository;
+import com.it.academy.services.CategoryService;
 import com.it.academy.services.CourseService;
+import com.it.academy.services.UserService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @Service
 @AllArgsConstructor
 public class CourseServiceImpl implements CourseService {
     private final CourseRepository repo;
+    private final UserService userService;
+    private final CategoryService categoryService;
 
     @Override
     public Course getById(Long id) {
@@ -26,7 +30,9 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public Long save(Course course) {
+    public Long save(Long authorId, Long categoryId, Course course) {
+        course.setAuthor(userService.getById(authorId));
+        course.setCategory(categoryService.getById(categoryId));
         return repo.save(course).getId();
     }
 
@@ -38,8 +44,7 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public Long update(Long id, Course updatedCourse) {
-        Course course = repo.findById(id).orElseThrow(
-                () -> new EntityNotFoundException("Course not found with id: " + id));
+        Course course = getById(id);
 
         course.setName(updatedCourse.getName());
         course.setDescription(updatedCourse.getDescription());

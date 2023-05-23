@@ -19,10 +19,12 @@ target/
 *.iml
 *.ipr
 .mvn
+*.log
 target
-
-backend/src/main/java/com/it/academy/video
-backend/src/main/resources/config.properties
+/backend/uploads/
+backend/src/main/resources/application.yml
+/backend/src/main/resources/config.yml
+/backend/src/main/resources/config.yml.origin
 
 
 ### NetBeans ###

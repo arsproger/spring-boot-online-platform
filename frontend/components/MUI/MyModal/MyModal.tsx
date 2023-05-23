@@ -2,23 +2,41 @@ import React, { FC } from "react";
 
 import { Col, Modal, Row } from "antd";
 import { useRouter } from "next/router";
-import en from "../../../locales/EN/translation.json";
-import ru from "../../../locales/RU/translation.json";
+
 import MyButton from "../MyButton/MyButton";
 
-interface MyModalProps {
+interface IMyModalProps {
   isModalOpen: boolean;
   setIsModalOpen: (active: boolean) => void;
 }
 
-const MyModal: FC<MyModalProps> = ({ isModalOpen, setIsModalOpen }) => {
+const MyModal: FC<IMyModalProps> = ({ isModalOpen, setIsModalOpen }) => {
   // Функции - для смены текста
-  const { locale, push } = useRouter();
-  const t = locale === "en" ? en : ru;
+  const { push, pathname } = useRouter();
 
   // Функции - для смены url
   const handleClick = (locale: string) => {
-    push("/", "/", { locale });
+    if (pathname === "/signUp/signUp") {
+      push("/signUp/signUp", "/signUp/signUp", { locale });
+    }
+    if (pathname === "/signIn/signIn") {
+      push("/signIn/signIn", "/signIn/signIn", { locale });
+    }
+    if (pathname === "/passwordRecovery/passwordRecovery") {
+      push(
+        "/passwordRecovery/passwordRecovery",
+        "/passwordRecovery/passwordRecovery",
+        { locale }
+      );
+    }if (pathname === "/profile/profile") {
+      push(
+        "/profile/profile",
+        "/profile/profile",
+        { locale }
+      );
+    } else {
+      push("/", "/", { locale });
+    }
   };
 
   return (

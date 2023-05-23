@@ -1,51 +1,65 @@
 import React, { useState } from "react";
-import styles from "./passwordRecovery.module.scss";
+import s from "./passwordRecovery.module.scss";
 
+import { useRouter } from "next/router";
 import { Form, Input, Button } from "antd";
-import {
-  UserOutlined,
-  MailOutlined,
-  ArrowRightOutlined,
-} from "@ant-design/icons";
+import { MailOutlined, ArrowRightOutlined } from "@ant-design/icons";
+
+import en from "../../locales/EN/translation.json";
+import ru from "../../locales/RU/translation.json";
+import MyButton from "../../components/MUI/MyButton/MyButton";
 
 const PasswordRecovery: React.FC = () => {
+  // Состояния - для загрузки кнопки
   const [loading, setLoading] = useState(false);
 
+  // Функция - для загрузки кнопки
   const onFinish = () => {
     setLoading(true);
-    // Password recovery logic goes here
   };
 
+  // Для - маршутизации
+  const { push, locale } = useRouter();
+
+  // Функции - для смены текста
+  const t = locale === "ru" ? ru : en;
+
+  // Отправляем post запрос для восстановления пароля
+  const handleSubmit = async (): Promise<void> => {};
+
   return (
-    <div className={styles.passwordRecovery}>
-      <h1>Password Recovery</h1>
+    <div className={s.passwordRecovery}>
+      <h1>{t.passwordRecovery[0]}</h1>
       <Form name="password-recovery-form" onFinish={onFinish}>
         <Form.Item
           name="email"
           rules={[
             {
               type: "email",
-              message: "Please enter a valid email address",
+              message: t.passwordRecovery[2],
             },
             {
               required: true,
-              message: "Please enter your email",
+              message: t.passwordRecovery[3],
             },
           ]}
         >
-          <Input prefix={<MailOutlined />} placeholder="Email" />
+          <Input
+            prefix={<MailOutlined />}
+            placeholder={t.passwordRecovery[1]}
+          />
         </Form.Item>
 
         <Form.Item>
-          <Button
+          <MyButton
             type="primary"
-            htmlType="submit"
-            className={styles.recoveryButton}
+            className={s.passwordRecoveryButton}
             loading={loading}
+            onClick={handleSubmit}
           >
-            <span>Recover Password</span>
+            <span>{t.passwordRecovery[4]}</span>
             <ArrowRightOutlined />
-          </Button>
+          </MyButton>
         </Form.Item>
       </Form>
     </div>

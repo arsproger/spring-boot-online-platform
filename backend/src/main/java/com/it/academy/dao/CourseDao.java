@@ -39,4 +39,14 @@ public class CourseDao {
                 Course.class, userId);
     }
 
+    public List<Course> getCourseByCategoryId(Long categoryId) {
+        return jdbcTemplate.queryForList("SELECT * FROM courses WHERE category_id = ?",
+                Course.class, categoryId);
+    }
+
+    public List<Course> getCourseByName(String name) {
+        return jdbcTemplate.queryForList("SELECT * FROM courses WHERE name = ?",
+                Course.class, name);
+    }
+
 }

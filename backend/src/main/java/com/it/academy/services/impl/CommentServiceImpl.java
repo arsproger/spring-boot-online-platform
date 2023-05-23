@@ -4,13 +4,13 @@ import com.it.academy.models.Comment;
 import com.it.academy.models.Lesson;
 import com.it.academy.models.User;
 import com.it.academy.repositories.CommentRepository;
-import com.it.academy.repositories.LessonRepository;
-import com.it.academy.repositories.UserRepository;
 import com.it.academy.services.CommentService;
+import com.it.academy.services.LessonService;
+import com.it.academy.services.UserService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -18,8 +18,8 @@ import java.util.List;
 @AllArgsConstructor
 public class CommentServiceImpl implements CommentService {
     private final CommentRepository repo;
-    private final LessonRepository lessonRepository;
-    private final UserRepository userRepository;
+    private final LessonService lessonService;
+    private final UserService userService;
 
     @Override
     public Comment getById(Long id) {
@@ -34,10 +34,8 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public Long save(Long userId, Long lessonId, Comment comment) {
-        Lesson lesson = lessonRepository.findById(lessonId).orElseThrow(
-                () -> new EntityNotFoundException("Lesson not found with id: " + lessonId));
-        User user = userRepository.findById(userId).orElseThrow(
-                () -> new EntityNotFoundException("User not found with id: " + userId));
+        Lesson lesson = lessonService.getById(lessonId);
+        User user = userService.getById(userId);
 
         comment.setDate(LocalDate.now());
         comment.setLesson(lesson);
@@ -54,8 +52,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public Long update(Long id, Comment updatedComment) {
-        Comment comment = repo.findById(id).orElseThrow(
-                () -> new EntityNotFoundException("Comment not found with id: " + id));
+        Comment comment = getById(id);
 
         comment.setTitle(updatedComment.getTitle());
         comment.setDescription(updatedComment.getDescription());

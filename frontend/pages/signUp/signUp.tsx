@@ -1,36 +1,59 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import s from "./signUp.module.scss";
 
-import Link from "next/link";
+import { useRouter } from "next/router";
+import axios from "axios";
+import { AxiosResponse } from "axios";
 import { Form, Input } from "antd";
 import { UserOutlined, LockOutlined, MailOutlined } from "@ant-design/icons";
 
+import en from "../../locales/EN/translation.json";
+import ru from "../../locales/RU/translation.json";
 import MyButton from "../../components/MUI/MyButton/MyButton";
-import { GoogleLogin } from "@react-oauth/google";
-import axios from "axios";
 
 const SignUp: React.FC = () => {
-  // Данные пользователя для регистрации
+  // Состояния - для данных пользователя регистрации
   const [userRegister, setUserRegister] = useState({
-    fullName: "test",
-    email: "test@gmail.com",
-    password: "123456",
+    fullName: "",
+    email: "",
+    password: "fasdf",
   });
 
-  console.log(userRegister);
-
-  const onFinish = () => {
-    setLoading(true);
-  };
-
+  // Состояния - для загрузки кнопки
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async () => {
-    const BASE_URL = "http://localhost:8080/auth/register";
-    try {
-      const response = await axios.post(BASE_URL, userRegister);
-      console.log(response);
+  // Функция - для загрузки кнопки
+  const onFinish = () => {
+    setLoading(!loading);
+  };
 
+  // Для - маршутизации
+  const { push, locale } = useRouter();
+
+  // Функции - для смены текста
+  const t = locale === "ru" ? ru : en;
+
+  // Отправляем post запрос
+  const handleSubmit = async (): Promise<void> => {
+    const BASE_URL = "http://localhost:8080";
+    try {
+      const { data }: AxiosResponse<{ token: string }> = await axios.post(
+        BASE_URL + "/auth/register",
+        userRegister
+      );
+
+      // Сохраняем токен пользователя
+      localStorage.setItem("token", JSON.stringify(data.token));
+
+      // Достаем токен пользователя
+      const token = localStorage.getItem("token") ?? "";
+      const parsedToken = token !== "" ? (JSON.parse(token) as string) : "";
+
+      // Если есть токен то перенаправляем пользователя на профиль
+      if (!!parsedToken) {
+        push("/profile/profile");
+      }
+      // Сбрасываем поля объекта
       setUserRegister({
         fullName: "",
         email: "",
@@ -41,30 +64,26 @@ const SignUp: React.FC = () => {
     }
   };
 
-  useEffect(() => {
-    handleSubmit()
-  },[])
-
   return (
     <div className={s.signUp}>
-      <h1>Register</h1>
-      <Form name="sign-up-form" onFinish={onFinish} onSubmit={handleSubmit}>
+      <h1>{t.signUp[0]}</h1>
+      <Form name="sign-up-form" onFinish={onFinish}>
         <Form.Item
           name="name"
           rules={[
             {
               required: true,
-              message: "Please enter your name",
+              message: t.signUp[5],
             },
           ]}
         >
           <Input
-            value={userRegister.fullName}
+            defaultValue={userRegister.fullName}
             onChange={(e) => {
               setUserRegister({ ...userRegister, fullName: e.target.value });
             }}
             prefix={<UserOutlined />}
-            placeholder="Name"
+            placeholder={t.signUp[1]}
           />
         </Form.Item>
 
@@ -73,21 +92,21 @@ const SignUp: React.FC = () => {
           rules={[
             {
               type: "email",
-              message: "Please enter a valid email address",
+              message: t.signUp[6],
             },
             {
               required: true,
-              message: "Please enter your email",
+              message: t.signUp[7],
             },
           ]}
         >
           <Input
-            value={userRegister.email}
+            defaultValue={userRegister.email}
             onChange={(e) => {
               setUserRegister({ ...userRegister, email: e.target.value });
             }}
             prefix={<MailOutlined />}
-            placeholder="Email"
+            placeholder={t.signUp[2]}
           />
         </Form.Item>
 
@@ -95,22 +114,22 @@ const SignUp: React.FC = () => {
           name="password"
           rules={[
             {
-              min: 6,
-              message: "Password must be at least 6 characters long",
+              required: true,
+              message: t.signUp[8],
             },
             {
-              required: true,
-              message: "Please enter your password",
+              min: 6,
+              message: t.signUp[9],
             },
           ]}
         >
           <Input.Password
-            value={userRegister.password}
+            defaultValue={userRegister.password}
             onChange={(e) => {
               setUserRegister({ ...userRegister, password: e.target.value });
             }}
             prefix={<LockOutlined />}
-            placeholder="Password"
+            placeholder={t.signUp[3]}
           />
         </Form.Item>
 
@@ -120,25 +139,22 @@ const SignUp: React.FC = () => {
           rules={[
             {
               required: true,
-              message: "Please confirm your password",
+              message: t.signUp[10],
             },
             ({ getFieldValue }) => ({
               validator(_, value) {
                 if (!value || getFieldValue("password") === value) {
                   return Promise.resolve();
                 }
-                return Promise.reject(new Error("Passwords do not match"));
+                return Promise.reject(new Error(t.signUp[11]));
               },
             }),
           ]}
         >
           <Input.Password
-            value={userRegister.password}
-            onChange={(e) => {
-              setUserRegister({ ...userRegister, password: e.target.value });
-            }}
+            defaultValue={userRegister.password}
             prefix={<LockOutlined />}
-            placeholder="Confirm Password"
+            placeholder={t.signUp[4]}
           />
         </Form.Item>
 
@@ -148,31 +164,28 @@ const SignUp: React.FC = () => {
             hoverBackground="#03d665"
             type="primary"
             loading={loading}
-            
+            onClick={handleSubmit}
           >
-            Sign Up
+            {t.signUp[12]}
           </MyButton>
         </Form.Item>
 
         <Form.Item>
-          <GoogleLogin
-            onSuccess={(credentialResponse) => {
-              console.log(credentialResponse);
-            }}
-            onError={() => {
-              console.log("Login Failed");
-            }}
-          />
+          <a
+            href="http://localhost:8080/oauth2/authorization/google"
+            target="_blank"
+          >
+            {t.signUp[13]}
+          </a>
         </Form.Item>
 
         <Form.Item>
-          <Link href="/paymentPage/paymentPage">Payment page</Link>
-        </Form.Item>
-
-        <Form.Item>
-          <Link href="/passwordRecovery/passwordRecovery">
-            Восстановления пароля
-          </Link>
+          <a
+            href="http://localhost:8080/oauth2/authorization/google"
+            target="_blank"
+          >
+            {t.signUp[14]}
+          </a>
         </Form.Item>
       </Form>
     </div>

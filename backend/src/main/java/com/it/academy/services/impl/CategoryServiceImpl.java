@@ -6,7 +6,7 @@ import com.it.academy.services.CategoryService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 
 @Service
@@ -38,8 +38,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Long update(Long id, Category updatedCategory) {
-        Category category = repo.findById(id).orElseThrow(
-                () -> new EntityNotFoundException("Category not found with id: " + id));
+        Category category = getById(id);
 
         category.setTitle(updatedCategory.getTitle());
 
