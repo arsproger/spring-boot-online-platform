@@ -11,17 +11,17 @@ import MyButton from "../MUI/MyButton/MyButton";
 import BurgerMenu from "../BurgerMenu/BurgerMenu";
 import MyModal from "../MUI/MyModal/MyModal";
 
-interface HeaderProps {
+interface IHeaderProps {
   menuActive: boolean;
   setMenuActive: (active: boolean) => void;
 }
 
-interface Line {
+interface ILine {
   width: number;
   left: number;
 }
 
-const Header: FC<HeaderProps> = ({ menuActive, setMenuActive }) => {
+const Header: FC<IHeaderProps> = ({ menuActive, setMenuActive }) => {
   // Состояние - для модалки
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
@@ -29,7 +29,7 @@ const Header: FC<HeaderProps> = ({ menuActive, setMenuActive }) => {
   const [isHeaderActive, setIsHeaderActive] = useState<boolean>(false);
 
   // Состояние - для navbar (для линии)
-  const [navBarPosition, setNavBarPosition] = useState<Line>({
+  const [navBarPosition, setNavBarPosition] = useState<ILine>({
     width: 0,
     left: 0,
   });
@@ -151,7 +151,7 @@ const Header: FC<HeaderProps> = ({ menuActive, setMenuActive }) => {
               </a>
             </li>
             <span
-              className={s.animateLine}
+              className={s.animateILine}
               style={{
                 left: navBarPosition.left,
                 width: navBarPosition.width,

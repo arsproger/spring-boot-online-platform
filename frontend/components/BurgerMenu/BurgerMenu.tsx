@@ -3,14 +3,14 @@ import s from "./BurgerMenu.module.scss";
 
 import cn from "classnames";
 
-interface HeaderProps {
+interface IBurgerMenu {
   isHeaderActive: boolean;
   setIsHeaderActive: (active: boolean) => void;
   menuActive: boolean;
   setMenuActive: (active: boolean) => void;
 }
 
-const BurgerMenu: FC<HeaderProps> = ({
+const BurgerMenu: FC<IBurgerMenu> = ({
   isHeaderActive,
   setIsHeaderActive,
   menuActive,

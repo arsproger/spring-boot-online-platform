@@ -1,39 +1,58 @@
 import React, { useState } from "react";
-import { Form, Input, Button } from "antd";
-import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import s from "./signIn.module.scss";
-import MyButton from "@/components/MUI/MyButton/MyButton";
+
 import Link from "next/link";
-import axios from "axios";
 import { useRouter } from "next/router";
+import axios, { AxiosResponse } from "axios";
+import { Form, Input } from "antd";
+import { UserOutlined, LockOutlined } from "@ant-design/icons";
+
+import en from "../../locales/EN/translation.json";
+import ru from "../../locales/RU/translation.json";
+import MyButton from "@/components/MUI/MyButton/MyButton";
 
 const SignIn: React.FC = () => {
-  // Данные пользователя для регистрации
+  // Состояния - для данных пользователя авторизации
   const [userLogin, setUserLogin] = useState({
     username: "",
     password: "",
   });
+
+  // Состояния - для загрузки кнопки
   const [loading, setLoading] = useState(false);
 
+  // Функция - для загрузки кнопки
   const onFinish = () => {
     setLoading(true);
   };
-  const router = useRouter();
 
-  const handleSubmit = async () => {
+  // Для - маршутизации
+  const { push, locale } = useRouter();
+
+  // Функции - для смены текста
+  const t = locale === "ru" ? ru : en;
+
+  // Отправляем post запрос
+  const handleSubmit = async (): Promise<void> => {
     const BASE_URL = "http://localhost:8080";
     try {
-      const response = await axios.post(BASE_URL + "/auth/login", userLogin);
+      const { data }: AxiosResponse<{ token: string }> = await axios.post(
+        BASE_URL + "/auth/login",
+        userLogin
+      );
 
-      // Достаем токен пользовотеля
-      const token = JSON.parse(localStorage.getItem("token"));
+      // Сохраняем токен пользователя
+      localStorage.setItem("token", JSON.stringify(data.token));
 
-      if (!!token) {
-        router.push("/profile/profile");
+      // Достаем токен пользователя
+      const token = localStorage.getItem("token") ?? "";
+      const parsedToken = token !== "" ? (JSON.parse(token) as string) : "";
+
+      // Если есть токен то перенаправляем пользователя на профиль
+      if (!!parsedToken) {
+        push("/profile/profile");
       }
-
-      console.log(response);
-
+      // Сбрасываем поля объекта
       setUserLogin({
         username: "",
         password: "",
@@ -45,18 +64,18 @@ const SignIn: React.FC = () => {
 
   return (
     <div className={s.signIn}>
-      <h1>Login</h1>
+      <h1>{t.signIn[0]}</h1>
       <Form name="sign-in-form" onFinish={onFinish}>
         <Form.Item
           name="email"
           rules={[
             {
               type: "email",
-              message: "Please enter a valid email address",
+              message: t.signIn[3],
             },
             {
               required: true,
-              message: "Please enter your email",
+              message: t.signIn[4],
             },
           ]}
         >
@@ -66,7 +85,7 @@ const SignIn: React.FC = () => {
               setUserLogin({ ...userLogin, username: e.target.value });
             }}
             prefix={<UserOutlined />}
-            placeholder="Email"
+            placeholder={t.signIn[1]}
           />
         </Form.Item>
 
@@ -75,7 +94,7 @@ const SignIn: React.FC = () => {
           rules={[
             {
               required: true,
-              message: "Please enter your password",
+              message: t.signIn[5],
             },
           ]}
         >
@@ -85,7 +104,7 @@ const SignIn: React.FC = () => {
               setUserLogin({ ...userLogin, password: e.target.value });
             }}
             prefix={<LockOutlined />}
-            placeholder="Password"
+            placeholder={t.signIn[2]}
           />
         </Form.Item>
 
@@ -97,21 +116,30 @@ const SignIn: React.FC = () => {
             loading={loading}
             onClick={handleSubmit}
           >
-            Sign In
+            {t.signIn[6]}
           </MyButton>
         </Form.Item>
 
         <Form.Item>
+          <a
+            href="http://localhost:8080/oauth2/authorization/google"
+            target="_blank"
+          >
+            {t.signIn[7]}
+          </a>
         </Form.Item>
 
         <Form.Item>
-          <Link href="/paymentPage/paymentPage">Payment page</Link>
+          <a
+            href="http://localhost:8080/oauth2/authorization/google"
+            target="_blank"
+          >
+            {t.signIn[8]}
+          </a>
         </Form.Item>
 
         <Form.Item>
-          <Link href="/passwordRecovery/passwordRecovery">
-            Восстановления пароля
-          </Link>
+          <Link href="/passwordRecovery/passwordRecovery">{t.signIn[9]}</Link>
         </Form.Item>
       </Form>
     </div>

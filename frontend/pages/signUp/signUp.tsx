@@ -1,20 +1,22 @@
 import React, { useState } from "react";
 import s from "./signUp.module.scss";
 
-import Link from "next/link";
+import { useRouter } from "next/router";
+import axios from "axios";
+import { AxiosResponse } from "axios";
 import { Form, Input } from "antd";
 import { UserOutlined, LockOutlined, MailOutlined } from "@ant-design/icons";
 
+import en from "../../locales/EN/translation.json";
+import ru from "../../locales/RU/translation.json";
 import MyButton from "../../components/MUI/MyButton/MyButton";
-import axios from "axios";
-import { useRouter } from "next/router";
 
 const SignUp: React.FC = () => {
-  //  Состояния - для данных пользователя регистрации
+  // Состояния - для данных пользователя регистрации
   const [userRegister, setUserRegister] = useState({
     fullName: "",
     email: "",
-    password: "",
+    password: "fasdf",
   });
 
   // Состояния - для загрузки кнопки
@@ -26,25 +28,32 @@ const SignUp: React.FC = () => {
   };
 
   // Для - маршутизации
-  const router = useRouter();
+  const { push, locale } = useRouter();
 
-  // Функция - для отправки формы
-  const handleSubmit = async () => {
+  // Функции - для смены текста
+  const t = locale === "ru" ? ru : en;
+
+  // Отправляем post запрос
+  const handleSubmit = async (): Promise<void> => {
     const BASE_URL = "http://localhost:8080";
     try {
-      const response = await axios.post(
+      const { data }: AxiosResponse<{ token: string }> = await axios.post(
         BASE_URL + "/auth/register",
         userRegister
       );
+
       // Сохраняем токен пользователя
-      localStorage.setItem("token", JSON.stringify(response.data.token));
+      localStorage.setItem("token", JSON.stringify(data.token));
 
-      // Достаем токен пользовотеля
-      const token = JSON.parse(localStorage.getItem("token"));
+      // Достаем токен пользователя
+      const token = localStorage.getItem("token") ?? "";
+      const parsedToken = token !== "" ? (JSON.parse(token) as string) : "";
 
-      if (!!token) {
-        router.push("/profile/profile");
+      // Если есть токен то перенаправляем пользователя на профиль
+      if (!!parsedToken) {
+        push("/profile/profile");
       }
+      // Сбрасываем поля объекта
       setUserRegister({
         fullName: "",
         email: "",
@@ -57,14 +66,14 @@ const SignUp: React.FC = () => {
 
   return (
     <div className={s.signUp}>
-      <h1>Register</h1>
+      <h1>{t.signUp[0]}</h1>
       <Form name="sign-up-form" onFinish={onFinish}>
         <Form.Item
           name="name"
           rules={[
             {
               required: true,
-              message: "Please enter your name",
+              message: t.signUp[5],
             },
           ]}
         >
@@ -74,7 +83,7 @@ const SignUp: React.FC = () => {
               setUserRegister({ ...userRegister, fullName: e.target.value });
             }}
             prefix={<UserOutlined />}
-            placeholder="Name"
+            placeholder={t.signUp[1]}
           />
         </Form.Item>
 
@@ -83,11 +92,11 @@ const SignUp: React.FC = () => {
           rules={[
             {
               type: "email",
-              message: "Please enter a valid email address",
+              message: t.signUp[6],
             },
             {
               required: true,
-              message: "Please enter your email",
+              message: t.signUp[7],
             },
           ]}
         >
@@ -97,7 +106,7 @@ const SignUp: React.FC = () => {
               setUserRegister({ ...userRegister, email: e.target.value });
             }}
             prefix={<MailOutlined />}
-            placeholder="Email"
+            placeholder={t.signUp[2]}
           />
         </Form.Item>
 
@@ -105,12 +114,12 @@ const SignUp: React.FC = () => {
           name="password"
           rules={[
             {
-              min: 6,
-              message: "Password must be at least 6 characters long",
+              required: true,
+              message: t.signUp[8],
             },
             {
-              required: true,
-              message: "Please enter your password",
+              min: 6,
+              message: t.signUp[9],
             },
           ]}
         >
@@ -120,7 +129,7 @@ const SignUp: React.FC = () => {
               setUserRegister({ ...userRegister, password: e.target.value });
             }}
             prefix={<LockOutlined />}
-            placeholder="Password"
+            placeholder={t.signUp[3]}
           />
         </Form.Item>
 
@@ -130,14 +139,14 @@ const SignUp: React.FC = () => {
           rules={[
             {
               required: true,
-              message: "Please confirm your password",
+              message: t.signUp[10],
             },
             ({ getFieldValue }) => ({
               validator(_, value) {
                 if (!value || getFieldValue("password") === value) {
                   return Promise.resolve();
                 }
-                return Promise.reject(new Error("Passwords do not match"));
+                return Promise.reject(new Error(t.signUp[11]));
               },
             }),
           ]}
@@ -145,7 +154,7 @@ const SignUp: React.FC = () => {
           <Input.Password
             defaultValue={userRegister.password}
             prefix={<LockOutlined />}
-            placeholder="Confirm Password"
+            placeholder={t.signUp[4]}
           />
         </Form.Item>
 
@@ -157,7 +166,7 @@ const SignUp: React.FC = () => {
             loading={loading}
             onClick={handleSubmit}
           >
-            Sign Up
+            {t.signUp[12]}
           </MyButton>
         </Form.Item>
 
@@ -166,18 +175,17 @@ const SignUp: React.FC = () => {
             href="http://localhost:8080/oauth2/authorization/google"
             target="_blank"
           >
-            Войдите в аккаунт Google
+            {t.signUp[13]}
           </a>
         </Form.Item>
 
         <Form.Item>
-          <Link href="/paymentPage/paymentPage">Payment page</Link>
-        </Form.Item>
-
-        <Form.Item>
-          <Link href="/passwordRecovery/passwordRecovery">
-            Восстановления пароля
-          </Link>
+          <a
+            href="http://localhost:8080/oauth2/authorization/google"
+            target="_blank"
+          >
+            {t.signUp[14]}
+          </a>
         </Form.Item>
       </Form>
     </div>

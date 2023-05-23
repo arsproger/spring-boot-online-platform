@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import s from "./paymentPage.module.scss";
+import s from "./payment.module.scss";
 
 import { Form, Input, Button } from "antd";
 import { UserOutlined, LockOutlined, CreditCardOutlined } from "@ant-design/icons";
 
-const PaymentPage: React.FC = () => {
+const Payment: React.FC = () => {
   const [loading, setLoading] = useState(false);
 
   const onFinish = () => {
@@ -13,7 +13,7 @@ const PaymentPage: React.FC = () => {
   };
 
   return (
-    <div className={s.paymentPage}>
+    <div className={s.payment}>
       <h1>Payment System</h1>
       <Form name="payment-form" onFinish={onFinish}>
         <Form.Item
@@ -79,4 +79,4 @@ const PaymentPage: React.FC = () => {
   );
 };
 
-export default PaymentPage;
+export default Payment;
