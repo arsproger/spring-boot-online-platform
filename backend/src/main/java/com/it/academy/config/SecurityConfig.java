@@ -27,6 +27,7 @@ public class SecurityConfig {
     private final CustomOAuth2UserService customOAuth2UserService;
     private final OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler;
     private final PasswordEncoder passwordEncoder;
+    private final UserAuthenticationEntryPoint userAuthenticationEntryPoint;
 
     @Bean
     public UserDetailsService userDetailsService() {
@@ -36,9 +37,11 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
-                .csrf().disable()
-                .cors()
+                .exceptionHandling().authenticationEntryPoint(userAuthenticationEntryPoint)
                 .and()
+                .csrf().disable()
+//                .cors()
+//                .and()
                 .authorizeHttpRequests()
                 .requestMatchers("/auth/**", "/oauth/**", "/swagger-ui/**").permitAll()
                 .requestMatchers("/admin/**").hasRole("ADMIN")
