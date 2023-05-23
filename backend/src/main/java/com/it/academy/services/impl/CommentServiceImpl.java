@@ -17,24 +17,24 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class CommentServiceImpl implements CommentService {
-    private final CommentRepository repo;
+    private final CommentRepository commentRepository;
     private final LessonRepository lessonRepository;
     private final UserRepository userRepository;
 
     @Override
     public Comment getById(Long id) {
-        return repo.findById(id).orElseThrow(
+        return commentRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException("Comment not found with id: " + id));
     }
 
     @Override
     public List<Comment> getAll() {
-        return repo.findAll();
+        return commentRepository.findAll();
     }
 
     @Override
     public Long save(Comment comment) {
-        return repo.save(comment).getId();
+        return commentRepository.save(comment).getId();
     }
 
     public Long create(Long userId, Long lessonId, Comment comment) {
@@ -47,24 +47,24 @@ public class CommentServiceImpl implements CommentService {
         comment.setLesson(lesson);
         comment.setUser(user);
 
-        return repo.save(comment).getId();
+        return commentRepository.save(comment).getId();
     }
 
     @Override
     public Long deleteById(Long id) {
-        repo.deleteById(id);
+        commentRepository.deleteById(id);
         return id;
     }
 
     @Override
     public Long update(Long id, Comment updatedComment) {
-        Comment comment = repo.findById(id).orElseThrow(
+        Comment comment = commentRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException("Comment not found with id: " + id));
 
         comment.setTitle(updatedComment.getTitle());
         comment.setDescription(updatedComment.getDescription());
 
-        return repo.save(comment).getId();
+        return commentRepository.save(comment).getId();
     }
 
 }

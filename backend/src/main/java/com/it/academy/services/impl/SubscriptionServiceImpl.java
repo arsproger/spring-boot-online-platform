@@ -1,5 +1,6 @@
 package com.it.academy.services.impl;
 
+import com.it.academy.dao.SubscriptionDao;
 import com.it.academy.models.Course;
 import com.it.academy.models.Subscription;
 import com.it.academy.models.User;
@@ -20,6 +21,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     private final SubscriptionRepository subscriptionRepository;
     private final CourseService courseService;
     private final UserService userService;
+    private final SubscriptionDao subscriptionDao;
 
     @Override
     public Subscription getById(Long id) {
@@ -63,6 +65,10 @@ public class SubscriptionServiceImpl implements SubscriptionService {
         subscription.setCreationDate(updatedSubscription.getCreationDate());
 
         return subscriptionRepository.save(subscription).getId();
+    }
+
+    public List<Subscription> getSubscriptionsByUserId(Long userId) {
+        return subscriptionDao.getActiveSubscriptionsByUserId(userId);
     }
 
 }

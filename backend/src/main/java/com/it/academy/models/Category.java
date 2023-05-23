@@ -19,10 +19,10 @@ public class Category {
     private Long id;
 
     @NotNull
-    @Size(min = 1, max = 100)
+    @Size(min = 1, max = 155)
     @Column(unique = true)
     private String title;
 
-    @OneToMany(mappedBy = "category")
-    private List<Course> courses;
+//    @OneToMany(mappedBy = "category")
+//    private List<Course> courses;
 }

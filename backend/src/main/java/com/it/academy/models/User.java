@@ -5,10 +5,7 @@ import com.it.academy.enums.UserStatus;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -25,22 +22,22 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "Name cannot be empty")
-    @Size(max = 100, message = "Name must have a maximum of {max} characters")
+    @NotNull
+    @Size(max = 155)
     private String name;
 
-    @NotBlank(message = "Surname cannot be empty")
-    @Size(max = 100, message = "Surname must have a maximum of {max} characters")
+    @NotNull
+    @Size(max = 155)
     private String surname;
 
     @Column(name = "date_of_birth")
     private LocalDate dateOfBirth;
 
-    @Email(message = "Invalid email address")
+    @Email
     private String email;
 
-    @NotBlank(message = "Password cannot be empty")
-    @Size(min = 8, message = "Password must be at least 8 characters long")
+    @NotNull
+    @Size(min = 8)
     private String password;
 
     @Enumerated(EnumType.STRING)
@@ -62,7 +59,6 @@ public class User {
     private List<Subscription> subscriptions;
 
     @OneToOne
-    //@NotEmpty(message = "Cannot be empty")
     private Cart cart;
 
     @OneToMany(mappedBy = "author")

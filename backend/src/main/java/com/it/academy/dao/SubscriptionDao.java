@@ -8,6 +8,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 @Component
@@ -15,12 +17,13 @@ import java.util.List;
 public class SubscriptionDao {
     private final JdbcTemplate jdbcTemplate;
 
-   /* public List<Subscription> getActiveSubscriptionsByUserId(Long userId) {
-        String sql = "SELECT * FROM subscriptions WHERE date_finish >= CURRENT_DATE OR date_finish IS NULL AND user_id =?;";
+    public List<Subscription> getActiveSubscriptionsByUserId(Long userId) {
+        String sql = "SELECT * FROM subscriptions WHERE user_id =?;";
         return jdbcTemplate.query(sql, new SubscriptionRowMapper(), userId);
     }
 
     private static class SubscriptionRowMapper implements RowMapper<Subscription> {
+
         @Override
         public Subscription mapRow(ResultSet rs, int rowNum) throws SQLException {
             Subscription subscription = new Subscription();
@@ -31,12 +34,9 @@ public class SubscriptionDao {
 
             subscription.setId(rs.getLong("id"));
             subscription.setCourse(course);
-            subscription.setCreationDate(rs.getDate("date_start").toLocalDate());
+            subscription.setCreationDate(rs.getDate("creation_date").toLocalDate());
             subscription.setUser(user);
-            *//*if (rs.getDate("date_finish") != null) {
-                subscription.setDateFinish(rs.getDate("date_finish").toLocalDate());
-            }*//*
             return subscription;
         }
-    }*/
+    }
 }

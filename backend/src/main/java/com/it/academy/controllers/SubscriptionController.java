@@ -47,4 +47,11 @@ public class SubscriptionController {
         return new ResponseEntity<>(updatedId, HttpStatus.OK);
     }
 
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<SubscriptionDto>> getSubscriptionByUserId(@PathVariable Long userId) {
+        List<SubscriptionDto> subscriptions = mapper.map(service.getSubscriptionsByUserId(userId));
+        return new ResponseEntity<>(subscriptions, HttpStatus.OK);
+
+    }
+
 }

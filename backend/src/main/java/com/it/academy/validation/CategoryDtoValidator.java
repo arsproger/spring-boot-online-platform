@@ -1,6 +1,5 @@
 package com.it.academy.validation;
 
-import com.it.academy.dto.ArticleDto;
 import com.it.academy.dto.CategoryDto;
 import com.it.academy.repositories.CategoryRepository;
 import lombok.AllArgsConstructor;

@@ -5,9 +5,6 @@ import com.it.academy.repositories.CourseRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import javax.validation.Validation;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,8 +12,6 @@ import java.util.List;
 @Component
 @AllArgsConstructor
 public class CourseDtoValidator {
-    private final ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-    private final Validator validator = factory.getValidator();
     private final CourseRepository courseRepository;
 
     public List<String> validate(CourseDto courseDto) {
@@ -27,7 +22,7 @@ public class CourseDtoValidator {
         } else if (courseDto.getName().length() > 155) {
             errors.add("Name must have a maximum of 155 characters!");
         } else if (!courseRepository.getCourseByName(courseDto.getName()).isEmpty()) {
-            errors.add("Сourse with this name already exists!");
+            errors.add("Course with this name already exists!");
         }
 
         if (courseDto.getDescription() == null || courseDto.getDescription().isEmpty()) {
