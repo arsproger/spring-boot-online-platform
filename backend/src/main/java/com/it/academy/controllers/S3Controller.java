@@ -4,9 +4,7 @@ import com.it.academy.services.S3Service;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -20,17 +18,35 @@ import java.util.List;
 public class S3Controller {
     private final S3Service s3Service;
 
-    @PostMapping("/upload")
+    @PostMapping("/upload/video")
     @Operation(summary = "Загрузка видео на сервер")
-    public String upload(@RequestParam Long lessonId, @RequestParam("file") MultipartFile file) {
-        return s3Service.saveFile(lessonId, file);
+    public String uploadVideo(@RequestParam Long lessonId, @RequestParam("file") MultipartFile file) {
+        return s3Service.saveVideo(lessonId, file);
+    }
+
+    @PostMapping("/upload/image")
+    @Operation(summary = "Загрузка фото на сервер")
+    public String uploadImage(@RequestParam Long courseId, @RequestParam("file") MultipartFile file) {
+        return s3Service.saveImage(courseId, file);
     }
 
     @GetMapping("/download/{filename:.+}")
     @Operation(summary = "Получение видео из сервера по его имени")
     public ResponseEntity<byte[]> download(@PathVariable("filename") String filename) {
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-type", "video/mp4");
+
+        String contentType;
+        if (filename.toLowerCase().endsWith(".mp4")) {
+            contentType = "video/mp4";
+        } else if (filename.toLowerCase().endsWith(".png")) {
+            contentType = "image/png";
+        } else if (filename.toLowerCase().endsWith(".jpg") || filename.toLowerCase().endsWith(".jpeg")) {
+            contentType = "image/jpeg";
+        } else {
+            contentType = "application/octet-stream";
+        }
+
+        headers.add("Content-type", contentType); // image/jpeg, video/mp4
         headers.add("Content-Disposition", "attachment; filename=" + filename);
         byte[] bytes = s3Service.downloadFile(filename);
         return ResponseEntity.status(HttpStatus.OK).headers(headers).body(bytes);

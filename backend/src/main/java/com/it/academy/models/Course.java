@@ -1,8 +1,9 @@
 package com.it.academy.models;
 
-import lombok.*;
-
 import jakarta.persistence.*;
+import lombok.*;
+import org.hibernate.annotations.Cascade;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
@@ -44,5 +45,9 @@ public class Course {
 
     @ManyToMany(mappedBy = "courses")
     private List<Cart> carts;
+
+    @OneToOne(mappedBy = "course")
+    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
+    private S3 s3;
 
 }
