@@ -13,6 +13,7 @@ import com.it.academy.services.LessonService;
 import com.it.academy.services.S3Service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -77,6 +78,7 @@ public class S3ServiceImpl implements S3Service {
         }
     }
 
+    @Cacheable("file")
     @Override
     public byte[] downloadFile(String filename) {
         S3Object s3Object = amazonS3.getObject(bucketName, filename);
