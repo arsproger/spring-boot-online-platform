@@ -4,6 +4,7 @@ import lombok.*;
 
 import jakarta.persistence.*;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -22,6 +23,7 @@ public class Course {
     private String description;
     private BigDecimal price;
     private String language;
+    private LocalDate created;
 
     @ManyToOne
     @JoinColumn(name = "category_id", referencedColumnName = "id")

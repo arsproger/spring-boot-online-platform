@@ -3,10 +3,8 @@ package com.it.academy.controllers;
 import com.it.academy.dao.CourseDao;
 import com.it.academy.dto.CourseDto;
 import com.it.academy.mappers.CourseMapper;
-import com.it.academy.models.Course;
 import com.it.academy.security.DetailsUser;
 import com.it.academy.services.CourseService;
-import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -101,6 +99,13 @@ public class CourseController {
     public ResponseEntity<List<CourseDto>> getCourseByName(@PathVariable String name) {
         List<CourseDto> courses = mapper.map(courseDao.getCourseByName(name));
         return new ResponseEntity<>(courses, HttpStatus.OK);
+    }
+
+    @GetMapping("/duration/{id}")
+    @Operation(summary = "Получение длительности курса по его id")
+    public ResponseEntity<Double> getCourseDurationSum(@PathVariable("id") Long courseId) {
+        Double durationSun = courseDao.getCourseDurationSum(courseId);
+        return new ResponseEntity<>(durationSun, HttpStatus.OK);
     }
 
 }

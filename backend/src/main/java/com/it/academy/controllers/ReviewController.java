@@ -5,7 +5,6 @@ import com.it.academy.dto.ReviewDto;
 import com.it.academy.mappers.ReviewMapper;
 import com.it.academy.security.DetailsUser;
 import com.it.academy.services.ReviewService;
-import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
@@ -50,6 +49,13 @@ public class ReviewController {
     public ResponseEntity<List<ReviewDto>> getCommentsByCourseId(@PathVariable("id") Long courseId) {
         List<ReviewDto> reviews = mapper.map(reviewDao.getCommentsByCourseId(courseId));
         return new ResponseEntity<>(reviews, HttpStatus.OK);
+    }
+
+    @GetMapping("/course/avg-grade/{id}")
+    @Operation(summary = "Получение средней оценки курса по его id")
+    public ResponseEntity<Double> getCourseAvgGrade(@PathVariable("id") Long courseId) {
+        Double avgGrade = reviewDao.getCourseAvgGrade(courseId);
+        return new ResponseEntity<>(avgGrade, HttpStatus.OK);
     }
 
     @PostMapping
