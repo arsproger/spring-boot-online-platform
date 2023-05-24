@@ -1,0 +1,64 @@
+@import "../../styles/varibales.module.scss";
+
+@property --num {
+  syntax: "<integer>";
+  initial-value: 0;
+  inherits: false;
+}
+
+.statistics {
+  max-width: 1440px;
+  padding: 10% 5% 5%;
+  box-sizing: border-box;
+  margin: 0 auto;
+
+  .statisticsSlider {
+    @include adaptive-value("height", 220, 150);
+
+    .statistics__item {
+      max-width: 300px;
+      width: 100%;
+      text-align: center;
+      margin: 0 auto;
+
+      .__num {
+        font-weight: 400;
+        @include adaptive-value("font-size", 58, 30);
+        line-height: 130%;
+        animation-fill-mode: forwards;
+        counter-reset: num var(--num);
+        color: #03d665;
+
+        &::before {
+          content: counter(num);
+        }
+
+        &::after {
+          content: "+";
+        }
+      }
+
+      .__num1 {
+        animation: counter-to-20 2s alternate ease-in-out;
+        animation-fill-mode: forwards;
+      }
+
+      p {
+        font-weight: 400;
+        @include adaptive-value("font-size", 15, 10);
+        line-height: 130%;
+        color: #7f7f7f;
+        letter-spacing: 1px;
+      }
+    }
+  }
+}
+
+@keyframes counter-to-20 {
+  0% {
+    --num: 0;
+  }
+  100% {
+    --num: 100;
+  }
+}

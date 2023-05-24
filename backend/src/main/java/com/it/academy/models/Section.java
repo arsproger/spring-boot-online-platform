@@ -5,11 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
@@ -22,14 +18,10 @@ public class Section {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @NotNull
-    @Size(max = 155)
     private String name;
 
     @ManyToOne
     @JoinColumn(name = "course_id", referencedColumnName = "id")
-    @NotNull
     private Course course;
 
     @OneToMany(mappedBy = "section")

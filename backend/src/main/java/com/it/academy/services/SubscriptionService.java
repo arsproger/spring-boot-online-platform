@@ -9,12 +9,10 @@ public interface SubscriptionService {
 
     List<Subscription> getAll();
 
-    Long save(Subscription subscription);
-    Subscription create(Long userId, Long courseId);
+    Long save(Long userId, Long courseId);
 
     Long deleteById(Long id);
 
     Long update(Long id, Subscription subscription);
-    List<Subscription> getSubscriptionsByUserId(Long userId);
 
 }

@@ -1,0 +1,18 @@
+$maxWidth: 1440;
+
+@mixin adaptive-value($property, $startSize, $minSize) {
+  $addSize: $startSize - $minSize;
+  #{$property}: $startSize + px;
+  @media (max-width: #{$maxWidth + px}) {
+    #{$property}: calc(
+      #{$minSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidth - 320})
+    );
+  }
+}
+
+@mixin centering {
+  max-width: 1440px;
+  padding: 0 5%;
+  box-sizing: border-box;
+  margin: 0 auto;
+}

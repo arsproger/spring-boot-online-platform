@@ -1,18 +1,19 @@
 package com.it.academy.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 
 @Setter
 @Getter
+@Schema(description = "Сущность для авторизации")
 public class AuthenticationDto {
     @Email(message = "Не корректный email!")
     private String username;
 
-    @NotBlank(message = "Пароль не может быть пустым!")
+    @NotEmpty(message = "Пароль не может быть пустым!")
     private String password;
 }

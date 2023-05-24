@@ -3,7 +3,7 @@ package com.it.academy.controllers;
 import com.it.academy.dto.ArticleDto;
 import com.it.academy.mappers.ArticleMapper;
 import com.it.academy.services.ArticleService;
-import com.it.academy.validation.ObjectValidator;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,10 +14,10 @@ import java.util.List;
 @RestController
 @RequestMapping("/article")
 @AllArgsConstructor
+@Tag(name = "Контроллер для статей к урокам")
 public class ArticleController {
     private final ArticleService service;
     private final ArticleMapper mapper;
-    private final ObjectValidator<ArticleDto> validator;
 
     @GetMapping
     public ResponseEntity<List<ArticleDto>> getAllArticles() {
@@ -31,10 +31,9 @@ public class ArticleController {
         return new ResponseEntity<>(article, HttpStatus.OK);
     }
 
-    @PostMapping("/create/{lessonId}")
-    public ResponseEntity<?> createArticle(@RequestBody ArticleDto article, @PathVariable Long lessonId) {
-        if (!validator.validate(article).isEmpty()) return new ResponseEntity<>(validator.validate(article), HttpStatus.BAD_REQUEST);
-        Long id = service.create(mapper.map(article), lessonId);
+    @PostMapping
+    public ResponseEntity<Long> createArticle(@RequestBody ArticleDto article) {
+        Long id = service.save(mapper.map(article));
         return new ResponseEntity<>(id, HttpStatus.CREATED);
     }
 
@@ -45,8 +44,7 @@ public class ArticleController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateArticleById(@PathVariable Long id, @RequestBody ArticleDto article) {
-        if (!validator.validate(article).isEmpty()) return new ResponseEntity<>(validator.validate(article), HttpStatus.BAD_REQUEST);
+    public ResponseEntity<Long> updateArticleById(@PathVariable Long id, @RequestBody ArticleDto article) {
         Long updatedId = service.update(id, mapper.map(article));
         return new ResponseEntity<>(updatedId, HttpStatus.OK);
     }

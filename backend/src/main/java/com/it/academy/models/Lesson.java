@@ -2,12 +2,9 @@ package com.it.academy.models;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Cascade;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
@@ -19,19 +16,12 @@ public class Lesson {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
-    @Size(max = 155)
     private String title;
-
-    @NotNull
     private String description;
-
-    @NotNull
     private Double duration;
 
     @ManyToOne
     @JoinColumn(name = "section_id", referencedColumnName = "id")
-    @NotNull
     private Section section;
 
     @OneToMany(mappedBy = "lesson")
@@ -39,4 +29,9 @@ public class Lesson {
 
     @OneToMany(mappedBy = "lesson")
     private List<Comment> comments;
+
+    @OneToOne(mappedBy = "lesson")
+    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
+    private S3 s3;
+
 }

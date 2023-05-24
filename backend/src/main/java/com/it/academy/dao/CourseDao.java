@@ -41,4 +41,20 @@ public class CourseDao {
                 new CourseRowMapper(), userId);
     }
 
+    public List<Course> getCourseByCategoryId(Long categoryId) {
+        return jdbcTemplate.queryForList("SELECT * FROM courses WHERE category_id = ?",
+                Course.class, categoryId);
+    }
+
+    public List<Course> getCourseByName(String name) {
+        return jdbcTemplate.queryForList("SELECT * FROM courses WHERE name = ?",
+                Course.class, name);
+    }
+
+    public Double getCourseDurationSum(Long courseId) {
+        return jdbcTemplate.queryForObject("SELECT sum(duration) FROM lessons " +
+                "JOIN sections ON(lessons.section_id = sections.id) " +
+                "WHERE sections.course_id = ?", Double.class, courseId);
+    }
+
 }

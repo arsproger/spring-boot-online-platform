@@ -1,74 +1,59 @@
 package com.it.academy.services.impl;
 
-import com.it.academy.dao.SubscriptionDao;
-import com.it.academy.models.Course;
 import com.it.academy.models.Subscription;
-import com.it.academy.models.User;
 import com.it.academy.repositories.SubscriptionRepository;
 import com.it.academy.services.CourseService;
 import com.it.academy.services.SubscriptionService;
 import com.it.academy.services.UserService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
 import java.time.LocalDate;
 import java.util.List;
 
 @Service
 @AllArgsConstructor
 public class SubscriptionServiceImpl implements SubscriptionService {
-    private final SubscriptionRepository subscriptionRepository;
-    private final CourseService courseService;
+    private final SubscriptionRepository repo;
     private final UserService userService;
-    private final SubscriptionDao subscriptionDao;
+    private final CourseService courseService;
 
     @Override
     public Subscription getById(Long id) {
-        return subscriptionRepository.findById(id).orElseThrow(
+        return repo.findById(id).orElseThrow(
                 () -> new EntityNotFoundException("Subscription not found with id: " + id));
     }
 
     @Override
     public List<Subscription> getAll() {
-        return subscriptionRepository.findAll();
+        return repo.findAll();
     }
 
     @Override
-    public Long save(Subscription subscription) {
-        return subscriptionRepository.save(subscription).getId();
-    }
+    public Long save(Long userId, Long courseId) {
+        Subscription subscription = Subscription.builder()
+                .dateStart(LocalDate.now())
+                .user(userService.getById(userId))
+                .course(courseService.getById(courseId))
+                .build();
 
-    @Override
-    public Subscription create(Long userId, Long courseId) {
-        Course course = courseService.getById(courseId);
-        User user = userService.getById(userId);
-        Subscription subscription = new Subscription();
-        subscription.setCourse(course);
-        subscription.setUser(user);
-        subscription.setCreationDate(LocalDate.now());
-        subscriptionRepository.save(subscription);
-
-        return subscription;
+        return repo.save(subscription).getId();
     }
 
     @Override
     public Long deleteById(Long id) {
-        subscriptionRepository.deleteById(id);
+        repo.deleteById(id);
         return id;
     }
 
     @Override
     public Long update(Long id, Subscription updatedSubscription) {
-        Subscription subscription = subscriptionRepository.findById(id).orElseThrow(
-                () -> new EntityNotFoundException("Subscription not found with id: " + id));
-        subscription.setCreationDate(updatedSubscription.getCreationDate());
+        Subscription subscription = getById(id);
 
-        return subscriptionRepository.save(subscription).getId();
-    }
+        subscription.setDateStart(updatedSubscription.getDateStart());
 
-    public List<Subscription> getSubscriptionsByUserId(Long userId) {
-        return subscriptionDao.getActiveSubscriptionsByUserId(userId);
+        return repo.save(subscription).getId();
     }
 
 }

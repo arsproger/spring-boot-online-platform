@@ -1,0 +1,56 @@
+@import "../../styles/varibales.module.scss";
+
+.mySwiper__content {
+  max-width: 1440px;
+  position: relative;
+  margin: 15% 0;
+
+  .mySwiper__info {
+    @include adaptive-value("max-width", 400, 200);
+    width: 100%;
+    position: absolute;
+    top: 20%;
+    left: 5%;
+    background: #fdfdfd;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.08);
+    @include adaptive-value("padding", 20, 15);
+    box-sizing: border-box;
+
+    h2 {
+      font-weight: 700;
+      @include adaptive-value("font-size", 30, 15);
+      line-height: 130%;
+      color: #7329c2;
+
+      span {
+        color: #322f55;
+      }
+    }
+
+    p {
+      font-weight: 400;
+      @include adaptive-value("font-size", 18, 10);
+      line-height: 130%;
+    }
+
+    button {
+      border: 1px solid #7329c2;
+      color: #7329c2;
+      transition: all 0.5s;
+    }
+
+    button:hover {
+      background-color: #7329c2;
+      border: 1px solid #7329c2;
+      color: #FFFFFF;
+      transition: all 0.5s;
+    }
+  }
+
+  img {
+    width: 100%;
+    height: 450px;
+    object-fit: cover;
+  }
+}

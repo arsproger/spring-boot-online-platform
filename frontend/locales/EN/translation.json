@@ -1,0 +1,43 @@
+{
+  "title": "Educational online-platform",
+  "subTitle": "Courses and video lectures on design, copywriting, SMM, targeting and many other areas",
+  "buttonText": "Read more",
+  "signUp": [
+    "Registration",
+    "Name",
+    "Email",
+    "Password",
+    "Confirm Password",
+    "Please enter your name",
+    "Please enter a valid email address",
+    "Please enter your email",
+    "Please enter your password",
+    "Password must be at least 6 characters long",
+    "Please confirm your password",
+    "Passwords do not match",
+    "Sign up",
+    "Login with Google",
+    "Login with GitHub"
+  ],
+
+  "signIn": [
+    "Login",
+    "Email",
+    "Password",
+    "Please enter a valid email address",
+    "Please enter your email",
+    "Please enter your password",
+    "Sign in",
+    "Login with Google",
+    "Login with GitHub",
+    "Password recovery"
+  ],
+
+  "passwordRecovery": [
+    "Password Recovery",
+    "Email",
+    "Please enter a valid email address",
+    "Please enter your email",
+    "Recover Password"
+  ]
+}

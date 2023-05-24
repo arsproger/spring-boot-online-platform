@@ -1,0 +1,67 @@
+@import "../../styles/varibales.module.scss";
+
+.menu {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  z-index: 23322;
+  top: 88.95px;
+  right: 0;
+  transform: translateX(-150%);
+  transition: all 0.3s;
+
+  .blur {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    left: 40%;
+    backdrop-filter: blur(2px);
+  }
+
+  .menu__content {
+    width: 40%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-color: #ffffff;
+    box-shadow: 0 4px 4.25px 0.75px rgba(0, 0, 0, 0.13);
+
+    .menu__header {
+      width: 100%;
+      font-weight: 400;
+      @include adaptive-value("font-size", 30, 15);
+              line-height: 130%;
+      color: #03d665;
+      text-align: center;
+      padding: 10px;
+      border-bottom: 1px solid #03d665;
+    }
+
+    .menu__list li {
+      margin: 20px 0;
+    }
+
+    .menu__list li a {
+      font-weight: 400;
+      @include adaptive-value("font-size", 18, 10);
+              line-height: 130%;
+    }
+  }
+}
+
+.active {
+  transform: translateX(0);
+}
+
+@media screen and (max-width: 425px) {
+  .menu {
+    .blur {
+      left: 50%;
+    }
+
+    .menu__content {
+      width: 50%;
+    }
+  }
+}

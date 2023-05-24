@@ -1,0 +1,152 @@
+@import "../../styles/varibales.module.scss";
+
+.hero {
+  height: 100vh;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+
+  .hero__title {
+    width: 100%;
+    position: absolute;
+    z-index: 10;
+
+    .hero__title_container {
+      max-width: 600px;
+      margin: 0 auto;
+      h1 {
+        font-weight: 700;
+        @include adaptive-value("font-size", 55, 22);
+                line-height: 130%;
+        color: #03d665;
+        letter-spacing: 2px;
+        text-align: center;
+      }
+    }
+
+    .hero__subTitle_container {
+      max-width: 600px;
+      margin: 0 auto;
+      p {
+        font-weight: 400;
+        @include adaptive-value("font-size", 20, 10);
+                line-height: 130%;
+        color: #7f7f7f;
+        letter-spacing: 2px;
+        text-align: center;
+      }
+    }
+  }
+
+  .sky {
+    margin: 100px 0 0 0;
+    .sun {
+      @include adaptive-value("width", 250, 80);
+      position: absolute;
+      @include adaptive-value("top", -90, -25);
+      @include adaptive-value("right", -90, -25);
+      animation: 1s ease-out 0s 1 sunAnimated;
+
+      .sunAnimated {
+        width: 100%;
+        animation-name: spin;
+        animation-duration: 30s;
+        animation-iteration-count: infinite;
+        animation-timing-function: linear;
+      }
+    }
+
+    /* ANIMATIONS */
+    .x1 {
+      transform: scale(0.5);
+      animation: animateCloud 60s linear infinite;
+    }
+
+    .x2 {
+      transform: scale(0.3);
+      animation: animateCloud 40s linear infinite;
+    }
+
+    .x3 {
+      transform: scale(0.65);
+      animation: animateCloud 100s linear infinite;
+    }
+
+    .x4 {
+      transform: scale(0.4);
+      animation: animateCloud 35s linear infinite;
+    }
+
+    .x5 {
+      transform: scale(0.55);
+      animation: animateCloud 70s linear infinite;
+    }
+
+    /* OBJECTS */
+    .cloud {
+      @include adaptive-value("width", 350, 200);
+      @include adaptive-value("height", 120, 100);
+      position: relative;
+      background: #ffffff;
+      background: linear-gradient(top, #ffffff 5%, #f1f1f1 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FFFFFF', endColorstr='#f1f1f1',GradientType=0 );
+      border-radius: 100px;
+      box-shadow: 0px 10px 10px 2px rgba(0, 180, 255, 0.17);
+    }
+
+    .cloud:after,
+    .cloud:before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      background: #ffffff;
+      border-radius: 100px;
+      box-shadow: 0px -10px 10px 2px rgba(0, 180, 255, 0.17);
+    }
+
+    .cloud:after {
+      @include adaptive-value("width", 100, 80);
+      @include adaptive-value("height", 100, 80);
+      @include adaptive-value("top", -50, -20);
+      @include adaptive-value("left", 50, 20);
+    }
+
+    .cloud:before {
+      @include adaptive-value("width", 180, 120);
+      @include adaptive-value("height", 180, 120);
+      @include adaptive-value("top", -90, -50);
+      @include adaptive-value("right", 50, 30);
+    }
+
+    /* KEYFRAMES */
+    @keyframes sunAnimated {
+      0% {
+        transform: translateX(150%);
+      }
+      100% {
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes spin {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes animateCloud {
+      0% {
+        margin-left: -1200px;
+      }
+      100% {
+        margin-left: 100%;
+      }
+    }
+  }
+}
+

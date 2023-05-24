@@ -1,11 +1,11 @@
 package com.it.academy.models;
 
+import com.it.academy.enums.Provider;
 import com.it.academy.enums.Role;
 import com.it.academy.enums.UserStatus;
+import jakarta.persistence.*;
 import lombok.*;
 
-import javax.persistence.*;
-import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -21,39 +21,23 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @NotNull
-    @Size(max = 155)
-    private String name;
-
-    @NotNull
-    @Size(max = 155)
-    private String surname;
-
+    private String fullName;
     @Column(name = "date_of_birth")
     private LocalDate dateOfBirth;
-
-    @Email
     private String email;
-
-    @NotNull
-    @Size(min = 8)
     private String password;
-
     @Enumerated(EnumType.STRING)
     private Role role;
-
     @Enumerated(EnumType.STRING)
     private UserStatus status;
-
     @Column(name = "activation_token")
     private String activationToken;
-
     @Column(name = "reset_token")
     private String resetToken;
-
     @Column(name = "reset_token_expire_time")
     private LocalDateTime resetTokenExpireTime;
+    @Enumerated(EnumType.STRING)
+    private Provider provider;
 
     @OneToMany(mappedBy = "user")
     private List<Subscription> subscriptions;
@@ -66,7 +50,5 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<Comment> comments;
-
-    private String stripeAccountId;
 
 }

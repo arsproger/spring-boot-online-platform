@@ -2,11 +2,14 @@ package com.it.academy.controllers;
 
 import com.it.academy.dto.CommentDto;
 import com.it.academy.mappers.CommentMapper;
+import com.it.academy.security.DetailsUser;
 import com.it.academy.services.CommentService;
-import com.it.academy.validation.ObjectValidator;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,10 +17,10 @@ import java.util.List;
 @RestController
 @RequestMapping("/comment")
 @AllArgsConstructor
+@Tag(name = "Контроллер комментариев к урокам")
 public class CommentController {
     private final CommentService service;
     private final CommentMapper mapper;
-    private final ObjectValidator<CommentDto> validator;
 
     @GetMapping
     public ResponseEntity<List<CommentDto>> getAllComments() {
@@ -32,12 +35,13 @@ public class CommentController {
     }
 
     @PostMapping
-    public ResponseEntity<?> createComment(
-            @RequestParam Long userId,
+    @Operation(summary = "Создание комментария к уроку",
+            description = "Автором комментария будет назначен текущий пользователь")
+    public ResponseEntity<Long> createComment(
+            @AuthenticationPrincipal DetailsUser detailsUser,
             @RequestParam Long lessonId,
             @RequestBody CommentDto dto) {
-        if (!validator.validate(dto).isEmpty()) return new ResponseEntity<>(validator.validate(dto), HttpStatus.BAD_REQUEST);
-        Long id = service.create(userId, lessonId, mapper.map(dto));
+        Long id = service.save(detailsUser.getUser().getId(), lessonId, mapper.map(dto));
         return new ResponseEntity<>(id, HttpStatus.CREATED);
     }
 
@@ -48,10 +52,10 @@ public class CommentController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateCommentById(@PathVariable Long id, @RequestBody CommentDto dto) {
-        if (!validator.validate(dto).isEmpty()) return new ResponseEntity<>(validator.validate(dto), HttpStatus.BAD_REQUEST);
+    public ResponseEntity<Long> updateCommentById(@PathVariable Long id, @RequestBody CommentDto dto) {
         Long updatedId = service.update(id, mapper.map(dto));
         return new ResponseEntity<>(updatedId, HttpStatus.OK);
     }
+
 
 }

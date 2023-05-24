@@ -1,0 +1,33 @@
+@import "../../styles/varibales.module.scss";
+
+.editing {
+  max-width: 500px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 200px auto;
+  padding: 20px;
+  box-sizing: border-box;
+
+  h2 {
+    font-weight: 700;
+    @include adaptive-value("font-size", 40, 20);
+    line-height: 130%;
+    color: #7329c2;
+    text-align: center;
+    margin: 0 0 30px;
+  }
+
+  input {
+    width: 400px !important;
+  }
+}
+
+.buttonGroup {
+  display: flex;
+  justify-content: flex-end;
+
+  button {
+    margin: 0 0 0 8px;
+  }
+}

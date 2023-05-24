@@ -1,10 +1,11 @@
 package com.it.academy.models;
 
+import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.Cascade;
 
-import javax.persistence.*;
-import javax.validation.constraints.*;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -19,29 +20,18 @@ public class Course {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
-    @Size(min = 1, max = 155)
-    @NotNull
     private String name;
-
-    @NotNull
     private String description;
-
-    @NotNull
     private BigDecimal price;
-
-    @NotNull
-    @Size(min = 1, max = 155)
     private String language;
+    private LocalDate created;
 
     @ManyToOne
     @JoinColumn(name = "category_id", referencedColumnName = "id")
-    @NotNull
     private Category category;
 
     @ManyToOne
     @JoinColumn(name = "author_id", referencedColumnName = "id")
-    @NotNull
     private User author;
 
     @OneToMany(mappedBy = "course")
@@ -52,5 +42,12 @@ public class Course {
 
     @OneToMany(mappedBy = "course")
     private List<Subscription> subscriptions;
+
+    @ManyToMany(mappedBy = "courses")
+    private List<Cart> carts;
+
+    @OneToOne(mappedBy = "course")
+    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
+    private S3 s3;
 
 }
