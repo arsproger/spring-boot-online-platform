@@ -1,6 +1,5 @@
 package com.it.academy.services.impl;
 
-import com.it.academy.config.PaymentConfig;
 import com.it.academy.models.Subscription;
 import com.it.academy.models.User;
 import com.it.academy.services.PaymentService;
@@ -16,6 +15,8 @@ import com.stripe.param.AccountCreateParams;
 import com.stripe.param.AccountLinkCreateParams;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -26,14 +27,18 @@ import java.util.Map;
 @Service
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class PaymentServiceImpl implements PaymentService {
-    private final PaymentConfig paymentConfig;
-    private final UserService userService;
-    private final SubscriptionService subscriptionService;
+    @Value("${stripe.secret.key}")
+    private String secretKey;
+    @Value("${stripe.public.key}")
+    private String publicKey;
+    private UserService userService;
+    private SubscriptionService subscriptionService;
 
     @Override
     public void makePayment(Long subscriptionId, String cardNumber, String expMonth, String expYear, String cvc) throws StripeException {
-        Stripe.apiKey = paymentConfig.getSecretKey();
+        Stripe.apiKey = secretKey;
         Subscription subscription = subscriptionService.getById(subscriptionId);
 
         Map<String, Object> cardParams = new HashMap<>();
@@ -67,7 +72,7 @@ public class PaymentServiceImpl implements PaymentService {
             String firstName = user.getName();
             String lastName = user.getSurname();
 
-            Stripe.apiKey = paymentConfig.getSecretKey();
+            Stripe.apiKey = secretKey;
 
             AccountCreateParams params = AccountCreateParams.builder()
                     .setType(AccountCreateParams.Type.EXPRESS)
