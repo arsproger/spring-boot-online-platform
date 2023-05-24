@@ -20,7 +20,7 @@ public class EmailConfig {
             message.setText(text);
             mailSender.send(message);
         } catch (MailException e) {
-            System.out.println(e.getMessage());
+            throw new RuntimeException(e.getMessage());
         }
 
     }
