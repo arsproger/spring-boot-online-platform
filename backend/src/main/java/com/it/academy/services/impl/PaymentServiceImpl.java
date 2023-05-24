@@ -69,8 +69,8 @@ public class PaymentServiceImpl implements PaymentService {
     public String createStripeAccount(Long userId) throws StripeException {
             User user = userService.getById(userId);
             String email = user.getEmail();
-            String firstName = user.getName();
-            String lastName = user.getSurname();
+            String fullName = user.getFullName();
+
 
             Stripe.apiKey = secretKey;
 
@@ -83,8 +83,7 @@ public class PaymentServiceImpl implements PaymentService {
                             .build())
                     .setIndividual(
                             AccountCreateParams.Individual.builder()
-                                    .setFirstName(firstName)
-                                    .setLastName(lastName)
+                                    .setFirstName(fullName)
                                     .build()
                     )
                     .build();

@@ -37,10 +37,6 @@ public class CourseDtoValidator {
             errors.add("Price must be less than 9999.99!");
         }
 
-        if (courseDto.getCategory() == null) {
-            errors.add("Category cannot be null!");
-        }
-
         return errors;
     }
 }

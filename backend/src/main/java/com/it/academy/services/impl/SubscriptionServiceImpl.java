@@ -33,7 +33,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     @Override
     public Long save(Long userId, Long courseId) {
         Subscription subscription = Subscription.builder()
-                .dateStart(LocalDate.now())
+                .creationDate(LocalDate.now())
                 .user(userService.getById(userId))
                 .course(courseService.getById(courseId))
                 .build();
@@ -51,7 +51,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     public Long update(Long id, Subscription updatedSubscription) {
         Subscription subscription = getById(id);
 
-        subscription.setDateStart(updatedSubscription.getDateStart());
+        subscription.setCreationDate(updatedSubscription.getCreationDate());
 
         return repo.save(subscription).getId();
     }

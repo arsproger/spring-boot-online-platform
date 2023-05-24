@@ -8,8 +8,6 @@ public interface CommentService {
     Comment getById(Long id);
 
     List<Comment> getAll();
-
-    Long save(Comment comment);
     Long create(Long userId, Long lessonId, Comment comment);
 
     Long deleteById(Long id);

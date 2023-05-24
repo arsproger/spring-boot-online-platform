@@ -33,7 +33,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public Long save(Long userId, Long lessonId, Comment comment) {
+    public Long create(Long userId, Long lessonId, Comment comment) {
         Lesson lesson = lessonService.getById(lessonId);
         User user = userService.getById(userId);
 

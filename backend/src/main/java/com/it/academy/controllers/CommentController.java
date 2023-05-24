@@ -41,7 +41,7 @@ public class CommentController {
             @AuthenticationPrincipal DetailsUser detailsUser,
             @RequestParam Long lessonId,
             @RequestBody CommentDto dto) {
-        Long id = service.save(detailsUser.getUser().getId(), lessonId, mapper.map(dto));
+        Long id = service.create(detailsUser.getUser().getId(), lessonId, mapper.map(dto));
         return new ResponseEntity<>(id, HttpStatus.CREATED);
     }
 
