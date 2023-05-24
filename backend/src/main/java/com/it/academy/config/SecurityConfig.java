@@ -43,7 +43,7 @@ public class SecurityConfig {
                 .cors()
                 .and()
                 .authorizeHttpRequests()
-                .requestMatchers("/auth/**", "/oauth/**", "/swagger-ui/**").permitAll()
+                .requestMatchers("/auth/**", "/oauth/**", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
                 .requestMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
