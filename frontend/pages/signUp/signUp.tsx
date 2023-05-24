@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import s from "./signUp.module.scss";
 
 import { useRouter } from "next/router";
-import axios from "axios";
-import { AxiosResponse } from "axios";
+import axios, { AxiosResponse } from "axios";
 import { Form, Input } from "antd";
 import { UserOutlined, LockOutlined, MailOutlined } from "@ant-design/icons";
 
@@ -11,21 +10,21 @@ import en from "../../locales/EN/translation.json";
 import ru from "../../locales/RU/translation.json";
 import MyButton from "../../components/MUI/MyButton/MyButton";
 
-const SignUp: React.FC = () => {
+interface IUserRegister {
+  fullName: string;
+  password: string;
+  email: string;
+}
+
+const SignUp: FC = () => {
   // Состояния - для данных пользователя регистрации
-  const [userRegister, setUserRegister] = useState({
+  const [userRegister, setUserRegister] = useState<IUserRegister>({
     fullName: "arsenov",
     email: "arsenov@gmail.com",
     password: "123456",
   });
-
   // Состояния - для загрузки кнопки
   const [loading, setLoading] = useState(false);
-
-  // Функция - для загрузки кнопки
-  const onFinish = () => {
-    setLoading(!loading);
-  };
 
   // Для - маршутизации
   const { push, locale } = useRouter();
@@ -34,15 +33,15 @@ const SignUp: React.FC = () => {
   const t = locale === "ru" ? ru : en;
 
   // Отправляем post запрос
-  const handleSubmit = async (): Promise<void> => {
+  const handleSubmit = async (value: IUserRegister) => {
+    setLoading(!loading);
     const BASE_URL = "http://localhost:8080";
+
     try {
       const { data }: AxiosResponse<{ token: string }> = await axios.post(
         BASE_URL + "/auth/register",
-        userRegister
+        value
       );
-
-      console.log(data.token);
 
       // Сохраняем токен пользователя
       localStorage.setItem("token", JSON.stringify(data.token));
@@ -64,14 +63,22 @@ const SignUp: React.FC = () => {
     } catch (error) {
       console.log(error);
     }
+    setLoading(!loading);
   };
 
+  // Для сохранения значений
+  const [form] = Form.useForm();
+
+  useEffect(() => {
+    form.setFieldsValue({ ...userRegister });
+  }, []);
+
   return (
-    <div className={s.signUp}>
+    <section className={s.signUp}>
       <h2>{t.signUp[0]}</h2>
-      <Form name="sign-up-form" onFinish={onFinish}>
+      <Form form={form} name="sign-up-form" onFinish={handleSubmit}>
         <Form.Item
-          name="name"
+          name="fullName"
           rules={[
             {
               required: true,
@@ -79,14 +86,7 @@ const SignUp: React.FC = () => {
             },
           ]}
         >
-          <Input
-            defaultValue={userRegister.fullName}
-            onChange={(e) => {
-              setUserRegister({ ...userRegister, fullName: e.target.value });
-            }}
-            prefix={<UserOutlined />}
-            placeholder={t.signUp[1]}
-          />
+          <Input prefix={<UserOutlined />} placeholder={t.signUp[1]} />
         </Form.Item>
 
         <Form.Item
@@ -102,14 +102,7 @@ const SignUp: React.FC = () => {
             },
           ]}
         >
-          <Input
-            defaultValue={userRegister.email}
-            onChange={(e) => {
-              setUserRegister({ ...userRegister, email: e.target.value });
-            }}
-            prefix={<MailOutlined />}
-            placeholder={t.signUp[2]}
-          />
+          <Input prefix={<MailOutlined />} placeholder={t.signUp[2]} />
         </Form.Item>
 
         <Form.Item
@@ -125,18 +118,11 @@ const SignUp: React.FC = () => {
             },
           ]}
         >
-          <Input.Password
-            defaultValue={userRegister.password}
-            onChange={(e) => {
-              setUserRegister({ ...userRegister, password: e.target.value });
-            }}
-            prefix={<LockOutlined />}
-            placeholder={t.signUp[3]}
-          />
+          <Input.Password prefix={<LockOutlined />} placeholder={t.signUp[3]} />
         </Form.Item>
 
         <Form.Item
-          name="confirmPassword"
+          name="password"
           dependencies={["password"]}
           rules={[
             {
@@ -153,11 +139,7 @@ const SignUp: React.FC = () => {
             }),
           ]}
         >
-          <Input.Password
-            defaultValue={userRegister.password}
-            prefix={<LockOutlined />}
-            placeholder={t.signUp[4]}
-          />
+          <Input.Password prefix={<LockOutlined />} placeholder={t.signUp[4]} />
         </Form.Item>
 
         <Form.Item>
@@ -166,7 +148,6 @@ const SignUp: React.FC = () => {
             hoverBackground="#03d665"
             type="primary"
             loading={loading}
-            onClick={handleSubmit}
           >
             {t.signUp[12]}
           </MyButton>
@@ -190,7 +171,7 @@ const SignUp: React.FC = () => {
           </a>
         </Form.Item>
       </Form>
-    </div>
+    </section>
   );
 };
 

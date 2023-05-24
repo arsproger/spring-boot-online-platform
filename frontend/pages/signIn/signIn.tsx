@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import s from "./signIn.module.scss";
 
 import Link from "next/link";
@@ -11,16 +11,17 @@ import en from "../../locales/EN/translation.json";
 import ru from "../../locales/RU/translation.json";
 import MyButton from "@/components/MUI/MyButton/MyButton";
 
-const SignIn: React.FC = () => {
+interface IUserLogin {
+  username: string;
+  password: string;
+}
+
+const SignIn: FC = () => {
   // Состояния - для данных пользователя авторизации
-  const [userLogin, setUserLogin] = useState<{
-    username: string;
-    password: string;
-  }>({
+  const [userLogin, setUserLogin] = useState<IUserLogin>({
     username: "arsenov@gmail.com",
     password: "123456",
   });
-
   // Состояния - для загрузки кнопки
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -31,13 +32,12 @@ const SignIn: React.FC = () => {
   const t = locale === "ru" ? ru : en;
 
   // Отправляем post запрос
-  const handleSubmit = async (values: any): Promise<void> => {
-    console.log(values);
-    
-    const BASE_URL = "http://localhost:8080";
-    try {
-      setLoading(true);
+  const handleSubmit = async (value: IUserLogin) => {
+    setLoading(!loading);
 
+    const BASE_URL = "http://localhost:8080";
+
+    try {
       const { data }: AxiosResponse<{ token: string }> = await axios.post(
         BASE_URL + "/auth/login",
         userLogin
@@ -62,14 +62,22 @@ const SignIn: React.FC = () => {
     } catch (error) {
       console.log(error);
     }
+    setLoading(!loading);
   };
 
+  // Для сохранения значений
+  const [form] = Form.useForm();
+
+  useEffect(() => {
+    form.setFieldsValue({ ...userLogin });
+  }, []);
+
   return (
-    <div className={s.signIn}>
+    <section className={s.signIn}>
       <h2>{t.signIn[0]}</h2>
-      <Form name="sign-in-form" onFinish={handleSubmit}>
+      <Form form={form} name="sign-in-form" onFinish={handleSubmit}>
         <Form.Item
-          name="email"
+          name="username"
           rules={[
             {
               type: "email",
@@ -81,14 +89,7 @@ const SignIn: React.FC = () => {
             },
           ]}
         >
-          <Input
-            defaultValue={userLogin.username}
-            onChange={(e) => {
-              setUserLogin({ ...userLogin, username: e.target.value });
-            }}
-            prefix={<UserOutlined />}
-            placeholder={t.signIn[1]}
-          />
+          <Input prefix={<UserOutlined />} placeholder={t.signIn[1]} />
         </Form.Item>
 
         <Form.Item
@@ -100,24 +101,16 @@ const SignIn: React.FC = () => {
             },
           ]}
         >
-          <Input.Password
-            defaultValue={userLogin.password}
-            onChange={(e) => {
-              setUserLogin({ ...userLogin, password: e.target.value });
-            }}
-            prefix={<LockOutlined />}
-            placeholder={t.signIn[2]}
-          />
+          <Input.Password prefix={<LockOutlined />} placeholder={t.signIn[2]} />
         </Form.Item>
 
-        <Form.Item name="submit">
+        <Form.Item>
           <MyButton
             background="#03d665"
             hoverBackground="#7329c2"
             type="primary"
             htmlType="submit"
             loading={loading}
-            onClick={handleSubmit}
           >
             {t.signIn[6]}
           </MyButton>
@@ -145,7 +138,7 @@ const SignIn: React.FC = () => {
           <Link href="/passwordRecovery/passwordRecovery">{t.signIn[9]}</Link>
         </Form.Item>
       </Form>
-    </div>
+    </section>
   );
 };
 

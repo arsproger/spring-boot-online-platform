@@ -28,7 +28,7 @@ const PasswordRecovery: React.FC = () => {
   const handleSubmit = async (): Promise<void> => {};
 
   return (
-    <div className={s.passwordRecovery}>
+    <section className={s.passwordRecovery}>
       <h2>{t.passwordRecovery[0]}</h2>
       <Form name="password-recovery-form" onFinish={onFinish}>
         <Form.Item
@@ -62,7 +62,7 @@ const PasswordRecovery: React.FC = () => {
           </MyButton>
         </Form.Item>
       </Form>
-    </div>
+    </section>
   );
 };
 

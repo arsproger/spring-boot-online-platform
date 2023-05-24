@@ -13,7 +13,7 @@ const Payment: React.FC = () => {
   };
 
   return (
-    <div className={s.payment}>
+    <section className={s.payment}>
       <h2>Payment System</h2>
       <Form name="payment-form" onFinish={onFinish}>
         <Form.Item
@@ -75,7 +75,7 @@ const Payment: React.FC = () => {
           </Button>
         </Form.Item>
       </Form>
-    </div>
+    </section>
   );
 };
 

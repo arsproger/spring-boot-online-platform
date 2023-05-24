@@ -38,13 +38,9 @@ const Profile = () => {
     setUserData({});
   };
 
-  // Отправляет get запрос при каждом изменении pathname
   useEffect(() => {
-    // Достаем токен пользователя
     const token = localStorage.getItem("token") ?? "";
     const parsedToken = token !== "" ? (JSON.parse(token) as string) : "";
-
-    // const token = JSON.parse(localStorage.getItem("token"));
 
     // Отправляет get запрос для получения пользователя
     const getUser = async (): Promise<void> => {
@@ -55,7 +51,6 @@ const Profile = () => {
         const { data } = await axios.get(BASE_URL + "/user/current", {
           headers: { Authorization: `Bearer ${parsedToken}` },
         });
-
         console.log(data);
 
         // Сохраняем данные пользователя
@@ -69,7 +64,7 @@ const Profile = () => {
   }, []);
 
   return (
-    <div className={s.profile}>
+    <section className={s.profile}>
       <div className={s.profile__body}>
         <Image className={s.coverFirst} src={cover} alt="cover" />
         <div className={s.coverSecond}></div>
@@ -121,7 +116,7 @@ const Profile = () => {
           </div>
         )}
       </div>
-    </div>
+    </section>
   );
 };
 

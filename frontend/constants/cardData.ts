@@ -1,7 +1,7 @@
 ﻿export interface ICards {
   id: number;
-  title: string;
-  desciption: string;
+  name: string;
+  description: string;
   creator: string;
   rating: number;
   size: string;
@@ -15,8 +15,8 @@
 export const cards: ICards[] = [
   {
     id: 1,
-    title: "Изучите Figma за несколько часов",
-    desciption: "Научитесь курсу figma",
+    name: "Изучите Figma за несколько часов",
+    description: "Научитесь курсу figma",
     creator: "Arsen Kasymov",
     rating: 4.6,
     size: "1 hour",
@@ -29,8 +29,8 @@ export const cards: ICards[] = [
   },
   {
     id: 2,
-    title: "Изучите Figma за несколько часов",
-    desciption: "Научитесь курсу figma",
+    name: "Изучите Figma за несколько часов",
+    description: "Научитесь курсу figma",
     creator: "Arsen Kasymov",
     rating: 4.6,
     size: "1 hour",
@@ -43,8 +43,8 @@ export const cards: ICards[] = [
   },
   {
     id: 3,
-    title: "Изучите Figma за несколько часов",
-    desciption: "Научитесь курсу figma",
+    name: "Изучите Figma за несколько часов",
+    description: "Научитесь курсу figma",
     creator: "Arsen Kasymov",
     rating: 4.6,
     size: "1 hour",
@@ -57,8 +57,8 @@ export const cards: ICards[] = [
   },
   {
     id: 4,
-    title: "Изучите Figma за несколько часов",
-    desciption: "Научитесь курсу figma",
+    name: "Изучите Figma за несколько часов",
+    description: "Научитесь курсу figma",
     creator: "Arsen Kasymov",
     rating: 4.6,
     size: "1 hour",
@@ -71,8 +71,8 @@ export const cards: ICards[] = [
   },
   {
     id: 5,
-    title: "Изучите Figma за несколько часов",
-    desciption: "Научитесь курсу figma",
+    name: "Изучите Figma за несколько часов",
+    description: "Научитесь курсу figma",
     creator: "Arsen Kasymov",
     rating: 4.6,
     size: "1 hour",

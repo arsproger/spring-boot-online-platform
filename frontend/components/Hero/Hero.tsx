@@ -28,7 +28,7 @@ const Hero: FC = () => {
         <div className={s.sun}>
           <img
             src="https://assets.website-files.com/5de973c9519095863a2344df/5e3448b93087e0c52585ec62_sun.svg"
-            alt="Sun image"
+            alt="sun image"
             className={s.sunAnimated}
           />
         </div>

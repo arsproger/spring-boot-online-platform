@@ -47,7 +47,7 @@ const RecommendedSiders: FC = () => {
             </p>
             <MyButton>Перейти</MyButton>
           </div>
-          <Image src={slideFirst} alt="Slide image" />
+          <Image src={slideFirst} alt="slide image" />
         </div>
       </SwiperSlide>
 
@@ -65,7 +65,7 @@ const RecommendedSiders: FC = () => {
             </p>
             <MyButton>Перейти</MyButton>
           </div>
-          <Image src={slideSecond} alt="Slide image" />
+          <Image src={slideSecond} alt="slide image" />
         </div>
       </SwiperSlide>
 
@@ -83,7 +83,7 @@ const RecommendedSiders: FC = () => {
             </p>
             <MyButton>Перейти</MyButton>
           </div>
-          <Image src={slideFirst} alt="Slide image" />
+          <Image src={slideFirst} alt="slide image" />
         </div>
       </SwiperSlide>
 
@@ -101,7 +101,7 @@ const RecommendedSiders: FC = () => {
             </p>
             <MyButton>Перейти</MyButton>
           </div>
-          <Image src={slideSecond} alt="Slide image" />
+          <Image src={slideSecond} alt="slide image" />
         </div>
       </SwiperSlide>
     </Swiper>

@@ -1,4 +1,4 @@
-@import "./varibales.module.scss";
+@import "../../styles/varibales.module.scss";
 
 .card {
   @include centering();
@@ -29,7 +29,7 @@
         &:hover {
           background-color: #7329c2;
           border: 1px solid #7329c2;
-          
+
           span {
             color: #ffffff;
           }
