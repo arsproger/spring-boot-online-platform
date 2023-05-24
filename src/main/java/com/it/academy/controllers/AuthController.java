@@ -3,6 +3,7 @@ package com.it.academy.controllers;
 import com.it.academy.dto.AuthenticationDto;
 import com.it.academy.dto.UserDto;
 import com.it.academy.mappers.UserMapper;
+import com.it.academy.security.DetailsUser;
 import com.it.academy.security.JWTUtil;
 import com.it.academy.services.UserService;
 import com.it.academy.util.UserValidator;
@@ -16,12 +17,10 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 import java.util.Objects;
@@ -81,6 +80,13 @@ public class AuthController {
         String token = jwtUtil.generateToken(authenticationDTO.getUsername());
         Map<String, String> response = Map.of("token", token);
         return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping("/redirect")
+    public ResponseEntity<Map<String, String>> handleRedirect(@AuthenticationPrincipal DetailsUser principal) {
+        String token = jwtUtil.generateToken(principal.getUsername());
+        Map<String, String> response = Map.of("token", token);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
 }
