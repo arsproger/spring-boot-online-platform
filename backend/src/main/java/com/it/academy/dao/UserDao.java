@@ -1,5 +1,7 @@
 package com.it.academy.dao;
 
+import com.it.academy.dao.rowMapper.CourseRowMapper;
+import com.it.academy.dao.rowMapper.UserRowMapper;
 import com.it.academy.models.User;
 import lombok.AllArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -11,12 +13,13 @@ import java.util.List;
 @AllArgsConstructor
 public class UserDao {
     private final JdbcTemplate jdbcTemplate;
+    private final CourseRowMapper courseRowMapper;
 
     public List<User> getUserByCourseId(Long courseId) {
-        return jdbcTemplate.queryForList("SELECT name, surname, date_of_birth, email FROM users " +
+        return jdbcTemplate.query("SELECT name, surname, date_of_birth, email FROM users " +
                         "JOIN subscriptions ON(users.id = subscriptions.user_id) " +
                         "WHERE subscriptions.course_id = ?",
-                User.class, courseId);
+                new UserRowMapper(), courseId);
     }
 
 }
