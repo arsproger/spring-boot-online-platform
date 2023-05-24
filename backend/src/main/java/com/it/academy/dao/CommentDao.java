@@ -1,20 +1,18 @@
 package com.it.academy.dao;
 
+import com.it.academy.dao.rowMapper.CommentRowMapper;
 import com.it.academy.models.Comment;
-import com.it.academy.models.User;
 import lombok.AllArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 
 @Component
 @AllArgsConstructor
 public class CommentDao {
     private final JdbcTemplate jdbcTemplate;
+    private final CommentRowMapper commentRowMapper;
 
     public List<Comment> getCourseCommentsByAuthorId(Long authorId) {
         String sql = "select * from comments join courses_comments cc on comments.id = cc.comments_id " +
@@ -29,7 +27,7 @@ public class CommentDao {
     }
 
 
-    private static class CommentRowMapper implements RowMapper<Comment> {
+    /*private static class CommentRowMapper implements RowMapper<Comment> {
         @Override
         public Comment mapRow(ResultSet rs, int rowNum) throws SQLException {
             Comment comment = new Comment();
@@ -45,5 +43,5 @@ public class CommentDao {
             comment.setUser(user);
             return comment;
         }
-    }
+    }*/
 }
