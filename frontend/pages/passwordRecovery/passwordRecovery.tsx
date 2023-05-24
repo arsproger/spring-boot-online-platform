@@ -29,7 +29,7 @@ const PasswordRecovery: React.FC = () => {
 
   return (
     <div className={s.passwordRecovery}>
-      <h1>{t.passwordRecovery[0]}</h1>
+      <h2>{t.passwordRecovery[0]}</h2>
       <Form name="password-recovery-form" onFinish={onFinish}>
         <Form.Item
           name="email"

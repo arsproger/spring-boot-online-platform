@@ -14,7 +14,7 @@ const Payment: React.FC = () => {
 
   return (
     <div className={s.payment}>
-      <h1>Payment System</h1>
+      <h2>Payment System</h2>
       <Form name="payment-form" onFinish={onFinish}>
         <Form.Item
           name="name"

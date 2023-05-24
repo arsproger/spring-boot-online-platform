@@ -9,7 +9,7 @@ import { faGlobe, faGraduationCap } from "@fortawesome/free-solid-svg-icons";
 
 import MyButton from "../MUI/MyButton/MyButton";
 import BurgerMenu from "../BurgerMenu/BurgerMenu";
-import MyModal from "../MUI/MyModal/MyModal";
+import MyModal from "../MyModal/MyModal";
 
 interface IHeaderProps {
   menuActive: boolean;
@@ -151,7 +151,7 @@ const Header: FC<IHeaderProps> = ({ menuActive, setMenuActive }) => {
               </a>
             </li>
             <span
-              className={s.animateILine}
+              className={s.animateLine}
               style={{
                 left: navBarPosition.left,
                 width: navBarPosition.width,
