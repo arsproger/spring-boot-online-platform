@@ -74,7 +74,7 @@ public class AuthController {
         try {
             authenticationManager.authenticate(authInputToken);
         } catch (BadCredentialsException e) {
-            Map<String, String> message = Map.of("message", "Incorrect credentials!");
+            Map<String, String> message = Map.of("message", "Неверный логин или пароль!");
             return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
         }
 
