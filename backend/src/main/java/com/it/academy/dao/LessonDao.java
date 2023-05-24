@@ -12,7 +12,6 @@ import java.util.List;
 @AllArgsConstructor
 public class LessonDao {
     private final JdbcTemplate jdbcTemplate;
-    private final LessonRowMapper lessonRowMapper;
 
     public List<Lesson> filterByDuration(Integer from, Integer to) {
         return jdbcTemplate.query("SELECT * FROM lessons WHERE duration between ? and ?",

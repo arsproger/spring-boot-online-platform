@@ -10,7 +10,6 @@ import java.sql.SQLException;
 
 @Component
 public class SectionRowMapper implements RowMapper<Section> {
-
     @Override
     public Section mapRow(ResultSet rs, int rowNum) throws SQLException {
         Section section = new Section();

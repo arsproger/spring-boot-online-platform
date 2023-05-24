@@ -12,7 +12,6 @@ import java.util.List;
 @AllArgsConstructor
 public class SectionDao {
     private final JdbcTemplate jdbcTemplate;
-    private final SectionRowMapper sectionRowMapper;
 
     public List<Section> getSectionByCourseId(Long courseId) {
         return jdbcTemplate.query("SELECT * FROM sections WHERE course_id = ?",

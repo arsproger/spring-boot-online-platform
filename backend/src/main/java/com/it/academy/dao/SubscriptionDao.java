@@ -12,7 +12,6 @@ import java.util.List;
 @AllArgsConstructor
 public class SubscriptionDao {
     private final JdbcTemplate jdbcTemplate;
-    private final SubscriptionRowMapper subscriptionRowMapper;
 
     public List<Subscription> getActiveSubscriptionsByUserId(Long userId) {
         String sql = "SELECT * FROM subscriptions WHERE user_id =?;";

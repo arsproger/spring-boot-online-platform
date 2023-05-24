@@ -13,7 +13,6 @@ import java.util.List;
 @AllArgsConstructor
 public class UserDao {
     private final JdbcTemplate jdbcTemplate;
-    private final CourseRowMapper courseRowMapper;
 
     public List<User> getUserByCourseId(Long courseId) {
         return jdbcTemplate.query("SELECT name, surname, date_of_birth, email FROM users " +

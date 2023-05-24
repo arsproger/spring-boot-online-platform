@@ -10,7 +10,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 @Component
 public class SubscriptionRowMapper implements RowMapper<Subscription> {
-
     @Override
     public Subscription mapRow(ResultSet rs, int rowNum) throws SQLException {
         Subscription subscription = new Subscription();

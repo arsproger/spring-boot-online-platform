@@ -12,7 +12,6 @@ import java.util.List;
 @AllArgsConstructor
 public class CourseDao {
     private final JdbcTemplate jdbcTemplate;
-    private final CourseRowMapper courseRowMapper;
 
 
     public List<Course> getByAuthorId(Long id) {
