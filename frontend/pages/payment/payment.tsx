@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { FC, useState } from "react";
 import s from "./payment.module.scss";
 
 import { Form, Input, Button } from "antd";
 import { UserOutlined, LockOutlined, CreditCardOutlined } from "@ant-design/icons";
 
-const Payment: React.FC = () => {
+const Payment: FC = () => {
   const [loading, setLoading] = useState(false);
 
   const onFinish = () => {

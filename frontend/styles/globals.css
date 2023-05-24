@@ -44,3 +44,7 @@ input {
   font-family: "Nunito", sans-serif;
   font-style: normal;
 }
+
+.ant-form-item {
+  margin: 7% 0 0 0;
+}

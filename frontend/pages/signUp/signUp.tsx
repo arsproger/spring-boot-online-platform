@@ -23,6 +23,9 @@ const SignUp: FC = () => {
     email: "arsenov@gmail.com",
     password: "123456",
   });
+  // Состояния - для загрузки ошибок
+  const [errorMessage, setErrorMessage] = useState(false);
+
   // Состояния - для загрузки кнопки
   const [loading, setLoading] = useState(false);
 
@@ -34,7 +37,7 @@ const SignUp: FC = () => {
 
   // Отправляем post запрос
   const handleSubmit = async (value: IUserRegister) => {
-    setLoading(!loading);
+    setLoading(true);
     const BASE_URL = "http://localhost:8080";
 
     try {
@@ -60,10 +63,10 @@ const SignUp: FC = () => {
         email: "",
         password: "",
       });
-    } catch (error) {
-      console.log(error);
+    } catch ({ response }: any) {
+      setErrorMessage(response.data.message);
     }
-    setLoading(!loading);
+    setLoading(false);
   };
 
   // Для сохранения значений
@@ -104,6 +107,7 @@ const SignUp: FC = () => {
         >
           <Input prefix={<MailOutlined />} placeholder={t.signUp[2]} />
         </Form.Item>
+        <span className={s.error}>{errorMessage}</span>
 
         <Form.Item
           name="password"

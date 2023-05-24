@@ -22,6 +22,9 @@ const SignIn: FC = () => {
     username: "arsenov@gmail.com",
     password: "123456",
   });
+  // Состояния - для загрузки ошибок
+  const [errorMessage, setErrorMessage] = useState(false);
+
   // Состояния - для загрузки кнопки
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -33,14 +36,13 @@ const SignIn: FC = () => {
 
   // Отправляем post запрос
   const handleSubmit = async (value: IUserLogin) => {
-    setLoading(!loading);
-
+    setLoading(true);
     const BASE_URL = "http://localhost:8080";
 
     try {
       const { data }: AxiosResponse<{ token: string }> = await axios.post(
         BASE_URL + "/auth/login",
-        userLogin
+        value
       );
 
       // Сохраняем токен пользователя
@@ -59,12 +61,11 @@ const SignIn: FC = () => {
         username: "",
         password: "",
       });
-    } catch (error) {
-      console.log(error);
+    } catch ({ response }: any) {
+      setErrorMessage(response.data.message);
     }
-    setLoading(!loading);
+    setLoading(false);
   };
-
   // Для сохранения значений
   const [form] = Form.useForm();
 
@@ -91,6 +92,7 @@ const SignIn: FC = () => {
         >
           <Input prefix={<UserOutlined />} placeholder={t.signIn[1]} />
         </Form.Item>
+        <span className={s.error}>{errorMessage}</span>
 
         <Form.Item
           name="password"
