@@ -36,9 +36,9 @@ const RecommendedSiders: FC = () => {
       <SwiperSlide>
         <div className={s.mySwiper__content}>
           <div className={s.mySwiper__info}>
-            <h1>
+            <h2>
               <span>Курс</span> Java
-            </h1>
+            </h2>
             <p>
               Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsam
               sequi repellendus voluptate ab perferendis fuga sit iste mollitia
@@ -54,9 +54,9 @@ const RecommendedSiders: FC = () => {
       <SwiperSlide>
         <div className={s.mySwiper__content}>
           <div className={s.mySwiper__info}>
-            <h1>
+            <h2>
               <span>Курс</span> Java
-            </h1>
+            </h2>
             <p>
               Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsam
               sequi repellendus voluptate ab perferendis fuga sit iste mollitia
@@ -72,9 +72,9 @@ const RecommendedSiders: FC = () => {
       <SwiperSlide>
         <div className={s.mySwiper__content}>
           <div className={s.mySwiper__info}>
-            <h1>
+            <h2>
               <span>Курс</span> Java
-            </h1>
+            </h2>
             <p>
               Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsam
               sequi repellendus voluptate ab perferendis fuga sit iste mollitia
@@ -90,9 +90,9 @@ const RecommendedSiders: FC = () => {
       <SwiperSlide>
         <div className={s.mySwiper__content}>
           <div className={s.mySwiper__info}>
-            <h1>
+            <h2>
               <span>Курс</span> Java
-            </h1>
+            </h2>
             <p>
               Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsam
               sequi repellendus voluptate ab perferendis fuga sit iste mollitia

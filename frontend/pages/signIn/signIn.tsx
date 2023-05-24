@@ -13,18 +13,16 @@ import MyButton from "@/components/MUI/MyButton/MyButton";
 
 const SignIn: React.FC = () => {
   // Состояния - для данных пользователя авторизации
-  const [userLogin, setUserLogin] = useState({
-    username: "",
-    password: "",
+  const [userLogin, setUserLogin] = useState<{
+    username: string;
+    password: string;
+  }>({
+    username: "arsenov@gmail.com",
+    password: "123456",
   });
 
   // Состояния - для загрузки кнопки
-  const [loading, setLoading] = useState(false);
-
-  // Функция - для загрузки кнопки
-  const onFinish = () => {
-    setLoading(true);
-  };
+  const [loading, setLoading] = useState<boolean>(false);
 
   // Для - маршутизации
   const { push, locale } = useRouter();
@@ -33,9 +31,13 @@ const SignIn: React.FC = () => {
   const t = locale === "ru" ? ru : en;
 
   // Отправляем post запрос
-  const handleSubmit = async (): Promise<void> => {
+  const handleSubmit = async (values: any): Promise<void> => {
+    console.log(values);
+    
     const BASE_URL = "http://localhost:8080";
     try {
+      setLoading(true);
+
       const { data }: AxiosResponse<{ token: string }> = await axios.post(
         BASE_URL + "/auth/login",
         userLogin
@@ -64,8 +66,8 @@ const SignIn: React.FC = () => {
 
   return (
     <div className={s.signIn}>
-      <h1>{t.signIn[0]}</h1>
-      <Form name="sign-in-form" onFinish={onFinish}>
+      <h2>{t.signIn[0]}</h2>
+      <Form name="sign-in-form" onFinish={handleSubmit}>
         <Form.Item
           name="email"
           rules={[
@@ -108,11 +110,12 @@ const SignIn: React.FC = () => {
           />
         </Form.Item>
 
-        <Form.Item>
+        <Form.Item name="submit">
           <MyButton
             background="#03d665"
             hoverBackground="#7329c2"
             type="primary"
+            htmlType="submit"
             loading={loading}
             onClick={handleSubmit}
           >

@@ -3,7 +3,7 @@ import React, { FC } from "react";
 import { Col, Modal, Row } from "antd";
 import { useRouter } from "next/router";
 
-import MyButton from "../MyButton/MyButton";
+import MyButton from "../MUI/MyButton/MyButton";
 
 interface IMyModalProps {
   isModalOpen: boolean;
@@ -18,22 +18,16 @@ const MyModal: FC<IMyModalProps> = ({ isModalOpen, setIsModalOpen }) => {
   const handleClick = (locale: string) => {
     if (pathname === "/signUp/signUp") {
       push("/signUp/signUp", "/signUp/signUp", { locale });
-    }
-    if (pathname === "/signIn/signIn") {
+    } else if (pathname === "/signIn/signIn") {
       push("/signIn/signIn", "/signIn/signIn", { locale });
-    }
-    if (pathname === "/passwordRecovery/passwordRecovery") {
+    } else if (pathname === "/passwordRecovery/passwordRecovery") {
       push(
         "/passwordRecovery/passwordRecovery",
         "/passwordRecovery/passwordRecovery",
         { locale }
       );
-    }if (pathname === "/profile/profile") {
-      push(
-        "/profile/profile",
-        "/profile/profile",
-        { locale }
-      );
+    } else if (pathname === "/profile/profile") {
+      push("/profile/profile", "/profile/profile", { locale });
     } else {
       push("/", "/", { locale });
     }

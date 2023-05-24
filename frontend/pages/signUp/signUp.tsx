@@ -14,9 +14,9 @@ import MyButton from "../../components/MUI/MyButton/MyButton";
 const SignUp: React.FC = () => {
   // Состояния - для данных пользователя регистрации
   const [userRegister, setUserRegister] = useState({
-    fullName: "",
-    email: "",
-    password: "fasdf",
+    fullName: "arsenov",
+    email: "arsenov@gmail.com",
+    password: "123456",
   });
 
   // Состояния - для загрузки кнопки
@@ -42,6 +42,8 @@ const SignUp: React.FC = () => {
         userRegister
       );
 
+      console.log(data.token);
+
       // Сохраняем токен пользователя
       localStorage.setItem("token", JSON.stringify(data.token));
 
@@ -66,7 +68,7 @@ const SignUp: React.FC = () => {
 
   return (
     <div className={s.signUp}>
-      <h1>{t.signUp[0]}</h1>
+      <h2>{t.signUp[0]}</h2>
       <Form name="sign-up-form" onFinish={onFinish}>
         <Form.Item
           name="name"
