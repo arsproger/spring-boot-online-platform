@@ -73,14 +73,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public void processOAuthPostLogin(String username, String name, String registrationId) {
         if (repo.findByEmail(username).isEmpty()) {
-            User user = new User();
-            user.setRole(Role.ROLE_STUDENT);
-            user.setProvider(registrationId.equals("google")
-                    ? Provider.GOOGLE
-                    : Provider.GITHUB);
-            user.setFullName(name);
-            user.setEmail(username);
-            user.setStatus(UserStatus.ACTIVE);
+            User user = User.builder()
+                    .role(Role.ROLE_STUDENT)
+                    .provider(registrationId.equals("google")
+                            ? Provider.GOOGLE
+                            : Provider.GITHUB)
+                    .fullName(name)
+                    .email(username)
+                    .status(UserStatus.ACTIVE)
+                    .build();
 
             repo.save(user);
         }

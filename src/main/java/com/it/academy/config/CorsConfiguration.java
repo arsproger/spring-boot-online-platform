@@ -10,12 +10,14 @@ public class CorsConfiguration implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("http://localhost:3000") // Разрешенные источники (домены)
-                .allowedMethods("GET", "POST", "PUT", "DELETE") // Разрешенные HTTP-методы
-                .allowedHeaders("Authorization", "Content-Type") // Разрешенные заголовки
-                .allowCredentials(true) // Разрешить передачу учетных данных (например, куки)
-                .maxAge(3600) // Максимальное время кэширования предопределенных ответов CORS
-                .exposedHeaders("Authorization"); // Разрешить доступ к заголовку Authorization в ответе
+//                .allowedOrigins("http://localhost:3000")
+                .allowedOrigins("https://spring-boot-online-platform.herokuapp.com")
+//                .allowedOrigins("http://**", "https://**")
+                .allowedMethods("GET", "POST", "PUT", "DELETE")
+                .allowedHeaders("Authorization", "Content-Type")
+                .allowCredentials(true)
+                .maxAge(3600)
+                .exposedHeaders("Authorization");
     }
 
 }
