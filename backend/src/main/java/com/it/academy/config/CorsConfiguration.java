@@ -10,10 +10,14 @@ public class CorsConfiguration implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("http://localhost:3000")
-                .allowedMethods("GET", "POST", "PUT", "DELETE")
-                .allowedHeaders("*")
-                .allowCredentials(true);
+//                .allowedOrigins("http://localhost:3000") // Разрешенные источники (домены)
+                .allowedOrigins("*") // Разрешенные источники (домены)
+                .allowedMethods("GET", "POST", "PUT", "DELETE") // Разрешенные HTTP-методы
+                .allowedHeaders("Authorization", "Content-Type") // Разрешенные заголовки
+                .allowCredentials(true) // Разрешить передачу учетных данных (например, куки)
+                .maxAge(3600) // Максимальное время кэширования предопределенных ответов CORS
+                .exposedHeaders("Authorization"); // Разрешить доступ к заголовку Authorization в ответе
     }
 
 }
+
