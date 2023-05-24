@@ -12,11 +12,15 @@ import Loading from "../../components/Loading/Loading";
 import en from "../../locales/EN/translation.json";
 import ru from "../../locales/RU/translation.json";
 import MyButton from "../../components/MUI/MyButton/MyButton";
-
+import avatar from "../../public/design.png";
 
 const Profile = () => {
   // Данные пользователя
-  const [userData, setUserData] = useState<any>({});
+  const [userData, setUserData] = useState<any>({
+    fullName: "",
+    email: "",
+    password: "",
+  });
 
   // Состояния - для загрузки
   const [isLoading, setIsLoading] = useState(true);
@@ -34,30 +38,35 @@ const Profile = () => {
     setUserData({});
   };
 
-  // Отправляет get запрос для получения пользователя
-  const getUser = async (): Promise<void> => {
+  // Отправляет get запрос при каждом изменении pathname
+  useEffect(() => {
     // Достаем токен пользователя
     const token = localStorage.getItem("token") ?? "";
     const parsedToken = token !== "" ? (JSON.parse(token) as string) : "";
 
-    try {
-      setIsLoading(false);
-      const { data } = await axios.get("http://localhost:8080/profile", {
-        headers: { Authorization: `Bearer ${parsedToken}` },
-      });
+    // const token = JSON.parse(localStorage.getItem("token"));
 
-      // Сохраняем данные пользователя
-      setUserData(data.data);
-    } catch (error) {
-      console.log(error);
-    }
-    setIsLoading(true);
-  };
+    // Отправляет get запрос для получения пользователя
+    const getUser = async (): Promise<void> => {
+      const BASE_URL = "http://localhost:8080";
 
-  // Отправляет get запрос при каждом изменении location
-  useEffect(() => {
+      try {
+        setIsLoading(false);
+        const { data } = await axios.get(BASE_URL + "/user/current", {
+          headers: { Authorization: `Bearer ${parsedToken}` },
+        });
+
+        console.log(data);
+
+        // Сохраняем данные пользователя
+        setUserData(data);
+      } catch (error) {
+        console.log(error);
+      }
+      setIsLoading(true);
+    };
     getUser();
-  }, [pathname === "/profile/profile"]);
+  }, []);
 
   return (
     <div className={s.profile}>
@@ -67,11 +76,11 @@ const Profile = () => {
         {isLoading ? (
           <div className={s.profile__content}>
             <span className={s.avatar}>
-              <Image src={userData.avatar} alt="avatar" />
+              <Image src={avatar} alt="avatar" />
             </span>
             <div className={s.container}>
               <div className={s.name}>
-                <h1>{userData.username}</h1>
+                <h2>{userData.fullName}</h2>
                 <p>{userData.email}</p>
               </div>
 
@@ -88,8 +97,6 @@ const Profile = () => {
             </div>
             <div className={s.text}>
               <p>
-                {userData.about}
-                {/* Просто по умолчанию поставил */}
                 Рыбатекст используется дизайнерами, проектировщиками и
                 фронтендерами, когда нужно быстро заполнить макеты или прототипы
                 содержимым. Это тестовый контент, который не должен нести

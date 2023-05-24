@@ -17,7 +17,7 @@
     @include adaptive-value("padding", 20, 15);
     box-sizing: border-box;
 
-    h1 {
+    h2 {
       font-weight: 700;
       @include adaptive-value("font-size", 30, 15);
       line-height: 130%;

@@ -12,42 +12,42 @@ const Categories: FC = () => {
       <div className={s.categories__list}>
         <Link className={s.categories__item} href={"/design/design"}>
           <Image src={design} alt="Categories image"/>
-          <h1>Дизайн</h1>
+          <h2>Дизайн</h2>
         </Link>
 
         <Link className={s.categories__item} href={"/design/design"}>
         <Image src={design} alt="Categories image"/>
-          <h1>Разработка</h1>
+          <h2>Разработка</h2>
         </Link>
 
         <Link className={s.categories__item} href={"/design/design"}>
           <Image src={design} alt="Categories image"/>
-          <h1>Маркетинг</h1>
+          <h2>Маркетинг</h2>
         </Link>
 
         <Link className={s.categories__item} href={"/design/design"}>
           <Image src={design} alt="Categories image"/>
-          <h1>ИТ и ПО</h1>
+          <h2>ИТ и ПО</h2>
         </Link>
 
         <Link className={s.categories__item} href={"/design/design"}>
           <Image src={design} alt="Categories image"/>
-          <h1>Личностный рост</h1>
+          <h2>Личностный рост</h2>
         </Link>
 
         <Link className={s.categories__item} href={"/design/design"}>
           <Image src={design} alt="Categories image"/>
-          <h1>Бизнес</h1>
+          <h2>Бизнес</h2>
         </Link>
 
         <Link className={s.categories__item} href={"/design/design"}>
           <Image src={design} alt="Categories image"/>
-          <h1>Фотография</h1>
+          <h2>Фотография</h2>
         </Link>
 
         <Link className={s.categories__item} href={"/design/design"}>
           <Image src={design} alt="Categories image"/>
-          <h1>Музыка</h1>
+          <h2>Музыка</h2>
         </Link>
       </div>
     </section>
