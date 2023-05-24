@@ -1,0 +1,40 @@
+config:
+  db:
+    url:
+    username:
+    password:
+
+  jwt:
+    secret:
+
+  mail:
+    username:
+    password:
+
+  s3:
+    accessKey:
+    secret:
+    bucketName:
+    region:
+
+  oauth2:
+
+    google:
+      client-id:
+      client-secret:
+      scope:
+      redirect-uri:
+      authorization-grant-type:
+
+    github:
+      client-id:
+      client-secret:
+      scope:
+      redirect-uri:
+      authorization-grant-type:
+
+  stripe:
+    public:
+      key:
+    secret:
+      key:
