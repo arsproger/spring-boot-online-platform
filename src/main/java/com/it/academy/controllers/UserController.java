@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,6 +26,7 @@ public class UserController {
     private final UserMapper mapper;
 
     @GetMapping
+    @PreAuthorize(value = "")
     public ResponseEntity<List<UserDto>> getAllUsers() {
         List<UserDto> users = mapper.map(userService.getAll());
         return new ResponseEntity<>(users, HttpStatus.OK);

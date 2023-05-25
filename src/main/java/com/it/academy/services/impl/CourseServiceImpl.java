@@ -1,12 +1,14 @@
 package com.it.academy.services.impl;
 
+import com.it.academy.exceptions.AppException;
 import com.it.academy.models.Course;
 import com.it.academy.repositories.CourseRepository;
 import com.it.academy.services.CategoryService;
 import com.it.academy.services.CourseService;
 import com.it.academy.services.UserService;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,10 +23,11 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public Course getById(Long id) {
         return repo.findById(id).orElseThrow(
-                () -> new EntityNotFoundException("Course not found with id: " + id));
+                () -> new AppException("Course not found with id: " + id, HttpStatus.NOT_FOUND));
     }
 
     @Override
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public List<Course> getAll() {
         return repo.findAll();
     }
@@ -37,6 +40,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Long deleteById(Long id) {
         repo.deleteById(id);
         return id;

@@ -16,9 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -51,10 +49,10 @@ public class AuthController {
 
         userService.save(userMapper.map(userDTO));
 
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(userDTO.getEmail(), userDTO.getPassword()));
+        UsernamePasswordAuthenticationToken authInputToken =
+                new UsernamePasswordAuthenticationToken(userDTO.getEmail(), userDTO.getPassword());
 
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+        authenticationManager.authenticate(authInputToken);
 
         String token = jwtUtil.generateToken(userDTO.getEmail());
         Map<String, String> response = Map.of("token", token);
@@ -67,14 +65,13 @@ public class AuthController {
                     "отправится ответ с ключом message и его сообщением")
     public ResponseEntity<Map<String, String>> performLogin(@RequestBody @Valid AuthenticationDto authenticationDTO) {
         UsernamePasswordAuthenticationToken authInputToken =
-                new UsernamePasswordAuthenticationToken(authenticationDTO.getUsername(),
-                        authenticationDTO.getPassword());
+                new UsernamePasswordAuthenticationToken(authenticationDTO.getUsername(), authenticationDTO.getPassword());
 
         try {
             authenticationManager.authenticate(authInputToken);
         } catch (BadCredentialsException e) {
             Map<String, String> message = Map.of("message", "Неверный логин или пароль!");
-            return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(message, HttpStatus.UNAUTHORIZED);
         }
 
         String token = jwtUtil.generateToken(authenticationDTO.getUsername());
@@ -86,7 +83,7 @@ public class AuthController {
     public ResponseEntity<Map<String, String>> handleRedirect(@AuthenticationPrincipal DetailsUser principal) {
         String token = jwtUtil.generateToken(principal.getUsername());
         Map<String, String> response = Map.of("token", token);
-        return new ResponseEntity<>(response, HttpStatus.CREATED);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
 }

@@ -1,9 +1,9 @@
 package com.it.academy.services.impl;
 
 import com.it.academy.config.EmailConfig;
+import com.it.academy.exceptions.AppException;
 import com.it.academy.models.User;
 import com.it.academy.services.UserService;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +24,7 @@ public class PasswordResetService {
     public ResponseEntity<String> resetPassword(String email) {
         Optional<User> user = userService.getByEmail(email);
         if (user.isEmpty()) {
-            throw new EntityNotFoundException("Пользователь не найден!");
+            throw new AppException("Пользователь не найден!", HttpStatus.NOT_FOUND);
         }
 
         String resetToken = UUID.randomUUID().toString();
@@ -44,7 +44,7 @@ public class PasswordResetService {
     public ResponseEntity<String> saveNewPassword(String resetToken, String newPassword) {
         Optional<User> user = userService.getByResetToken(resetToken);
         if (user.isEmpty() || user.get().getResetTokenExpireTime().isBefore(LocalDateTime.now()))
-            return ResponseEntity.badRequest().build(); // todo
+            throw new AppException("", HttpStatus.FORBIDDEN);
 
         user.get().setPassword(passwordEncoder.encode(newPassword));
         user.get().setResetToken(null);

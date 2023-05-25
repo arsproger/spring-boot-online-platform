@@ -11,9 +11,11 @@ import com.it.academy.repositories.S3Repository;
 import com.it.academy.services.CourseService;
 import com.it.academy.services.LessonService;
 import com.it.academy.services.S3Service;
+import com.it.academy.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -35,6 +37,7 @@ public class S3ServiceImpl implements S3Service {
     private final S3Repository s3Repository;
     private final LessonService lessonService;
     private final CourseService courseService;
+    private final UserService userService;
 
     @Override
     public String saveVideo(Long lessonId, MultipartFile file) {
@@ -58,7 +61,28 @@ public class S3ServiceImpl implements S3Service {
     }
 
     @Override
-    public String saveImage(Long courseId, MultipartFile file) {
+    public String saveUserImage(Long userId, MultipartFile file) {
+        String originalFilename = file.getOriginalFilename();
+        try {
+            S3 s3 = S3.builder()
+                    .user(userService.getById(userId))
+                    .createDate(LocalDate.now())
+                    .url(file.getOriginalFilename())
+                    .size(file.getSize())
+                    .build();
+            s3Repository.save(s3);
+
+            File newFile = convertMultiPartToFile(file);
+            amazonS3.putObject(bucketName, originalFilename, newFile);
+
+            return file.getOriginalFilename();
+        } catch (IOException e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
+    @Override
+    public String saveCourseImage(Long courseId, MultipartFile file) {
         String originalFilename = file.getOriginalFilename();
         try {
             S3 s3 = S3.builder()
@@ -97,6 +121,7 @@ public class S3ServiceImpl implements S3Service {
     }
 
     @Override
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public List<String> listAllFiles() {
         ListObjectsV2Result listObjectsV2Result = amazonS3.listObjectsV2(bucketName);
         return listObjectsV2Result.getObjectSummaries()

@@ -1,5 +1,7 @@
 package com.it.academy.controllers.advice;
 
+import com.it.academy.exceptions.AppErrorResponse;
+import com.it.academy.exceptions.AppException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -8,24 +10,27 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler
+    @ExceptionHandler(EntityNotFoundException.class)
     private ResponseEntity<String> handleException(EntityNotFoundException e) {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
     }
 
-//    @ExceptionHandler
-//    private ResponseEntity<ReportErrorResponse> handleException(ReportNotFoundException e) {
-//        reportErrorResponse.setMessage("Отчет с таким id не найден!");
-//        reportErrorResponse.setTimestamp(LocalDateTime.now().format(
-//                DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss")));
-//        return new ResponseEntity<>(reportErrorResponse, HttpStatus.NOT_FOUND);
-//    }
+    @ExceptionHandler(AppException.class)
+    public ResponseEntity<AppErrorResponse> handleException(AppException e) {
+        AppErrorResponse appErrorResponse = AppErrorResponse.builder()
+                .message(e.getMessage())
+                .timestamp(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss")))
+                .build();
+        return new ResponseEntity<>(appErrorResponse, e.getCode());
+    }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, String>> handleValidationExceptions(MethodArgumentNotValidException ex) {
