@@ -98,8 +98,8 @@ public class CourseController {
     @GetMapping("name/{name}")
     @Operation(summary = "Получение курсов по имени")
     public ResponseEntity<List<CourseDto>> getCourseByName(@PathVariable String name) {
-        List<CourseDto> courses = mapper.map(courseDao.getCourseByName(name));
-        return new ResponseEntity<>(courses, HttpStatus.OK);
+//        List<CourseDto> courses = mapper.map(courseDao.getCourseByName(name));
+        return new ResponseEntity<>(courseDao.getCourseByName(name), HttpStatus.OK);
     }
 
     @GetMapping("/duration/{id}")

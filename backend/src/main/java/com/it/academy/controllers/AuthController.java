@@ -15,6 +15,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -50,6 +52,11 @@ public class AuthController {
 
         userService.save(userMapper.map(userDTO));
 
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(userDTO.getEmail(), userDTO.getPassword()));
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
         String token = jwtUtil.generateToken(userDTO.getEmail());
         Map<String, String> response = Map.of("token", token);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
@@ -67,7 +74,7 @@ public class AuthController {
         try {
             authenticationManager.authenticate(authInputToken);
         } catch (BadCredentialsException e) {
-            Map<String, String> message = Map.of("message", "Incorrect credentials!");
+            Map<String, String> message = Map.of("message", "Неверный логин или пароль!");
             return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
         }
 

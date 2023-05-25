@@ -16,7 +16,7 @@ public class LoggingAspect {
     public void logBeforeMethodExecution(JoinPoint joinPoint) {
         String methodName = joinPoint.getSignature().getName();
         String className = joinPoint.getTarget().getClass().getSimpleName();
-        logger.info("Executing method {} from class {}", methodName, className);
+        logger.info("Выполнение метода {} из класса {} ...", methodName, className);
     }
 
 }
