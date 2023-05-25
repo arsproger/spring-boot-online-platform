@@ -3,11 +3,13 @@ package com.it.academy.services.impl;
 import com.it.academy.enums.Provider;
 import com.it.academy.enums.Role;
 import com.it.academy.enums.UserStatus;
+import com.it.academy.exceptions.AppException;
 import com.it.academy.models.User;
 import com.it.academy.repositories.UserRepository;
 import com.it.academy.services.UserService;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +24,7 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public List<User> getAll() {
         return repo.findAll();
     }
@@ -29,7 +32,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getById(Long id) {
         return repo.findById(id).orElseThrow(
-                () -> new EntityNotFoundException("User not found with id: " + id));
+                () -> new AppException("User not found with id: " + id, HttpStatus.NOT_FOUND));
     }
 
     @Override
@@ -44,6 +47,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Long deleteById(Long id) {
         User user = getById(id);
         user.setStatus(UserStatus.DELETED);
@@ -73,14 +77,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public void processOAuthPostLogin(String username, String name, String registrationId) {
         if (repo.findByEmail(username).isEmpty()) {
-            User user = new User();
-            user.setRole(Role.ROLE_STUDENT);
-            user.setProvider(registrationId.equals("google")
-                    ? Provider.GOOGLE
-                    : Provider.GITHUB);
-            user.setFullName(name);
-            user.setEmail(username);
-            user.setStatus(UserStatus.ACTIVE);
+            User user = User.builder()
+                    .role(Role.ROLE_STUDENT)
+                    .provider(registrationId.equals("google")
+                            ? Provider.GOOGLE
+                            : Provider.GITHUB)
+                    .fullName(name)
+                    .email(username)
+                    .status(UserStatus.ACTIVE)
+                    .build();
 
             repo.save(user);
         }

@@ -1,0 +1,40 @@
+config:
+  db:
+    url: jdbc:postgresql://localhost:5432/online_platform
+    username: postgres
+    password: hr
+
+  jwt:
+    secret: SECRET
+
+  mail:
+    username: none
+    password: none
+
+  s3:
+    accessKey: AKIAU7NMUJQFB6IRGM4K
+    secret: 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
+    bucketName: spring-boot-ars
+    region: eu-north-1
+
+  oauth2:
+
+    google:
+      client-id: 969810909797-sdn37jtghdhqg9sinllrdb8pk8h18m97.apps.googleusercontent.com
+      client-secret: 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
+      scope: email, profile
+      redirect-uri: https://spring-boot-online-platform.herokuapp.com/login/oauth2/code/google
+      authorization-grant-type: authorization_code
+
+    github:
+      client-id: a67e4eae5f096e3fc3d4
+      client-secret: 9a8a3b166a925264aa704f862edbff2a0eb01e3c
+      scope: read:user
+      redirect-uri: https://spring-boot-online-platform.herokuapp.com/login/oauth2/code/github
+      authorization-grant-type: authorization_code
+
+  stripe:
+    public:
+      key: pk_test_51N7CekAtkZnduEcLT9Tw2zmCQF3PBGvFzR2B7oVJzFnLgyTOh0ZXxakkjPriBRbkYpLClkIe7sQjE9DYskVARL0n00EypiTM15
+    secret:
+      key: sk_test_51N7CekAtkZnduEcLDYWU6gohsFpkxxeknhKdgPARhXLy8jOawgUHqQNaEJ7j71Zu730kau9NY3CSBwrs7afGcrWw00QC1R3226

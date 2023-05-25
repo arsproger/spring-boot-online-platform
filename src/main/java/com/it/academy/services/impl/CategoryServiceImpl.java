@@ -1,12 +1,14 @@
 package com.it.academy.services.impl;
 
+import com.it.academy.exceptions.AppException;
 import com.it.academy.models.Category;
 import com.it.academy.repositories.CategoryRepository;
 import com.it.academy.services.CategoryService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
-import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 
 @Service
@@ -17,10 +19,11 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Category getById(Long id) {
         return repo.findById(id).orElseThrow(
-                () -> new EntityNotFoundException("Category not found with id: " + id));
+                () -> new AppException("Category not found with id: " + id, HttpStatus.NOT_FOUND));
     }
 
     @Override
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public List<Category> getAll() {
         return repo.findAll();
     }
@@ -31,6 +34,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Long deleteById(Long id) {
         repo.deleteById(id);
         return id;

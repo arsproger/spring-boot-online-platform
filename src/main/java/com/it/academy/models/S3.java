@@ -29,4 +29,8 @@ public class S3 {
     @JoinColumn(name = "course_id", referencedColumnName = "id")
     private Course course;
 
+    @OneToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User user;
+
 }

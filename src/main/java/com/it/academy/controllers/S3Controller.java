@@ -19,15 +19,21 @@ public class S3Controller {
     private final S3Service s3Service;
 
     @PostMapping("/upload/video")
-    @Operation(summary = "Загрузка видео на сервер")
+    @Operation(summary = "Загрузка видео для урока на сервер")
     public String uploadVideo(@RequestParam Long lessonId, @RequestParam("file") MultipartFile file) {
         return s3Service.saveVideo(lessonId, file);
     }
 
     @PostMapping("/upload/image")
-    @Operation(summary = "Загрузка фото на сервер")
-    public String uploadImage(@RequestParam Long courseId, @RequestParam("file") MultipartFile file) {
-        return s3Service.saveImage(courseId, file);
+    @Operation(summary = "Загрузка фото для курса на сервер")
+    public String uploadCourseImage(@RequestParam Long courseId, @RequestParam("file") MultipartFile file) {
+        return s3Service.saveCourseImage(courseId, file);
+    }
+
+    @PostMapping("/upload/image")
+    @Operation(summary = "Загрузка фото для пользователя на сервер")
+    public String uploadUserImage(@RequestParam Long userId, @RequestParam("file") MultipartFile file) {
+        return s3Service.saveUserImage(userId, file);
     }
 
     @GetMapping("/download/{filename:.+}")

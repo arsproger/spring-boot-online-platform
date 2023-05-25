@@ -3,6 +3,7 @@ package com.it.academy.controllers;
 import com.it.academy.dto.AuthenticationDto;
 import com.it.academy.dto.UserDto;
 import com.it.academy.mappers.UserMapper;
+import com.it.academy.security.DetailsUser;
 import com.it.academy.security.JWTUtil;
 import com.it.academy.services.UserService;
 import com.it.academy.util.UserValidator;
@@ -15,11 +16,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 import java.util.Objects;
@@ -50,6 +49,11 @@ public class AuthController {
 
         userService.save(userMapper.map(userDTO));
 
+        UsernamePasswordAuthenticationToken authInputToken =
+                new UsernamePasswordAuthenticationToken(userDTO.getEmail(), userDTO.getPassword());
+
+        authenticationManager.authenticate(authInputToken);
+
         String token = jwtUtil.generateToken(userDTO.getEmail());
         Map<String, String> response = Map.of("token", token);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
@@ -61,17 +65,23 @@ public class AuthController {
                     "отправится ответ с ключом message и его сообщением")
     public ResponseEntity<Map<String, String>> performLogin(@RequestBody @Valid AuthenticationDto authenticationDTO) {
         UsernamePasswordAuthenticationToken authInputToken =
-                new UsernamePasswordAuthenticationToken(authenticationDTO.getUsername(),
-                        authenticationDTO.getPassword());
+                new UsernamePasswordAuthenticationToken(authenticationDTO.getUsername(), authenticationDTO.getPassword());
 
         try {
             authenticationManager.authenticate(authInputToken);
         } catch (BadCredentialsException e) {
-            Map<String, String> message = Map.of("message", "Incorrect credentials!");
-            return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
+            Map<String, String> message = Map.of("message", "Неверный логин или пароль!");
+            return new ResponseEntity<>(message, HttpStatus.UNAUTHORIZED);
         }
 
         String token = jwtUtil.generateToken(authenticationDTO.getUsername());
+        Map<String, String> response = Map.of("token", token);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping("/redirect")
+    public ResponseEntity<Map<String, String>> handleRedirect(@AuthenticationPrincipal DetailsUser principal) {
+        String token = jwtUtil.generateToken(principal.getUsername());
         Map<String, String> response = Map.of("token", token);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }

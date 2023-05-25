@@ -22,7 +22,7 @@ public class UserAuthenticationEntryPoint implements AuthenticationEntryPoint {
             AuthenticationException authException) throws IOException {
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         response.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
-        OBJECT_MAPPER.writeValue(response.getOutputStream(), "User unauthorized");
+        OBJECT_MAPPER.writeValue(response.getOutputStream(), "Пользователь не авторизован!");
     }
 
 }
