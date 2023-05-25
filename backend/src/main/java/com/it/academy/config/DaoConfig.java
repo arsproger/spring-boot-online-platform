@@ -12,7 +12,7 @@ import javax.sql.DataSource;
 import java.util.Objects;
 
 @Configuration
-@PropertySource("classpath:application.properties")
+@PropertySource("classpath:application.yml")
 @AllArgsConstructor
 public class DaoConfig {
     private final Environment environment;
