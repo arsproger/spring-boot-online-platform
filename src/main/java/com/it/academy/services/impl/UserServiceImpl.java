@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -37,7 +36,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Long save(User user) {
-        user.setActivationToken(UUID.randomUUID().toString());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setStatus(UserStatus.ACTIVE);
         user.setRole(Role.ROLE_STUDENT);

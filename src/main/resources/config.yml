@@ -23,14 +23,14 @@ config:
       client-id: 969810909797-sdn37jtghdhqg9sinllrdb8pk8h18m97.apps.googleusercontent.com
       client-secret: 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
       scope: email, profile
-      redirect-uri: https://spring-boot-online-platform.herokuapp.com/login/oauth2/code/google
+      redirect-uri: spring-boot-online-platform.herokuapp.com/login/oauth2/code/google
       authorization-grant-type: authorization_code
 
     github:
       client-id: a67e4eae5f096e3fc3d4
       client-secret: 9a8a3b166a925264aa704f862edbff2a0eb01e3c
       scope: read:user
-      redirect-uri: https://spring-boot-online-platform.herokuapp.com/login/oauth2/code/github
+      redirect-uri: spring-boot-online-platform.herokuapp.com/login/oauth2/code/github
       authorization-grant-type: authorization_code
 
   stripe:

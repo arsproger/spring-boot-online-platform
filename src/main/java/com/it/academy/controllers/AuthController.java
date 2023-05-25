@@ -79,6 +79,12 @@ public class AuthController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    @GetMapping("/redirect")
+    public ResponseEntity<Map<String, String>> redirect(@AuthenticationPrincipal DetailsUser detailsUser) {
+        String token = jwtUtil.generateToken(detailsUser.getUsername());
+        Map<String, String> response = Map.of("token", token);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
 
 }
 
