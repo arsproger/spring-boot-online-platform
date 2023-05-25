@@ -1,5 +1,6 @@
 package com.it.academy.dao;
 
+import com.it.academy.dao.rowMapper.CourseRowMapper;
 import com.it.academy.dto.CourseDto;
 import com.it.academy.models.Course;
 import lombok.AllArgsConstructor;
@@ -14,7 +15,7 @@ public class CourseDao {
     private final JdbcTemplate jdbcTemplate;
 
     public List<Course> getByAuthorId(Long id) {
-        return jdbcTemplate.query("SELECT * FROM Courses WHERE author_id = ?",
+        return jdbcTemplate.query("SELECT * FROM courses WHERE author_id = ?",
                 new CourseRowMapper(), id);
     }
 
@@ -45,7 +46,7 @@ public class CourseDao {
                 Course.class, categoryId);
     }
 
-    public List<CourseDto> getCourseByName(String name) {
+    public List<Course> getCourseByName(String name) {
         return jdbcTemplate.query("SELECT id, name, description, price, language, created FROM courses WHERE name = ?",
                 new CourseRowMapper(), name);
     }
