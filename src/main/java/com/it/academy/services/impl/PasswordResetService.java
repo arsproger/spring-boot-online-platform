@@ -5,6 +5,7 @@ import com.it.academy.exceptions.AppException;
 import com.it.academy.models.User;
 import com.it.academy.services.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,6 +21,8 @@ public class PasswordResetService {
     private final UserService userService;
     private final EmailConfig emailConfig;
     private final PasswordEncoder passwordEncoder;
+    @Value("${resetUrl}")
+    private String resetUrl;
 
     public ResponseEntity<String> resetPassword(String email) {
         Optional<User> user = userService.getByEmail(email);
@@ -32,8 +35,8 @@ public class PasswordResetService {
         user.get().setResetTokenExpireTime(LocalDateTime.now().plusMinutes(30)); // установка срока действия токена
         userService.save(user.get());
 
-        String resetUrl = "http://localhost:8080/password/reset/" + resetToken;
-        String emailText = "Для сброса пароля перейдите по ссылке: " + resetUrl;
+        String reset = resetUrl + resetToken;
+        String emailText = "Для сброса пароля перейдите по ссылке: " + reset;
 
         emailConfig.sendSimpleMessage(email, "Сброс пароля", emailText);
 
