@@ -8,8 +8,8 @@ config:
     secret: SECRET
 
   mail:
-    username: none
-    password: none
+    username: freegamefire312@gmail.com
+    password: rstyaglhglyrecvo
 
   s3:
     accessKey: AKIAU7NMUJQFB6IRGM4K
