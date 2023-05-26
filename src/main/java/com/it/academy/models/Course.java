@@ -1,8 +1,12 @@
 package com.it.academy.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.hibernate.annotations.Cascade;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -20,16 +24,30 @@ public class Course {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotEmpty
+    @Column(unique = true)
+    @Size(max = 155)
     private String name;
+
+    @NotEmpty
     private String description;
-    private BigDecimal price;
-    private String language;
+
+    @NotNull
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate created;
+
+    @NotNull
+    private BigDecimal price;
+
+    @NotEmpty
+    @Size(max = 155)
+    private String language;
 
     @ManyToOne
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     private Category category;
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "author_id", referencedColumnName = "id")
     private User author;
@@ -43,8 +61,8 @@ public class Course {
     @OneToMany(mappedBy = "course")
     private List<Subscription> subscriptions;
 
-    @ManyToMany(mappedBy = "courses")
-    private List<Cart> carts;
+    /*@ManyToMany(mappedBy = "courses")
+    private List<Cart> carts;*/
 
     @OneToOne(mappedBy = "course")
     @Cascade(org.hibernate.annotations.CascadeType.DELETE)

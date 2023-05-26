@@ -1,9 +1,9 @@
 INSERT INTO users (email, full_name, password) VALUES
-                                                   ('john.doe@example.com', 'John Doe', '12345678'),
-                                                   ('jane.smith@example.com', 'Jane Smith', '12345678'),
-                                                   ('michael.brown@example.com', 'Michael Brown', '12345678'),
-                                                   ('emma.johnson@example.com', 'Emma Johnson', '12345678'),
-                                                   ('william.davis@example.com', 'William Davis', '12345678');
+                                                   ('john.doe@example.com', 'John Doe', '$2a$12$1mprqFJh5hqZAKkLWbApy.DlYd.bjwp1oyv0Odi110FQM02OqC4xe'),
+                                                   ('jane.smith@example.com', 'Jane Smith', '$2a$12$1mprqFJh5hqZAKkLWbApy.DlYd.bjwp1oyv0Odi110FQM02OqC4xe'),
+                                                   ('michael.brown@example.com', 'Michael Brown', '$2a$12$1mprqFJh5hqZAKkLWbApy.DlYd.bjwp1oyv0Odi110FQM02OqC4xe'),
+                                                   ('emma.johnson@example.com', 'Emma Johnson', '$2a$12$1mprqFJh5hqZAKkLWbApy.DlYd.bjwp1oyv0Odi110FQM02OqC4xe'),
+                                                   ('william.davis@example.com', 'William Davis', '$2a$12$1mprqFJh5hqZAKkLWbApy.DlYd.bjwp1oyv0Odi110FQM02OqC4xe');
 
 INSERT INTO categories (title) VALUES
                                    ('Development'),

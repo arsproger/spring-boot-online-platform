@@ -43,14 +43,14 @@ public class SubscriptionController {
         return new ResponseEntity<>(subscriptions, HttpStatus.OK);
     }
 
-    @PostMapping
+   /* @PostMapping
     @Operation(summary = "Назначение подписки к текущему пользователю",
             description = "При назначении нужно передать id курса")
     public ResponseEntity<Long> createSubscription(@AuthenticationPrincipal DetailsUser detailsUser,
                                                    @RequestParam Long courseId) {
         Long id = service.save(detailsUser.getUser().getId(), courseId);
         return new ResponseEntity<>(id, HttpStatus.CREATED);
-    }
+    }*/
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Long> deleteSubscriptionById(@PathVariable Long id) {
@@ -58,10 +58,10 @@ public class SubscriptionController {
         return new ResponseEntity<>(deletedId, HttpStatus.OK);
     }
 
-    @PutMapping("/{id}")
+  /*  @PutMapping("/{id}")
     public ResponseEntity<Long> updateSubscriptionById(@PathVariable Long id, @RequestBody SubscriptionDto dto) {
         Long updatedId = service.update(id, mapper.map(dto));
         return new ResponseEntity<>(updatedId, HttpStatus.OK);
-    }
+    }*/
 
 }
