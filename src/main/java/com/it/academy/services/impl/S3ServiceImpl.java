@@ -6,6 +6,7 @@ import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
 import com.amazonaws.util.IOUtils;
+import com.it.academy.dao.UserDao;
 import com.it.academy.models.S3;
 import com.it.academy.models.User;
 import com.it.academy.repositories.S3Repository;
@@ -39,6 +40,7 @@ public class S3ServiceImpl implements S3Service {
     private final LessonService lessonService;
     private final CourseService courseService;
     private final UserService userService;
+    private final UserDao userDao;
 
     @Override
     public String saveVideo(Long lessonId, MultipartFile file) {
@@ -65,10 +67,7 @@ public class S3ServiceImpl implements S3Service {
     public String saveUserImage(Long userId, MultipartFile file) {
         String originalFilename = file.getOriginalFilename();
         try {
-            User user = userService.getById(userId);
-            user.setImageUrl(originalFilename);
-            userService.save(user);
-
+            userDao.setImageUrl(originalFilename, userId);
             File newFile = convertMultiPartToFile(file);
             amazonS3.putObject(bucketName, originalFilename, newFile);
 

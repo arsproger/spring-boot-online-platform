@@ -19,4 +19,8 @@ public class UserDao {
                 User.class, courseId);
     }
 
+    public void setImageUrl(String imageUrl, Long userId) {
+        jdbcTemplate.update("UPDATE USERS set image_url = ? where id = ?", imageUrl, userId);
+    }
+
 }
