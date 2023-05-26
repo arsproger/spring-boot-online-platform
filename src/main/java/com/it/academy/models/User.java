@@ -30,6 +30,8 @@ public class User {
     private Role role;
     @Enumerated(EnumType.STRING)
     private UserStatus status;
+    @Column(name = "activation_token")
+    private String activationToken;
     @Column(name = "reset_token")
     private String resetToken;
     @Column(name = "reset_token_expire_time")
@@ -51,5 +53,7 @@ public class User {
 
     @OneToOne(mappedBy = "user")
     private S3 s3;
+
+    private String stripeAccountId;
 
 }

@@ -8,6 +8,7 @@ import com.it.academy.services.CourseService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -97,8 +98,8 @@ public class CourseController {
     @GetMapping("name/{name}")
     @Operation(summary = "Получение курсов по имени")
     public ResponseEntity<List<CourseDto>> getCourseByName(@PathVariable String name) {
-//        List<CourseDto> courses = mapper.map(courseDao.getCourseByName(name));
-        return new ResponseEntity<>(courseDao.getCourseByName(name), HttpStatus.OK);
+        List<CourseDto> courses = mapper.map(courseDao.getCourseByName(name));
+        return new ResponseEntity<>(courses, HttpStatus.OK);
     }
 
     @GetMapping("/duration/{id}")

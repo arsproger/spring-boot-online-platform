@@ -1,7 +1,6 @@
 package com.it.academy.models;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import jakarta.persistence.*;
 import java.util.List;
@@ -10,6 +9,9 @@ import java.util.List;
 @Table(name = "articles")
 @Setter
 @Getter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Article {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

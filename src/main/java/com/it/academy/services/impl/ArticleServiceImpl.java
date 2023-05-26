@@ -4,6 +4,7 @@ import com.it.academy.exceptions.AppException;
 import com.it.academy.models.Article;
 import com.it.academy.repositories.ArticleRepository;
 import com.it.academy.services.ArticleService;
+import com.it.academy.services.LessonService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -14,7 +15,8 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class ArticleServiceImpl implements ArticleService {
-    private final ArticleRepository repo;
+    private final ArticleRepository articleRepository;
+    private final LessonService lessonService;
 
     @Override
     public Article getById(Long id) {
@@ -30,7 +32,17 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public Long save(Article article) {
-        return repo.save(article).getId();
+        return articleRepository.save(article).getId();
+    }
+
+    @Override
+    public Long create(Article article, Long lessonId) {
+        Article createdArticle = Article.builder()
+                .lesson(lessonService.getById(lessonId))
+                .title(article.getTitle())
+                .text(article.getText())
+                .build();
+        return articleRepository.save(createdArticle).getId();
     }
 
     @Override

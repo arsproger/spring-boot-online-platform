@@ -6,6 +6,7 @@ import com.it.academy.security.DetailsUser;
 import com.it.academy.services.CommentService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,7 +42,7 @@ public class CommentController {
             @AuthenticationPrincipal DetailsUser detailsUser,
             @RequestParam Long lessonId,
             @RequestBody CommentDto dto) {
-        Long id = service.save(detailsUser.getUser().getId(), lessonId, mapper.map(dto));
+        Long id = service.create(detailsUser.getUser().getId(), lessonId, mapper.map(dto));
         return new ResponseEntity<>(id, HttpStatus.CREATED);
     }
 

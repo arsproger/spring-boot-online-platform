@@ -4,6 +4,7 @@ import com.it.academy.dto.CategoryDto;
 import com.it.academy.mappers.CategoryMapper;
 import com.it.academy.services.CategoryService;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,7 +33,7 @@ public class CategoryController {
     }
 
     @PostMapping
-    public ResponseEntity<Long> createCategory(@RequestBody CategoryDto dto) {
+    public ResponseEntity<Long> createCategory(@RequestBody @Valid CategoryDto dto) {
         Long id = service.save(mapper.map(dto));
         return new ResponseEntity<>(id, HttpStatus.CREATED);
     }
