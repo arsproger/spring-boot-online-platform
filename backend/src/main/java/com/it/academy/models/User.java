@@ -61,7 +61,6 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Subscription> subscriptions;
 
-    @NotNull
     @OneToOne
     private Cart cart;
 
