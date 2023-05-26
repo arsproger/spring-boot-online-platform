@@ -7,6 +7,14 @@ create table articles
     primary key (id)
 );
 
+
+create table articles_comments
+(
+    article_id  bigint not null,
+    comments_id bigint not null
+);
+
+
 create table carts
 (
     id bigserial not null,
@@ -103,7 +111,7 @@ create table sections
 create table subscriptions
 (
     id         bigserial not null,
-    creation_date date,
+    date_start date,
     course_id  bigint,
     user_id    bigint,
     primary key (id)

@@ -1,0 +1,81 @@
+spring:
+  config:
+    import: config.yml
+
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+
+    generate-ddl: true
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: ${config.db.url}
+    username: ${config.db.username}
+    password: ${config.db.password}
+
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
+
+  mail:
+    host: smtp.gmail.com
+    port: 465
+    username: ${config.mail.username}
+    password: ${config.mail.password}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+          ssl:
+            enable: true
+
+  servlet:
+    multipart:
+      enabled: true
+      file-size-threshold: 2KB
+      max-file-size: 200MB
+      max-request-size: 215MB
+
+  security:
+    oauth2:
+      client:
+        registration:
+
+          google:
+            client-id: ${config.oauth2.google.client-id}
+            client-secret: ${config.oauth2.google.client-secret}
+            scope: ${config.oauth2.google.scope}
+            redirect-uri: ${config.oauth2.google.redirect-uri}
+            authorization-grant-type: ${config.oauth2.google.authorization-grant-type}
+
+          github:
+            client-id: ${config.oauth2.github.client-id}
+            client-secret: ${config.oauth2.github.client-secret}
+            scope: ${config.oauth2.github.scope}
+            redirect-uri: ${config.oauth2.github.redirect-uri}
+            authorization-grant-type: ${config.oauth2.github.authorization-grant-type}
+
+oauth2-success-redirect-url: http://localhost:3000/ru/profile/profile
+resetUrl: spring-boot-online-platform.herokuapp.com/password/reset/
+
+jwt_secret: ${config.jwt.secret}
+
+aws-s3-accessKey: ${config.s3.accessKey}
+aws-s3-secret: ${config.s3.secret}
+aws-s3-bucketName: ${config.s3.bucketName}
+aws-s3-region: ${config.s3.region}
+
+stripe:
+  public:
+    key: ${config.stripe.public.key}
+  secret:
+    key: ${config.stripe.secret.key}

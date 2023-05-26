@@ -23,10 +23,10 @@ target/
 *.log
 target
 /backend/uploads/
-backend/src/main/resources/application.yml
-/backend/src/main/resources/config.yml
-/backend/src/main/resources/config.yml.origin
-
+#src/main/resources/application.yml
+#/src/main/resources/config.yml
+#/src/main/resources/config.yml.origin
+#
 
 ### NetBeans ###
 /nbproject/private/
