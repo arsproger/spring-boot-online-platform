@@ -3,6 +3,7 @@ package com.it.academy.controllers;
 import com.it.academy.dto.CategoryDto;
 import com.it.academy.mappers.CategoryMapper;
 import com.it.academy.services.CategoryService;
+import com.it.academy.validation.CategoryDtoValidator;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -19,6 +20,7 @@ import java.util.List;
 public class CategoryController {
     private final CategoryService service;
     private final CategoryMapper mapper;
+    private final CategoryDtoValidator validator;
 
     @GetMapping
     public ResponseEntity<List<CategoryDto>> getAllCategories() {

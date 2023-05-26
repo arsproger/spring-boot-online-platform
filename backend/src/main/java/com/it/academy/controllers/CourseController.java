@@ -56,6 +56,7 @@ public class CourseController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Long> updateCourseById(@PathVariable Long id, @RequestBody CourseDto course) {
+
         Long updatedId = service.update(id, mapper.map(course));
         return new ResponseEntity<>(updatedId, HttpStatus.OK);
     }

@@ -1,6 +1,9 @@
 package com.it.academy.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.hibernate.annotations.Cascade;
 
@@ -20,16 +23,26 @@ public class Course {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotEmpty
+    @Column(unique = true)
+    @Size(max = 155)
     private String name;
+
+    @NotEmpty
     private String description;
+
+    @NotNull
     private BigDecimal price;
+
+    @NotEmpty
+    @Size(max = 155)
     private String language;
-    private LocalDate created;
 
     @ManyToOne
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     private Category category;
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "author_id", referencedColumnName = "id")
     private User author;
@@ -43,8 +56,8 @@ public class Course {
     @OneToMany(mappedBy = "course")
     private List<Subscription> subscriptions;
 
-    @ManyToMany(mappedBy = "courses")
-    private List<Cart> carts;
+    /*@ManyToMany(mappedBy = "courses")
+    private List<Cart> carts;*/
 
     @OneToOne(mappedBy = "course")
     @Cascade(org.hibernate.annotations.CascadeType.DELETE)
