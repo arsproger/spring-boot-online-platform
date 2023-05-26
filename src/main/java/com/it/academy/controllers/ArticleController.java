@@ -31,9 +31,9 @@ public class ArticleController {
         return new ResponseEntity<>(article, HttpStatus.OK);
     }
 
-    @PostMapping
-    public ResponseEntity<Long> createArticle(@RequestBody ArticleDto article) {
-        Long id = service.save(mapper.map(article));
+    @PostMapping("/{lessonId}")
+    public ResponseEntity<Long> createArticle(@RequestBody ArticleDto article, @PathVariable Long lessonId) {
+        Long id = service.save(mapper.map(article), lessonId);
         return new ResponseEntity<>(id, HttpStatus.CREATED);
     }
 
