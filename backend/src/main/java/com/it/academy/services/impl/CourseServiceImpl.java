@@ -1,6 +1,8 @@
 package com.it.academy.services.impl;
 
+import com.it.academy.enums.Role;
 import com.it.academy.models.Course;
+import com.it.academy.models.User;
 import com.it.academy.repositories.CourseRepository;
 import com.it.academy.services.CategoryService;
 import com.it.academy.services.CourseService;
@@ -14,31 +16,54 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class CourseServiceImpl implements CourseService {
-    private final CourseRepository repo;
+    private final CourseRepository courseRepository;
     private final UserService userService;
     private final CategoryService categoryService;
 
     @Override
     public Course getById(Long id) {
-        return repo.findById(id).orElseThrow(
+        return courseRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException("Course not found with id: " + id));
     }
 
     @Override
     public List<Course> getAll() {
-        return repo.findAll();
+        return courseRepository.findAll();
     }
 
     @Override
     public Long save(Long authorId, Long categoryId, Course course) {
         course.setAuthor(userService.getById(authorId));
         course.setCategory(categoryService.getById(categoryId));
-        return repo.save(course).getId();
+        return courseRepository.save(course).getId();
+    }
+
+    @Override
+    public Long create(Long authorId, Long categoryId, Course course) {
+        User author = userService.getById(authorId);
+        author.setRole(Role.ROLE_TRAINER);
+        userService.save(author);
+
+        Course createdCourse = Course.builder()
+                .author(author)
+                .category(categoryService.getById(categoryId))
+                .name(course.getName())
+                .description(course.getDescription())
+                .language(course.getLanguage())
+                .sections(course.getSections())
+                .reviews(course.getReviews())
+                .price(course.getPrice())
+                .subscriptions(course.getSubscriptions())
+                .build();
+
+        if (author.getStripeAccountId() == null || author.getStripeAccountId().isEmpty()) return null;
+
+        return courseRepository.save(createdCourse).getId();
     }
 
     @Override
     public Long deleteById(Long id) {
-        repo.deleteById(id);
+        courseRepository.deleteById(id);
         return id;
     }
 
@@ -51,7 +76,7 @@ public class CourseServiceImpl implements CourseService {
         course.setPrice(updatedCourse.getPrice());
         course.setCategory(updatedCourse.getCategory());
 
-        return repo.save(course).getId();
+        return courseRepository.save(course).getId();
     }
 
 }
