@@ -70,15 +70,6 @@ VALUES
     ('Article 4 text', 'Article 4 title', 4),
     ('Article 5 text', 'Article 5 title', 5);
 
--- ���������� ������ � ������� articles_comments
-INSERT INTO articles_comments (article_id, comments_id)
-VALUES
-    (1, 1),
-    (1, 2),
-    (2, 3),
-    (2, 4),
-    (3, 5);
-
 -- ���������� ������ � ������� carts_courses
 INSERT INTO carts_courses (cart_id, course_id)
 VALUES

@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -38,6 +39,7 @@ public class CourseServiceImpl implements CourseService {
     public Long save(Long authorId, Long categoryId, Course course) {
         course.setAuthor(userService.getById(authorId));
         course.setCategory(categoryService.getById(categoryId));
+        course.setCreated(LocalDate.now());
         return repo.save(course).getId();
     }
 

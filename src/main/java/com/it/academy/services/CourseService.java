@@ -10,7 +10,6 @@ public interface CourseService {
     List<Course> getAll();
 
     Long save(Long authorId, Long categoryId, Course course);
-    Long create(Long authorId, Long categoryId, Course course);
 
     Long deleteById(Long id);
 

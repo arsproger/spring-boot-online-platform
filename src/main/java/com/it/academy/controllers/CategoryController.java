@@ -3,14 +3,11 @@ package com.it.academy.controllers;
 import com.it.academy.dto.CategoryDto;
 import com.it.academy.mappers.CategoryMapper;
 import com.it.academy.services.CategoryService;
-import com.it.academy.validation.CategoryDtoValidator;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,7 +19,6 @@ import java.util.List;
 public class CategoryController {
     private final CategoryService service;
     private final CategoryMapper mapper;
-    private final CategoryDtoValidator validator;
 
     @GetMapping
     public ResponseEntity<List<CategoryDto>> getAllCategories() {
@@ -37,11 +33,7 @@ public class CategoryController {
     }
 
     @PostMapping
-    public ResponseEntity<?> createCategory(@RequestBody @Valid CategoryDto dto, BindingResult bindingResult) {
-        //if (!validator.validate(dto).isEmpty()) return new ResponseEntity<>(validator.validate(dto), HttpStatus.BAD_REQUEST);
-        if (bindingResult.hasErrors()) {
-            List<ObjectError> errors = bindingResult.getAllErrors();
-        }
+    public ResponseEntity<?> createCategory(@RequestBody @Valid CategoryDto dto) {
         Long id = service.save(mapper.map(dto));
         return new ResponseEntity<>(id, HttpStatus.CREATED);
     }
@@ -53,8 +45,7 @@ public class CategoryController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateCategoryById(@PathVariable Long id, @Valid @RequestBody CategoryDto dto, BindingResult bindingResult) {
-        //if (!validator.validate(dto).isEmpty()) return new ResponseEntity<>(validator.validate(dto), HttpStatus.BAD_REQUEST);
+    public ResponseEntity<?> updateCategoryById(@PathVariable Long id, @Valid @RequestBody CategoryDto dto) {
         Long updatedId = service.update(id, mapper.map(dto));
         return new ResponseEntity<>(updatedId, HttpStatus.OK);
     }

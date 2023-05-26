@@ -7,6 +7,7 @@ import com.it.academy.security.DetailsUser;
 import com.it.academy.services.ReviewService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -64,7 +65,7 @@ public class ReviewController {
     public ResponseEntity<Long> createReview(
             @AuthenticationPrincipal DetailsUser detailsUser,
             @RequestParam Long courseId,
-            @RequestBody ReviewDto dto) {
+            @RequestBody @Valid ReviewDto dto) {
         Long id = service.save(detailsUser.getUser().getId(), courseId, mapper.map(dto));
         return new ResponseEntity<>(id, HttpStatus.CREATED);
     }
@@ -76,7 +77,7 @@ public class ReviewController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Long> updateReviewById(@PathVariable Long id, @RequestBody ReviewDto dto) {
+    public ResponseEntity<Long> updateReviewById(@PathVariable Long id, @RequestBody @Valid ReviewDto dto) {
         Long updatedId = service.update(id, mapper.map(dto));
         return new ResponseEntity<>(updatedId, HttpStatus.OK);
     }

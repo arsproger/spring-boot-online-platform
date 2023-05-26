@@ -7,6 +7,7 @@ import com.it.academy.security.DetailsUser;
 import com.it.academy.services.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -52,7 +53,7 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Long> updateUserById(@PathVariable Long id, @RequestBody UserDto user) {
+    public ResponseEntity<Long> updateUserById(@PathVariable Long id, @RequestBody @Valid UserDto user) {
         Long updatedId = userService.updateById(id, mapper.map(user));
         return new ResponseEntity<>(updatedId, HttpStatus.OK);
     }

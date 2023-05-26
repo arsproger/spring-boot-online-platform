@@ -25,7 +25,6 @@ public class Course {
     private Long id;
 
     @NotEmpty
-    @Column(unique = true)
     @Size(max = 155)
     private String name;
 
@@ -60,9 +59,6 @@ public class Course {
 
     @OneToMany(mappedBy = "course")
     private List<Subscription> subscriptions;
-
-    /*@ManyToMany(mappedBy = "courses")
-    private List<Cart> carts;*/
 
     @OneToOne(mappedBy = "course")
     @Cascade(org.hibernate.annotations.CascadeType.DELETE)
