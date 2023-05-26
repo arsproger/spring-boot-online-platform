@@ -111,7 +111,7 @@ create table sections
 create table subscriptions
 (
     id         bigserial not null,
-    date_start date,
+    creation_date date,
     course_id  bigint,
     user_id    bigint,
     primary key (id)
