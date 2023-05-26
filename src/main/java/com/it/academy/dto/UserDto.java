@@ -15,4 +15,5 @@ public class UserDto {
     private String email;
     private String password;
     private LocalDate dateOfBirth;
+    private String imageUrl;
 }

@@ -26,6 +26,8 @@ public class User {
     private LocalDate dateOfBirth;
     private String email;
     private String password;
+    private String stripeAccountId;
+    private String imageUrl;
     @Enumerated(EnumType.STRING)
     private Role role;
     @Enumerated(EnumType.STRING)
@@ -48,10 +50,5 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<Comment> comments;
-
-    @OneToOne(mappedBy = "user")
-    private S3 s3;
-
-    private String stripeAccountId;
 
 }

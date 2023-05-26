@@ -231,6 +231,7 @@ create table users (
                        provider varchar(255),
                        reset_token varchar(255),
                        reset_token_expire_time timestamp(6),
+                       imageUrl varchar(255),
                        role varchar(255),
                        status varchar(255),
                        stripe_account_id varchar(255),

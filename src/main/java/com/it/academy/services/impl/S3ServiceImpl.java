@@ -7,6 +7,7 @@ import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
 import com.amazonaws.util.IOUtils;
 import com.it.academy.models.S3;
+import com.it.academy.models.User;
 import com.it.academy.repositories.S3Repository;
 import com.it.academy.services.CourseService;
 import com.it.academy.services.LessonService;
@@ -64,18 +65,14 @@ public class S3ServiceImpl implements S3Service {
     public String saveUserImage(Long userId, MultipartFile file) {
         String originalFilename = file.getOriginalFilename();
         try {
-            S3 s3 = S3.builder()
-                    .user(userService.getById(userId))
-                    .createDate(LocalDate.now())
-                    .url(file.getOriginalFilename())
-                    .size(file.getSize())
-                    .build();
-            s3Repository.save(s3);
+            User user = userService.getById(userId);
+            user.setImageUrl(originalFilename);
+            userService.save(user);
 
             File newFile = convertMultiPartToFile(file);
             amazonS3.putObject(bucketName, originalFilename, newFile);
 
-            return file.getOriginalFilename();
+            return originalFilename;
         } catch (IOException e) {
             throw new RuntimeException(e.getMessage());
         }
