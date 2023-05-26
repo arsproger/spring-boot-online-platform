@@ -14,4 +14,6 @@ public interface CartService {
     Long deleteById(Long id);
 
     Long update(Long id, Cart cart);
+    Cart addCourseToCart(Long userId, Long courseId);
+    boolean removeCourseFromCart(Long userId, Long courseId);
 }

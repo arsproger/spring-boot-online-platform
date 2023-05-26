@@ -1,9 +1,11 @@
 package com.it.academy.services.impl;
 
 import com.it.academy.enums.Role;
+import com.it.academy.models.Cart;
 import com.it.academy.models.Course;
 import com.it.academy.models.User;
 import com.it.academy.repositories.CourseRepository;
+import com.it.academy.services.CartService;
 import com.it.academy.services.CategoryService;
 import com.it.academy.services.CourseService;
 import com.it.academy.services.UserService;
@@ -12,6 +14,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -20,6 +23,7 @@ public class CourseServiceImpl implements CourseService {
     private final CourseRepository courseRepository;
     private final UserService userService;
     private final CategoryService categoryService;
+    private final CartService cartService;
 
     @Override
     public Course getById(Long id) {
@@ -81,5 +85,6 @@ public class CourseServiceImpl implements CourseService {
 
         return courseRepository.save(course).getId();
     }
+
 
 }
