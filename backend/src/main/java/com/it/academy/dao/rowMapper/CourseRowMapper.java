@@ -1,8 +1,6 @@
 package com.it.academy.dao.rowMapper;
 
-import com.it.academy.models.Category;
 import com.it.academy.models.Course;
-import com.it.academy.models.User;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
@@ -19,14 +17,7 @@ public class CourseRowMapper implements RowMapper<Course> {
         course.setDescription(rs.getString("description"));
         course.setPrice(rs.getBigDecimal("price"));
         course.setLanguage(rs.getString("language"));
-
-        Category category = new Category();
-        category.setId(rs.getLong("category_id"));
-        course.setCategory(category);
-
-        User author = new User();
-        author.setId(rs.getLong("author_id"));
-        course.setAuthor(author);
+        course.setCreated(rs.getDate("created").toLocalDate());
 
         return course;
     }

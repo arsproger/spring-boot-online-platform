@@ -7,14 +7,6 @@ create table articles
     primary key (id)
 );
 
-
-create table articles_comments
-(
-    article_id  bigint not null,
-    comments_id bigint not null
-);
-
-
 create table carts
 (
     id bigserial not null,

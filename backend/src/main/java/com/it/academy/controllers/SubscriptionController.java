@@ -58,10 +58,10 @@ public class SubscriptionController {
         return new ResponseEntity<>(deletedId, HttpStatus.OK);
     }
 
-    @PutMapping("/{id}")
+  /*  @PutMapping("/{id}")
     public ResponseEntity<Long> updateSubscriptionById(@PathVariable Long id, @RequestBody SubscriptionDto dto) {
         Long updatedId = service.update(id, mapper.map(dto));
         return new ResponseEntity<>(updatedId, HttpStatus.OK);
-    }
+    }*/
 
 }
