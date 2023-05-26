@@ -5,6 +5,7 @@ import com.it.academy.dto.ReviewDto;
 import com.it.academy.mappers.ReviewMapper;
 import com.it.academy.security.DetailsUser;
 import com.it.academy.services.ReviewService;
+import com.it.academy.validation.ObjectValidator;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
@@ -23,6 +24,7 @@ public class ReviewController {
     private final ReviewService service;
     private final ReviewMapper mapper;
     private final ReviewDao reviewDao;
+    private final ObjectValidator<ReviewDto> validator;
 
     @GetMapping
     public ResponseEntity<List<ReviewDto>> getAllReviews() {
@@ -61,10 +63,11 @@ public class ReviewController {
     @PostMapping
     @Operation(summary = "Создание отзыва к курсу",
             description = "Автором отзыва будет назначен текущий пользователь")
-    public ResponseEntity<Long> createReview(
+    public ResponseEntity<?> createReview(
             @AuthenticationPrincipal DetailsUser detailsUser,
             @RequestParam Long courseId,
             @RequestBody ReviewDto dto) {
+        if (!validator.validate(dto).isEmpty()) return new ResponseEntity<>(validator.validate(dto), HttpStatus.BAD_REQUEST);
         Long id = service.save(detailsUser.getUser().getId(), courseId, mapper.map(dto));
         return new ResponseEntity<>(id, HttpStatus.CREATED);
     }
@@ -76,7 +79,8 @@ public class ReviewController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Long> updateReviewById(@PathVariable Long id, @RequestBody ReviewDto dto) {
+    public ResponseEntity<?> updateReviewById(@PathVariable Long id, @RequestBody ReviewDto dto) {
+        if (!validator.validate(dto).isEmpty()) return new ResponseEntity<>(validator.validate(dto), HttpStatus.BAD_REQUEST);
         Long updatedId = service.update(id, mapper.map(dto));
         return new ResponseEntity<>(updatedId, HttpStatus.OK);
     }

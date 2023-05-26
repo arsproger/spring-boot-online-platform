@@ -40,8 +40,8 @@ public class User {
     @Size(min = 8)
     private String password;
 
-    private String stripeAccountId;
     private String imageUrl;
+
     @Enumerated(EnumType.STRING)
     private Role role;
 

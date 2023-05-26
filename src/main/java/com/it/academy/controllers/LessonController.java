@@ -4,6 +4,7 @@ import com.it.academy.dao.LessonDao;
 import com.it.academy.dto.LessonDto;
 import com.it.academy.mappers.LessonMapper;
 import com.it.academy.services.impl.LessonServiceImpl;
+import com.it.academy.validation.ObjectValidator;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -22,6 +23,7 @@ public class LessonController {
     private final LessonServiceImpl service;
     private final LessonDao lessonDao;
     private final LessonMapper mapper;
+    private final ObjectValidator<LessonDto> validator;
 
     @GetMapping
     public ResponseEntity<List<LessonDto>> getAllLessons() {
@@ -36,7 +38,8 @@ public class LessonController {
     }
 
     @PostMapping
-    public ResponseEntity<Long> createLesson(@RequestParam Long sectionId, @RequestBody LessonDto dto) {
+    public ResponseEntity<?> createLesson(@RequestParam Long sectionId, @RequestBody LessonDto dto) {
+        if (!validator.validate(dto).isEmpty()) return new ResponseEntity<>(validator.validate(dto), HttpStatus.BAD_REQUEST);
         Long id = service.save(sectionId, mapper.map(dto));
         return new ResponseEntity<>(id, HttpStatus.CREATED);
     }

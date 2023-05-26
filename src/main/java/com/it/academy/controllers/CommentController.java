@@ -4,6 +4,7 @@ import com.it.academy.dto.CommentDto;
 import com.it.academy.mappers.CommentMapper;
 import com.it.academy.security.DetailsUser;
 import com.it.academy.services.CommentService;
+import com.it.academy.validation.ObjectValidator;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -22,6 +23,7 @@ import java.util.List;
 public class CommentController {
     private final CommentService service;
     private final CommentMapper mapper;
+    private final ObjectValidator<CommentDto> validator;
 
     @GetMapping
     public ResponseEntity<List<CommentDto>> getAllComments() {
@@ -53,7 +55,8 @@ public class CommentController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Long> updateCommentById(@PathVariable Long id, @RequestBody CommentDto dto) {
+    public ResponseEntity<?> updateCommentById(@PathVariable Long id, @RequestBody CommentDto dto) {
+        if (!validator.validate(dto).isEmpty()) return new ResponseEntity<>(validator.validate(dto), HttpStatus.BAD_REQUEST);
         Long updatedId = service.update(id, mapper.map(dto));
         return new ResponseEntity<>(updatedId, HttpStatus.OK);
     }
