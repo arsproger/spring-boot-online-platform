@@ -11,11 +11,11 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "subscriptions")
-@Setter
-@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Setter
+@Getter
 public class Subscription {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
