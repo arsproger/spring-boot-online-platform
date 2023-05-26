@@ -40,11 +40,9 @@ public class User {
     @Size(min = 8)
     private String password;
 
-    @NotNull
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @NotNull
     @Enumerated(EnumType.STRING)
     private UserStatus status;
 
