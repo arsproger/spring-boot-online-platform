@@ -5,6 +5,8 @@ import com.it.academy.dto.CourseDto;
 import com.it.academy.mappers.CourseMapper;
 import com.it.academy.security.DetailsUser;
 import com.it.academy.services.CourseService;
+import com.it.academy.services.PaymentService;
+import com.stripe.exception.StripeException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -25,6 +27,7 @@ public class CourseController {
     private final CourseService service;
     private final CourseDao courseDao;
     private final CourseMapper mapper;
+    private final PaymentService paymentService;
 
     @GetMapping
     public ResponseEntity<List<CourseDto>> getAllCourses() {
@@ -41,10 +44,14 @@ public class CourseController {
     @PostMapping
     @Operation(summary = "Создание курса",
             description = "Автором курса будет назначен текущий пользователь")
-    public ResponseEntity<Long> createCourse(@AuthenticationPrincipal DetailsUser detailsUser,
-                                             @RequestParam Long categoryId,
-                                             @RequestBody CourseDto course) {
+    public ResponseEntity<?> createCourse(@AuthenticationPrincipal DetailsUser detailsUser,
+                                          @RequestParam Long categoryId,
+                                          @RequestBody @Valid CourseDto course) throws StripeException {
         Long id = service.save(detailsUser.getUser().getId(), categoryId, mapper.map(course));
+        if (id == null) {
+            String link = paymentService.generateOnboardingLink(paymentService.createStripeAccount(detailsUser.getUser().getId()));
+            return new ResponseEntity<>(link, HttpStatus.FOUND);
+        }
         return new ResponseEntity<>(id, HttpStatus.CREATED);
     }
 
@@ -55,7 +62,7 @@ public class CourseController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Long> updateCourseById(@PathVariable Long id, @RequestBody CourseDto course) {
+    public ResponseEntity<?> updateCourseById(@PathVariable Long id, @RequestBody CourseDto course) {
         Long updatedId = service.update(id, mapper.map(course));
         return new ResponseEntity<>(updatedId, HttpStatus.OK);
     }

@@ -1,9 +1,10 @@
 package com.it.academy.models;
 
-import lombok.*;
-
 import jakarta.persistence.*;
-import java.util.List;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import lombok.*;
 
 @Entity
 @Table(name = "articles")
@@ -16,13 +17,16 @@ public class Article {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotEmpty
+    @Size(min = 1, max = 155)
     private String title;
+
+    @NotEmpty
     private String text;
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "lesson_id", referencedColumnName = "id")
     private Lesson lesson;
-
-    @OneToMany
-    private List<Comment> comments;
 }

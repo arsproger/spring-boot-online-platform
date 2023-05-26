@@ -41,7 +41,7 @@ public class CommentController {
     public ResponseEntity<Long> createComment(
             @AuthenticationPrincipal DetailsUser detailsUser,
             @RequestParam Long lessonId,
-            @RequestBody CommentDto dto) {
+            @RequestBody @Valid CommentDto dto) {
         Long id = service.create(detailsUser.getUser().getId(), lessonId, mapper.map(dto));
         return new ResponseEntity<>(id, HttpStatus.CREATED);
     }
@@ -53,7 +53,7 @@ public class CommentController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Long> updateCommentById(@PathVariable Long id, @RequestBody CommentDto dto) {
+    public ResponseEntity<Long> updateCommentById(@PathVariable Long id, @RequestBody @Valid CommentDto dto) {
         Long updatedId = service.update(id, mapper.map(dto));
         return new ResponseEntity<>(updatedId, HttpStatus.OK);
     }

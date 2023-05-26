@@ -33,7 +33,7 @@ public class CategoryController {
     }
 
     @PostMapping
-    public ResponseEntity<Long> createCategory(@RequestBody @Valid CategoryDto dto) {
+    public ResponseEntity<?> createCategory(@RequestBody @Valid CategoryDto dto) {
         Long id = service.save(mapper.map(dto));
         return new ResponseEntity<>(id, HttpStatus.CREATED);
     }
@@ -45,7 +45,7 @@ public class CategoryController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Long> updateCategoryById(@PathVariable Long id, @RequestBody CategoryDto dto) {
+    public ResponseEntity<?> updateCategoryById(@PathVariable Long id, @Valid @RequestBody CategoryDto dto) {
         Long updatedId = service.update(id, mapper.map(dto));
         return new ResponseEntity<>(updatedId, HttpStatus.OK);
     }

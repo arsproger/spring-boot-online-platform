@@ -15,7 +15,7 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class ArticleServiceImpl implements ArticleService {
-    private final ArticleRepository articleRepository;
+    private final ArticleRepository repo;
     private final LessonService lessonService;
 
     @Override
@@ -31,18 +31,13 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public Long save(Article article) {
-        return articleRepository.save(article).getId();
-    }
-
-    @Override
-    public Long create(Article article, Long lessonId) {
+    public Long save(Article article, Long lessonId) {
         Article createdArticle = Article.builder()
                 .lesson(lessonService.getById(lessonId))
                 .title(article.getTitle())
                 .text(article.getText())
                 .build();
-        return articleRepository.save(createdArticle).getId();
+        return repo.save(createdArticle).getId();
     }
 
     @Override

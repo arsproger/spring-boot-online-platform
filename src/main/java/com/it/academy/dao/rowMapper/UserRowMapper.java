@@ -21,7 +21,6 @@ public class UserRowMapper implements RowMapper<User> {
         user.setPassword(rs.getString("password"));
         user.setRole(Role.valueOf(rs.getString("role")));
         user.setStatus(UserStatus.valueOf(rs.getString("status")));
-        user.setActivationToken(rs.getString("activation_token"));
         user.setResetToken(rs.getString("reset_token"));
         user.setResetTokenExpireTime(rs.getTimestamp("reset_token_expire_time").toLocalDateTime());
         user.setStripeAccountId(rs.getString("stripe_account_id"));

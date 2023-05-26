@@ -12,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -24,7 +25,7 @@ public class PasswordResetService {
     @Value("${resetUrl}")
     private String resetUrl;
 
-    public ResponseEntity<String> resetPassword(String email) {
+    public ResponseEntity<Map<String, String>> resetPassword(String email) {
         Optional<User> user = userService.getByEmail(email);
         if (user.isEmpty()) {
             throw new AppException("Пользователь не найден!", HttpStatus.NOT_FOUND);
@@ -40,11 +41,11 @@ public class PasswordResetService {
 
         emailConfig.sendSimpleMessage(email, "Сброс пароля", emailText);
 
-        return new ResponseEntity<>(
-                "Письмо с восстановлением пароля отправлено на вашу почту", HttpStatus.OK);
+        Map<String, String> response = Map.of("message", "Письмо с восстановлением пароля отправлено на вашу почту");
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    public ResponseEntity<String> saveNewPassword(String resetToken, String newPassword) {
+    public ResponseEntity<Map<String, String>> saveNewPassword(String resetToken, String newPassword) {
         Optional<User> user = userService.getByResetToken(resetToken);
         if (user.isEmpty() || user.get().getResetTokenExpireTime().isBefore(LocalDateTime.now()))
             throw new AppException("Неверный токен!", HttpStatus.FORBIDDEN);
@@ -53,8 +54,8 @@ public class PasswordResetService {
         user.get().setResetToken(null);
         user.get().setResetTokenExpireTime(null);
         userService.save(user.get());
-
-        return ResponseEntity.ok().build();
+        Map<String, String> response = Map.of("message", "Пароль успешно изменен");
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
 }

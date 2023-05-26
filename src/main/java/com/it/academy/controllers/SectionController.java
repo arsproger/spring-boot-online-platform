@@ -6,6 +6,7 @@ import com.it.academy.mappers.SectionMapper;
 import com.it.academy.services.SectionService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,7 +38,7 @@ public class SectionController {
     @PostMapping
     public ResponseEntity<Long> createSection(
             @RequestParam Long courseId,
-            @RequestBody SectionDto dto) {
+            @RequestBody @Valid SectionDto dto) {
         Long id = service.save(courseId, mapper.map(dto));
         return new ResponseEntity<>(id, HttpStatus.CREATED);
     }
@@ -49,7 +50,7 @@ public class SectionController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Long> updateSectionById(@PathVariable Long id, @RequestBody SectionDto dto) {
+    public ResponseEntity<Long> updateSectionById(@PathVariable Long id, @RequestBody @Valid SectionDto dto) {
         Long updatedId = service.update(id, mapper.map(dto));
         return new ResponseEntity<>(updatedId, HttpStatus.OK);
     }

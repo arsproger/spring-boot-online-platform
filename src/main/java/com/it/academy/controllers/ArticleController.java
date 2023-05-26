@@ -4,6 +4,7 @@ import com.it.academy.dto.ArticleDto;
 import com.it.academy.mappers.ArticleMapper;
 import com.it.academy.services.ArticleService;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,8 +33,8 @@ public class ArticleController {
     }
 
     @PostMapping
-    public ResponseEntity<Long> createArticle(@RequestBody ArticleDto article) {
-        Long id = service.save(mapper.map(article));
+    public ResponseEntity<Long> createArticle(@RequestBody @Valid ArticleDto article, @RequestParam Long lessonId) {
+        Long id = service.save(mapper.map(article), lessonId);
         return new ResponseEntity<>(id, HttpStatus.CREATED);
     }
 
@@ -43,8 +44,8 @@ public class ArticleController {
         return new ResponseEntity<>(deletedId, HttpStatus.OK);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Long> updateArticleById(@PathVariable Long id, @RequestBody ArticleDto article) {
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Long> updateArticleById(@PathVariable Long id, @Valid @RequestBody ArticleDto article) {
         Long updatedId = service.update(id, mapper.map(article));
         return new ResponseEntity<>(updatedId, HttpStatus.OK);
     }
