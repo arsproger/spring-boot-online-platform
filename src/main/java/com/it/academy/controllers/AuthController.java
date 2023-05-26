@@ -19,6 +19,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.Map;
 import java.util.Objects;
@@ -80,10 +81,16 @@ public class AuthController {
     }
 
     @GetMapping("/redirect")
-    public ResponseEntity<Map<String, String>> handleRedirect(@AuthenticationPrincipal DetailsUser principal) {
-        String token = jwtUtil.generateToken(principal.getUsername());
+    public ResponseEntity<RedirectView> redirect(@AuthenticationPrincipal DetailsUser detailsUser) {
+        String token = jwtUtil.generateToken(detailsUser.getUsername());
         Map<String, String> response = Map.of("token", token);
-        return new ResponseEntity<>(response, HttpStatus.OK);
+
+        // Создание RedirectView с добавлением JWT-токена в параметры запроса
+        RedirectView redirectView = new RedirectView("/user/current");
+        redirectView.addStaticAttribute("token", token);
+
+        return new ResponseEntity<>(redirectView, HttpStatus.OK);
+//        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
 }

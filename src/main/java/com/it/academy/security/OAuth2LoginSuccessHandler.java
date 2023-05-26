@@ -20,6 +20,7 @@ import java.io.IOException;
 public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
     private final UserService userService;
     private final DetailsUserService detailsUserService;
+    private final JWTUtil jwtUtil;
     @Value("${oauth2-success-redirect-url}")
     private String redirectUrl;
 
@@ -37,7 +38,17 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
 
-        response.sendRedirect("/auth/redirect");
+        String token = jwtUtil.generateToken(username);
+
+        response.addHeader("Authorization", "Bearer " + token);
+
+//        String redirectUrl = "/user/current";
+        String jsonResponse = "{\"redirectUrl\": \"" + redirectUrl + "\", \"token\": \"" + token + "\"}";
+        response.setContentType("application/json");
+        response.getWriter().write(jsonResponse);
+        response.getWriter().flush();
+
+//        response.sendRedirect("/auth/redirect");
     }
 
 }
