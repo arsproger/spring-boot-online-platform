@@ -1,7 +1,9 @@
 package com.it.academy.services.impl;
 
 import com.it.academy.exceptions.AppException;
+import com.it.academy.enums.Role;
 import com.it.academy.models.Course;
+import com.it.academy.models.User;
 import com.it.academy.repositories.CourseRepository;
 import com.it.academy.services.CategoryService;
 import com.it.academy.services.CourseService;

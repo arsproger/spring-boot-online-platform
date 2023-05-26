@@ -21,21 +21,34 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotEmpty
     private String fullName;
+
     @Column(name = "date_of_birth")
     private LocalDate dateOfBirth;
+
+    @NotEmpty
+    @Email
     private String email;
+
+    @NotEmpty
+    @Size(min = 8)
     private String password;
     private String stripeAccountId;
     private String imageUrl;
+
     @Enumerated(EnumType.STRING)
     private Role role;
+
     @Enumerated(EnumType.STRING)
     private UserStatus status;
     @Column(name = "reset_token")
     private String resetToken;
+
     @Column(name = "reset_token_expire_time")
     private LocalDateTime resetTokenExpireTime;
+
     @Enumerated(EnumType.STRING)
     private Provider provider;
 

@@ -1,4 +1,4 @@
--- Добавление данных в таблицу carts
+-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ carts
 INSERT INTO carts DEFAULT VALUES;
 INSERT INTO carts DEFAULT VALUES;
 INSERT INTO carts DEFAULT VALUES;
@@ -6,7 +6,7 @@ INSERT INTO carts DEFAULT VALUES;
 INSERT INTO carts DEFAULT VALUES;
 INSERT INTO carts DEFAULT VALUES;
 
--- Добавление данных в таблицу users
+-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ users
 INSERT INTO users (id, date_of_birth, email, full_name, password, provider, reset_token, reset_token_expire_time, role, status, stripe_account_id, cart_id)
 VALUES
     (1, '1990-01-01', 'admin@mail.ru', 'Admin', '$2a$12$.nwSTW70key.0.VxnmpjJ.NquOYmgGH7vbxyMEH.kyv815vdYdcii', 'LOCAL', 'reset1', null, 'ROLE_ADMIN', 'ACTIVE', 'stripe1', 1),
@@ -16,7 +16,7 @@ VALUES
     (5, '1990-01-04', 'user4@mail.ru', 'User 4', '$2a$12$s/jbU496o6DzdqAWWOla1uc5PKPhP8bbv6cFz1MfTVOiK/RxAEXsO', 'LOCAL', 'reset4', null, 'ROLE_STUDENT', 'ACTIVE', 'stripe4', 5),
     (6, '1990-01-05', 'user5@mail.ru', 'User 5', '$2a$12$s/jbU496o6DzdqAWWOla1uc5PKPhP8bbv6cFz1MfTVOiK/RxAEXsO', 'LOCAL', 'reset5', null, 'ROLE_STUDENT', 'ACTIVE', 'stripe5', 6);
 
--- Добавление данных в таблицу categories
+-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ categories
 INSERT INTO categories (title)
 VALUES
     ('Category 1'),
@@ -25,7 +25,7 @@ VALUES
     ('Category 4'),
     ('Category 5');
 
--- Добавление данных в таблицу courses
+-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ courses
 INSERT INTO courses (id, created, description, language, name, price, author_id, category_id)
 VALUES
     (1, CURRENT_DATE, 'Course 1 description', 'English', 'Course 1', 100.00, 1, 1),
@@ -34,7 +34,7 @@ VALUES
     (4, CURRENT_DATE, 'Course 4 description', 'German', 'Course 4', 400.00, 4, 4),
     (5, CURRENT_DATE, 'Course 5 description', 'Italian', 'Course 5', 500.00, 5, 5);
 
--- Добавление данных в таблицу sections
+-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ sections
 INSERT INTO sections (name, course_id)
 VALUES
     ('Section 1', 1),
@@ -43,7 +43,7 @@ VALUES
     ('Section 4', 2),
     ('Section 5', 3);
 
--- Добавление данных в таблицу lessons
+-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ lessons
 INSERT INTO lessons (description, duration, title, section_id)
 VALUES
     ('Lesson 1 description', 60.5, 'Lesson 1', 1),
@@ -52,7 +52,7 @@ VALUES
     ('Lesson 4 description', 75.0, 'Lesson 4', 2),
     ('Lesson 5 description', 90.0, 'Lesson 5', 3);
 
--- Добавление данных в таблицу comments
+-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ comments
 INSERT INTO comments (date, description, title, lesson_id, user_id)
 VALUES
     (CURRENT_DATE, 'Comment 1 description', 'Comment 1 title', 1, 1),
@@ -61,7 +61,7 @@ VALUES
     (CURRENT_DATE, 'Comment 4 description', 'Comment 4 title', 4, 4),
     (CURRENT_DATE, 'Comment 5 description', 'Comment 5 title', 5, 5);
 
--- Добавление данных в таблицу articles
+-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ articles
 INSERT INTO articles (text, title, lesson_id)
 VALUES
     ('Article 1 text', 'Article 1 title', 1),
@@ -70,7 +70,7 @@ VALUES
     ('Article 4 text', 'Article 4 title', 4),
     ('Article 5 text', 'Article 5 title', 5);
 
--- Добавление данных в таблицу articles_comments
+-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ articles_comments
 INSERT INTO articles_comments (article_id, comments_id)
 VALUES
     (1, 1),
@@ -79,7 +79,7 @@ VALUES
     (2, 4),
     (3, 5);
 
--- Добавление данных в таблицу carts_courses
+-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ carts_courses
 INSERT INTO carts_courses (cart_id, course_id)
 VALUES
     (1, 1),
@@ -88,7 +88,7 @@ VALUES
     (4, 4),
     (5, 5);
 
--- Добавление данных в таблицу reviews
+-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ reviews
 INSERT INTO reviews (date, description, grade, title, course_id, user_id)
 VALUES
     (CURRENT_DATE, 'Review 1 description', 4.5, 'Review 1 title', 1, 1),
@@ -97,7 +97,7 @@ VALUES
     (CURRENT_DATE, 'Review 4 description', 4.0, 'Review 4 title', 4, 4),
     (CURRENT_DATE, 'Review 5 description', 5.0, 'Review 5 title', 5, 5);
 
--- Добавление данных в таблицу s3
+-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ s3
 INSERT INTO s3 (create_date, size, url, course_id, lesson_id, user_id)
 VALUES
     (CURRENT_DATE, 10.5, 'http://example.com/s3/1', 1, 1, 1),
@@ -106,7 +106,7 @@ VALUES
     (CURRENT_DATE, 25.0, 'http://example.com/s3/4', 4, 4, 4),
     (CURRENT_DATE, 30.0, 'http://example.com/s3/5', 5, 5, 5);
 
--- Добавление данных в таблицу subscriptions
+-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ subscriptions
 INSERT INTO subscriptions (creation_date, course_id, user_id)
 VALUES
     (CURRENT_DATE, 1, 1),

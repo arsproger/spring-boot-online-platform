@@ -5,6 +5,9 @@ import com.it.academy.dto.CourseDto;
 import com.it.academy.mappers.CourseMapper;
 import com.it.academy.security.DetailsUser;
 import com.it.academy.services.CourseService;
+import com.it.academy.services.PaymentService;
+import com.it.academy.validation.CourseDtoValidator;
+import com.stripe.exception.StripeException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -25,6 +28,8 @@ public class CourseController {
     private final CourseService service;
     private final CourseDao courseDao;
     private final CourseMapper mapper;
+    private final CourseDtoValidator validator;
+    private final PaymentService paymentService;
 
     @GetMapping
     public ResponseEntity<List<CourseDto>> getAllCourses() {
@@ -41,10 +46,18 @@ public class CourseController {
     @PostMapping
     @Operation(summary = "Создание курса",
             description = "Автором курса будет назначен текущий пользователь")
-    public ResponseEntity<Long> createCourse(@AuthenticationPrincipal DetailsUser detailsUser,
+    public ResponseEntity<?> createCourse(@AuthenticationPrincipal DetailsUser detailsUser,
                                              @RequestParam Long categoryId,
-                                             @RequestBody CourseDto course) {
-        Long id = service.save(detailsUser.getUser().getId(), categoryId, mapper.map(course));
+                                             @RequestBody CourseDto course) throws StripeException {
+        Long id = service.create(detailsUser.getUser().getId(), categoryId, mapper.map(course));
+        if (!validator.validate(course).isEmpty()) return new ResponseEntity<>(validator.validate(course), HttpStatus.BAD_REQUEST);
+        if (id == null) {
+            String link = paymentService.generateOnboardingLink(paymentService.createStripeAccount(detailsUser.getUser().getId()));
+            /*HttpHeaders headers = new HttpHeaders();
+            headers.setLocation(URI.create(link));
+            return new ResponseEntity<>(headers, HttpStatus.FOUND);*/
+            return new ResponseEntity<>(link, HttpStatus.FOUND);
+        }
         return new ResponseEntity<>(id, HttpStatus.CREATED);
     }
 
@@ -55,7 +68,8 @@ public class CourseController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Long> updateCourseById(@PathVariable Long id, @RequestBody CourseDto course) {
+    public ResponseEntity<?> updateCourseById(@PathVariable Long id, @RequestBody CourseDto course) {
+        if (!validator.validate(course).isEmpty()) return new ResponseEntity<>(validator.validate(course), HttpStatus.BAD_REQUEST);
         Long updatedId = service.update(id, mapper.map(course));
         return new ResponseEntity<>(updatedId, HttpStatus.OK);
     }

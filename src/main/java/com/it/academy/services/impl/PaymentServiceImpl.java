@@ -1,7 +1,9 @@
 package com.it.academy.services.impl;
 
+import com.it.academy.models.Course;
 import com.it.academy.models.Subscription;
 import com.it.academy.models.User;
+import com.it.academy.services.CourseService;
 import com.it.academy.services.PaymentService;
 import com.it.academy.services.SubscriptionService;
 import com.it.academy.services.UserService;
@@ -35,11 +37,12 @@ public class PaymentServiceImpl implements PaymentService {
     private String publicKey;
     private UserService userService;
     private SubscriptionService subscriptionService;
+    private CourseService courseService;
 
     @Override
-    public void makePayment(Long subscriptionId, String cardNumber, String expMonth, String expYear, String cvc) throws StripeException {
+    public void makePayment(Long courseId, Long userId, String cardNumber, String expMonth, String expYear, String cvc) throws StripeException {
         Stripe.apiKey = secretKey;
-        Subscription subscription = subscriptionService.getById(subscriptionId);
+        Course course = courseService.getById(courseId);
 
         Map<String, Object> cardParams = new HashMap<>();
         cardParams.put("number", cardNumber);
@@ -53,17 +56,16 @@ public class PaymentServiceImpl implements PaymentService {
         Token token = Token.create(tokenParams);
 
         Map<String, Object> chargeParams = new HashMap<>();
-        chargeParams.put("amount", subscription.getCourse().getPrice().multiply(new BigDecimal(100)).intValue());
+        chargeParams.put("amount", course.getPrice().multiply(new BigDecimal(100)).intValue());
         chargeParams.put("currency", "USD");
-        chargeParams.put("description", "Payment for subscription to the course " + subscription.getCourse().getName());
+        chargeParams.put("description", "Payment for subscription to the course " + course.getName());
         chargeParams.put("source", token.getId());
-        chargeParams.put("application_fee_amount", (subscription.getCourse().getPrice().multiply(new BigDecimal(0.1)).intValue()));
-        chargeParams.put("transfer_data", Collections.singletonMap("destination", subscription.getCourse().getAuthor().getStripeAccountId()));
-        //chargeParams.put("transfer_data", Collections.singletonMap("destination", "acct_1N7tFTDOKky9CwBJ")); //for testing
+        chargeParams.put("application_fee_amount", (course.getPrice().multiply(new BigDecimal(0.1)).intValue()));
+        chargeParams.put("transfer_data", Collections.singletonMap("destination", course.getAuthor().getStripeAccountId()));
 
+        subscriptionService.save(userId, courseId);
         Charge charge = Charge.create(chargeParams);
     }
-
 
     @Override
     public String createStripeAccount(Long userId) throws StripeException {
