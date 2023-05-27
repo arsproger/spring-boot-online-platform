@@ -1,4 +1,4 @@
-package com.it.academy.models;
+package com.it.academy.entities;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;

@@ -1,4 +1,4 @@
-package com.it.academy.models;
+package com.it.academy.entities;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -11,10 +11,10 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "comments")
+@Table(name = "reviews")
 @Setter
 @Getter
-public class Comment {
+public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -27,6 +27,8 @@ public class Comment {
     private String description;
 
     @NotNull
+    private Double grade;
+
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
 
@@ -37,7 +39,7 @@ public class Comment {
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "lesson_id", referencedColumnName = "id")
-    private Lesson lesson;
+    @JoinColumn(name = "course_id", referencedColumnName = "id")
+    private Course course;
 
 }

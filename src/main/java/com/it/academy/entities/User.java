@@ -1,4 +1,4 @@
-package com.it.academy.models;
+package com.it.academy.entities;
 
 import com.it.academy.enums.Provider;
 import com.it.academy.enums.Role;
@@ -6,7 +6,6 @@ import com.it.academy.enums.UserStatus;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 

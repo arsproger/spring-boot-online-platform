@@ -1,47 +1,36 @@
-package com.it.academy.models;
-
-import jakarta.validation.constraints.NotNull;
-import lombok.*;
+package com.it.academy.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "s3")
+@Table(name = "subscriptions")
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Setter
 @Getter
-@Builder
-public class S3 {
+public class Subscription {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotNull
-    private double size;
-
-    @NotNull
-    private String url;
-
-    @NotNull
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate createDate;
+    private LocalDate creationDate;
 
     @NotNull
-    @OneToOne
-    @JoinColumn(name = "lesson_id", referencedColumnName = "id")
-    private Lesson lesson;
-
-    @NotNull
-    @OneToOne
-    @JoinColumn(name = "course_id", referencedColumnName = "id")
-    private Course course;
-
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
+
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "course_id", referencedColumnName = "id")
+    private Course course;
 
 }
