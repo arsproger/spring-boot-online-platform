@@ -29,8 +29,8 @@ public class CourseDao {
     }
 
     public List<Course> getByLanguage(String language) {
-        return jdbcTemplate.query("SELECT * FROM Courses WHERE language = ?",
-                new CourseRowMapper(), language);
+        return jdbcTemplate.query("SELECT * FROM Courses WHERE language ILIKE ?",
+                new CourseRowMapper(), ("%" + language + "%"));
     }
 
     public List<Course> getCoursesByUserCart(Long userId) {
@@ -41,13 +41,12 @@ public class CourseDao {
     }
 
     public List<Course> getCourseByCategoryId(Long categoryId) {
-        return jdbcTemplate.queryForList("SELECT * FROM courses WHERE category_id = ?",
-                Course.class, categoryId);
+        return jdbcTemplate.query("SELECT * FROM courses WHERE category_id = ?", new CourseRowMapper(), categoryId);
     }
 
     public List<Course> getCourseByName(String name) {
-        return jdbcTemplate.query("SELECT id, name, description, price, language, created FROM courses WHERE name = ?",
-                new CourseRowMapper(), name);
+        return jdbcTemplate.query("SELECT id, name, description, price, language, created FROM courses WHERE name ILIKE ?",
+                new CourseRowMapper(), ("%" + name + "%"));
     }
 
     public Double getCourseDurationSum(Long courseId) {
