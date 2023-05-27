@@ -1,5 +1,6 @@
 package com.it.academy.services.impl;
 
+import com.it.academy.dao.CommentDao;
 import com.it.academy.exceptions.AppException;
 import com.it.academy.models.Comment;
 import com.it.academy.models.Lesson;
@@ -22,6 +23,7 @@ public class CommentServiceImpl implements CommentService {
     private final CommentRepository repo;
     private final LessonService lessonService;
     private final UserService userService;
+    private final CommentDao commentDao;
 
     @Override
     public Comment getById(Long id) {
@@ -62,6 +64,11 @@ public class CommentServiceImpl implements CommentService {
         comment.setDescription(updatedComment.getDescription());
 
         return repo.save(comment).getId();
+    }
+
+    @Override
+    public List<Comment> getCommentsByLessonId(Long lessonId) {
+        return commentDao.getCommentsByLessonId(lessonId);
     }
 
 }
