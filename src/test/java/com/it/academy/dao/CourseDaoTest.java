@@ -190,4 +190,18 @@ public class CourseDaoTest {
     }
 
 
+    @Test
+    public void testSetImageUrl() {
+        Course course = Course.builder().id(1L).name("Java").build();
+        String imageUrl = "java.mp4";
+
+        when(jdbcTemplate.update(any(String.class), any(String.class), any(Long.class)))
+                .thenReturn(0);
+
+        courseDao.setImageUrl(imageUrl, course.getId());
+
+        verify(jdbcTemplate, times(1))
+                .update(any(String.class), any(String.class), any(Long.class));
+    }
+
 }
