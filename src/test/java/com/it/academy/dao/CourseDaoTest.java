@@ -1,7 +1,7 @@
 package com.it.academy.dao;
 
-import com.it.academy.models.Course;
-import com.it.academy.models.User;
+import com.it.academy.entities.Course;
+import com.it.academy.entities.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;

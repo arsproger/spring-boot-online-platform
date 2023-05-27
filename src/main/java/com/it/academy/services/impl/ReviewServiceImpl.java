@@ -1,9 +1,9 @@
 package com.it.academy.services.impl;
 
 import com.it.academy.exceptions.AppException;
-import com.it.academy.models.Course;
-import com.it.academy.models.Review;
-import com.it.academy.models.User;
+import com.it.academy.entities.Course;
+import com.it.academy.entities.Review;
+import com.it.academy.entities.User;
 import com.it.academy.repositories.ReviewRepository;
 import com.it.academy.services.CourseService;
 import com.it.academy.services.ReviewService;

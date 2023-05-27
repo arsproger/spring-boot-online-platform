@@ -1,6 +1,6 @@
 package com.it.academy.dao.rowMapper;
 
-import com.it.academy.models.Category;
+import com.it.academy.entities.Category;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;

@@ -4,7 +4,7 @@ import com.it.academy.enums.Provider;
 import com.it.academy.enums.Role;
 import com.it.academy.enums.UserStatus;
 import com.it.academy.exceptions.AppException;
-import com.it.academy.models.User;
+import com.it.academy.entities.User;
 import com.it.academy.repositories.UserRepository;
 import com.it.academy.services.UserService;
 import lombok.AllArgsConstructor;

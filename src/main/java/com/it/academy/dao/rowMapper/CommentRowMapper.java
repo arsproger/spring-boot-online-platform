@@ -1,8 +1,6 @@
 package com.it.academy.dao.rowMapper;
 
-import com.it.academy.models.Comment;
-import com.it.academy.models.Lesson;
-import com.it.academy.models.User;
+import com.it.academy.entities.Comment;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 

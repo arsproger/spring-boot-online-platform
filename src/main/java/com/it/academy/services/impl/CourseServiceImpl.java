@@ -2,8 +2,8 @@ package com.it.academy.services.impl;
 
 import com.it.academy.dao.CourseDao;
 import com.it.academy.enums.Role;
-import com.it.academy.models.Course;
-import com.it.academy.models.User;
+import com.it.academy.entities.Course;
+import com.it.academy.entities.User;
 import com.it.academy.repositories.CourseRepository;
 import com.it.academy.services.CategoryService;
 import com.it.academy.services.CourseService;

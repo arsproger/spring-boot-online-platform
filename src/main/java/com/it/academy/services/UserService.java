@@ -1,6 +1,6 @@
 package com.it.academy.services;
 
-import com.it.academy.models.User;
+import com.it.academy.entities.User;
 
 import java.util.List;
 import java.util.Optional;

@@ -1,8 +1,8 @@
 package com.it.academy.services.impl;
 
 import com.it.academy.exceptions.AppException;
-import com.it.academy.models.Course;
-import com.it.academy.models.Section;
+import com.it.academy.entities.Course;
+import com.it.academy.entities.Section;
 import com.it.academy.repositories.SectionRepository;
 import com.it.academy.services.CourseService;
 import com.it.academy.services.SectionService;

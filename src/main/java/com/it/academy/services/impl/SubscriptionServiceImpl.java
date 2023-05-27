@@ -1,7 +1,7 @@
 package com.it.academy.services.impl;
 
 import com.it.academy.exceptions.AppException;
-import com.it.academy.models.Subscription;
+import com.it.academy.entities.Subscription;
 import com.it.academy.repositories.SubscriptionRepository;
 import com.it.academy.services.CourseService;
 import com.it.academy.services.SubscriptionService;

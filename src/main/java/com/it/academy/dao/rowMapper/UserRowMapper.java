@@ -2,7 +2,7 @@ package com.it.academy.dao.rowMapper;
 
 import com.it.academy.enums.Role;
 import com.it.academy.enums.UserStatus;
-import com.it.academy.models.User;
+import com.it.academy.entities.User;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 

@@ -1,6 +1,6 @@
 package com.it.academy.services;
 
-import com.it.academy.models.Category;
+import com.it.academy.entities.Category;
 
 import java.util.List;
 

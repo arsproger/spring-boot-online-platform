@@ -1,6 +1,6 @@
 package com.it.academy.services;
 
-import com.it.academy.models.Comment;
+import com.it.academy.entities.Comment;
 
 import java.util.List;
 

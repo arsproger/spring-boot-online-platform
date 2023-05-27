@@ -2,7 +2,7 @@ package com.it.academy.services.impl;
 
 import com.it.academy.config.EmailConfig;
 import com.it.academy.exceptions.AppException;
-import com.it.academy.models.User;
+import com.it.academy.entities.User;
 import com.it.academy.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;

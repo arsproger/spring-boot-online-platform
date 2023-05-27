@@ -1,9 +1,7 @@
 package com.it.academy.dao;
 
 import com.it.academy.dao.rowMapper.ArticleRowMapper;
-import com.it.academy.dao.rowMapper.CommentRowMapper;
-import com.it.academy.models.Article;
-import com.it.academy.models.Comment;
+import com.it.academy.entities.Article;
 import lombok.AllArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;

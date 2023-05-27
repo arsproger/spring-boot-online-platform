@@ -1,6 +1,5 @@
 package com.it.academy.services;
 
-import com.it.academy.models.Subscription;
 import com.stripe.exception.StripeException;
 
 public interface PaymentService {

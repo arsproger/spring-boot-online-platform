@@ -1,6 +1,6 @@
 package com.it.academy.dao;
 
-import com.it.academy.models.Review;
+import com.it.academy.entities.Review;
 import lombok.AllArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;

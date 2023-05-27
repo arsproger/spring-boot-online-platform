@@ -1,7 +1,7 @@
 package com.it.academy.dao.rowMapper;
 
-import com.it.academy.models.Article;
-import com.it.academy.models.Lesson;
+import com.it.academy.entities.Article;
+import com.it.academy.entities.Lesson;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;

@@ -1,8 +1,8 @@
 package com.it.academy.services.impl;
 
-import com.it.academy.models.Course;
-import com.it.academy.models.Subscription;
-import com.it.academy.models.User;
+import com.it.academy.config.StripeConfig;
+import com.it.academy.entities.Course;
+import com.it.academy.entities.User;
 import com.it.academy.services.CourseService;
 import com.it.academy.services.PaymentService;
 import com.it.academy.services.SubscriptionService;
@@ -17,8 +17,6 @@ import com.stripe.param.AccountCreateParams;
 import com.stripe.param.AccountLinkCreateParams;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -29,19 +27,20 @@ import java.util.Map;
 @Service
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 public class PaymentServiceImpl implements PaymentService {
-    @Value("${stripe.secret.key}")
-    private String secretKey;
-    @Value("${stripe.public.key}")
-    private String publicKey;
+//    @Value("${stripe.secret.key}")
+//    private String secretKey;
+//    @Value("${stripe.public.key}")
+//    private String publicKey;
     private UserService userService;
     private SubscriptionService subscriptionService;
     private CourseService courseService;
+    private StripeConfig stripe;
 
     @Override
     public void makePayment(Long courseId, Long userId, String cardNumber, String expMonth, String expYear, String cvc) throws StripeException {
-        Stripe.apiKey = secretKey;
+        //Stripe.apiKey = secretKey;
+        Stripe.apiKey = stripe.getKey();
         Course course = courseService.getById(courseId);
 
         Map<String, Object> cardParams = new HashMap<>();
@@ -74,7 +73,8 @@ public class PaymentServiceImpl implements PaymentService {
             String fullName = user.getFullName();
 
 
-            Stripe.apiKey = secretKey;
+            //Stripe.apiKey = secretKey;
+        Stripe.apiKey = stripe.getKey();
 
             AccountCreateParams params = AccountCreateParams.builder()
                     .setType(AccountCreateParams.Type.EXPRESS)

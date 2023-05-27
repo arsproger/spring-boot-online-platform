@@ -2,7 +2,7 @@ package com.it.academy.services.impl;
 
 import com.it.academy.dao.ArticleDao;
 import com.it.academy.exceptions.AppException;
-import com.it.academy.models.Article;
+import com.it.academy.entities.Article;
 import com.it.academy.repositories.ArticleRepository;
 import com.it.academy.services.ArticleService;
 import com.it.academy.services.LessonService;
@@ -16,20 +16,20 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class ArticleServiceImpl implements ArticleService {
-    private final ArticleRepository repo;
+    private final ArticleRepository articleRepository;
     private final LessonService lessonService;
     private final ArticleDao articleDao;
 
     @Override
     public Article getById(Long id) {
-        return repo.findById(id).orElseThrow(
+        return articleRepository.findById(id).orElseThrow(
                 () -> new AppException("Article not found with id: " + id, HttpStatus.NOT_FOUND));
     }
 
     @Override
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public List<Article> getAll() {
-        return repo.findAll();
+        return articleRepository.findAll();
     }
 
     @Override
@@ -39,13 +39,13 @@ public class ArticleServiceImpl implements ArticleService {
                 .title(article.getTitle())
                 .text(article.getText())
                 .build();
-        return repo.save(createdArticle).getId();
+        return articleRepository.save(createdArticle).getId();
     }
 
     @Override
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Long deleteById(Long id) {
-        repo.deleteById(id);
+        articleRepository.deleteById(id);
         return id;
     }
 
@@ -56,7 +56,7 @@ public class ArticleServiceImpl implements ArticleService {
         article.setText(updatedArticle.getText());
         article.setTitle(updatedArticle.getTitle());
 
-        return repo.save(article).getId();
+        return articleRepository.save(article).getId();
     }
 
     @Override

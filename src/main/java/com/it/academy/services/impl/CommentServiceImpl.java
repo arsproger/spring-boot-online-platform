@@ -2,19 +2,16 @@ package com.it.academy.services.impl;
 
 import com.it.academy.dao.CommentDao;
 import com.it.academy.enums.Role;
-import com.it.academy.exceptions.AppException;
-import com.it.academy.models.Comment;
-import com.it.academy.models.Lesson;
-import com.it.academy.models.User;
+import com.it.academy.entities.Comment;
+import com.it.academy.entities.Lesson;
+import com.it.academy.entities.User;
 import com.it.academy.repositories.CommentRepository;
 import com.it.academy.services.CommentService;
 import com.it.academy.services.LessonService;
 import com.it.academy.services.UserService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;

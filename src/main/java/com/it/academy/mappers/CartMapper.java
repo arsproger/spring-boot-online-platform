@@ -1,7 +1,7 @@
 package com.it.academy.mappers;
 
 import com.it.academy.dto.CartDto;
-import com.it.academy.models.Cart;
+import com.it.academy.entities.Cart;
 import org.mapstruct.Mapper;
 import org.springframework.stereotype.Component;
 

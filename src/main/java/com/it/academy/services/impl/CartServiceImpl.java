@@ -2,7 +2,7 @@ package com.it.academy.services.impl;
 
 import com.it.academy.dao.CartDao;
 import com.it.academy.dao.CourseDao;
-import com.it.academy.models.Course;
+import com.it.academy.entities.Course;
 import com.it.academy.services.CartService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

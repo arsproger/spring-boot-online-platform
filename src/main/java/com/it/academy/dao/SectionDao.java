@@ -1,7 +1,7 @@
 package com.it.academy.dao;
 
 import com.it.academy.dao.rowMapper.SectionRowMapper;
-import com.it.academy.models.Section;
+import com.it.academy.entities.Section;
 import lombok.AllArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;

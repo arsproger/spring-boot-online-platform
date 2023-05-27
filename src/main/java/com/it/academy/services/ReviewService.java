@@ -1,6 +1,6 @@
 package com.it.academy.services;
 
-import com.it.academy.models.Review;
+import com.it.academy.entities.Review;
 
 import java.util.List;
 

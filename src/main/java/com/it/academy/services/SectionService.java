@@ -1,6 +1,6 @@
 package com.it.academy.services;
 
-import com.it.academy.models.Section;
+import com.it.academy.entities.Section;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
 package com.it.academy.security;
 
-import com.it.academy.models.User;
+import com.it.academy.entities.User;
 import com.it.academy.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

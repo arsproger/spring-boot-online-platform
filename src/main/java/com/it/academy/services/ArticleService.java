@@ -1,6 +1,6 @@
 package com.it.academy.services;
 
-import com.it.academy.models.Article;
+import com.it.academy.entities.Article;
 
 import java.util.List;
 

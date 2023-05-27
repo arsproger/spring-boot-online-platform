@@ -1,6 +1,6 @@
 package com.it.academy.repositories;
 
-import com.it.academy.models.User;
+import com.it.academy.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

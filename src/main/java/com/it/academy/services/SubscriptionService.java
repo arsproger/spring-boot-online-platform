@@ -1,6 +1,6 @@
 package com.it.academy.services;
 
-import com.it.academy.models.Subscription;
+import com.it.academy.entities.Subscription;
 
 import java.util.List;
 
