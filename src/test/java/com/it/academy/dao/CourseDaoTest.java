@@ -8,6 +8,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
@@ -35,7 +36,7 @@ public class CourseDaoTest {
         Course course2 = Course.builder().id(2L).author(user).build();
         List<Course> expectedCourses = Arrays.asList(course1, course2);
 
-        when(jdbcTemplate.queryForList(any(String.class), any(Class.class), any(Long.class)))
+        when(jdbcTemplate.query(any(String.class), any(RowMapper.class), any(Long.class)))
                 .thenReturn(expectedCourses);
 
         List<Course> actualCourses = courseDao.getByAuthorId(user.getId());
@@ -52,7 +53,7 @@ public class CourseDaoTest {
         expectedCourses = expectedCourses.stream()
                 .sorted(Comparator.comparing(Course::getPrice)).collect(Collectors.toList());
 
-        when(jdbcTemplate.queryForList(any(String.class), any(Class.class)))
+        when(jdbcTemplate.query(any(String.class), any(RowMapper.class)))
                 .thenReturn(expectedCourses);
 
         List<Course> actualCourses = courseDao.filterByPriceAsk();
@@ -69,13 +70,28 @@ public class CourseDaoTest {
         expectedCourses = expectedCourses.stream()
                 .sorted(Comparator.comparing(Course::getPrice).reversed()).collect(Collectors.toList());
 
-        when(jdbcTemplate.queryForList(any(String.class), any(Class.class)))
+        when(jdbcTemplate.query(any(String.class), any(RowMapper.class)))
                 .thenReturn(expectedCourses);
 
         List<Course> actualCourses = courseDao.filterByPriceDesc();
 
         assertThat(actualCourses).isEqualTo(expectedCourses);
     }
+
+    @Test
+    public void testGetByLanguage() {
+        Course course1 = Course.builder().id(1L).language("ru").build();
+        Course course2 = Course.builder().id(2L).language("ru").build();
+        List<Course> expectedCourses = Arrays.asList(course1, course2);
+
+        when(jdbcTemplate.query(any(String.class), any(RowMapper.class), any(String.class)))
+                .thenReturn(expectedCourses);
+
+        List<Course> actualCourses = courseDao.getByLanguage("ru");
+
+        assertThat(actualCourses).isEqualTo(expectedCourses);
+    }
+
 
 
 }

@@ -50,6 +50,7 @@ create table courses
     language    varchar(155),
     name        varchar(155),
     price       numeric(38, 2) not null,
+    image_url   varchar(255),
     author_id   bigint         not null,
     category_id bigint,
     primary key (id)
@@ -62,6 +63,7 @@ create table lessons
     description varchar(255),
     duration    float(53),
     title       varchar(155),
+    video_url   varchar(255),
     section_id  bigint    not null,
     primary key (id)
 )

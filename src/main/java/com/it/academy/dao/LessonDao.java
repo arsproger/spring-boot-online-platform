@@ -19,7 +19,7 @@ public class LessonDao {
     }
 
     public void setVideoUrl(String imageUrl, Long lessonId) {
-        jdbcTemplate.update("UPDATE lessons set image_url = ? where id = ?", imageUrl, lessonId);
+        jdbcTemplate.update("UPDATE lessons set video_url = ? where id = ?", imageUrl, lessonId);
     }
 
 }
