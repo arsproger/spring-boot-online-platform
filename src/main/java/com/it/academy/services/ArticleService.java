@@ -14,4 +14,5 @@ public interface ArticleService {
     Long deleteById(Long id);
 
     Long update(Long id, Article article);
+    List<Article> getArticlesByLessonId(Long lessonId);
 }

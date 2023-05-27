@@ -5,11 +5,9 @@ import com.it.academy.mappers.ArticleMapper;
 import com.it.academy.services.ArticleService;
 import com.it.academy.validation.ObjectValidator;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,9 +21,9 @@ public class ArticleController {
     private final ArticleMapper mapper;
     private final ObjectValidator<ArticleDto> validator;
 
-    @GetMapping
-    public ResponseEntity<List<ArticleDto>> getAllArticles() {
-        List<ArticleDto> articles = mapper.map(service.getAll());
+    @GetMapping("/lesson/{lessonId}")
+    public ResponseEntity<List<ArticleDto>> getArticlesByLessonId(@PathVariable Long lessonId) {
+        List<ArticleDto> articles = mapper.map(service.getArticlesByLessonId(lessonId));
         return new ResponseEntity<>(articles, HttpStatus.OK);
     }
 
@@ -35,20 +33,20 @@ public class ArticleController {
         return new ResponseEntity<>(article, HttpStatus.OK);
     }
 
-    @PostMapping("/create")
+    @PostMapping()
     public ResponseEntity<?> createArticle(@RequestBody ArticleDto article, @RequestParam Long lessonId) {
         if (!validator.validate(article).isEmpty()) return new ResponseEntity<>(validator.validate(article), HttpStatus.BAD_REQUEST);
         Long id = service.save(mapper.map(article), lessonId);
         return new ResponseEntity<>(id, HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Long> deleteArticleById(@PathVariable Long id) {
         Long deletedId = service.deleteById(id);
         return new ResponseEntity<>(deletedId, HttpStatus.OK);
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<?> updateArticleById(@PathVariable Long id, @RequestBody ArticleDto article) {
         if (!validator.validate(article).isEmpty()) return new ResponseEntity<>(validator.validate(article), HttpStatus.BAD_REQUEST);
         Long updatedId = service.update(id, mapper.map(article));

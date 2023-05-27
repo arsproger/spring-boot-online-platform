@@ -1,5 +1,6 @@
 package com.it.academy.services.impl;
 
+import com.it.academy.dao.ArticleDao;
 import com.it.academy.exceptions.AppException;
 import com.it.academy.models.Article;
 import com.it.academy.repositories.ArticleRepository;
@@ -17,6 +18,7 @@ import java.util.List;
 public class ArticleServiceImpl implements ArticleService {
     private final ArticleRepository repo;
     private final LessonService lessonService;
+    private final ArticleDao articleDao;
 
     @Override
     public Article getById(Long id) {
@@ -55,6 +57,11 @@ public class ArticleServiceImpl implements ArticleService {
         article.setTitle(updatedArticle.getTitle());
 
         return repo.save(article).getId();
+    }
+
+    @Override
+    public List<Article> getArticlesByLessonId(Long lessonId) {
+        return articleDao.getArticlesByLessonId(lessonId);
     }
 
 }
