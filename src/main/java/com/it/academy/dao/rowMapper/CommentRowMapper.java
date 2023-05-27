@@ -19,14 +19,6 @@ public class CommentRowMapper implements RowMapper<Comment> {
         comment.setDescription(rs.getString("description"));
         comment.setDate(rs.getDate("date").toLocalDate());
 
-        User user = new User();
-        user.setId(rs.getLong("user_id"));
-        comment.setUser(user);
-
-        Lesson lesson = new Lesson();
-        lesson.setId(rs.getLong("lesson_id"));
-        comment.setLesson(lesson);
-
         return comment;
     }
 }

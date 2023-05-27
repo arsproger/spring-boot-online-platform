@@ -7,11 +7,10 @@ import java.util.List;
 public interface CommentService {
     Comment getById(Long id);
 
-    List<Comment> getAll();
     Long create(Long userId, Long lessonId, Comment comment);
 
-    Long deleteById(Long id);
+    Long deleteById(Long userId, Long id);
 
-    Long update(Long id, Comment comment);
+    Long update(Long userId, Long commentId, Comment updatedComment);
     List<Comment> getCommentsByLessonId(Long lessonId);
 }

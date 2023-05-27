@@ -23,18 +23,6 @@ public class CommentController {
     private final CommentService service;
     private final CommentMapper mapper;
 
- /*   @GetMapping
-    public ResponseEntity<List<CommentDto>> getAllComments() {
-        List<CommentDto> comments = mapper.map(service.getAll());
-        return new ResponseEntity<>(comments, HttpStatus.OK);
-    }*/
-
-   /* @GetMapping("/{id}")
-    public ResponseEntity<CommentDto> getCommentById(@PathVariable Long id) {
-        CommentDto dto = mapper.map(service.getById(id));
-        return new ResponseEntity<>(dto, HttpStatus.OK);
-    }*/
-
     @PostMapping
     @Operation(summary = "Создание комментария к уроку",
             description = "Автором комментария будет назначен текущий пользователь")
@@ -47,22 +35,24 @@ public class CommentController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Long> deleteCommentById(@PathVariable Long id) {
-        Long deletedId = service.deleteById(id);
+    public ResponseEntity<Long> deleteCommentById(@AuthenticationPrincipal DetailsUser detailsUser,
+                                                  @PathVariable Long id) {
+        Long deletedId = service.deleteById(detailsUser.getUser().getId(), id);
         return new ResponseEntity<>(deletedId, HttpStatus.OK);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Long> updateCommentById(@PathVariable Long id, @RequestBody @Valid CommentDto dto) {
-        Long updatedId = service.update(id, mapper.map(dto));
+    @PutMapping("/{commentId}")
+    public ResponseEntity<Long> updateCommentById(@AuthenticationPrincipal DetailsUser detailsUser,
+                                                  @PathVariable Long commentId,
+                                                  @RequestBody @Valid CommentDto dto) {
+        Long updatedId = service.update(detailsUser.getUser().getId(), commentId, mapper.map(dto));
         return new ResponseEntity<>(updatedId, HttpStatus.OK);
     }
 
-    @GetMapping("/course")
-    public ResponseEntity<List<CommentDto>> getCommentsByLessonId(@RequestParam Long lessonId) {
+    @GetMapping("/lesson/{lessonId}")
+    public ResponseEntity<List<CommentDto>> getCommentsByLessonId(@PathVariable Long lessonId) {
         List<CommentDto> dtos = mapper.map(service.getCommentsByLessonId(lessonId));
         return new ResponseEntity<>(dtos,  HttpStatus.OK);
     }
-
 
 }
