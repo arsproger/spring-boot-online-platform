@@ -10,6 +10,8 @@ public interface CategoryService {
     List<Category> getAll();
 
     Long save(Category category);
+    Long create(Category category);
+    List<Category> getCategoriesByTitle(String title);
 
     Long deleteById(Long id);
 
