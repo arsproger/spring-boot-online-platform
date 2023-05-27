@@ -1,8 +1,6 @@
 package com.it.academy.services;
 
-import com.it.academy.models.Cart;
 import com.it.academy.models.Course;
-
 import java.util.List;
 
 public interface CourseService {
@@ -10,10 +8,17 @@ public interface CourseService {
 
     List<Course> getAll();
 
-    Long save(Long authorId, Long categoryId, Course course);
+    Long save(Course course);
+    Long create(Long authorId, Long categoryId, Course course);
 
-    Long deleteById(Long id);
+    Long deleteById(Long userId, Long courseId);
 
-    Long update(Long id, Course course);
-
+    Long update(Long userId, Long courseId, Course updatedCourse);
+    Double getCourseDuration(Long courseId);
+    List<Course> getCoursesByCategory(Long categoryId);
+    List<Course> getCoursesByLanguage(String language);
+    List<Course> getCoursesByName(String name);
+    List<Course> filterByPriceAsk();
+    List<Course> filterByPriceDesc();
+    List<Course> getCoursesByAuthor(Long authorId);
 }

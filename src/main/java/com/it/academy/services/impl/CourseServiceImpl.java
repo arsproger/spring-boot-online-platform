@@ -1,22 +1,19 @@
 package com.it.academy.services.impl;
 
+import com.it.academy.dao.CourseDao;
 import com.it.academy.enums.Role;
-import com.it.academy.models.Cart;
 import com.it.academy.models.Course;
 import com.it.academy.models.User;
 import com.it.academy.repositories.CourseRepository;
-import com.it.academy.services.CartService;
 import com.it.academy.services.CategoryService;
 import com.it.academy.services.CourseService;
 import com.it.academy.services.UserService;
-import jakarta.persistence.EntityNotFoundException;
-import jakarta.persistence.EntityNotFoundException;
+import jakarta.persistence.EntityNotFoundException;;
 import lombok.AllArgsConstructor;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -25,6 +22,7 @@ public class CourseServiceImpl implements CourseService {
     private final CourseRepository courseRepository;
     private final UserService userService;
     private final CategoryService categoryService;
+    private final CourseDao courseDao;
 
     @Override
     public Course getById(Long id) {
@@ -33,15 +31,12 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public List<Course> getAll() {
         return courseRepository.findAll();
     }
 
     @Override
-    public Long save(Long authorId, Long categoryId, Course course) {
-        course.setAuthor(userService.getById(authorId));
-        course.setCategory(categoryService.getById(categoryId));
+    public Long save(Course course) {
         return courseRepository.save(course).getId();
     }
 
@@ -61,6 +56,7 @@ public class CourseServiceImpl implements CourseService {
                 .reviews(course.getReviews())
                 .price(course.getPrice())
                 .subscriptions(course.getSubscriptions())
+                .created(LocalDate.now())
                 .build();
 
         if (author.getStripeAccountId() == null || author.getStripeAccountId().isEmpty()) return null;
@@ -69,15 +65,21 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public Long deleteById(Long id) {
-        courseRepository.deleteById(id);
-        return id;
+    public Long deleteById(Long userId, Long courseId) {
+        if(!getById(courseId).getAuthor().getId().equals(userId) &&
+        !userService.getById(userId).getRole().equals(Role.ROLE_ADMIN)) {
+            throw  new AccessDeniedException("You can't delete this course!");}
+
+        courseRepository.deleteById(courseId);
+        return courseId;
     }
 
     @Override
-    public Long update(Long id, Course updatedCourse) {
-        Course course = getById(id);
+    public Long update(Long userId, Long courseId, Course updatedCourse) {
+        Course course = getById(courseId);
+
+        if(!course.getAuthor().getId().equals(userId)) {
+            throw  new AccessDeniedException("You can't update this course!");}
 
         course.setName(updatedCourse.getName());
         course.setDescription(updatedCourse.getDescription());
@@ -85,6 +87,37 @@ public class CourseServiceImpl implements CourseService {
         course.setCategory(updatedCourse.getCategory());
 
         return courseRepository.save(course).getId();
+    }
+
+    @Override
+    public Double getCourseDuration(Long courseId) {
+        return courseDao.getCourseDurationSum(courseId);
+    }
+    @Override
+    public List<Course> getCoursesByName(String name) {
+        return courseDao.getCourseByName(name);
+    }
+    @Override
+    public List<Course> getCoursesByLanguage(String language) {
+        return courseDao.getByLanguage(language);
+    }
+    @Override
+    public List<Course> getCoursesByCategory(Long categoryId) {
+        return courseDao.getCourseByCategoryId(categoryId);
+    }
+
+    @Override
+    public List<Course> getCoursesByAuthor(Long authorId) {
+        return courseDao.getByAuthorId(authorId);
+    }
+
+    public List<Course> filterByPriceDesc() {
+        return courseDao.filterByPriceDesc();
+    }
+
+    @Override
+    public List<Course> filterByPriceAsk() {
+        return courseDao.filterByPriceAsk();
     }
 
 }

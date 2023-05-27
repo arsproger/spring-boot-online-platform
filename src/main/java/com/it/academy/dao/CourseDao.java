@@ -51,7 +51,7 @@ public class CourseDao {
 
     public Double getCourseDurationSum(Long courseId) {
         return jdbcTemplate.queryForObject("SELECT sum(duration) FROM lessons " +
-                "JOIN sections ON(lessons.section_id = sections.id) " +
+                "JOIN sections ON lessons.section_id = sections.id " +
                 "WHERE sections.course_id = ?", Double.class, courseId);
     }
 
