@@ -11,7 +11,7 @@ spring:
     generate-ddl: true
     show-sql: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: validate
 
   datasource:
     driver-class-name: org.postgresql.Driver

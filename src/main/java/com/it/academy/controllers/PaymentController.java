@@ -17,8 +17,8 @@ public class PaymentController {
 
     @PostMapping("/pay")
     public ResponseEntity<String> makePayment(
-            @RequestParam("subscriptionId") Long courseId,
-            @RequestParam("subscriptionId") Long userId,
+            @RequestParam("courseId") Long courseId,
+            @RequestParam("userId") Long userId,
             @RequestParam("cardNumber") String cardNumber,
             @RequestParam("expMonth") String expMonth,
             @RequestParam("expYear") String expYear,
