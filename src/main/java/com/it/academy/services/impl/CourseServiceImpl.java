@@ -10,10 +10,12 @@ import com.it.academy.services.CategoryService;
 import com.it.academy.services.CourseService;
 import com.it.academy.services.UserService;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 
@@ -23,7 +25,6 @@ public class CourseServiceImpl implements CourseService {
     private final CourseRepository courseRepository;
     private final UserService userService;
     private final CategoryService categoryService;
-    private final CartService cartService;
 
     @Override
     public Course getById(Long id) {
@@ -85,6 +86,5 @@ public class CourseServiceImpl implements CourseService {
 
         return courseRepository.save(course).getId();
     }
-
 
 }

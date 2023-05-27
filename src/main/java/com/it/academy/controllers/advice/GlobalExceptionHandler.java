@@ -3,6 +3,7 @@ package com.it.academy.controllers.advice;
 import com.it.academy.exceptions.AppErrorResponse;
 import com.it.academy.exceptions.AppException;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -39,5 +40,13 @@ public class GlobalExceptionHandler {
         bindingResult.getFieldErrors().forEach(error -> errors.put(error.getField(), error.getDefaultMessage()));
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<Map<String, String>> handleValidationExceptions(ConstraintViolationException e) {
+        Map<String, String> response = new HashMap<>();
+        e.getConstraintViolations().forEach(error -> response.put(error.getPropertyPath().toString(), error.getMessage()));
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
+
 }
 

@@ -13,6 +13,9 @@ spring:
     hibernate:
       ddl-auto: validate
 
+  flyway:
+    enabled: true
+
   datasource:
     driver-class-name: org.postgresql.Driver
     url: ${config.db.url}

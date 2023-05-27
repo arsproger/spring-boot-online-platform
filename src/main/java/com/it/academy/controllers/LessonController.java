@@ -8,6 +8,7 @@ import com.it.academy.validation.ObjectValidator;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +24,6 @@ public class LessonController {
     private final LessonServiceImpl service;
     private final LessonDao lessonDao;
     private final LessonMapper mapper;
-    private final ObjectValidator<LessonDto> validator;
 
     @GetMapping
     public ResponseEntity<List<LessonDto>> getAllLessons() {
@@ -38,8 +38,7 @@ public class LessonController {
     }
 
     @PostMapping
-    public ResponseEntity<?> createLesson(@RequestParam Long sectionId, @RequestBody LessonDto dto) {
-        if (!validator.validate(dto).isEmpty()) return new ResponseEntity<>(validator.validate(dto), HttpStatus.BAD_REQUEST);
+    public ResponseEntity<Long> createLesson(@RequestParam Long sectionId, @RequestBody @Valid LessonDto dto) {
         Long id = service.save(sectionId, mapper.map(dto));
         return new ResponseEntity<>(id, HttpStatus.CREATED);
     }
@@ -51,7 +50,7 @@ public class LessonController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Long> updateLessonById(@PathVariable Long id, @RequestBody LessonDto dto) {
+    public ResponseEntity<Long> updateLessonById(@PathVariable Long id, @RequestBody @Valid LessonDto dto) {
         Long updatedId = service.update(id, mapper.map(dto));
         return new ResponseEntity<>(updatedId, HttpStatus.OK);
     }

@@ -64,9 +64,15 @@ public class AuthController {
     @Operation(summary = "Авторизация пользователя",
             description = "Если при авторизации данные будут неверными, " +
                     "отправится ответ с ключом message и его сообщением")
-    public ResponseEntity<Map<String, String>> performLogin(@RequestBody @Valid AuthenticationDto authenticationDTO) {
+    public ResponseEntity<Map<String, String>> performLogin(@RequestBody @Valid AuthenticationDto authenticationDTO, BindingResult bindingResult) {
         UsernamePasswordAuthenticationToken authInputToken =
                 new UsernamePasswordAuthenticationToken(authenticationDTO.getUsername(), authenticationDTO.getPassword());
+
+        if (bindingResult.hasErrors()) {
+            Map<String, String> message = Map.of("message", Objects.requireNonNull(Objects.requireNonNull(
+                    bindingResult.getFieldError()).getDefaultMessage()));
+            return new ResponseEntity<>(message, HttpStatus.CONFLICT);
+        }
 
         try {
             authenticationManager.authenticate(authInputToken);
