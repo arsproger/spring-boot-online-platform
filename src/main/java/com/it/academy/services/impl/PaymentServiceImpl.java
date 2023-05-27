@@ -28,10 +28,6 @@ import java.util.Map;
 @Data
 @AllArgsConstructor
 public class PaymentServiceImpl implements PaymentService {
-//    @Value("${stripe.secret.key}")
-//    private String secretKey;
-//    @Value("${stripe.public.key}")
-//    private String publicKey;
     private UserService userService;
     private SubscriptionService subscriptionService;
     private CourseService courseService;
@@ -39,7 +35,6 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public void makePayment(Long courseId, Long userId, String cardNumber, String expMonth, String expYear, String cvc) throws StripeException {
-        //Stripe.apiKey = secretKey;
         Stripe.apiKey = stripe.getKey();
         Course course = courseService.getById(courseId);
 
@@ -72,9 +67,7 @@ public class PaymentServiceImpl implements PaymentService {
             String email = user.getEmail();
             String fullName = user.getFullName();
 
-
-            //Stripe.apiKey = secretKey;
-        Stripe.apiKey = stripe.getKey();
+            Stripe.apiKey = stripe.getKey();
 
             AccountCreateParams params = AccountCreateParams.builder()
                     .setType(AccountCreateParams.Type.EXPRESS)
