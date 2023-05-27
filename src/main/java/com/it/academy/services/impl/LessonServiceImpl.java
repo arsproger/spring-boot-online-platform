@@ -1,12 +1,14 @@
 package com.it.academy.services.impl;
 
+import com.it.academy.dao.LessonDao;
 import com.it.academy.exceptions.AppException;
-import com.it.academy.models.Lesson;
+import com.it.academy.entities.Lesson;
 import com.it.academy.repositories.LessonRepository;
 import com.it.academy.services.LessonService;
 import com.it.academy.services.SectionService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
@@ -15,42 +17,49 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class LessonServiceImpl implements LessonService {
-    private final LessonRepository repo;
+    private final LessonRepository lessonRepository;
     private final SectionService sectionService;
+    private final LessonDao lessonDao;
 
     @Override
     public Lesson getById(Long id) {
-        return repo.findById(id).orElseThrow(
+        return lessonRepository.findById(id).orElseThrow(
                 () -> new AppException("Lesson not found with id: " + id, HttpStatus.NOT_FOUND));
-    }
-
-    @Override
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public List<Lesson> getAll() {
-        return repo.findAll();
     }
 
     @Override
     public Long save(Long sectionId, Lesson lesson) {
         lesson.setSection(sectionService.getById(sectionId));
-        return repo.save(lesson).getId();
+        return lessonRepository.save(lesson).getId();
     }
 
     @Override
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public Long deleteById(Long id) {
-        repo.deleteById(id);
-        return id;
+    public Long deleteById(Long userId, Long lessonId) {
+        Lesson lesson = getById(lessonId);
+
+        if (!lesson.getSection().getCourse().getAuthor().getId().equals(userId)) {
+            throw new AccessDeniedException("You can't delete this lesson!");}
+
+        lessonRepository.deleteById(lessonId);
+        return lessonId;
     }
 
     @Override
-    public Long update(Long id, Lesson updatedLesson) {
-        Lesson lesson = getById(id);
+    public Long update(Long userId, Long lessonId, Lesson updatedLesson) {
+        Lesson lesson = getById(lessonId);
+
+        if (!lesson.getSection().getCourse().getAuthor().getId().equals(userId)) {
+            throw new AccessDeniedException("You can't update this lesson!");}
 
         lesson.setTitle(updatedLesson.getTitle());
         lesson.setDescription(updatedLesson.getDescription());
 
-        return repo.save(lesson).getId();
+        return lessonRepository.save(lesson).getId();
+    }
+
+    @Override
+    public List<Lesson> getLessonsBySection(Long sectionId) {
+        return lessonDao.getLessonsBySection(sectionId);
     }
 
 }
