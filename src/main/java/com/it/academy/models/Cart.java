@@ -1,15 +1,17 @@
 package com.it.academy.models;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
 @Table(name = "carts")
+@AllArgsConstructor
+@NoArgsConstructor
 @Setter
 @Getter
+@Builder
 public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,5 +1,6 @@
 package com.it.academy.dao;
 
+import com.it.academy.models.Cart;
 import com.it.academy.models.Course;
 import com.it.academy.models.User;
 import org.junit.Test;
@@ -92,6 +93,22 @@ public class CourseDaoTest {
         assertThat(actualCourses).isEqualTo(expectedCourses);
     }
 
+    @Test
+    public void testGetCoursesByUserCart() {
+        Course course1 = Course.builder().id(1L).name("Java 8").build();
+        Course course2 = Course.builder().id(2L).name("SQL").build();
+        Course course3 = Course.builder().id(3L).name("Spring framework").build();
+        List<Course> expectedCourses = Arrays.asList(course1, course2, course3);
+        Cart cart = Cart.builder().id(1L).courses(expectedCourses).build();
+        User user = User.builder().id(1L).fullName("Arsen Bekboev").cart(cart).build();
+
+        when(jdbcTemplate.query(any(String.class), any(RowMapper.class), any(Long.class)))
+                .thenReturn(expectedCourses);
+
+        List<Course> actualCourses = courseDao.getCoursesByUserCart(user.getId());
+
+        assertThat(actualCourses).isEqualTo(expectedCourses);
+    }
 
 
 }
