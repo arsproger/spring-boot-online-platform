@@ -128,5 +128,21 @@ public class CourseDaoTest {
         assertThat(actualCourses).isEqualTo(expectedCourses);
     }
 
+    @Test
+    public void testGetCourseByName() {
+        Course course1 = Course.builder().id(1L).name("Java").build();
+        Course course2 = Course.builder().id(2L).name("Java").build();
+        Course course3 = Course.builder().id(3L).name("Java").build();
+
+        List<Course> expectedCourses = Arrays.asList(course1, course2, course3);
+
+        when(jdbcTemplate.query(any(String.class), any(RowMapper.class), any(String.class)))
+                .thenReturn(expectedCourses);
+
+        List<Course> actualCourses = courseDao.getCourseByName("Java");
+
+        assertThat(actualCourses).isEqualTo(expectedCourses);
+    }
+
 
 }
