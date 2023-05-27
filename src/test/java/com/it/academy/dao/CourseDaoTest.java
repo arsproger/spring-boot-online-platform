@@ -1,10 +1,7 @@
 package com.it.academy.dao;
 
 import com.it.academy.dao.rowMapper.CourseRowMapper;
-import com.it.academy.models.Cart;
-import com.it.academy.models.Category;
-import com.it.academy.models.Course;
-import com.it.academy.models.User;
+import com.it.academy.models.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -14,6 +11,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -163,6 +161,32 @@ public class CourseDaoTest {
 
         verify(jdbcTemplate, times(1))
                 .query(any(String.class), any(CourseRowMapper.class), any(String.class));
+    }
+
+    @Test
+    public void testGetCourseDurationSum() {
+        Lesson lesson1 = Lesson.builder().duration(5.0).build();
+        Lesson lesson2 = Lesson.builder().duration(3.0).build();
+        Lesson lesson3 = Lesson.builder().duration(9.0).build();
+
+        Section section1 = Section.builder().lessons(Arrays.asList(lesson1, lesson2)).build();
+        Section section2 = Section.builder().lessons(Collections.singletonList(lesson3)).build();
+
+        Course course = Course.builder().id(1L).sections(Arrays.asList(section1, section2)).build();
+
+        Double expectedDurationSum = course.getSections()
+                .stream().flatMapToDouble(element -> element.getLessons()
+                        .stream().mapToDouble(Lesson::getDuration)).average().orElse(0);
+
+        when(jdbcTemplate.queryForObject(any(String.class), eq(Double.class), any(Long.class)))
+                .thenReturn(expectedDurationSum);
+
+        Double actualDurationSum = courseDao.getCourseDurationSum(course.getId());
+
+        assertThat(actualDurationSum).isEqualTo(expectedDurationSum);
+
+        verify(jdbcTemplate, times(1))
+                .queryForObject(any(String.class), eq(Double.class), any(Long.class));
     }
 
 
