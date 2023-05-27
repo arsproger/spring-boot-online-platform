@@ -31,6 +31,8 @@ public class Course {
     @NotEmpty
     private String description;
 
+    private String imageUrl;
+
     @NotNull
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate created;
@@ -59,9 +61,5 @@ public class Course {
 
     @OneToMany(mappedBy = "course")
     private List<Subscription> subscriptions;
-
-    @OneToOne(mappedBy = "course")
-    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
-    private S3 s3;
 
 }

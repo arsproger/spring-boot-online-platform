@@ -20,7 +20,7 @@ public class UserDao {
     }
 
     public void setImageUrl(String imageUrl, Long userId) {
-        jdbcTemplate.update("UPDATE USERS set image_url = ? where id = ?", imageUrl, userId);
+        jdbcTemplate.update("UPDATE users set image_url = ? where id = ?", imageUrl, userId);
     }
 
 }

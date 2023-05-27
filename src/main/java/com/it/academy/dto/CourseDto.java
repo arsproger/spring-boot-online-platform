@@ -31,4 +31,6 @@ public class CourseDto {
     @NotEmpty(message = "Language cannot be empty!")
     @Size(max = 30, message = "Language must have a maximum of 155 characters!")
     private String language;
+
+    private String imageUrl;
 }

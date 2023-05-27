@@ -21,7 +21,7 @@ public class S3Controller {
     @PostMapping("/upload/video")
     @Operation(summary = "Загрузка видео для урока на сервер")
     public String uploadVideo(@RequestParam Long lessonId, @RequestParam("file") MultipartFile file) {
-        return s3Service.saveVideo(lessonId, file);
+        return s3Service.saveLessonVideo(lessonId, file);
     }
 
     @PostMapping("/upload/course/image")

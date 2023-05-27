@@ -56,4 +56,8 @@ public class CourseDao {
                 "WHERE sections.course_id = ?", Double.class, courseId);
     }
 
+    public void setImageUrl(String imageUrl, Long courseId) {
+        jdbcTemplate.update("UPDATE courses set image_url = ? where id = ?", imageUrl, courseId);
+    }
+
 }
