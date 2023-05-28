@@ -21,8 +21,9 @@ public class ReviewRowMapper implements RowMapper<Review> {
         review.setDescription(rs.getString("description"));
         review.setGrade(rs.getDouble("grade"));
         review.setDate(rs.getObject("date", LocalDate.class));
-        review.setUser(rs.getObject("user_id", User.class));
-        review.setCourse(rs.getObject("course_id", Course.class));
+        User user = new User();
+        user.setId(rs.getLong("user_id"));
+        review.setUser(user);
         return review;
     }
 }

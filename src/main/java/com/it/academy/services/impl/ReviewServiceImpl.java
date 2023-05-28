@@ -1,5 +1,7 @@
 package com.it.academy.services.impl;
 
+import com.it.academy.dao.ReviewDao;
+import com.it.academy.enums.Role;
 import com.it.academy.exceptions.AppException;
 import com.it.academy.entities.Course;
 import com.it.academy.entities.Review;
@@ -8,8 +10,10 @@ import com.it.academy.repositories.ReviewRepository;
 import com.it.academy.services.CourseService;
 import com.it.academy.services.ReviewService;
 import com.it.academy.services.UserService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
@@ -19,20 +23,31 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class ReviewServiceImpl implements ReviewService {
-    private final ReviewRepository repo;
+    private final ReviewRepository reviewRepository;
     private final UserService userService;
     private final CourseService courseService;
+    private final ReviewDao reviewDao;
 
     @Override
     public Review getById(Long id) {
-        return repo.findById(id).orElseThrow(
-                () -> new AppException("Review not found with id: " + id, HttpStatus.NOT_FOUND));
+        return reviewRepository.findById(id).orElseThrow(
+                () -> new EntityNotFoundException("Review not found with id: " + id));
     }
 
     @Override
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public List<Review> getAll() {
-        return repo.findAll();
+        return reviewRepository.findAll();
+    }
+
+    @Override
+    public List<Review> getReviewsByCourse(Long courseId) {
+        return reviewDao.getReviewsByCourseId(courseId);
+    }
+
+    @Override
+    public Double getCourseAvgGrade(Long courseId) {
+        return reviewDao.getCourseAvgGrade(courseId);
     }
 
     @Override
@@ -44,25 +59,39 @@ public class ReviewServiceImpl implements ReviewService {
         review.setCourse(course);
         review.setUser(user);
 
-        return repo.save(review).getId();
+        return reviewRepository.save(review).getId();
     }
 
     @Override
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public Long deleteById(Long id) {
-        repo.deleteById(id);
+    public List<Review> getCourseReviewsByAuthorId(Long authorId) {
+        return reviewDao.getCourseReviewsByAuthorId(authorId);
+    }
+
+    @Override
+    public Long deleteById(Long userId, Long id) {
+        Review review = getById(id);
+        User user = userService.getById(userId);
+
+        if (!(userId.equals(review.getUser().getId()) || user.getRole().equals(Role.ROLE_ADMIN))) {
+            throw new AccessDeniedException("You can't delete this review!");
+        }
+
+        reviewRepository.deleteById(id);
         return id;
     }
 
     @Override
-    public Long update(Long id, Review updatedReview) {
+    public Long update(Long userId, Long id, Review updatedReview) {
         Review review = getById(id);
+
+        if(!userId.equals(review.getUser().getId())) {
+            throw new AccessDeniedException("You can't update this review!");}
 
         review.setTitle(updatedReview.getTitle());
         review.setDescription(updatedReview.getDescription());
-        review.setDate(updatedReview.getDate());
+        review.setDate(LocalDate.now());
 
-        return repo.save(review).getId();
+        return reviewRepository.save(review).getId();
     }
 
 }
