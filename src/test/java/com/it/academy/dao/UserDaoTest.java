@@ -55,4 +55,18 @@ public class UserDaoTest {
                 .query(anyString(), any(UserRowMapper.class), anyLong());
     }
 
+    @Test
+    public void testSetImageUrl() {
+        User user = User.builder().id(1L).fullName("Bob").build();
+        String imageUrl = "bob.jpg";
+
+        when(jdbcTemplate.update(anyString(), anyString(), anyLong()))
+                .thenReturn(0);
+
+        userDao.setImageUrl(imageUrl, user.getId());
+
+        verify(jdbcTemplate, times(1))
+                .update(anyString(), anyString(), anyLong());
+    }
+
 }
