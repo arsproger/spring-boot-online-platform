@@ -36,7 +36,7 @@ public class CourseDaoTest {
         Course course2 = Course.builder().id(2L).author(user).build();
         List<Course> expectedCourses = Arrays.asList(course1, course2);
 
-        when(jdbcTemplate.query(any(String.class), any(CourseRowMapper.class), any(Long.class)))
+        when(jdbcTemplate.query(anyString(), any(CourseRowMapper.class), anyLong()))
                 .thenReturn(expectedCourses);
 
         List<Course> actualCourses = courseDao.getByAuthorId(user.getId());
@@ -44,7 +44,7 @@ public class CourseDaoTest {
         assertThat(actualCourses).isEqualTo(expectedCourses);
 
         verify(jdbcTemplate, times(1))
-                .query(any(String.class), any(CourseRowMapper.class), any(Long.class));
+                .query(anyString(), any(CourseRowMapper.class), anyLong());
     }
 
     @Test
@@ -56,7 +56,7 @@ public class CourseDaoTest {
         expectedCourses = expectedCourses.stream()
                 .sorted(Comparator.comparing(Course::getPrice)).collect(Collectors.toList());
 
-        when(jdbcTemplate.query(any(String.class), any(CourseRowMapper.class)))
+        when(jdbcTemplate.query(anyString(), any(CourseRowMapper.class)))
                 .thenReturn(expectedCourses);
 
         List<Course> actualCourses = courseDao.filterByPriceAsk();
@@ -64,7 +64,7 @@ public class CourseDaoTest {
         assertThat(actualCourses).isEqualTo(expectedCourses);
 
         verify(jdbcTemplate, times(1))
-                .query(any(String.class), any(CourseRowMapper.class));
+                .query(anyString(), any(CourseRowMapper.class));
     }
 
     @Test
@@ -76,7 +76,7 @@ public class CourseDaoTest {
         expectedCourses = expectedCourses.stream()
                 .sorted(Comparator.comparing(Course::getPrice).reversed()).collect(Collectors.toList());
 
-        when(jdbcTemplate.query(any(String.class), any(CourseRowMapper.class)))
+        when(jdbcTemplate.query(anyString(), any(CourseRowMapper.class)))
                 .thenReturn(expectedCourses);
 
         List<Course> actualCourses = courseDao.filterByPriceDesc();
@@ -84,7 +84,7 @@ public class CourseDaoTest {
         assertThat(actualCourses).isEqualTo(expectedCourses);
 
         verify(jdbcTemplate, times(1))
-                .query(any(String.class), any(CourseRowMapper.class));
+                .query(anyString(), any(CourseRowMapper.class));
     }
 
     @Test
@@ -93,7 +93,7 @@ public class CourseDaoTest {
         Course course2 = Course.builder().id(2L).language("ru").build();
         List<Course> expectedCourses = Arrays.asList(course1, course2);
 
-        when(jdbcTemplate.query(any(String.class), any(CourseRowMapper.class), any(String.class)))
+        when(jdbcTemplate.query(anyString(), any(CourseRowMapper.class), anyString()))
                 .thenReturn(expectedCourses);
 
         List<Course> actualCourses = courseDao.getByLanguage("ru");
@@ -101,7 +101,7 @@ public class CourseDaoTest {
         assertThat(actualCourses).isEqualTo(expectedCourses);
 
         verify(jdbcTemplate, times(1))
-                .query(any(String.class), any(CourseRowMapper.class), any(String.class));
+                .query(anyString(), any(CourseRowMapper.class), anyString());
     }
 
     @Test
@@ -113,7 +113,7 @@ public class CourseDaoTest {
         Cart cart = Cart.builder().id(1L).courses(expectedCourses).build();
         User user = User.builder().id(1L).fullName("Arsen Bekboev").cart(cart).build();
 
-        when(jdbcTemplate.query(any(String.class), any(CourseRowMapper.class), any(Long.class)))
+        when(jdbcTemplate.query(anyString(), any(CourseRowMapper.class), anyLong()))
                 .thenReturn(expectedCourses);
 
         List<Course> actualCourses = courseDao.getCoursesByUserCart(user.getId());
@@ -121,7 +121,7 @@ public class CourseDaoTest {
         assertThat(actualCourses).isEqualTo(expectedCourses);
 
         verify(jdbcTemplate, times(1))
-                .query(any(String.class), any(CourseRowMapper.class), any(Long.class));
+                .query(anyString(), any(CourseRowMapper.class), anyLong());
     }
 
     @Test
@@ -133,7 +133,7 @@ public class CourseDaoTest {
 
         List<Course> expectedCourses = Arrays.asList(course1, course2, course3);
 
-        when(jdbcTemplate.query(any(String.class), any(CourseRowMapper.class), any(Long.class)))
+        when(jdbcTemplate.query(anyString(), any(CourseRowMapper.class), anyLong()))
                 .thenReturn(expectedCourses);
 
         List<Course> actualCourses = courseDao.getCourseByCategoryId(category.getId());
@@ -141,7 +141,7 @@ public class CourseDaoTest {
         assertThat(actualCourses).isEqualTo(expectedCourses);
 
         verify(jdbcTemplate, times(1))
-                .query(any(String.class), any(CourseRowMapper.class), any(Long.class));
+                .query(anyString(), any(CourseRowMapper.class), anyLong());
     }
 
     @Test
@@ -152,7 +152,7 @@ public class CourseDaoTest {
 
         List<Course> expectedCourses = Arrays.asList(course1, course2, course3);
 
-        when(jdbcTemplate.query(any(String.class), any(CourseRowMapper.class), any(String.class)))
+        when(jdbcTemplate.query(anyString(), any(CourseRowMapper.class), anyString()))
                 .thenReturn(expectedCourses);
 
         List<Course> actualCourses = courseDao.getCourseByName("Java");
@@ -160,7 +160,7 @@ public class CourseDaoTest {
         assertThat(actualCourses).isEqualTo(expectedCourses);
 
         verify(jdbcTemplate, times(1))
-                .query(any(String.class), any(CourseRowMapper.class), any(String.class));
+                .query(anyString(), any(CourseRowMapper.class), anyString());
     }
 
     @Test
@@ -178,7 +178,7 @@ public class CourseDaoTest {
                 .stream().flatMapToDouble(element -> element.getLessons()
                         .stream().mapToDouble(Lesson::getDuration)).average().orElse(0);
 
-        when(jdbcTemplate.queryForObject(any(String.class), eq(Double.class), any(Long.class)))
+        when(jdbcTemplate.queryForObject(anyString(), eq(Double.class), anyLong()))
                 .thenReturn(expectedDurationSum);
 
         Double actualDurationSum = courseDao.getCourseDurationSum(course.getId());
@@ -186,7 +186,7 @@ public class CourseDaoTest {
         assertThat(actualDurationSum).isEqualTo(expectedDurationSum);
 
         verify(jdbcTemplate, times(1))
-                .queryForObject(any(String.class), eq(Double.class), any(Long.class));
+                .queryForObject(anyString(), eq(Double.class), anyLong());
     }
 
 
@@ -195,13 +195,13 @@ public class CourseDaoTest {
         Course course = Course.builder().id(1L).name("Java").build();
         String imageUrl = "java.mp4";
 
-        when(jdbcTemplate.update(any(String.class), any(String.class), any(Long.class)))
+        when(jdbcTemplate.update(anyString(), anyString(), anyLong()))
                 .thenReturn(0);
 
         courseDao.setImageUrl(imageUrl, course.getId());
 
         verify(jdbcTemplate, times(1))
-                .update(any(String.class), any(String.class), any(Long.class));
+                .update(anyString(), anyString(), anyLong());
     }
 
 }

@@ -1,9 +1,7 @@
-package com.it.academy.services.impl;
+package com.it.academy.services;
 
-import com.it.academy.config.EmailConfig;
 import com.it.academy.exceptions.AppException;
 import com.it.academy.models.User;
-import com.it.academy.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -20,7 +18,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class PasswordResetService {
     private final UserService userService;
-    private final EmailConfig emailConfig;
+    private final EmailService emailService;
     private final PasswordEncoder passwordEncoder;
     @Value("${resetUrl}")
     private String resetUrl;
@@ -39,7 +37,7 @@ public class PasswordResetService {
         String reset = resetUrl + resetToken;
         String emailText = "Для сброса пароля перейдите по ссылке: " + reset;
 
-        emailConfig.sendSimpleMessage(email, "Сброс пароля", emailText);
+        emailService.sendSimpleMessage(email, "Сброс пароля", emailText);
 
         Map<String, String> response = Map.of("message", "Письмо с восстановлением пароля отправлено на вашу почту");
         return new ResponseEntity<>(response, HttpStatus.OK);

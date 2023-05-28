@@ -8,9 +8,6 @@ import java.util.List;
 
 @Repository
 public interface CourseRepository extends JpaRepository<Course, Long> {
-    List<Course> findByAuthorId(Long id);
-
-    List<Course> findByLanguage(String language);
     List<Course> getCourseByName(String name);
 
 }
