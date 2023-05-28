@@ -47,8 +47,8 @@ public class CommentServiceImpl implements CommentService {
     public Long deleteById(Long userId, Long commentId) {
         Comment comment = getById(commentId);
 
-        if (!comment.getUser().getId().equals(userId) ||
-                !userService.getById(userId).getRole().equals(Role.ROLE_ADMIN)) {
+        if (!(comment.getUser().getId().equals(userId) ||
+                userService.getById(userId).getRole().equals(Role.ROLE_ADMIN))) {
             throw new AccessDeniedException("You can't delete this comment!");
         }
 

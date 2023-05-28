@@ -39,6 +39,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Long create(Category category) {
         Category createdCategory = new Category();
         createdCategory.setTitle(category.getTitle());

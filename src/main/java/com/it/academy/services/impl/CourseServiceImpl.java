@@ -66,8 +66,10 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public Long deleteById(Long userId, Long courseId) {
-        if(!getById(courseId).getAuthor().getId().equals(userId) &&
-        !userService.getById(userId).getRole().equals(Role.ROLE_ADMIN)) {
+        User user = userService.getById(userId);
+
+        if(!(getById(courseId).getAuthor().getId().equals(userId) ||
+            user.getRole().equals(Role.ROLE_ADMIN))) {
             throw  new AccessDeniedException("You can't delete this course!");}
 
         courseRepository.deleteById(courseId);
