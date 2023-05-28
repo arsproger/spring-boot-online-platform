@@ -2,14 +2,14 @@ package com.it.academy.controllers;
 
 import com.it.academy.dto.ArticleDto;
 import com.it.academy.mappers.ArticleMapper;
+import com.it.academy.security.DetailsUser;
 import com.it.academy.services.ArticleService;
-import com.it.academy.validation.ObjectValidator;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,7 +21,6 @@ import java.util.List;
 public class ArticleController {
     private final ArticleService service;
     private final ArticleMapper mapper;
-    private final ObjectValidator<ArticleDto> validator;
 
     @GetMapping("/lesson/{lessonId}")
     public ResponseEntity<List<ArticleDto>> getArticlesByLessonId(@PathVariable Long lessonId) {
@@ -36,20 +35,25 @@ public class ArticleController {
     }
 
     @PostMapping
-    public ResponseEntity<Long> createArticle(@RequestBody @Valid ArticleDto article, @RequestParam Long lessonId) {
-        Long id = service.save(mapper.map(article), lessonId);
+    public ResponseEntity<Long> createArticle(@AuthenticationPrincipal DetailsUser detailsUser,
+                                              @RequestBody @Valid ArticleDto article,
+                                              @RequestParam Long lessonId) {
+        Long id = service.create(detailsUser.getUser().getId(), mapper.map(article), lessonId);
         return new ResponseEntity<>(id, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Long> deleteArticleById(@PathVariable Long id) {
-        Long deletedId = service.deleteById(id);
+    public ResponseEntity<Long> deleteArticleById(@AuthenticationPrincipal DetailsUser detailsUser,
+                                                  @PathVariable Long id) {
+        Long deletedId = service.deleteById(detailsUser.getUser().getId(), id);
         return new ResponseEntity<>(deletedId, HttpStatus.OK);
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<Long> updateArticleById(@PathVariable Long id, @Valid @RequestBody ArticleDto article) {
-        Long updatedId = service.update(id, mapper.map(article));
+    public ResponseEntity<Long> updateArticleById(@AuthenticationPrincipal DetailsUser detailsUser,
+                                                  @PathVariable Long id,
+                                                  @Valid @RequestBody ArticleDto article) {
+        Long updatedId = service.update(detailsUser.getUser().getId(), id, mapper.map(article));
         return new ResponseEntity<>(updatedId, HttpStatus.OK);
     }
 
