@@ -5,6 +5,7 @@ import com.it.academy.security.DetailsUserService;
 import com.it.academy.security.JWTFilter;
 import com.it.academy.security.OAuth2LoginSuccessHandler;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -29,6 +30,9 @@ public class SecurityConfig {
     private final OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler;
     private final PasswordEncoder passwordEncoder;
     private final UserAuthenticationEntryPoint userAuthenticationEntryPoint;
+
+    @Value("${logoutSuccessUrl}")
+    private String logoutSuccessUrl;
 
     @Bean
     public UserDetailsService userDetailsService() {
@@ -66,7 +70,7 @@ public class SecurityConfig {
                 .and()
                 .logout()
                 .logoutUrl("/logout")
-                .logoutSuccessUrl("/login")
+                .logoutSuccessUrl(logoutSuccessUrl)
 //                .and()
 //                .and()
 //                .sessionManagement()
