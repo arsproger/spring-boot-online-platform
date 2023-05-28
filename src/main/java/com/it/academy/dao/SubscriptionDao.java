@@ -12,7 +12,7 @@ import java.util.List;
 public class SubscriptionDao {
     private final JdbcTemplate jdbcTemplate;
 
-    public List<Subscription> getActiveSubscriptionsByUserId(Long userId) {
+    public List<Subscription> getSubscriptionsByUserId(Long userId) {
         String sql = "SELECT * FROM subscriptions WHERE user_id = ?";
         return jdbcTemplate.queryForList(sql, Subscription.class, userId);
     }

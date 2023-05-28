@@ -1,13 +1,11 @@
 package com.it.academy.controllers;
 
-import com.it.academy.dao.SubscriptionDao;
 import com.it.academy.dto.SubscriptionDto;
 import com.it.academy.mappers.SubscriptionMapper;
 import com.it.academy.security.DetailsUser;
 import com.it.academy.services.SubscriptionService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,48 +19,32 @@ import java.util.List;
 @AllArgsConstructor
 @Tag(name = "Контроллер подписок пользователя на курсы")
 public class SubscriptionController {
-    private final SubscriptionService service;
-    private final SubscriptionMapper mapper;
-    private final SubscriptionDao subscriptionDao;
+    private final SubscriptionService subscriptionService;
+    private final SubscriptionMapper subscriptionMapper;
+
 
     @GetMapping
     public ResponseEntity<List<SubscriptionDto>> getAllSubscriptions() {
-        List<SubscriptionDto> subscriptions = mapper.map(service.getAll());
+        List<SubscriptionDto> subscriptions = subscriptionMapper.map(subscriptionService.getAll());
         return new ResponseEntity<>(subscriptions, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<SubscriptionDto> getSubscriptionById(@PathVariable Long id) {
-        SubscriptionDto dto = mapper.map(service.getById(id));
+        SubscriptionDto dto = subscriptionMapper.map(subscriptionService.getById(id));
         return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 
     @GetMapping("/user")
     @Operation(summary = "Получение всех подписок текущего пользователя")
-    public ResponseEntity<List<SubscriptionDto>> getActiveSubscriptionsByUserId(@AuthenticationPrincipal DetailsUser detailsUser) {
-        List<SubscriptionDto> subscriptions = mapper.map(subscriptionDao.getActiveSubscriptionsByUserId(detailsUser.getUser().getId()));
+    public ResponseEntity<List<SubscriptionDto>> getSubscriptionsByUserId(@AuthenticationPrincipal DetailsUser detailsUser) {
+        List<SubscriptionDto> subscriptions = subscriptionMapper.map(subscriptionService.getSubscriptionsByUserId(detailsUser.getUser().getId()));
         return new ResponseEntity<>(subscriptions, HttpStatus.OK);
     }
 
-   /* @PostMapping
-    @Operation(summary = "Назначение подписки к текущему пользователю",
-            description = "При назначении нужно передать id курса")
-    public ResponseEntity<Long> createSubscription(@AuthenticationPrincipal DetailsUser detailsUser,
-                                                   @RequestParam Long courseId) {
-        Long id = service.save(detailsUser.getUser().getId(), courseId);
-        return new ResponseEntity<>(id, HttpStatus.CREATED);
-    }*/
-
     @DeleteMapping("/{id}")
     public ResponseEntity<Long> deleteSubscriptionById(@PathVariable Long id) {
-        Long deletedId = service.deleteById(id);
+        Long deletedId = subscriptionService.deleteById(id);
         return new ResponseEntity<>(deletedId, HttpStatus.OK);
     }
-
-  /*  @PutMapping("/{id}")
-    public ResponseEntity<Long> updateSubscriptionById(@PathVariable Long id, @RequestBody SubscriptionDto dto) {
-        Long updatedId = service.update(id, mapper.map(dto));
-        return new ResponseEntity<>(updatedId, HttpStatus.OK);
-    }*/
-
 }
