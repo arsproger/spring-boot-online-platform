@@ -14,12 +14,12 @@ public class PasswordResetController {
     private final PasswordResetService passwordResetService;
 
     @PostMapping("/reset")
-    public ResponseEntity<Map<String, String>> resetPassword(@RequestParam("email") String email) {
+    public ResponseEntity<Map<String, String>> resetPassword(@RequestParam String email) {
         return passwordResetService.resetPassword(email);
     }
 
     @PostMapping("/reset/{resetToken}")
-    public ResponseEntity<Map<String, String>> saveNewPassword(@PathVariable("resetToken") String resetToken, @RequestParam String newPassword) {
+    public ResponseEntity<Map<String, String>> saveNewPassword(@PathVariable String resetToken, @RequestParam String newPassword) {
         return passwordResetService.saveNewPassword(resetToken, newPassword);
     }
 
