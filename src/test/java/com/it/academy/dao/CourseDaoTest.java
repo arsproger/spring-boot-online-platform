@@ -8,6 +8,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
@@ -17,6 +18,7 @@ import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -35,7 +37,7 @@ public class CourseDaoTest {
         Course course2 = Course.builder().id(2L).author(user).build();
         List<Course> expectedCourses = Arrays.asList(course1, course2);
 
-        when(jdbcTemplate.queryForList(any(String.class), any(Class.class), any(Long.class)))
+        when(jdbcTemplate.query(anyString(), any(RowMapper.class), any(Long.class)))
                 .thenReturn(expectedCourses);
 
         List<Course> actualCourses = courseDao.getByAuthorId(user.getId());
@@ -52,7 +54,7 @@ public class CourseDaoTest {
         expectedCourses = expectedCourses.stream()
                 .sorted(Comparator.comparing(Course::getPrice)).collect(Collectors.toList());
 
-        when(jdbcTemplate.queryForList(any(String.class), any(Class.class)))
+        when(jdbcTemplate.query(anyString(), any(RowMapper.class)))
                 .thenReturn(expectedCourses);
 
         List<Course> actualCourses = courseDao.filterByPriceAsk();
@@ -69,7 +71,7 @@ public class CourseDaoTest {
         expectedCourses = expectedCourses.stream()
                 .sorted(Comparator.comparing(Course::getPrice).reversed()).collect(Collectors.toList());
 
-        when(jdbcTemplate.queryForList(any(String.class), any(Class.class)))
+        when(jdbcTemplate.query(anyString(), any(RowMapper.class)))
                 .thenReturn(expectedCourses);
 
         List<Course> actualCourses = courseDao.filterByPriceDesc();
