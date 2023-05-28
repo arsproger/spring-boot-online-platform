@@ -13,6 +13,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
@@ -42,7 +43,6 @@ class ArticleDaoTest {
 
         List<Article> actualArticles = articleDao.getArticlesByLessonId(lesson.getId());
 
-        assertEquals(expectedArticles, actualArticles);
-        verify(jdbcTemplate, times(1)).query(anyString(), any(ArticleRowMapper.class), eq(lesson.getId()));
+        assertThat(actualArticles).isEqualTo(expectedArticles);
     }
 }

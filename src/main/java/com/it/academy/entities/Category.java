@@ -11,6 +11,9 @@ import java.util.List;
 @Table(name = "categories")
 @Setter
 @Getter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,4 +25,5 @@ public class Category {
 
     @OneToMany(mappedBy = "category")
     private List<Course> courses;
+
 }

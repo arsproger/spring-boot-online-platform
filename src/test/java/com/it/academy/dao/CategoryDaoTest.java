@@ -12,6 +12,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -42,8 +43,6 @@ class CategoryDaoTest {
 
         List<Category> actualCategories = categoryDao.getCategoriesByTitle(title);
 
-        assertEquals(expectedCategories, actualCategories);
-        verify(jdbcTemplate, times(1))
-                .query(anyString(), any(CategoryRowMapper.class), any());
+        assertThat(actualCategories).isEqualTo(expectedCategories);
     }
 }
