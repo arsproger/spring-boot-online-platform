@@ -27,7 +27,6 @@ public class UserController {
     private final UserMapper mapper;
 
     @GetMapping
-    @PreAuthorize(value = "")
     public ResponseEntity<List<UserDto>> getAllUsers() {
         List<UserDto> users = mapper.map(userService.getAll());
         return new ResponseEntity<>(users, HttpStatus.OK);
@@ -58,10 +57,10 @@ public class UserController {
         return new ResponseEntity<>(updatedId, HttpStatus.OK);
     }
 
-    @GetMapping("/course/{id}")
+    @GetMapping("/course/{courseId}")
     @Operation(summary = "Получение всех пользователей курса",
             description = "При получении всех пользователей определенного курса, нужно передать id курса")
-    public ResponseEntity<List<UserDto>> getByCourseId(@PathVariable("id") Long courseId) {
+    public ResponseEntity<List<UserDto>> getByCourseId(@PathVariable Long courseId) {
         List<UserDto> users = mapper.map(userDao.getUserByCourseId(courseId));
         return new ResponseEntity<>(users, HttpStatus.OK);
     }

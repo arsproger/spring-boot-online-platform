@@ -19,18 +19,18 @@ import java.util.Optional;
 @Service
 @AllArgsConstructor
 public class UserServiceImpl implements UserService {
-    private final UserRepository repo;
+    private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Override
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public List<User> getAll() {
-        return repo.findAll();
+        return userRepository.findAll();
     }
 
     @Override
     public User getById(Long id) {
-        return repo.findById(id).orElseThrow(
+        return userRepository.findById(id).orElseThrow(
                 () -> new AppException("User not found with id: " + id, HttpStatus.NOT_FOUND));
     }
 
@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService {
         user.setRole(Role.ROLE_STUDENT);
         user.setProvider(Provider.LOCAL);
 
-        return repo.save(user).getId();
+        return userRepository.save(user).getId();
     }
 
     @Override
@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService {
     public Long deleteById(Long id) {
         User user = getById(id);
         user.setStatus(UserStatus.DELETED);
-        return repo.save(user).getId();
+        return userRepository.save(user).getId();
     }
 
     @Override
@@ -59,22 +59,22 @@ public class UserServiceImpl implements UserService {
         user.setFullName(updatedUser.getFullName());
         user.setDateOfBirth(updatedUser.getDateOfBirth());
 
-        return repo.save(user).getId();
+        return userRepository.save(user).getId();
     }
 
     @Override
     public Optional<User> getByEmail(String email) {
-        return repo.findByEmail(email);
+        return userRepository.findByEmail(email);
     }
 
     @Override
     public Optional<User> getByResetToken(String resetToken) {
-        return repo.findByResetToken(resetToken);
+        return userRepository.findByResetToken(resetToken);
     }
 
     @Override
     public void processOAuthPostLogin(String username, String name, String registrationId) {
-        if (repo.findByEmail(username).isEmpty()) {
+        if (userRepository.findByEmail(username).isEmpty()) {
             User user = User.builder()
                     .role(Role.ROLE_STUDENT)
                     .provider(registrationId.equals("google")
@@ -85,7 +85,7 @@ public class UserServiceImpl implements UserService {
                     .status(UserStatus.ACTIVE)
                     .build();
 
-            repo.save(user);
+            userRepository.save(user);
         }
     }
 
