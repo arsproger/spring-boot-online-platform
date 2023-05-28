@@ -12,5 +12,6 @@ public interface LessonService {
     Long deleteById(Long userId, Long lessonId);
 
     Long update(Long userId, Long lessonId, Lesson updatedLesson);
+
     List<Lesson> getLessonsBySection(Long sectionId);
 }

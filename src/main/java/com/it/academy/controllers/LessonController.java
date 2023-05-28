@@ -1,6 +1,5 @@
 package com.it.academy.controllers;
 
-import com.it.academy.dao.LessonDao;
 import com.it.academy.dto.LessonDto;
 import com.it.academy.mappers.LessonMapper;
 import com.it.academy.security.DetailsUser;
@@ -21,7 +20,6 @@ import java.util.List;
 @Tag(name = "Контроллер для уроков")
 public class LessonController {
     private final LessonServiceImpl lessonService;
-    private final LessonDao lessonDao;
     private final LessonMapper mapper;
 
     @GetMapping("section/{sectionId}")

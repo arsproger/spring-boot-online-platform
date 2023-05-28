@@ -1,20 +1,23 @@
 package com.it.academy.services.impl;
 
 import com.it.academy.dao.CourseDao;
-import com.it.academy.enums.Role;
 import com.it.academy.entities.Course;
 import com.it.academy.entities.User;
+import com.it.academy.enums.Role;
+import com.it.academy.exceptions.AppException;
 import com.it.academy.repositories.CourseRepository;
 import com.it.academy.services.CategoryService;
 import com.it.academy.services.CourseService;
 import com.it.academy.services.UserService;
-import jakarta.persistence.EntityNotFoundException;;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+
+;
 
 @Service
 @AllArgsConstructor
@@ -27,7 +30,7 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public Course getById(Long id) {
         return courseRepository.findById(id).orElseThrow(
-                () -> new EntityNotFoundException("Course not found with id: " + id));
+                () -> new AppException("Course not found with id: " + id, HttpStatus.NOT_FOUND));
     }
 
     @Override
@@ -68,9 +71,10 @@ public class CourseServiceImpl implements CourseService {
     public Long deleteById(Long userId, Long courseId) {
         User user = userService.getById(userId);
 
-        if(!(getById(courseId).getAuthor().getId().equals(userId) ||
-            user.getRole().equals(Role.ROLE_ADMIN))) {
-            throw  new AccessDeniedException("You can't delete this course!");}
+        if (!(getById(courseId).getAuthor().getId().equals(userId) ||
+                user.getRole().equals(Role.ROLE_ADMIN))) {
+            throw new AccessDeniedException("You can't delete this course!");
+        }
 
         courseRepository.deleteById(courseId);
         return courseId;
@@ -80,8 +84,9 @@ public class CourseServiceImpl implements CourseService {
     public Long update(Long userId, Long courseId, Course updatedCourse) {
         Course course = getById(courseId);
 
-        if(!course.getAuthor().getId().equals(userId)) {
-            throw  new AccessDeniedException("You can't update this course!");}
+        if (!course.getAuthor().getId().equals(userId)) {
+            throw new AccessDeniedException("You can't update this course!");
+        }
 
         course.setName(updatedCourse.getName());
         course.setDescription(updatedCourse.getDescription());
@@ -95,14 +100,17 @@ public class CourseServiceImpl implements CourseService {
     public Double getCourseDuration(Long courseId) {
         return courseDao.getCourseDurationSum(courseId);
     }
+
     @Override
     public List<Course> getCoursesByName(String name) {
         return courseDao.getCourseByName(name);
     }
+
     @Override
     public List<Course> getCoursesByLanguage(String language) {
         return courseDao.getByLanguage(language);
     }
+
     @Override
     public List<Course> getCoursesByCategory(Long categoryId) {
         return courseDao.getCourseByCategoryId(categoryId);

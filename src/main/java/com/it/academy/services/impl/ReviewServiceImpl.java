@@ -1,16 +1,15 @@
 package com.it.academy.services.impl;
 
 import com.it.academy.dao.ReviewDao;
-import com.it.academy.enums.Role;
-import com.it.academy.exceptions.AppException;
 import com.it.academy.entities.Course;
 import com.it.academy.entities.Review;
 import com.it.academy.entities.User;
+import com.it.academy.enums.Role;
+import com.it.academy.exceptions.AppException;
 import com.it.academy.repositories.ReviewRepository;
 import com.it.academy.services.CourseService;
 import com.it.academy.services.ReviewService;
 import com.it.academy.services.UserService;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
@@ -31,7 +30,7 @@ public class ReviewServiceImpl implements ReviewService {
     @Override
     public Review getById(Long id) {
         return reviewRepository.findById(id).orElseThrow(
-                () -> new EntityNotFoundException("Review not found with id: " + id));
+                () -> new AppException("Review not found with id: " + id, HttpStatus.NOT_FOUND));
     }
 
     @Override
@@ -84,8 +83,9 @@ public class ReviewServiceImpl implements ReviewService {
     public Long update(Long userId, Long id, Review updatedReview) {
         Review review = getById(id);
 
-        if(!userId.equals(review.getUser().getId())) {
-            throw new AccessDeniedException("You can't update this review!");}
+        if (!userId.equals(review.getUser().getId())) {
+            throw new AccessDeniedException("You can't update this review!");
+        }
 
         review.setTitle(updatedReview.getTitle());
         review.setDescription(updatedReview.getDescription());

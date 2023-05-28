@@ -22,7 +22,6 @@ public class SubscriptionController {
     private final SubscriptionService subscriptionService;
     private final SubscriptionMapper subscriptionMapper;
 
-
     @GetMapping
     public ResponseEntity<List<SubscriptionDto>> getAllSubscriptions() {
         List<SubscriptionDto> subscriptions = subscriptionMapper.map(subscriptionService.getAll());

@@ -3,15 +3,13 @@ package com.it.academy.services.impl;
 import com.it.academy.dao.SectionDao;
 import com.it.academy.entities.Course;
 import com.it.academy.entities.Section;
+import com.it.academy.exceptions.AppException;
 import com.it.academy.repositories.SectionRepository;
 import com.it.academy.services.CourseService;
 import com.it.academy.services.SectionService;
-import com.it.academy.services.UserService;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,12 +20,11 @@ public class SectionServiceImpl implements SectionService {
     private final SectionRepository sectionRepository;
     private final CourseService courseService;
     private final SectionDao sectionDao;
-    private final UserService userService;
 
     @Override
     public Section getById(Long id) {
         return sectionRepository.findById(id).orElseThrow(
-                () -> new EntityNotFoundException("Section not found with id: " + id));
+                () -> new AppException("Section not found with id: " + id, HttpStatus.NOT_FOUND));
     }
 
     @Override
@@ -40,7 +37,8 @@ public class SectionServiceImpl implements SectionService {
         Course course = courseService.getById(courseId);
 
         if (!userId.equals(course.getAuthor().getId())) {
-            throw new AccessDeniedException("You can't create section for this course!");}
+            throw new AccessDeniedException("You can't create section for this course!");
+        }
 
         section.setCourse(course);
         section.setName(section.getName());
@@ -52,7 +50,8 @@ public class SectionServiceImpl implements SectionService {
         Section section = getById(sectionId);
 
         if (!userId.equals(section.getCourse().getAuthor().getId())) {
-            throw new AccessDeniedException("You can't delete this section!");}
+            throw new AccessDeniedException("You can't delete this section!");
+        }
 
         sectionRepository.deleteById(sectionId);
         return sectionId;
@@ -63,7 +62,8 @@ public class SectionServiceImpl implements SectionService {
         Section section = getById(sectionId);
 
         if (!userId.equals(section.getCourse().getAuthor().getId())) {
-            throw new AccessDeniedException("You can't update this section!");}
+            throw new AccessDeniedException("You can't update this section!");
+        }
 
         section.setName(updatedSection.getName());
         return sectionRepository.save(section).getId();

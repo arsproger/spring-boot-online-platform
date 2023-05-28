@@ -1,7 +1,7 @@
 package com.it.academy.dao;
 
 import com.it.academy.dao.rowMapper.CourseRowMapper;
-import com.it.academy.models.*;
+import com.it.academy.entities.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;

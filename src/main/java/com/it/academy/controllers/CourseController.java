@@ -48,9 +48,6 @@ public class CourseController {
         Long id = courseService.create(detailsUser.getUser().getId(), categoryId, mapper.map(course));
         if (id == null) {
             String link = paymentService.generateOnboardingLink(paymentService.createStripeAccount(detailsUser.getUser().getId()));
-//            HttpHeaders headers = new HttpHeaders();
-//            headers.setLocation(URI.create(link));
-//            return new ResponseEntity<>(headers, HttpStatus.FOUND);
             return new ResponseEntity<>(link, HttpStatus.FOUND);
         }
         return new ResponseEntity<>(id, HttpStatus.CREATED);

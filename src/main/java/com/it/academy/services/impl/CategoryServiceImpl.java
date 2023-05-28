@@ -49,8 +49,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Long deleteById(Long id) {
-        Category category = categoryRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Category not found with id: " + id));
+        Category category = getById(id);
 
         List<Course> courses = category.getCourses();
         courses.forEach(course -> course.setCategory(null));

@@ -52,7 +52,7 @@ public class CommentController {
     @GetMapping("/lesson/{lessonId}")
     public ResponseEntity<List<CommentDto>> getCommentsByLessonId(@PathVariable Long lessonId) {
         List<CommentDto> dtos = mapper.map(service.getCommentsByLessonId(lessonId));
-        return new ResponseEntity<>(dtos,  HttpStatus.OK);
+        return new ResponseEntity<>(dtos, HttpStatus.OK);
     }
 
 }

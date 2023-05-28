@@ -1,16 +1,17 @@
 package com.it.academy.services.impl;
 
 import com.it.academy.dao.CommentDao;
-import com.it.academy.enums.Role;
 import com.it.academy.entities.Comment;
 import com.it.academy.entities.Lesson;
 import com.it.academy.entities.User;
+import com.it.academy.enums.Role;
+import com.it.academy.exceptions.AppException;
 import com.it.academy.repositories.CommentRepository;
 import com.it.academy.services.CommentService;
 import com.it.academy.services.LessonService;
 import com.it.academy.services.UserService;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +29,7 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public Comment getById(Long id) {
         return commentRepository.findById(id).orElseThrow(
-                () -> new EntityNotFoundException("Comment not found with id: " + id));
+                () -> new AppException("Comment not found with id: " + id, HttpStatus.NOT_FOUND));
     }
 
     @Override

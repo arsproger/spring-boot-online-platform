@@ -1,8 +1,7 @@
 package com.it.academy.services;
 
-import com.it.academy.exceptions.AppException;
 import com.it.academy.entities.User;
-import com.it.academy.services.UserService;
+import com.it.academy.exceptions.AppException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -19,7 +18,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class PasswordResetService {
     private final UserService userService;
-    private final EmailConfig emailConfig;
+    private final EmailService emailService;
     private final PasswordEncoder passwordEncoder;
     @Value("${resetUrl}")
     private String resetUrl;
