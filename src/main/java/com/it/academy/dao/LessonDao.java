@@ -18,4 +18,8 @@ public class LessonDao {
                 new LessonRowMapper(), sectionId);
     }
 
+    public void setVideoUrl(String imageUrl, Long lessonId) {
+        jdbcTemplate.update("UPDATE lessons set video_url = ? where id = ?", imageUrl, lessonId);
+    }
+
 }

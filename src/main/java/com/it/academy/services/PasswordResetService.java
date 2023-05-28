@@ -1,6 +1,5 @@
-package com.it.academy.services.impl;
+package com.it.academy.services;
 
-import com.it.academy.config.EmailConfig;
 import com.it.academy.exceptions.AppException;
 import com.it.academy.entities.User;
 import com.it.academy.services.UserService;
@@ -39,7 +38,7 @@ public class PasswordResetService {
         String reset = resetUrl + resetToken;
         String emailText = "Для сброса пароля перейдите по ссылке: " + reset;
 
-        emailConfig.sendSimpleMessage(email, "Сброс пароля", emailText);
+        emailService.sendSimpleMessage(email, "Сброс пароля", emailText);
 
         Map<String, String> response = Map.of("message", "Письмо с восстановлением пароля отправлено на вашу почту");
         return new ResponseEntity<>(response, HttpStatus.OK);

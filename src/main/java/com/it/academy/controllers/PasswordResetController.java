@@ -1,6 +1,6 @@
 package com.it.academy.controllers;
 
-import com.it.academy.services.impl.PasswordResetService;
+import com.it.academy.services.PasswordResetService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

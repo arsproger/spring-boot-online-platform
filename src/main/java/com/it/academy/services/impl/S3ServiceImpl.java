@@ -6,9 +6,9 @@ import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
 import com.amazonaws.util.IOUtils;
+import com.it.academy.dao.CourseDao;
+import com.it.academy.dao.LessonDao;
 import com.it.academy.dao.UserDao;
-import com.it.academy.entities.S3;
-import com.it.academy.repositories.S3Repository;
 import com.it.academy.services.CourseService;
 import com.it.academy.services.LessonService;
 import com.it.academy.services.S3Service;
@@ -23,7 +23,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,62 +34,38 @@ public class S3ServiceImpl implements S3Service {
     private String bucketName;
 
     private final AmazonS3 amazonS3;
-    private final S3Repository s3Repository;
     private final LessonService lessonService;
     private final CourseService courseService;
     private final UserService userService;
     private final UserDao userDao;
+    private final CourseDao courseDao;
+    private final LessonDao lessonDao;
 
     @Override
-    public String saveVideo(Long lessonId, MultipartFile file) {
-        String originalFilename = file.getOriginalFilename();
-        try {
-            S3 s3 = S3.builder()
-                    .lesson(lessonService.getById(lessonId))
-                    .createDate(LocalDate.now())
-                    .url(file.getOriginalFilename())
-                    .size(file.getSize())
-                    .build();
-            s3Repository.save(s3);
-
-            File newFile = convertMultiPartToFile(file);
-            amazonS3.putObject(bucketName, originalFilename, newFile);
-
-            return file.getOriginalFilename();
-        } catch (IOException e) {
-            throw new RuntimeException(e.getMessage());
-        }
+    public String saveLessonVideo(Long lessonId, MultipartFile file) {
+        lessonService.getById(lessonId);
+        lessonDao.setVideoUrl(file.getOriginalFilename(), lessonId);
+        return pushFile(file);
     }
 
     @Override
     public String saveUserImage(Long userId, MultipartFile file) {
-        String originalFilename = file.getOriginalFilename();
-        try {
-            userDao.setImageUrl(originalFilename, userId);
-            File newFile = convertMultiPartToFile(file);
-            amazonS3.putObject(bucketName, originalFilename, newFile);
-
-            return originalFilename;
-        } catch (IOException e) {
-            throw new RuntimeException(e.getMessage());
-        }
+        userService.getById(userId);
+        userDao.setImageUrl(file.getOriginalFilename(), userId);
+        return pushFile(file);
     }
 
     @Override
     public String saveCourseImage(Long courseId, MultipartFile file) {
-        String originalFilename = file.getOriginalFilename();
+        courseService.getById(courseId);
+        courseDao.setImageUrl(file.getOriginalFilename(), courseId);
+        return pushFile(file);
+    }
+
+    @Override
+    public String pushFile(MultipartFile file) {
         try {
-            S3 s3 = S3.builder()
-                    .course(courseService.getById(courseId))
-                    .createDate(LocalDate.now())
-                    .url(file.getOriginalFilename())
-                    .size(file.getSize())
-                    .build();
-            s3Repository.save(s3);
-
-            File newFile = convertMultiPartToFile(file);
-            amazonS3.putObject(bucketName, originalFilename, newFile);
-
+            amazonS3.putObject(bucketName, file.getOriginalFilename(), convertMultiPartToFile(file));
             return file.getOriginalFilename();
         } catch (IOException e) {
             throw new RuntimeException(e.getMessage());
@@ -105,14 +80,8 @@ public class S3ServiceImpl implements S3Service {
         try {
             return IOUtils.toByteArray(objectContent);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage());
         }
-    }
-
-    @Override
-    public String deleteFile(String filename) {
-        amazonS3.deleteObject(bucketName, filename);
-        return "File deleted";
     }
 
     @Override
@@ -121,6 +90,12 @@ public class S3ServiceImpl implements S3Service {
         ListObjectsV2Result listObjectsV2Result = amazonS3.listObjectsV2(bucketName);
         return listObjectsV2Result.getObjectSummaries()
                 .stream().map(S3ObjectSummary::getKey).collect(Collectors.toList());
+    }
+
+    @Override
+    public String deleteFile(String filename) {
+        amazonS3.deleteObject(bucketName, filename);
+        return "File deleted";
     }
 
     private File convertMultiPartToFile(MultipartFile file) throws IOException {

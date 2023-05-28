@@ -18,4 +18,6 @@ public class LessonDto {
     private String description;
 
     private Double duration;
+
+    private String videoUrl;
 }

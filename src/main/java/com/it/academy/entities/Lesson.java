@@ -1,19 +1,20 @@
 package com.it.academy.entities;
 
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
-import org.hibernate.annotations.Cascade;
+import lombok.*;
 
-import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
 @Table(name = "lessons")
+@NoArgsConstructor
+@AllArgsConstructor
 @Setter
 @Getter
+@Builder
 public class Lesson {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,6 +29,8 @@ public class Lesson {
 
     private Double duration;
 
+    private String videoUrl;
+
     @NotNull
     @ManyToOne
     @JoinColumn(name = "section_id", referencedColumnName = "id")
@@ -38,9 +41,5 @@ public class Lesson {
 
     @OneToMany(mappedBy = "lesson")
     private List<Comment> comments;
-
-    @OneToOne(mappedBy = "lesson")
-    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
-    private S3 s3;
 
 }
