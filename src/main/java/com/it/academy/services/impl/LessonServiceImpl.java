@@ -1,6 +1,7 @@
 package com.it.academy.services.impl;
 
 import com.it.academy.dao.LessonDao;
+import com.it.academy.entities.Section;
 import com.it.academy.exceptions.AppException;
 import com.it.academy.entities.Lesson;
 import com.it.academy.repositories.LessonRepository;
@@ -9,7 +10,6 @@ import com.it.academy.services.SectionService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,7 +28,12 @@ public class LessonServiceImpl implements LessonService {
     }
 
     @Override
-    public Long save(Long sectionId, Lesson lesson) {
+    public Long create(Long userId, Long sectionId, Lesson lesson) {
+        Section section = sectionService.getById(sectionId);
+
+        if(!userId.equals(section.getCourse().getAuthor().getId())) {
+            throw new AccessDeniedException("You can't create lesson for this course!");}
+
         lesson.setSection(sectionService.getById(sectionId));
         return lessonRepository.save(lesson).getId();
     }

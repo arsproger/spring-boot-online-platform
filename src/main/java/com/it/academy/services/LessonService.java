@@ -7,7 +7,7 @@ import java.util.List;
 public interface LessonService {
     Lesson getById(Long id);
 
-    Long save(Long sectionId, Lesson lesson);
+    Long create(Long userId, Long sectionId, Lesson lesson);
 
     Long deleteById(Long userId, Long lessonId);
 
