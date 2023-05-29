@@ -27,7 +27,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public List<Course> getAll() {
         return repo.findAll();
     }
