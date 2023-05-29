@@ -11,11 +11,11 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-
 import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
@@ -67,6 +67,15 @@ class ReviewDaoTest {
     }
 
     @Test
-    void getCourseAvgGrade() {
+    public void testGetCourseAvgGrade() {
+        Long courseId = 1L;
+        Double expectedAvgGrade = 4.5;
+
+        when(jdbcTemplate.queryForObject(anyString(), eq(Double.class), eq(courseId))).thenReturn(expectedAvgGrade);
+
+        Double actualAvgGrade = reviewDao.getCourseAvgGrade(courseId);
+
+        assertEquals(expectedAvgGrade, actualAvgGrade);
+        verify(jdbcTemplate).queryForObject(anyString(), eq(Double.class), eq(courseId));
     }
 }
