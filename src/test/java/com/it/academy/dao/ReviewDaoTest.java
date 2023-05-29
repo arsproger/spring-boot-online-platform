@@ -49,7 +49,21 @@ class ReviewDaoTest {
     }
 
     @Test
-    void getReviewsByCourseId() {
+    public void testGetReviewsByCourseId() {
+        User author = User.builder().id(1L).build();
+        Course course = Course.builder().id(1L).author(author).build();
+        List<Review> expectedReviews = Arrays.asList(
+                Review.builder().id(1L).title("Review 1").course(course).build(),
+                Review.builder().id(2L).title("Review 2").course(course).build());
+
+        when(jdbcTemplate.query(anyString(), any(ReviewRowMapper.class), anyLong()))
+                .thenReturn(expectedReviews);
+
+        List<Review> actualReviews = reviewDao.getReviewsByCourseId(course.getId());
+
+        assertThat(actualReviews).isEqualTo(expectedReviews);
+
+        verify(jdbcTemplate, times(1)).query(anyString(), any(ReviewRowMapper.class), anyLong());
     }
 
     @Test
