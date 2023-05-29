@@ -3,14 +3,11 @@ package com.it.academy.dao;
 import com.it.academy.dao.rowMapper.CommentRowMapper;
 import com.it.academy.entities.Comment;
 import com.it.academy.entities.Lesson;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
 import java.util.Arrays;
 import java.util.List;
@@ -18,17 +15,12 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
-
+@SpringJUnitConfig
 class CommentDaoTest {
     @Mock
     private JdbcTemplate jdbcTemplate;
     @InjectMocks
     private CommentDao commentDao;
-
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
-    }
 
     @Test
     public void testGetCommentsByLessonId() {
@@ -43,5 +35,6 @@ class CommentDaoTest {
         List<Comment> actualComments = commentDao.getCommentsByLessonId(lesson.getId());
 
         assertThat(actualComments).isEqualTo(expectedComments);
+        verify(jdbcTemplate, times(1)).query(anyString(), any(CommentRowMapper.class), eq(lesson.getId()));
     }
 }

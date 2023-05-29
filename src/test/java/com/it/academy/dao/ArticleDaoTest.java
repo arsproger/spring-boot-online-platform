@@ -3,32 +3,25 @@ package com.it.academy.dao;
 import com.it.academy.dao.rowMapper.ArticleRowMapper;
 import com.it.academy.entities.Article;
 import com.it.academy.entities.Lesson;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
 import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
-
+@SpringJUnitConfig
 class ArticleDaoTest {
     @Mock
     private JdbcTemplate jdbcTemplate;
 
     @InjectMocks
     private ArticleDao articleDao;
-
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
-    }
 
     @Test
     void testGetArticlesByLessonId() {
@@ -44,5 +37,6 @@ class ArticleDaoTest {
         List<Article> actualArticles = articleDao.getArticlesByLessonId(lesson.getId());
 
         assertThat(actualArticles).isEqualTo(expectedArticles);
+        verify(jdbcTemplate, times(1)).query(anyString(), any(ArticleRowMapper.class), eq(lesson.getId()));
     }
 }

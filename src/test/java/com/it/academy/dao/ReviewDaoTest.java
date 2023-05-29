@@ -4,12 +4,11 @@ import com.it.academy.dao.rowMapper.ReviewRowMapper;
 import com.it.academy.entities.Course;
 import com.it.academy.entities.Review;
 import com.it.academy.entities.User;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
 import java.util.Arrays;
 import java.util.List;
@@ -19,17 +18,13 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
+@SpringJUnitConfig
 class ReviewDaoTest {
     @Mock
     private JdbcTemplate jdbcTemplate;
 
     @InjectMocks
     private ReviewDao reviewDao;
-
-    @BeforeEach
-    public void setUp() {
-        MockitoAnnotations.openMocks(this);
-    }
 
     @Test
     void testGetCourseReviewsByAuthorId() {

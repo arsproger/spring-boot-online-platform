@@ -12,7 +12,6 @@ import com.it.academy.repositories.S3Repository;
 import com.it.academy.services.CourseService;
 import com.it.academy.services.LessonService;
 import com.it.academy.services.S3Service;
-import com.it.academy.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.Cacheable;
@@ -30,7 +29,6 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class S3ServiceImpl implements S3Service {
-
     @Value("${aws-s3-bucketName}")
     private String bucketName;
 
@@ -38,7 +36,6 @@ public class S3ServiceImpl implements S3Service {
     private final S3Repository s3Repository;
     private final LessonService lessonService;
     private final CourseService courseService;
-    private final UserService userService;
     private final UserDao userDao;
 
     @Override

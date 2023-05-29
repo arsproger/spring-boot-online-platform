@@ -1,27 +1,21 @@
 package com.it.academy.dao;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-
+@SpringJUnitConfig
 class CartDaoTest {
     @Mock
     private JdbcTemplate jdbcTemplate;
 
     @InjectMocks
     private CartDao cartDao;
-
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
-    }
 
     @Test
     void testAddCourseToCart() {
