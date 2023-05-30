@@ -1,7 +1,7 @@
 package com.it.academy.mappers;
 
 import com.it.academy.dto.LessonDto;
-import com.it.academy.models.Lesson;
+import com.it.academy.entities.Lesson;
 import org.mapstruct.Mapper;
 import org.springframework.stereotype.Component;
 

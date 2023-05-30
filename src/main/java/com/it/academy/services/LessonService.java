@@ -1,17 +1,17 @@
 package com.it.academy.services;
 
-import com.it.academy.models.Lesson;
+import com.it.academy.entities.Lesson;
 
 import java.util.List;
 
 public interface LessonService {
     Lesson getById(Long id);
 
-    List<Lesson> getAll();
+    Long create(Long userId, Long sectionId, Lesson lesson);
 
-    Long save(Long sectionId, Lesson lesson);
+    Long deleteById(Long userId, Long lessonId);
 
-    Long deleteById(Long id);
+    Long update(Long userId, Long lessonId, Lesson updatedLesson);
 
-    Long update(Long id, Lesson lesson);
+    List<Lesson> getLessonsBySection(Long sectionId);
 }

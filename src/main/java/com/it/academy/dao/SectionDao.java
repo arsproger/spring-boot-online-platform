@@ -1,6 +1,7 @@
 package com.it.academy.dao;
 
-import com.it.academy.models.Section;
+import com.it.academy.dao.rowMapper.SectionRowMapper;
+import com.it.academy.entities.Section;
 import lombok.AllArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
@@ -13,8 +14,8 @@ public class SectionDao {
     private final JdbcTemplate jdbcTemplate;
 
     public List<Section> getSectionByCourseId(Long courseId) {
-        return jdbcTemplate.queryForList("SELECT * FROM sections WHERE course_id = ?",
-                Section.class, courseId);
+        return jdbcTemplate.query("SELECT * FROM sections WHERE course_id = ?",
+                new SectionRowMapper(), courseId);
     }
 
 }

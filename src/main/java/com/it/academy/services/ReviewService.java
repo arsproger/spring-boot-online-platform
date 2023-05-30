@@ -1,6 +1,6 @@
 package com.it.academy.services;
 
-import com.it.academy.models.Review;
+import com.it.academy.entities.Review;
 
 import java.util.List;
 
@@ -9,9 +9,15 @@ public interface ReviewService {
 
     List<Review> getAll();
 
+    List<Review> getReviewsByCourse(Long courseId);
+
     Long save(Long userId, Long courseId, Review review);
 
-    Long deleteById(Long id);
+    Double getCourseAvgGrade(Long courseId);
 
-    Long update(Long id, Review review);
+    List<Review> getCourseReviewsByAuthorId(Long authorId);
+
+    Long deleteById(Long userId, Long id);
+
+    Long update(Long userId, Long id, Review updatedReview);
 }

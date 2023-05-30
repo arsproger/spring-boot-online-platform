@@ -1,16 +1,18 @@
 package com.it.academy.services.impl;
 
+import com.it.academy.dao.CommentDao;
+import com.it.academy.entities.Comment;
+import com.it.academy.entities.Lesson;
+import com.it.academy.entities.User;
+import com.it.academy.enums.Role;
 import com.it.academy.exceptions.AppException;
-import com.it.academy.models.Comment;
-import com.it.academy.models.Lesson;
-import com.it.academy.models.User;
 import com.it.academy.repositories.CommentRepository;
 import com.it.academy.services.CommentService;
 import com.it.academy.services.LessonService;
 import com.it.academy.services.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -19,24 +21,19 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class CommentServiceImpl implements CommentService {
-    private final CommentRepository repo;
+    private final CommentRepository commentRepository;
     private final LessonService lessonService;
     private final UserService userService;
+    private final CommentDao commentDao;
 
     @Override
     public Comment getById(Long id) {
-        return repo.findById(id).orElseThrow(
+        return commentRepository.findById(id).orElseThrow(
                 () -> new AppException("Comment not found with id: " + id, HttpStatus.NOT_FOUND));
     }
 
     @Override
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public List<Comment> getAll() {
-        return repo.findAll();
-    }
-
-    @Override
-    public Long save(Long userId, Long lessonId, Comment comment) {
+    public Long create(Long userId, Long lessonId, Comment comment) {
         Lesson lesson = lessonService.getById(lessonId);
         User user = userService.getById(userId);
 
@@ -44,24 +41,39 @@ public class CommentServiceImpl implements CommentService {
         comment.setLesson(lesson);
         comment.setUser(user);
 
-        return repo.save(comment).getId();
+        return commentRepository.save(comment).getId();
     }
 
     @Override
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public Long deleteById(Long id) {
-        repo.deleteById(id);
-        return id;
+    public Long deleteById(Long userId, Long commentId) {
+        Comment comment = getById(commentId);
+
+        if (!(comment.getUser().getId().equals(userId) ||
+                userService.getById(userId).getRole().equals(Role.ROLE_ADMIN))) {
+            throw new AccessDeniedException("You can't delete this comment!");
+        }
+
+        commentRepository.deleteById(commentId);
+        return commentId;
     }
 
     @Override
-    public Long update(Long id, Comment updatedComment) {
-        Comment comment = getById(id);
+    public Long update(Long userId, Long commentId, Comment updatedComment) {
+        Comment comment = getById(commentId);
+
+        if (!comment.getUser().getId().equals(userId)) {
+            throw new AccessDeniedException("You can't delete this comment!");
+        }
 
         comment.setTitle(updatedComment.getTitle());
         comment.setDescription(updatedComment.getDescription());
 
-        return repo.save(comment).getId();
+        return commentRepository.save(comment).getId();
+    }
+
+    @Override
+    public List<Comment> getCommentsByLessonId(Long lessonId) {
+        return commentDao.getCommentsByLessonId(lessonId);
     }
 
 }

@@ -1,6 +1,6 @@
 package com.it.academy.util;
 
-import com.it.academy.models.User;
+import com.it.academy.entities.User;
 import com.it.academy.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

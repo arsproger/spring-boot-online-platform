@@ -1,6 +1,6 @@
 package com.it.academy.services;
 
-import com.it.academy.models.Subscription;
+import com.it.academy.entities.Subscription;
 
 import java.util.List;
 
@@ -13,6 +13,6 @@ public interface SubscriptionService {
 
     Long deleteById(Long id);
 
-    Long update(Long id, Subscription subscription);
+    List<Subscription> getSubscriptionsByUserId(Long userId);
 
 }

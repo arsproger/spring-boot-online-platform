@@ -1,17 +1,17 @@
 package com.it.academy.services;
 
-import com.it.academy.models.Article;
+import com.it.academy.entities.Article;
 
 import java.util.List;
 
 public interface ArticleService {
     Article getById(Long id);
 
-    List<Article> getAll();
+    Long create(Long userId, Article article, Long lessonId);
 
-    Long save(Article article);
+    Long deleteById(Long userId, Long id);
 
-    Long deleteById(Long id);
+    Long update(Long userId, Long id, Article updatedArticle);
 
-    Long update(Long id, Article article);
+    List<Article> getArticlesByLessonId(Long lessonId);
 }

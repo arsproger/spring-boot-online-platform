@@ -1,6 +1,6 @@
 package com.it.academy.repositories;
 
-import com.it.academy.models.Subscription;
+import com.it.academy.entities.Subscription;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

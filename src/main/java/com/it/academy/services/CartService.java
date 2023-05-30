@@ -1,17 +1,13 @@
 package com.it.academy.services;
 
-import com.it.academy.models.Cart;
+import com.it.academy.entities.Course;
 
 import java.util.List;
 
 public interface CartService {
-    Cart getById(Long id);
+    List<Course> getCoursesByUserCart(Long userId);
 
-    List<Cart> getAll();
+    void addCourseToCart(Long userId, Long courseId);
 
-    Long save(Cart cart);
-
-    Long deleteById(Long id);
-
-    Long update(Long id, Cart cart);
+    void removeCourseFromCart(Long userId, Long courseId);
 }
