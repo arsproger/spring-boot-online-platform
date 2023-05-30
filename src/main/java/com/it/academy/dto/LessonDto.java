@@ -25,7 +25,7 @@ public class LessonDto {
 
     private Double duration;
 
-    @JsonIgnore
+    @JsonProperty("videoName")
     private String videoUrl;
 
     @JsonProperty("image")

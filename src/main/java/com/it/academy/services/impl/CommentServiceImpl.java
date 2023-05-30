@@ -73,6 +73,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public List<Comment> getCommentsByLessonId(Long lessonId) {
+        lessonService.getById(lessonId);
         return commentDao.getCommentsByLessonId(lessonId);
     }
 

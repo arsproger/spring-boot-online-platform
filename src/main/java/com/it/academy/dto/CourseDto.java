@@ -1,6 +1,5 @@
 package com.it.academy.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.it.academy.controllers.S3Controller;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -38,7 +37,7 @@ public class CourseDto {
     @Size(max = 30, message = "Language must have a maximum of 155 characters!")
     private String language;
 
-    @JsonIgnore
+    @JsonProperty("imageName")
     private String imageUrl;
 
     @JsonProperty("image")
