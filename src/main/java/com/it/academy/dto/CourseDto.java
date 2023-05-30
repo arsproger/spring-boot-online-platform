@@ -1,5 +1,6 @@
 package com.it.academy.dto;
 
+import com.it.academy.entities.User;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -31,4 +32,6 @@ public class CourseDto {
     @NotEmpty(message = "Language cannot be empty!")
     @Size(max = 30, message = "Language must have a maximum of 155 characters!")
     private String language;
+
+    private String author;
 }
