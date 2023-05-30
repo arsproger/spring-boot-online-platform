@@ -64,6 +64,7 @@ public class LessonServiceImpl implements LessonService {
 
     @Override
     public List<Lesson> getLessonsBySection(Long sectionId) {
+        sectionService.getById(sectionId);
         return lessonDao.getLessonsBySection(sectionId);
     }
 

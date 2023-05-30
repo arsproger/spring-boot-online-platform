@@ -29,6 +29,7 @@ public class SectionServiceImpl implements SectionService {
 
     @Override
     public List<Section> getSectionsByCourse(Long courseId) {
+        courseService.getById(courseId);
         return sectionDao.getSectionByCourseId(courseId);
     }
 

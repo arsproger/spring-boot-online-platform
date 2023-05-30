@@ -98,7 +98,9 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public Double getCourseDuration(Long courseId) {
-        return courseDao.getCourseDurationSum(courseId);
+        getById(courseId);
+        Double courseDurationSum = courseDao.getCourseDurationSum(courseId);
+        return courseDurationSum != null ? courseDurationSum : 0.0;
     }
 
     @Override
@@ -113,11 +115,13 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public List<Course> getCoursesByCategory(Long categoryId) {
+        categoryService.getById(categoryId);
         return courseDao.getCourseByCategoryId(categoryId);
     }
 
     @Override
     public List<Course> getCoursesByAuthor(Long authorId) {
+        userService.getById(authorId);
         return courseDao.getByAuthorId(authorId);
     }
 
