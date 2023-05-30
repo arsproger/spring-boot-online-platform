@@ -23,6 +23,7 @@ public class Article {
     private String title;
 
     @NotEmpty
+    @Size(max = 1000)
     private String text;
 
     @NotNull

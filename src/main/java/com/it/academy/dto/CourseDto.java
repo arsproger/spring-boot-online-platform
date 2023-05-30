@@ -40,7 +40,7 @@ public class CourseDto {
     @JsonProperty("imageName")
     private String imageUrl;
 
-    @JsonProperty("image")
+    @JsonProperty("imageUrl")
     public String getPhotoUrl() {
         return linkTo(methodOn(S3Controller.class).download(imageUrl)).withRel("image").getHref();
     }

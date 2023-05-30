@@ -93,7 +93,6 @@ create table subscriptions (
 
 create table users (
                        id bigserial not null,
-                       activation_token varchar(255),
                        date_of_birth date,
                        email varchar(255),
                        full_name varchar(255),

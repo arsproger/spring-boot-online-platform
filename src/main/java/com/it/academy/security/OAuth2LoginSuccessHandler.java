@@ -21,7 +21,7 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
     private final UserService userService;
     private final DetailsUserService detailsUserService;
     @Value("${oauth2-success-redirect-url}")
-    private String redirectUrl;
+    private String oauthSuccessUrl;
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request,
@@ -37,7 +37,7 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
 
-        response.sendRedirect("/auth/oauth2/redirect");
+        response.sendRedirect(oauthSuccessUrl);
     }
 
 }
