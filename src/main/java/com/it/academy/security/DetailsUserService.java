@@ -13,9 +13,8 @@ import org.springframework.stereotype.Component;
 import java.util.Optional;
 
 @Component
-@AllArgsConstructor
-@NoArgsConstructor
 public class DetailsUserService implements UserDetailsService {
+    @Autowired
     private UserRepository userRepository;
 
     @Override

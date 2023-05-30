@@ -1,5 +1,6 @@
 package com.it.academy.dao;
 
+import com.it.academy.dao.rowMapper.SubscriptionRowMapper;
 import com.it.academy.entities.Subscription;
 import lombok.AllArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -14,7 +15,7 @@ public class SubscriptionDao {
 
     public List<Subscription> getSubscriptionsByUserId(Long userId) {
         String sql = "SELECT * FROM subscriptions WHERE user_id = ?";
-        return jdbcTemplate.queryForList(sql, Subscription.class, userId);
+        return jdbcTemplate.query(sql, new SubscriptionRowMapper(), userId);
     }
 
 }
