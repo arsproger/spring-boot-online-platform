@@ -28,7 +28,6 @@ public class User {
     @NotEmpty
     private String fullName;
 
-    @Column(name = "date_of_birth")
     private LocalDate dateOfBirth;
 
     @NotEmpty
@@ -40,6 +39,8 @@ public class User {
     private String password;
 
     private String imageUrl;
+
+    private String stripeAccountId;
 
     @Enumerated(EnumType.STRING)
     private Role role;
@@ -70,7 +71,5 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<Comment> comments;
-
-    private String stripeAccountId;
 
 }
