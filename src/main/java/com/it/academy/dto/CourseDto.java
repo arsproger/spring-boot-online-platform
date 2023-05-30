@@ -1,5 +1,8 @@
 package com.it.academy.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.it.academy.controllers.S3Controller;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -9,6 +12,9 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Setter
 @Getter
@@ -32,5 +38,11 @@ public class CourseDto {
     @Size(max = 30, message = "Language must have a maximum of 155 characters!")
     private String language;
 
+    @JsonIgnore
     private String imageUrl;
+
+    @JsonProperty("image")
+    public String getPhotoUrl() {
+        return linkTo(methodOn(S3Controller.class).download(imageUrl)).withRel("image").getHref();
+    }
 }
