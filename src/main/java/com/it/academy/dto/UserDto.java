@@ -1,6 +1,5 @@
 package com.it.academy.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.it.academy.controllers.S3Controller;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -34,7 +33,7 @@ public class UserDto {
     @Size(min = 8, message = "Password must be at least 8 characters long")
     private String password;
 
-    @JsonIgnore
+    @JsonProperty("imageName")
     private String imageUrl;
 
     @JsonProperty("image")
