@@ -41,6 +41,8 @@ public class CourseDto {
     @JsonIgnore
     private String imageUrl;
 
+    private String author;
+
     @JsonProperty("image")
     public String getPhotoUrl() {
         return linkTo(methodOn(S3Controller.class).download(imageUrl)).withRel("image").getHref();
