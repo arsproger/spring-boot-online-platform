@@ -1,10 +1,16 @@
 package com.it.academy.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.it.academy.controllers.S3Controller;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Setter
 @Getter
@@ -19,5 +25,11 @@ public class LessonDto {
 
     private Double duration;
 
+    @JsonIgnore
     private String videoUrl;
+
+    @JsonProperty("image")
+    public String getPhotoUrl() {
+        return linkTo(methodOn(S3Controller.class).download(videoUrl)).withRel("video").getHref();
+    }
 }
