@@ -48,7 +48,7 @@ public class AuthController {
             return new ResponseEntity<>(message, HttpStatus.CONFLICT);
         }
 
-        userService.save(userMapper.map(userDTO));
+        userService.create(userMapper.map(userDTO));
 
         UsernamePasswordAuthenticationToken authInputToken =
                 new UsernamePasswordAuthenticationToken(userDTO.getEmail(), userDTO.getPassword());

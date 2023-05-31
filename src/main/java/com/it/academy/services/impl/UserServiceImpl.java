@@ -1,16 +1,16 @@
 package com.it.academy.services.impl;
 
+import com.it.academy.entities.Cart;
 import com.it.academy.enums.Provider;
 import com.it.academy.enums.Role;
 import com.it.academy.enums.UserStatus;
 import com.it.academy.exceptions.AppException;
 import com.it.academy.entities.User;
 import com.it.academy.repositories.UserRepository;
+import com.it.academy.services.CartService;
 import com.it.academy.services.UserService;
-import jakarta.annotation.security.RolesAllowed;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -23,6 +23,7 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final CartService cartService;
 
     @Override
     @PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -42,6 +43,7 @@ public class UserServiceImpl implements UserService {
         user.setStatus(UserStatus.ACTIVE);
         user.setRole(Role.ROLE_STUDENT);
         user.setProvider(Provider.LOCAL);
+        user.setCart(cartService.save(new Cart()));
 
         return userRepository.save(user).getId();
     }
