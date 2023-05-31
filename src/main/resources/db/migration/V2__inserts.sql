@@ -8,7 +8,7 @@ INSERT INTO carts DEFAULT VALUES;
 INSERT INTO users (date_of_birth, email, full_name, password, provider, role, status, cart_id)
 VALUES ('1990-05-15', 'john.doe@example.com', 'John Doe', '$2a$10$Xy2mtNKVzs9bC9O.7GNqMOXfoqu0SffMk/Duq25PsyeGapLNT2Jcq', 'LOCAL', 'ROLE_STUDENT', 'ACTIVE', 1),
        ('1985-12-02', 'jane.smith@example.com', 'Jane Smith', '$2a$10$Xy2mtNKVzs9bC9O.7GNqMOXfoqu0SffMk/Duq25PsyeGapLNT2Jcq', 'LOCAL', 'ROLE_STUDENT', 'ACTIVE', 2),
-       ('1978-09-20', 'mike.johnson@example.com', 'Mike Johnson', '$2a$10$Xy2mtNKVzs9bC9O.7GNqMOXfoqu0SffMk/Duq25PsyeGapLNT2Jcq', 'LOCAL', 'ROLE_STUDENT', 'iACTIVE', 3),
+       ('1978-09-20', 'mike.johnson@example.com', 'Mike Johnson', '$2a$10$Xy2mtNKVzs9bC9O.7GNqMOXfoqu0SffMk/Duq25PsyeGapLNT2Jcq', 'LOCAL', 'ROLE_STUDENT', 'ACTIVE', 3),
        ('1992-06-10', 'emily.williams@example.com', 'Emily Williams', '$2a$10$Xy2mtNKVzs9bC9O.7GNqMOXfoqu0SffMk/Duq25PsyeGapLNT2Jcq', 'LOCAL', 'ROLE_STUDENT', 'ACTIVE', 4),
        ('1987-03-25', 'david.brown@example.com', 'David Brown', '$2a$10$Xy2mtNKVzs9bC9O.7GNqMOXfoqu0SffMk/Duq25PsyeGapLNT2Jcq', 'LOCAL', 'ROLE_STUDENT', 'ACTIVE', 5),
        ('1995-11-08', 'sarah.jones@example.com', 'Sarah Jones', '$2a$10$Xy2mtNKVzs9bC9O.7GNqMOXfoqu0SffMk/Duq25PsyeGapLNT2Jcq', 'LOCAL', 'ROLE_STUDENT', 'ACTIVE', 6);
