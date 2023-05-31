@@ -37,12 +37,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Long save(User user) {
+    public Long create(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setStatus(UserStatus.ACTIVE);
         user.setRole(Role.ROLE_STUDENT);
         user.setProvider(Provider.LOCAL);
 
+        return userRepository.save(user).getId();
+    }
+
+
+    @Override
+    public Long save(User user) {
         return userRepository.save(user).getId();
     }
 
