@@ -119,6 +119,11 @@ public class CourseServiceImpl implements CourseService {
         return courseDao.getByAuthorId(authorId);
     }
 
+    @Override
+    public Integer getCountOfAllCourses() {
+        return courseDao.getCountOfAllCourses();
+    }
+
     public List<Course> filterByPriceDesc() {
         return courseDao.filterByPriceDesc();
     }

@@ -22,7 +22,6 @@ import java.util.List;
 @Tag(name = "Контроллер пользователя")
 public class UserController {
     private final UserService userService;
-    private final UserDao userDao;
     private final UserMapper mapper;
 
     @GetMapping
@@ -60,8 +59,15 @@ public class UserController {
     @Operation(summary = "Получение всех пользователей курса",
             description = "При получении всех пользователей определенного курса, нужно передать id курса")
     public ResponseEntity<List<UserDto>> getByCourseId(@PathVariable Long courseId) {
-        List<UserDto> users = mapper.map(userDao.getUserByCourseId(courseId));
+        List<UserDto> users = mapper.map(userService.getUserByCourseId(courseId));
         return new ResponseEntity<>(users, HttpStatus.OK);
+    }
+
+    @GetMapping("/count")
+    @Operation(summary = "Получение количества всех пользователей")
+    public ResponseEntity<Integer> getCountOfAllUsers() {
+        Integer courseCount = userService.getCountOfAllUsers();
+        return new ResponseEntity<>(courseCount, HttpStatus.OK);
     }
 
 }

@@ -20,4 +20,7 @@ public interface ReviewService {
     Long deleteById(Long userId, Long id);
 
     Long update(Long userId, Long id, Review updatedReview);
+
+    Integer getCountOfAllReviews();
+
 }

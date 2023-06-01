@@ -28,4 +28,8 @@ public class UserDao {
         jdbcTemplate.update("UPDATE users set image_url = ? where id = ?", imageUrl, userId);
     }
 
+    public Integer getCountOfAllUsers() {
+        return jdbcTemplate.queryForObject("SELECT count(*) FROM users", Integer.class);
+    }
+
 }

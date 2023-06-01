@@ -23,4 +23,8 @@ public interface UserService {
 
     void processOAuthPostLogin(String username, String name, String registrationId);
 
+    List<User> getUserByCourseId(Long courseId);
+
+    Integer getCountOfAllUsers();
+
 }

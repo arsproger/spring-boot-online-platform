@@ -117,4 +117,11 @@ public class CourseController {
         return new ResponseEntity<>(durationSun, HttpStatus.OK);
     }
 
+    @GetMapping("/count")
+    @Operation(summary = "Получение количества всех курсов")
+    public ResponseEntity<Integer> getCountOfAllCourses() {
+        Integer courseCount = courseService.getCountOfAllCourses();
+        return new ResponseEntity<>(courseCount, HttpStatus.OK);
+    }
+
 }

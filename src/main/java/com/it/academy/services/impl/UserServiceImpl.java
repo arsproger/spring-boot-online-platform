@@ -1,5 +1,6 @@
 package com.it.academy.services.impl;
 
+import com.it.academy.dao.UserDao;
 import com.it.academy.entities.Cart;
 import com.it.academy.entities.User;
 import com.it.academy.enums.Provider;
@@ -24,6 +25,7 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final CartService cartService;
+    private final UserDao userDao;
 
     @Override
     @PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -99,5 +101,14 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override
+    public List<User> getUserByCourseId(Long courseId) {
+        return userDao.getUserByCourseId(courseId);
+    }
+
+    @Override
+    public Integer getCountOfAllUsers() {
+        return userDao.getCountOfAllUsers();
+    }
 
 }

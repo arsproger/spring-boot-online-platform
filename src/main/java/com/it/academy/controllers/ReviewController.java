@@ -20,12 +20,12 @@ import java.util.List;
 @AllArgsConstructor
 @Tag(name = "Контроллер отзывов к курсу")
 public class ReviewController {
-    private final ReviewService service;
+    private final ReviewService reviewService;
     private final ReviewMapper mapper;
 
     @GetMapping
     public ResponseEntity<List<ReviewDto>> getAllReviews() {
-        List<ReviewDto> comments = mapper.map(service.getAll());
+        List<ReviewDto> comments = mapper.map(reviewService.getAll());
         return new ResponseEntity<>(comments, HttpStatus.OK);
     }
 
@@ -33,21 +33,21 @@ public class ReviewController {
     @Operation(summary = "Получение всех отзывов определенного автора",
             description = "Нужно передать id пользователя")
     public ResponseEntity<List<ReviewDto>> getCourseReviewsByAuthorId(@PathVariable Long authorId) {
-        List<ReviewDto> reviews = mapper.map(service.getCourseReviewsByAuthorId(authorId));
+        List<ReviewDto> reviews = mapper.map(reviewService.getCourseReviewsByAuthorId(authorId));
         return new ResponseEntity<>(reviews, HttpStatus.OK);
     }
 
     @GetMapping("/course/{courseId}")
     @Operation(summary = "Получение отзывов определенного курса")
     public ResponseEntity<List<ReviewDto>> getReviewsByCourseId(@PathVariable Long courseId) {
-        List<ReviewDto> reviews = mapper.map(service.getReviewsByCourse(courseId));
+        List<ReviewDto> reviews = mapper.map(reviewService.getReviewsByCourse(courseId));
         return new ResponseEntity<>(reviews, HttpStatus.OK);
     }
 
     @GetMapping("/course/avg-grade/{courseId}")
     @Operation(summary = "Получение средней оценки курса по его id")
     public ResponseEntity<Double> getCourseAvgGrade(@PathVariable Long courseId) {
-        Double avgGrade = service.getCourseAvgGrade(courseId);
+        Double avgGrade = reviewService.getCourseAvgGrade(courseId);
         return new ResponseEntity<>(avgGrade, HttpStatus.OK);
     }
 
@@ -58,14 +58,14 @@ public class ReviewController {
             @AuthenticationPrincipal DetailsUser detailsUser,
             @PathVariable Long courseId,
             @RequestBody @Valid ReviewDto dto) {
-        Long id = service.save(detailsUser.getUser().getId(), courseId, mapper.map(dto));
+        Long id = reviewService.save(detailsUser.getUser().getId(), courseId, mapper.map(dto));
         return new ResponseEntity<>(id, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{reviewId}")
     public ResponseEntity<Long> deleteReviewById(@AuthenticationPrincipal DetailsUser detailsUser,
                                                  @PathVariable Long reviewId) {
-        Long deletedId = service.deleteById(detailsUser.getUser().getId(), reviewId);
+        Long deletedId = reviewService.deleteById(detailsUser.getUser().getId(), reviewId);
         return new ResponseEntity<>(deletedId, HttpStatus.OK);
     }
 
@@ -73,8 +73,15 @@ public class ReviewController {
     public ResponseEntity<Long> updateReviewById(@AuthenticationPrincipal DetailsUser detailsUser,
                                                  @PathVariable Long reviewId,
                                                  @RequestBody @Valid ReviewDto dto) {
-        Long updatedId = service.update(detailsUser.getUser().getId(), reviewId, mapper.map(dto));
+        Long updatedId = reviewService.update(detailsUser.getUser().getId(), reviewId, mapper.map(dto));
         return new ResponseEntity<>(updatedId, HttpStatus.OK);
+    }
+
+    @GetMapping("/count")
+    @Operation(summary = "Получение количества всех отзывов")
+    public ResponseEntity<Integer> getCountOfAllReviews() {
+        Integer courseCount = reviewService.getCountOfAllReviews();
+        return new ResponseEntity<>(courseCount, HttpStatus.OK);
     }
 
 }

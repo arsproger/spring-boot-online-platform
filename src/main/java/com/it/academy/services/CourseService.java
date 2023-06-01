@@ -28,4 +28,7 @@ public interface CourseService {
     List<Course> filterByPriceDesc();
 
     List<Course> getCoursesByAuthor(Long authorId);
+
+    Integer getCountOfAllCourses();
+
 }

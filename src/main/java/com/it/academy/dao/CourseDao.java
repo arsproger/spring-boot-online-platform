@@ -66,4 +66,8 @@ public class CourseDao {
         jdbcTemplate.update("UPDATE courses set image_url = ? where id = ?", imageUrl, courseId);
     }
 
+    public Integer getCountOfAllCourses() {
+        return jdbcTemplate.queryForObject("SELECT count(*) FROM courses", Integer.class);
+    }
+
 }
