@@ -11,10 +11,10 @@ spring:
     generate-ddl: true
     show-sql: true
     hibernate:
-      ddl-auto: validate
+      ddl-auto: update
 
   flyway:
-    enabled: true
+    enabled: false
 
   datasource:
     driver-class-name: org.postgresql.Driver
@@ -67,7 +67,7 @@ spring:
             redirect-uri: ${config.oauth2.github.redirect-uri}
             authorization-grant-type: ${config.oauth2.github.authorization-grant-type}
 
-oauth2-success-redirect-url: http://localhost:3000/ru/profile/profile
+oauth2-success-redirect-url: http://localhost:3000/setting/setting
 logoutSuccessUrl: https://final-project-two-theta.vercel.app
 resetUrl: spring-boot-online-platform.herokuapp.com/password/reset/
 

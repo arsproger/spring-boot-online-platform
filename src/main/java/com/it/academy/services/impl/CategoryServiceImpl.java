@@ -71,4 +71,5 @@ public class CategoryServiceImpl implements CategoryService {
     public List<Category> getCategoriesByTitle(String title) {
         return categoryDao.getCategoriesByTitle(title);
     }
+
 }

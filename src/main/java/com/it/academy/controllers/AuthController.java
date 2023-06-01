@@ -2,6 +2,8 @@ package com.it.academy.controllers;
 
 import com.it.academy.dto.AuthenticationDto;
 import com.it.academy.dto.UserDto;
+import com.it.academy.entities.User;
+import com.it.academy.enums.UserStatus;
 import com.it.academy.mappers.UserMapper;
 import com.it.academy.security.DetailsUser;
 import com.it.academy.security.JWTUtil;
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 
 @RestController
 @AllArgsConstructor
@@ -71,6 +74,11 @@ public class AuthController {
             Map<String, String> message = Map.of("message", Objects.requireNonNull(Objects.requireNonNull(
                     bindingResult.getFieldError()).getDefaultMessage()));
             return new ResponseEntity<>(message, HttpStatus.CONFLICT);
+        }
+
+        Optional<User> user = userService.getByEmail(authenticationDTO.getUsername());
+        if (user.isEmpty() || user.get().getStatus() != UserStatus.ACTIVE) {
+            return new ResponseEntity<>(Map.of("message", "User is not active!"), HttpStatus.FORBIDDEN);
         }
 
         try {

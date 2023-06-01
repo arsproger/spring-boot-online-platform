@@ -14,8 +14,8 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class CartServiceImpl implements CartService {
-    private final CartDao cartDao;
     private final CartRepository cartRepository;
+    private final CartDao cartDao;
     private final CourseDao courseDao;
 
     @Override
