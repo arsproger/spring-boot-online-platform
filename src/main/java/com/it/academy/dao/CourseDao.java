@@ -32,7 +32,7 @@ public class CourseDao {
     }
 
     public List<Course> getByLanguage(String language) {
-        return jdbcTemplate.query("SELECT * FROM Courses WHERE language ILIKE ?",
+        return jdbcTemplate.query("SELECT * FROM Courses join users u on u.id = courses.author_id WHERE language ILIKE ?",
                 new CourseRowMapper(), ("%" + language + "%"));
     }
 
