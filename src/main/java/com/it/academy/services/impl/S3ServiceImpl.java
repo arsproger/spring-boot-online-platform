@@ -12,6 +12,7 @@ import com.it.academy.dao.UserDao;
 import com.it.academy.services.CourseService;
 import com.it.academy.services.LessonService;
 import com.it.academy.services.S3Service;
+import com.it.academy.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.Cacheable;
@@ -37,6 +38,7 @@ public class S3ServiceImpl implements S3Service {
     private final UserDao userDao;
     private final CourseDao courseDao;
     private final LessonDao lessonDao;
+    private final UserService userService;
 
     @Override
     public String saveLessonVideo(Long lessonId, MultipartFile file) {
