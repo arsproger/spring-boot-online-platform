@@ -37,12 +37,12 @@ public class CourseDto {
     @Size(max = 30, message = "Language must have a maximum of 155 characters!")
     private String language;
 
+    private String author;
+
     @JsonProperty("imageName")
     private String imageUrl;
 
-    private String author;
-
-    @JsonProperty("image")
+    @JsonProperty("imageUrl")
     public String getPhotoUrl() {
         return linkTo(methodOn(S3Controller.class).download(imageUrl)).withRel("image").getHref();
     }

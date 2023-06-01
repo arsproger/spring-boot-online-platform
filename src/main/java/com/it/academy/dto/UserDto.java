@@ -2,6 +2,7 @@ package com.it.academy.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.it.academy.controllers.S3Controller;
+import com.it.academy.enums.Role;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -30,13 +31,14 @@ public class UserDto {
     private String email;
 
     @NotBlank(message = "Password cannot be empty")
-    @Size(min = 8, message = "Password must be at least 8 characters long")
     private String password;
+
+    private Role role;
 
     @JsonProperty("imageName")
     private String imageUrl;
 
-    @JsonProperty("image")
+    @JsonProperty("imageUrl")
     public String getPhotoUrl() {
         return linkTo(methodOn(S3Controller.class).download(imageUrl)).withRel("image").getHref();
     }
