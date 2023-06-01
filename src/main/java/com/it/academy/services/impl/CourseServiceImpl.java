@@ -43,7 +43,7 @@ public class CourseServiceImpl implements CourseService {
         author.setRole(Role.ROLE_TRAINER);
         userService.save(author);
 
-        if (course.getImageUrl() == null) course.setImageUrl("default-course-image.jpg");
+        if (course.getImageUrl() == null) course.setImageUrl("photo_2022-09-20_01-58-10.jpg");
 
         Course createdCourse = Course.builder()
                 .author(author)

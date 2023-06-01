@@ -48,6 +48,7 @@ public class UserServiceImpl implements UserService {
         user.setProvider(Provider.LOCAL);
         user.setCart(cartService.save(new Cart()));
         user.setCreatedDate(LocalDate.now());
+        if(user.getImageUrl() == null) user.setImageUrl("default-user-image.jpg");
 
         return userRepository.save(user).getId();
     }
@@ -98,6 +99,7 @@ public class UserServiceImpl implements UserService {
                     .fullName(name)
                     .email(username)
                     .status(UserStatus.ACTIVE)
+                    .imageUrl("default-user-image.jpg")
                     .build();
 
             userRepository.save(user);
