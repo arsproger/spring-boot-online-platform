@@ -1,6 +1,10 @@
 package com.it.academy.dao.rowMapper;
 
 import com.it.academy.entities.Course;
+import com.it.academy.entities.User;
+import com.it.academy.services.UserService;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
@@ -8,6 +12,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 @Component
+@AllArgsConstructor
+@NoArgsConstructor
 public class CourseRowMapper implements RowMapper<Course> {
     @Override
     public Course mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -18,6 +24,10 @@ public class CourseRowMapper implements RowMapper<Course> {
         course.setPrice(rs.getBigDecimal("price"));
         course.setLanguage(rs.getString("language"));
         course.setCreated(rs.getDate("created").toLocalDate());
+        User author = new User();
+        author.setId(rs.getLong("author_id"));
+        author.setFullName(rs.getString("full_name"));
+        course.setAuthor(author);
 
         return course;
     }
