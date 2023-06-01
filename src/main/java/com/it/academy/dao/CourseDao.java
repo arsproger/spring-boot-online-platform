@@ -13,9 +13,9 @@ import java.util.List;
 public class CourseDao {
     private final JdbcTemplate jdbcTemplate;
 
-    public List<Course> getByAuthorId(Long id) {
+    public List<Course> getByAuthorId(Long authorId) {
         return jdbcTemplate.query("SELECT * FROM courses WHERE author_id = ?",
-                new CourseRowMapper(), id);
+                new CourseRowMapper(), authorId);
     }
 
     public List<Course> filterByPriceAsk() {

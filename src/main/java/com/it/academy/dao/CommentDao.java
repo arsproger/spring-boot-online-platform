@@ -13,8 +13,8 @@ import java.util.List;
 public class CommentDao {
     private final JdbcTemplate jdbcTemplate;
 
-    public List<Comment> getCommentsByLessonId(Long id) {
+    public List<Comment> getCommentsByLessonId(Long lessonId) {
         return jdbcTemplate.query("SELECT * FROM comments WHERE lesson_id = ?",
-                new CommentRowMapper(), id);
+                new CommentRowMapper(), lessonId);
     }
 }

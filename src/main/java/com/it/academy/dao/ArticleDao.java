@@ -13,8 +13,8 @@ import java.util.List;
 public class ArticleDao {
     private final JdbcTemplate jdbcTemplate;
 
-    public List<Article> getArticlesByLessonId(Long id) {
+    public List<Article> getArticlesByLessonId(Long lessonId) {
         return jdbcTemplate.query("SELECT * FROM articles WHERE lesson_id = ?",
-                new ArticleRowMapper(), id);
+                new ArticleRowMapper(), lessonId);
     }
 }
