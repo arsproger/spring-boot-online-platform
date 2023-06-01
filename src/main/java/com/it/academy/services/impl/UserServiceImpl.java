@@ -58,7 +58,7 @@ public class UserServiceImpl implements UserService {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Long deleteById(Long id) {
         User user = getById(id);
-        user.setStatus(UserStatus.DELETED);
+        user.setStatus(UserStatus.DELETED); // todo
         return userRepository.save(user).getId();
     }
 

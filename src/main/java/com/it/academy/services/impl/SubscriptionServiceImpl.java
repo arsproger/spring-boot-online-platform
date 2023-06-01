@@ -55,7 +55,6 @@ public class SubscriptionServiceImpl implements SubscriptionService {
 
     @Override
     public List<Subscription> getSubscriptionsByUserId(Long userId) {
-        userService.getById(userId);
         return subscriptionDao.getSubscriptionsByUserId(userId);
     }
 
