@@ -1,11 +1,11 @@
 package com.it.academy.services.impl;
 
 import com.it.academy.entities.Cart;
+import com.it.academy.entities.User;
 import com.it.academy.enums.Provider;
 import com.it.academy.enums.Role;
 import com.it.academy.enums.UserStatus;
 import com.it.academy.exceptions.AppException;
-import com.it.academy.entities.User;
 import com.it.academy.repositories.UserRepository;
 import com.it.academy.services.CartService;
 import com.it.academy.services.UserService;
@@ -63,13 +63,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Long updateById(Long id, User updatedUser) {
+    public User updateById(Long id, User updatedUser) {
         User user = getById(id);
 
         user.setFullName(updatedUser.getFullName());
         user.setDateOfBirth(updatedUser.getDateOfBirth());
 
-        return userRepository.save(user).getId();
+        return userRepository.save(user);
     }
 
     @Override

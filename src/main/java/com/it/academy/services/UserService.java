@@ -15,7 +15,7 @@ public interface UserService {
 
     Long deleteById(Long id);
 
-    Long updateById(Long id, User updatedUser);
+    User updateById(Long id, User updatedUser);
 
     Optional<User> getByEmail(String email);
 
