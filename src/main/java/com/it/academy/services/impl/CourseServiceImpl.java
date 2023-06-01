@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.List;
 
-;
 
 @Service
 @AllArgsConstructor
@@ -98,7 +97,6 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public Double getCourseDuration(Long courseId) {
-        getById(courseId);
         Double courseDurationSum = courseDao.getCourseDurationSum(courseId);
         return courseDurationSum != null ? courseDurationSum : 0.0;
     }
@@ -115,13 +113,11 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public List<Course> getCoursesByCategory(Long categoryId) {
-        categoryService.getById(categoryId);
         return courseDao.getCourseByCategoryId(categoryId);
     }
 
     @Override
     public List<Course> getCoursesByAuthor(Long authorId) {
-        userService.getById(authorId);
         return courseDao.getByAuthorId(authorId);
     }
 
