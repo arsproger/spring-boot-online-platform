@@ -4,9 +4,7 @@ import com.it.academy.enums.Provider;
 import com.it.academy.enums.Role;
 import com.it.academy.enums.UserStatus;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -31,11 +29,8 @@ public class User {
     private LocalDate dateOfBirth;
 
     @NotEmpty
-    @Email
     private String email;
 
-    @NotEmpty
-    @Size(min = 8)
     private String password;
 
     private String imageUrl;
@@ -47,9 +42,6 @@ public class User {
 
     @Enumerated(EnumType.STRING)
     private UserStatus status;
-
-    @Column(name = "activation_token")
-    private String activationToken;
 
     @Column(name = "reset_token")
     private String resetToken;
