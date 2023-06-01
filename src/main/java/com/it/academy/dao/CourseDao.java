@@ -17,17 +17,17 @@ public class CourseDao {
 
     public List<Course> getByAuthorId(Long authorId) {
         daoValidate.checkUserExistsById(authorId);
-        return jdbcTemplate.query("SELECT * FROM courses WHERE author_id = ?",
+        return jdbcTemplate.query("SELECT * FROM courses join users u on u.id = courses.author_id WHERE author_id = ?",
                 new CourseRowMapper(), authorId);
     }
 
     public List<Course> filterByPriceAsk() {
-        return jdbcTemplate.query("SELECT * FROM courses ORDER BY price",
+        return jdbcTemplate.query("SELECT * FROM courses join users u on u.id = courses.author_id ORDER BY price",
                 new CourseRowMapper());
     }
 
     public List<Course> filterByPriceDesc() {
-        return jdbcTemplate.query("SELECT * FROM courses ORDER BY price desc",
+        return jdbcTemplate.query("SELECT * FROM courses join users u on u.id = courses.author_id ORDER BY price desc",
                 new CourseRowMapper());
     }
 
@@ -38,7 +38,7 @@ public class CourseDao {
 
     public List<Course> getCoursesByUserCart(Long userId) {
         daoValidate.checkUserExistsById(userId);
-        return jdbcTemplate.query("SELECT * FROM courses WHERE id IN " +
+        return jdbcTemplate.query("SELECT * FROM courses join users u on u.id = courses.author_id WHERE courses.id IN " +
                         "(SELECT course_id FROM carts_courses WHERE cart_id IN " +
                         "(SELECT cart_id FROM users WHERE id = ?))",
                 new CourseRowMapper(), userId);
@@ -46,11 +46,11 @@ public class CourseDao {
 
     public List<Course> getCourseByCategoryId(Long categoryId) {
         daoValidate.checkCategoryExistsById(categoryId);
-        return jdbcTemplate.query("SELECT * FROM courses WHERE category_id = ?", new CourseRowMapper(), categoryId);
+        return jdbcTemplate.query("SELECT * FROM courses join users u on u.id = courses.author_id WHERE category_id = ?", new CourseRowMapper(), categoryId);
     }
 
     public List<Course> getCourseByName(String name) {
-        return jdbcTemplate.query("SELECT id, name, description, price, language, created FROM courses WHERE name ILIKE ?",
+        return jdbcTemplate.query("SELECT courses.id, name, description, price, language, created FROM courses join users u on u.id = courses.author_id WHERE name ILIKE ?",
                 new CourseRowMapper(), ("%" + name + "%"));
     }
 
