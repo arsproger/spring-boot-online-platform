@@ -2,6 +2,7 @@ package com.it.academy.controllers.advice;
 
 import com.it.academy.exceptions.AppErrorResponse;
 import com.it.academy.exceptions.AppException;
+import com.stripe.exception.StripeException;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
@@ -52,6 +53,11 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(AccessDeniedException.class)
     public ResponseEntity<String> handleException(AccessDeniedException e) {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.FORBIDDEN);
+    }
+
+    @ExceptionHandler(StripeException.class)
+    public ResponseEntity<String> handleException(StripeException e) {
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
     }
 }
 
