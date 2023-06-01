@@ -37,6 +37,8 @@ public class User {
 
     private String stripeAccountId;
 
+    private LocalDate createdDate;
+
     @Enumerated(EnumType.STRING)
     private Role role;
 

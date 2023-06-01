@@ -27,4 +27,6 @@ public interface UserService {
 
     Integer getCountOfAllUsers();
 
+    Integer getCountOfAllUsersToday();
+
 }

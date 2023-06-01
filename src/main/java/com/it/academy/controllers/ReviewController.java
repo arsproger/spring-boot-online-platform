@@ -80,8 +80,8 @@ public class ReviewController {
     @GetMapping("/count")
     @Operation(summary = "Получение количества всех отзывов")
     public ResponseEntity<Integer> getCountOfAllReviews() {
-        Integer courseCount = reviewService.getCountOfAllReviews();
-        return new ResponseEntity<>(courseCount, HttpStatus.OK);
+        Integer reviewCount = reviewService.getCountOfAllReviews();
+        return new ResponseEntity<>(reviewCount, HttpStatus.OK);
     }
 
 }

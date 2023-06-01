@@ -66,8 +66,15 @@ public class UserController {
     @GetMapping("/count")
     @Operation(summary = "Получение количества всех пользователей")
     public ResponseEntity<Integer> getCountOfAllUsers() {
-        Integer courseCount = userService.getCountOfAllUsers();
-        return new ResponseEntity<>(courseCount, HttpStatus.OK);
+        Integer userCount = userService.getCountOfAllUsers();
+        return new ResponseEntity<>(userCount, HttpStatus.OK);
+    }
+
+    @GetMapping("/count/today")
+    @Operation(summary = "Получение количества всех пользователей зарегистрированных сегодня")
+    public ResponseEntity<Integer> getCountOfAllUsersToday() {
+        Integer userCount = userService.getCountOfAllUsersToday();
+        return new ResponseEntity<>(userCount, HttpStatus.OK);
     }
 
 }

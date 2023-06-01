@@ -16,6 +16,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,10 +47,10 @@ public class UserServiceImpl implements UserService {
         user.setRole(Role.ROLE_STUDENT);
         user.setProvider(Provider.LOCAL);
         user.setCart(cartService.save(new Cart()));
+        user.setCreatedDate(LocalDate.now());
 
         return userRepository.save(user).getId();
     }
-
 
     @Override
     public Long save(User user) {
@@ -69,6 +70,8 @@ public class UserServiceImpl implements UserService {
         User user = getById(id);
 
         user.setFullName(updatedUser.getFullName());
+        user.setEmail(updatedUser.getEmail());
+        user.setImageUrl(updatedUser.getImageUrl());
         user.setDateOfBirth(updatedUser.getDateOfBirth());
 
         return userRepository.save(user);
@@ -109,6 +112,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public Integer getCountOfAllUsers() {
         return userDao.getCountOfAllUsers();
+    }
+
+    @Override
+    public Integer getCountOfAllUsersToday() {
+        return userDao.getCountOfAllUsersToday();
     }
 
 }

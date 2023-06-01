@@ -32,4 +32,8 @@ public class UserDao {
         return jdbcTemplate.queryForObject("SELECT count(*) FROM users", Integer.class);
     }
 
+    public Integer getCountOfAllUsersToday() {
+        return jdbcTemplate.queryForObject("SELECT count(*) FROM users WHERE created_date = current_date", Integer.class);
+    }
+
 }
