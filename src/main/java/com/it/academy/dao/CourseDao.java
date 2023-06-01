@@ -1,19 +1,22 @@
 package com.it.academy.dao;
 
 import com.it.academy.dao.rowMapper.CourseRowMapper;
+import com.it.academy.dao.validate.DaoValidate;
 import com.it.academy.entities.Course;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class CourseDao {
     private final JdbcTemplate jdbcTemplate;
+    private final DaoValidate daoValidate;
 
     public List<Course> getByAuthorId(Long authorId) {
+        daoValidate.checkUserExistsById(authorId);
         return jdbcTemplate.query("SELECT * FROM courses WHERE author_id = ?",
                 new CourseRowMapper(), authorId);
     }
@@ -34,6 +37,7 @@ public class CourseDao {
     }
 
     public List<Course> getCoursesByUserCart(Long userId) {
+        daoValidate.checkUserExistsById(userId);
         return jdbcTemplate.query("SELECT * FROM courses WHERE id IN " +
                         "(SELECT course_id FROM carts_courses WHERE cart_id IN " +
                         "(SELECT cart_id FROM users WHERE id = ?))",
@@ -41,6 +45,7 @@ public class CourseDao {
     }
 
     public List<Course> getCourseByCategoryId(Long categoryId) {
+        daoValidate.checkCategoryExistsById(categoryId);
         return jdbcTemplate.query("SELECT * FROM courses WHERE category_id = ?", new CourseRowMapper(), categoryId);
     }
 
@@ -50,12 +55,14 @@ public class CourseDao {
     }
 
     public Double getCourseDurationSum(Long courseId) {
+        daoValidate.checkCourseExistsById(courseId);
         return jdbcTemplate.queryForObject("SELECT sum(duration) FROM lessons " +
                 "JOIN sections ON(lessons.section_id = sections.id) " +
                 "WHERE sections.course_id = ?", Double.class, courseId);
     }
 
     public void setImageUrl(String imageUrl, Long courseId) {
+        daoValidate.checkCourseExistsById(courseId);
         jdbcTemplate.update("UPDATE courses set image_url = ? where id = ?", imageUrl, courseId);
     }
 
