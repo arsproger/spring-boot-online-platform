@@ -12,6 +12,7 @@ import lombok.Setter;
 @Schema(description = "Сущность раздела")
 public class SectionDto {
     private Long id;
+
     @NotBlank(message = "Name cannot be empty!")
     @Size(max = 100, message = "Name must have a maximum of 155 characters!")
     private String name;

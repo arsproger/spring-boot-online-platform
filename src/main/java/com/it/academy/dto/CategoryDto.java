@@ -10,6 +10,8 @@ import lombok.Setter;
 @Getter
 @Schema(description = "Сущность категории")
 public class CategoryDto {
+    private Long id;
+
     @NotBlank(message = "Title cannot be empty!")
     @Size(max = 155, message = "Title must have a maximum of 155 characters!")
     private String title;

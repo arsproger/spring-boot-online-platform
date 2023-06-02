@@ -9,5 +9,7 @@ import java.util.List;
 @Setter
 @Getter
 public class CartDto {
+    private Long id;
+
     private List<Course> courses;
 }

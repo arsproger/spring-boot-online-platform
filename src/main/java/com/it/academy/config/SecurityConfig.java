@@ -42,8 +42,8 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
-                    .exceptionHandling().authenticationEntryPoint(userAuthenticationEntryPoint)
-                    .and()
+//                    .exceptionHandling().authenticationEntryPoint(userAuthenticationEntryPoint)
+//                    .and()
                 .csrf().disable()
                 .cors()
                 .and()
@@ -53,12 +53,16 @@ public class SecurityConfig {
                 .requestMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
+                .formLogin()
+                .loginPage("/auth")
+                .and()
                 .oauth2Login()
-                .loginPage("/auth/login")
                 .userInfoEndpoint()
                 .userService(customOAuth2UserService)
                 .and()
                 .successHandler(oAuth2LoginSuccessHandler)
+                .and()
+                .oauth2Client()
                 .and()
                 .logout()
                 .logoutUrl("/logout")

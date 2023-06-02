@@ -37,6 +37,11 @@ public class AuthController {
     private final JWTUtil jwtUtil;
     private final UserValidator userValidator;
 
+    @GetMapping
+    public String auth() {
+        return "Пользователь не авторизован!";
+    }
+
     @PostMapping("/register")
     @Operation(summary = "Регистрация пользователя",
             description = "Если при регистрации email будет уже занят, " +

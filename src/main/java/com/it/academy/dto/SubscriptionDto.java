@@ -11,6 +11,8 @@ import java.time.LocalDate;
 @Getter
 @Schema(description = "Сущность подписки")
 public class SubscriptionDto {
+    private Long id;
+
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @NotEmpty(message = "Cannot be empty")
     private LocalDate creationDate;

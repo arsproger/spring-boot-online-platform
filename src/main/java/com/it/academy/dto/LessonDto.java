@@ -17,6 +17,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 @Schema(description = "Сущность урока")
 public class LessonDto {
     private Long id;
+
     @NotEmpty(message = "Title cannot be empty!")
     @Size(max = 155, message = "Title must have a maximum of 155 characters")
     private String title;
