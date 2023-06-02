@@ -15,6 +15,9 @@ import com.it.academy.services.S3Service;
 import com.it.academy.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
@@ -28,6 +31,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@CacheConfig(cacheNames = "file")
 public class S3ServiceImpl implements S3Service {
     @Value("${aws-s3-bucketName}")
     private String bucketName;
@@ -62,6 +66,7 @@ public class S3ServiceImpl implements S3Service {
     }
 
     @Override
+    @CachePut(key = "#file.originalFilename")
     public String pushFile(MultipartFile file) {
         try {
             amazonS3.putObject(bucketName, file.getOriginalFilename(), convertMultiPartToFile(file));
@@ -71,10 +76,10 @@ public class S3ServiceImpl implements S3Service {
         }
     }
 
-    @Cacheable("file")
+    @Cacheable(key = "#fileName")
     @Override
-    public byte[] downloadFile(String filename) {
-        S3Object s3Object = amazonS3.getObject(bucketName, filename);
+    public byte[] downloadFile(String fileName) {
+        S3Object s3Object = amazonS3.getObject(bucketName, fileName);
         S3ObjectInputStream objectContent = s3Object.getObjectContent();
         try {
             return IOUtils.toByteArray(objectContent);
@@ -85,6 +90,7 @@ public class S3ServiceImpl implements S3Service {
 
     @Override
     @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @Cacheable
     public List<String> listAllFiles() {
         ListObjectsV2Result listObjectsV2Result = amazonS3.listObjectsV2(bucketName);
         return listObjectsV2Result.getObjectSummaries()
@@ -92,8 +98,9 @@ public class S3ServiceImpl implements S3Service {
     }
 
     @Override
-    public String deleteFile(String filename) {
-        amazonS3.deleteObject(bucketName, filename);
+    @CacheEvict(key = "#fileName")
+    public String deleteFile(String fileName) {
+        amazonS3.deleteObject(bucketName, fileName);
         return "File deleted";
     }
 

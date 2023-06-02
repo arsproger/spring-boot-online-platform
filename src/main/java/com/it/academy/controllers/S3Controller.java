@@ -52,7 +52,7 @@ public class S3Controller {
             contentType = "application/octet-stream";
         }
 
-        headers.add("Content-type", contentType); // image/jpeg, video/mp4
+        headers.add("Content-type", contentType);
         headers.add("Content-Disposition", "attachment; filename=" + filename);
         byte[] bytes = s3Service.downloadFile(filename);
         return ResponseEntity.status(HttpStatus.OK).headers(headers).body(bytes);
