@@ -18,22 +18,21 @@ import java.util.List;
 public class S3Controller {
     private final S3Service s3Service;
 
-    @PostMapping(value = "/upload/video", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping("/upload/video")
     @Operation(summary = "Загрузка видео для урока на сервер")
-    public String uploadVideo(@RequestPart Long lessonId, @RequestPart("file") MultipartFile file) {
+    public String uploadVideo(@RequestParam Long lessonId, @RequestParam("file") MultipartFile file) {
         return s3Service.saveLessonVideo(lessonId, file);
     }
 
-
-    @PostMapping(value = "/upload/course/image", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping("/upload/course/image")
     @Operation(summary = "Загрузка фото для курса на сервер")
-    public String uploadCourseImage(@RequestPart Long courseId, @RequestPart("file") MultipartFile file) {
+    public String uploadCourseImage(@RequestParam Long courseId, @RequestParam("file") MultipartFile file) {
         return s3Service.saveCourseImage(courseId, file);
     }
 
-    @PostMapping(value = "/upload/user/image", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping("/upload/user/image")
     @Operation(summary = "Загрузка фото для пользователя на сервер")
-    public String uploadUserImage(@RequestPart Long userId, @RequestPart("file") MultipartFile file) {
+    public String uploadUserImage(@RequestParam Long userId, @RequestParam("file") MultipartFile file) {
         return s3Service.saveUserImage(userId, file);
     }
 
