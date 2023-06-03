@@ -100,6 +100,7 @@ public class UserServiceImpl implements UserService {
                     .email(username)
                     .status(UserStatus.ACTIVE)
                     .imageUrl("default-user-image.jpg")
+                    .createdDate(LocalDate.now())
                     .build();
 
             userRepository.save(user);
