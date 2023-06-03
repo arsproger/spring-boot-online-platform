@@ -36,6 +36,12 @@ public class S3Controller {
         return s3Service.saveUserImage(userId, file);
     }
 
+    @PostMapping("/upload/categoryge/image")
+    @Operation(summary = "Загрузка фото для пользователя на сервер")
+    public String uploadCategoryImage(@RequestParam Long categoryId, @RequestParam("file") MultipartFile file) {
+        return s3Service.saveCategoryImage(categoryId, file);
+    }
+
     @GetMapping("/download/{filename:.+}")
     @Operation(summary = "Получение видео из сервера по его имени")
     public ResponseEntity<byte[]> download(@PathVariable("filename") String filename) {

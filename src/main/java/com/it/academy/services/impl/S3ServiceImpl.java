@@ -6,13 +6,11 @@ import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
 import com.amazonaws.util.IOUtils;
+import com.it.academy.dao.CategoryDao;
 import com.it.academy.dao.CourseDao;
 import com.it.academy.dao.LessonDao;
 import com.it.academy.dao.UserDao;
-import com.it.academy.services.CourseService;
-import com.it.academy.services.LessonService;
 import com.it.academy.services.S3Service;
-import com.it.academy.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.CacheConfig;
@@ -37,30 +35,31 @@ public class S3ServiceImpl implements S3Service {
     private String bucketName;
 
     private final AmazonS3 amazonS3;
-    private final LessonService lessonService;
-    private final CourseService courseService;
     private final UserDao userDao;
     private final CourseDao courseDao;
     private final LessonDao lessonDao;
-    private final UserService userService;
+    private final CategoryDao categoryDao;
 
     @Override
     public String saveLessonVideo(Long lessonId, MultipartFile file) {
-        lessonService.getById(lessonId);
         lessonDao.setVideoUrl(file.getOriginalFilename(), lessonId);
         return pushFile(file);
     }
 
     @Override
     public String saveUserImage(Long userId, MultipartFile file) {
-        userService.getById(userId);
         userDao.setImageUrl(file.getOriginalFilename(), userId);
         return pushFile(file);
     }
 
     @Override
+    public String saveCategoryImage(Long categoryId, MultipartFile file) {
+        categoryDao.setImageUrl(file.getOriginalFilename(), categoryId);
+        return pushFile(file);
+    }
+
+    @Override
     public String saveCourseImage(Long courseId, MultipartFile file) {
-        courseService.getById(courseId);
         courseDao.setImageUrl(file.getOriginalFilename(), courseId);
         return pushFile(file);
     }
