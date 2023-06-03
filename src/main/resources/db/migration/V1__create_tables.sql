@@ -99,6 +99,7 @@ create table users (
                        image_url varchar(255),
                        password varchar(255),
                        provider varchar(255),
+                       created_date date,
                        reset_token varchar(255),
                        reset_token_expire_time timestamp(6),
                        role varchar(255),

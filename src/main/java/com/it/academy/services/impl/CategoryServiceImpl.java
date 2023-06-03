@@ -1,13 +1,12 @@
 package com.it.academy.services.impl;
 
 import com.it.academy.dao.CategoryDao;
-import com.it.academy.exceptions.AppException;
 import com.it.academy.entities.Category;
 import com.it.academy.entities.Course;
+import com.it.academy.exceptions.AppException;
 import com.it.academy.repositories.CategoryRepository;
 import com.it.academy.repositories.CourseRepository;
 import com.it.academy.services.CategoryService;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;

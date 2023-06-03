@@ -18,6 +18,7 @@ public class UserRowMapper implements RowMapper<User> {
         user.setFullName("full_name");
         user.setEmail(rs.getString("email"));
         user.setPassword(rs.getString("password"));
+        user.setImageUrl(rs.getString("image_url"));
         user.setStripeAccountId(rs.getString("stripe_account_id"));
 
         return user;

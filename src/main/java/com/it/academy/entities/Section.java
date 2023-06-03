@@ -29,7 +29,7 @@ public class Section {
     @JoinColumn(name = "course_id", referencedColumnName = "id")
     private Course course;
 
-    @OneToMany(mappedBy = "section")
+    @OneToMany(mappedBy = "section", fetch = FetchType.LAZY)
     private List<Lesson> lessons;
 
 }

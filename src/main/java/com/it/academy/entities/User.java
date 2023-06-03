@@ -37,6 +37,8 @@ public class User {
 
     private String stripeAccountId;
 
+    private LocalDate createdDate;
+
     @Enumerated(EnumType.STRING)
     private Role role;
 
@@ -46,22 +48,21 @@ public class User {
     @Column(name = "reset_token")
     private String resetToken;
 
-    @Column(name = "reset_token_expire_time")
     private LocalDateTime resetTokenExpireTime;
 
     @Enumerated(EnumType.STRING)
     private Provider provider;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Subscription> subscriptions;
 
     @OneToOne
     private Cart cart;
 
-    @OneToMany(mappedBy = "author")
+    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
     private List<Course> courses;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Comment> comments;
 
 }

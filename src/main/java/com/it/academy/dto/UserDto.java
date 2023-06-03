@@ -35,6 +35,8 @@ public class UserDto {
 
     private Role role;
 
+    private LocalDate createdDate;
+
     @JsonProperty("imageName")
     private String imageUrl;
 

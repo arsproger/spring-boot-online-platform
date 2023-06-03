@@ -82,7 +82,7 @@ public class CourseController {
     public ResponseEntity<List<CourseDto>> priceFilter(
             @RequestParam(defaultValue = "ask")
             @Parameter(description = "Тип фильтрации по возрастанию и по убыванию") String filter) {
-        List<CourseDto> courses = filter.equals("desc")
+        List<CourseDto> courses = filter.equalsIgnoreCase("desc")
                 ? mapper.map(courseService.filterByPriceDesc())
                 : mapper.map(courseService.filterByPriceAsk());
 
@@ -115,6 +115,13 @@ public class CourseController {
     public ResponseEntity<Double> getCourseDurationSum(@PathVariable Long courseId) {
         Double durationSun = courseService.getCourseDuration(courseId);
         return new ResponseEntity<>(durationSun, HttpStatus.OK);
+    }
+
+    @GetMapping("/count")
+    @Operation(summary = "Получение количества всех курсов")
+    public ResponseEntity<Integer> getCountOfAllCourses() {
+        Integer courseCount = courseService.getCountOfAllCourses();
+        return new ResponseEntity<>(courseCount, HttpStatus.OK);
     }
 
 }

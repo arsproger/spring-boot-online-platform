@@ -37,6 +37,11 @@ public class AuthController {
     private final JWTUtil jwtUtil;
     private final UserValidator userValidator;
 
+    @GetMapping
+    public String auth() {
+        return "Пользователь не авторизован!";
+    }
+
     @PostMapping("/register")
     @Operation(summary = "Регистрация пользователя",
             description = "Если при регистрации email будет уже занят, " +
@@ -76,16 +81,16 @@ public class AuthController {
             return new ResponseEntity<>(message, HttpStatus.CONFLICT);
         }
 
-        Optional<User> user = userService.getByEmail(authenticationDTO.getUsername());
-        if (user.isEmpty() || user.get().getStatus() != UserStatus.ACTIVE) {
-            return new ResponseEntity<>(Map.of("message", "User is not active!"), HttpStatus.FORBIDDEN);
-        }
-
         try {
             authenticationManager.authenticate(authInputToken);
         } catch (BadCredentialsException e) {
             Map<String, String> message = Map.of("message", "Неверный логин или пароль!");
             return new ResponseEntity<>(message, HttpStatus.UNAUTHORIZED);
+        }
+
+        Optional<User> user = userService.getByEmail(authenticationDTO.getUsername());
+        if (user.isEmpty() || user.get().getStatus() != UserStatus.ACTIVE) {
+            return new ResponseEntity<>(Map.of("message", "User is not active!"), HttpStatus.FORBIDDEN);
         }
 
         String token = jwtUtil.generateToken(authenticationDTO.getUsername());

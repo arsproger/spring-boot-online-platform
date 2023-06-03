@@ -52,13 +52,13 @@ public class Course {
     @JoinColumn(name = "author_id", referencedColumnName = "id")
     private User author;
 
-    @OneToMany(mappedBy = "course")
+    @OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
     private List<Section> sections;
 
-    @OneToMany(mappedBy = "course")
+    @OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
     private List<Review> reviews;
 
-    @OneToMany(mappedBy = "course")
+    @OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
     private List<Subscription> subscriptions;
 
 }

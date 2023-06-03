@@ -39,6 +39,8 @@ public class CourseDto {
 
     private String author;
 
+    private Long authorId;
+
     @JsonProperty("imageName")
     private String imageUrl;
 

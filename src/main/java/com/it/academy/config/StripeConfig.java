@@ -13,9 +13,6 @@ public class StripeConfig {
     @Value("${stripe.secret.key}")
     private String secretKey;
 
-    @Value("${stripe.public.key}")
-    private String publicKey;
-
     @Bean
     public String getKey() {
         return Stripe.apiKey = secretKey;

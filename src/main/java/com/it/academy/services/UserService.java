@@ -15,12 +15,18 @@ public interface UserService {
 
     Long deleteById(Long id);
 
-    Long updateById(Long id, User updatedUser);
+    User updateById(Long id, User updatedUser);
 
     Optional<User> getByEmail(String email);
 
     Optional<User> getByResetToken(String resetToken);
 
     void processOAuthPostLogin(String username, String name, String registrationId);
+
+    List<User> getUserByCourseId(Long courseId);
+
+    Integer getCountOfAllUsers();
+
+    Integer getCountOfAllUsersToday();
 
 }

@@ -9,8 +9,6 @@ public interface CourseService {
 
     List<Course> getAll();
 
-    Long save(Course course);
-
     Long create(Long authorId, Long categoryId, Course course);
 
     Long deleteById(Long userId, Long courseId);
@@ -30,4 +28,7 @@ public interface CourseService {
     List<Course> filterByPriceDesc();
 
     List<Course> getCoursesByAuthor(Long authorId);
+
+    Integer getCountOfAllCourses();
+
 }

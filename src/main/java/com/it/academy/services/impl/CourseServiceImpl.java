@@ -38,15 +38,12 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public Long save(Course course) {
-        return courseRepository.save(course).getId();
-    }
-
-    @Override
     public Long create(Long authorId, Long categoryId, Course course) {
         User author = userService.getById(authorId);
         author.setRole(Role.ROLE_TRAINER);
         userService.save(author);
+
+        if (course.getImageUrl() == null) course.setImageUrl("default-course-image.jpg");
 
         Course createdCourse = Course.builder()
                 .author(author)
@@ -59,6 +56,7 @@ public class CourseServiceImpl implements CourseService {
                 .price(course.getPrice())
                 .subscriptions(course.getSubscriptions())
                 .created(LocalDate.now())
+                .imageUrl(course.getImageUrl())
                 .build();
 
         if (author.getStripeAccountId() == null || author.getStripeAccountId().isEmpty()) return null;
@@ -119,6 +117,11 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public List<Course> getCoursesByAuthor(Long authorId) {
         return courseDao.getByAuthorId(authorId);
+    }
+
+    @Override
+    public Integer getCountOfAllCourses() {
+        return courseDao.getCountOfAllCourses();
     }
 
     public List<Course> filterByPriceDesc() {
