@@ -90,7 +90,6 @@ public class S3ServiceImpl implements S3Service {
 
     @Override
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @Cacheable
     public List<String> listAllFiles() {
         ListObjectsV2Result listObjectsV2Result = amazonS3.listObjectsV2(bucketName);
         return listObjectsV2Result.getObjectSummaries()
