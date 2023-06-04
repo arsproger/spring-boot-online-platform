@@ -23,6 +23,8 @@ public class Category {
     @Size(min = 1, max = 155)
     private String title;
 
+    private String imageUrl;
+
     @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
     private List<Course> courses;
 }

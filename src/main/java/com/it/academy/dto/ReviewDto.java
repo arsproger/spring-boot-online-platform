@@ -22,4 +22,7 @@ public class ReviewDto {
     private String description;
     private Double grade;
     private LocalDate date;
+
+    private Long userId;
+
 }
