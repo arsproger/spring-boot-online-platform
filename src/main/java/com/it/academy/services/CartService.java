@@ -13,4 +13,6 @@ public interface CartService {
     void addCourseToCart(Long userId, Long courseId);
 
     void removeCourseFromCart(Long userId, Long courseId);
+
+    Double getUserCartCoursesPriceSum(Long id);
 }
