@@ -1,5 +1,6 @@
 package com.it.academy.services.impl;
 
+import com.it.academy.dao.UserDao;
 import com.it.academy.entities.User;
 import com.it.academy.exceptions.AppException;
 import com.it.academy.services.EmailService;
@@ -23,6 +24,8 @@ public class PasswordResetServiceImpl implements PasswordResetService {
     private final UserService userService;
     private final EmailService emailService;
     private final PasswordEncoder passwordEncoder;
+    private final UserDao userDao;
+
     @Value("${resetUrl}")
     private String resetUrl;
 
@@ -34,9 +37,8 @@ public class PasswordResetServiceImpl implements PasswordResetService {
         }
 
         String resetToken = UUID.randomUUID().toString();
-        user.get().setResetToken(resetToken);
-        user.get().setResetTokenExpireTime(LocalDateTime.now().plusMinutes(30)); // установка срока действия токена
-        userService.save(user.get());
+        LocalDateTime resetTokenExpireTime = LocalDateTime.now().plusMinutes(30);
+        userDao.updateUserResetTokenByEmail(email, resetToken, resetTokenExpireTime);
 
         String reset = resetUrl + "?token=" + resetToken;
         String emailText = "Для сброса пароля перейдите по ссылке: " + reset;
@@ -53,11 +55,11 @@ public class PasswordResetServiceImpl implements PasswordResetService {
         if (user.isEmpty() || user.get().getResetTokenExpireTime().isBefore(LocalDateTime.now()))
             throw new AppException("Неверный токен!", HttpStatus.FORBIDDEN);
 
-        user.get().setPassword(passwordEncoder.encode(newPassword));
-        user.get().setResetToken(null);
-        user.get().setResetTokenExpireTime(null);
-        userService.save(user.get());
+        String password = passwordEncoder.encode(newPassword);
+        userDao.updateUserResetTokenAfterReset(password, resetToken);
+
         Map<String, String> response = Map.of("message", "Пароль успешно изменен");
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
 }
