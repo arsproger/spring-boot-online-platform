@@ -48,7 +48,7 @@ public class UserServiceImpl implements UserService {
         user.setProvider(Provider.LOCAL);
         user.setCart(cartService.save(new Cart()));
         user.setCreatedDate(LocalDate.now());
-        if(user.getImageUrl() == null) user.setImageUrl("default-user-image.jpg");
+        if (user.getImageUrl() == null) user.setImageUrl("user-default.png");
 
         return userRepository.save(user).getId();
     }
@@ -62,20 +62,19 @@ public class UserServiceImpl implements UserService {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Long deleteById(Long id) {
         User user = getById(id);
-        user.setStatus(UserStatus.DELETED); // todo
+        user.setStatus(UserStatus.DELETED);
         return userRepository.save(user).getId();
     }
 
     @Override
-    public User updateById(Long id, User updatedUser) {
+    public void updateById(Long id, User updatedUser) {
         User user = getById(id);
 
         user.setFullName(updatedUser.getFullName());
         user.setEmail(updatedUser.getEmail());
-        user.setImageUrl(updatedUser.getImageUrl());
         user.setDateOfBirth(updatedUser.getDateOfBirth());
 
-        return userRepository.save(user);
+        userDao.updateUserById(id, user);
     }
 
     @Override
@@ -99,7 +98,7 @@ public class UserServiceImpl implements UserService {
                     .fullName(name)
                     .email(username)
                     .status(UserStatus.ACTIVE)
-                    .imageUrl("default-user-image.jpg")
+                    .imageUrl("user-default.png")
                     .createdDate(LocalDate.now())
                     .build();
 

@@ -19,13 +19,13 @@ public interface CourseService {
 
     List<Course> getCoursesByCategory(Long categoryId);
 
-    List<Course> getCoursesByLanguage(String language);
+    List<Course> getCoursesByLanguage(String language, Long categoryId);
 
     List<Course> getCoursesByName(String name);
 
-    List<Course> filterByPriceAsk();
+    List<Course> filterByPriceAsk(Long categoryId);
 
-    List<Course> filterByPriceDesc();
+    List<Course> filterByPriceDesc(Long categoryId);
 
     List<Course> getCoursesByAuthor(Long authorId);
 

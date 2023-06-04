@@ -1,7 +1,7 @@
 package com.it.academy.controllers;
 
-import com.it.academy.dao.UserDao;
 import com.it.academy.dto.UserDto;
+import com.it.academy.dto.UserUpdateDto;
 import com.it.academy.mappers.UserMapper;
 import com.it.academy.security.DetailsUser;
 import com.it.academy.services.UserService;
@@ -49,10 +49,11 @@ public class UserController {
         return new ResponseEntity<>(deletedId, HttpStatus.OK);
     }
 
-    @PatchMapping("/{id}")
-    public ResponseEntity<UserDto> updateUserById(@PathVariable Long id, @RequestBody @Valid UserDto userDto) {
-        UserDto user = mapper.map(userService.updateById(id, mapper.map(userDto)));
-        return new ResponseEntity<>(user, HttpStatus.OK);
+    @PutMapping
+    public HttpStatus updateUserById(@AuthenticationPrincipal DetailsUser detailsUser,
+                                     @RequestBody @Valid UserUpdateDto userDto) {
+        userService.updateById(detailsUser.getUser().getId(), mapper.map(userDto));
+        return HttpStatus.OK;
     }
 
     @GetMapping("/course/{courseId}")

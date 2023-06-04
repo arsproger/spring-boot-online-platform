@@ -21,19 +21,22 @@ public class CourseDao {
                 new CourseRowMapper(), authorId);
     }
 
-    public List<Course> filterByPriceAsk() {
-        return jdbcTemplate.query("SELECT * FROM courses join users u on u.id = courses.author_id ORDER BY price",
-                new CourseRowMapper());
+    public List<Course> filterByPriceAsk(Long categoryId) {
+        return jdbcTemplate.query("SELECT * FROM courses join users u on u.id = courses.author_id " +
+                        "where courses.category_id = ? ORDER BY price",
+                new CourseRowMapper(), categoryId);
     }
 
-    public List<Course> filterByPriceDesc() {
-        return jdbcTemplate.query("SELECT * FROM courses join users u on u.id = courses.author_id ORDER BY price desc",
-                new CourseRowMapper());
+    public List<Course> filterByPriceDesc(Long categoryId) {
+        return jdbcTemplate.query("SELECT * FROM courses join users u on u.id = courses.author_id " +
+                        "where courses.category_id = ? ORDER BY price desc",
+                new CourseRowMapper(), categoryId);
     }
 
-    public List<Course> getByLanguage(String language) {
-        return jdbcTemplate.query("SELECT * FROM Courses join users u on u.id = courses.author_id WHERE language ILIKE ?",
-                new CourseRowMapper(), ("%" + language + "%"));
+    public List<Course> getByLanguage(String language, Long categoryId) {
+        return jdbcTemplate.query("SELECT * FROM Courses join users u on u.id = courses.author_id " +
+                        "WHERE language ILIKE ? and courses.category_id = ?",
+                new CourseRowMapper(), ("%" + language + "%"), categoryId);
     }
 
     public List<Course> getCoursesByUserCart(Long userId) {
@@ -50,7 +53,7 @@ public class CourseDao {
     }
 
     public List<Course> getCourseByName(String name) {
-        return jdbcTemplate.query("SELECT courses.id, name, description, price, language, created FROM courses join users u on u.id = courses.author_id WHERE name ILIKE ?",
+        return jdbcTemplate.query("SELECT * FROM courses join users u on u.id = courses.author_id WHERE name ILIKE ?",
                 new CourseRowMapper(), ("%" + name + "%"));
     }
 

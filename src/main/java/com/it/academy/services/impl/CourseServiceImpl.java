@@ -105,8 +105,8 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public List<Course> getCoursesByLanguage(String language) {
-        return courseDao.getByLanguage(language);
+    public List<Course> getCoursesByLanguage(String language, Long categoryId) {
+        return courseDao.getByLanguage(language, categoryId);
     }
 
     @Override
@@ -124,13 +124,13 @@ public class CourseServiceImpl implements CourseService {
         return courseDao.getCountOfAllCourses();
     }
 
-    public List<Course> filterByPriceDesc() {
-        return courseDao.filterByPriceDesc();
+    public List<Course> filterByPriceDesc(Long categoryId) {
+        return courseDao.filterByPriceDesc(categoryId);
     }
 
     @Override
-    public List<Course> filterByPriceAsk() {
-        return courseDao.filterByPriceAsk();
+    public List<Course> filterByPriceAsk(Long categoryId) {
+        return courseDao.filterByPriceAsk(categoryId);
     }
 
 }

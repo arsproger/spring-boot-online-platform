@@ -36,4 +36,10 @@ public class UserDao {
         return jdbcTemplate.queryForObject("SELECT count(*) FROM users WHERE created_date = current_date", Integer.class);
     }
 
+    public void updateUserById(Long userId, User user) {
+        daoValidate.checkUserExistsById(userId);
+        jdbcTemplate.update("UPDATE users SET full_name = ?, date_of_birth = ? WHERE users.id = ?",
+                user.getFullName(), user.getDateOfBirth(), user.getId());
+    }
+
 }
