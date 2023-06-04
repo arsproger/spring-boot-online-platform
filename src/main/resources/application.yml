@@ -69,7 +69,7 @@ spring:
 
 oauth2-success-redirect-url: http://localhost:3000/setting/setting
 logoutSuccessUrl: https://final-project-two-theta.vercel.app
-resetUrl: spring-boot-online-platform.herokuapp.com/password/reset/
+resetUrl: http://localhost:3000/password/newPassword/newPassword
 
 jwt_secret: ${config.jwt.secret}
 

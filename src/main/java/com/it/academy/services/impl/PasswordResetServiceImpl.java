@@ -30,7 +30,7 @@ public class PasswordResetServiceImpl implements PasswordResetService {
     public ResponseEntity<Map<String, String>> resetPassword(String email) {
         Optional<User> user = userService.getByEmail(email);
         if (user.isEmpty()) {
-            throw new AppException("Пользователь не найден!", HttpStatus.NOT_FOUND);
+            throw new AppException("Пользователь с такой почтой не найден!", HttpStatus.NOT_FOUND);
         }
 
         String resetToken = UUID.randomUUID().toString();
@@ -38,7 +38,7 @@ public class PasswordResetServiceImpl implements PasswordResetService {
         user.get().setResetTokenExpireTime(LocalDateTime.now().plusMinutes(30)); // установка срока действия токена
         userService.save(user.get());
 
-        String reset = resetUrl + resetToken;
+        String reset = resetUrl + "?token=" + resetToken;
         String emailText = "Для сброса пароля перейдите по ссылке: " + reset;
 
         emailService.sendSimpleMessage(email, "Сброс пароля", emailText);
