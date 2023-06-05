@@ -19,13 +19,13 @@ public class ReviewDao {
         daoValidate.checkUserExistsById(authorId);
         String sql = "select * from reviews " +
                 "join courses on reviews.course_id = courses.id " +
-                "where author_id = ?";
+                "join users on(courses.author_id = users.id) where author_id = ?";
         return jdbcTemplate.query(sql, new ReviewRowMapper(), authorId);
     }
 
     public List<Review> getReviewsByCourseId(Long courseId) {
         daoValidate.checkCourseExistsById(courseId);
-        String sql = "select * from reviews " +
+        String sql = "select * from reviews join users on(reviews.user_id = users.id) " +
                 "where course_id = ?";
         return jdbcTemplate.query(sql, new ReviewRowMapper(), courseId);
     }

@@ -35,11 +35,12 @@ spring:
     properties:
       mail:
         smtp:
-          auth: false
+          auth: true
           starttls:
             enable: true
           ssl:
             enable: true
+    test-connection: true
 
   servlet:
     multipart:

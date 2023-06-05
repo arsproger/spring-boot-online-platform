@@ -100,6 +100,7 @@ public class UserServiceImpl implements UserService {
                     .status(UserStatus.ACTIVE)
                     .imageUrl("user-default.png")
                     .createdDate(LocalDate.now())
+                    .cart(cartService.save(new Cart()))
                     .build();
 
             userRepository.save(user);
