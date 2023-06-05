@@ -12,6 +12,8 @@ import java.time.LocalDate;
 @Getter
 @Schema(description = "Сущность отзыва")
 public class ReviewDto {
+    private Long id;
+
     @NotBlank(message = "Title cannot be empty!")
     @Size(max = 155, message = "Title must have a maximum of 155 characters!")
     private String title;
@@ -20,4 +22,7 @@ public class ReviewDto {
     private String description;
     private Double grade;
     private LocalDate date;
+
+    private Long userId;
+
 }

@@ -11,20 +11,20 @@ VALUES;
 INSERT INTO carts DEFAULT
 VALUES;
 
-INSERT INTO users (date_of_birth, email, full_name, password, provider, role, status, cart_id)
-VALUES ('1985-12-02', 'admin@mail.ru', 'Admin', '$2a$12$l6lPWCv3wejHwIQ4ooZeLuHJn8H6EcZAYRxm8XSxgyDTzIyAvFy9a',
+INSERT INTO users (date_of_birth, email, full_name, password, image_url, provider, role, status, cart_id)
+VALUES ('1985-12-02', 'admin@mail.ru', 'Admin', '$2a$12$l6lPWCv3wejHwIQ4ooZeLuHJn8H6EcZAYRxm8XSxgyDTzIyAvFy9a', 'default-course-image.jpg',
         'LOCAL', 'ROLE_STUDENT', 'ACTIVE', 2),
-       ('1990-05-15', 'user1@mail.ru', 'John Doe', '$2a$12$eYmYCplG.4GUqIR.hkoPpOWA1arpFak9uwjoqkojo5bY51PmfaCZe',
+       ('1990-05-15', 'user1@mail.ru', 'John Doe', '$2a$12$eYmYCplG.4GUqIR.hkoPpOWA1arpFak9uwjoqkojo5bY51PmfaCZe', 'default-course-image.jpg',
         'LOCAL', 'ROLE_STUDENT', 'ACTIVE', 1),
-       ('1985-12-02', 'user2@mail.ru', 'Jane Smith', '$2a$12$eYmYCplG.4GUqIR.hkoPpOWA1arpFak9uwjoqkojo5bY51PmfaCZe',
+       ('1985-12-02', 'user2@mail.ru', 'Jane Smith', '$2a$12$eYmYCplG.4GUqIR.hkoPpOWA1arpFak9uwjoqkojo5bY51PmfaCZe', 'default-course-image.jpg',
         'LOCAL', 'ROLE_STUDENT', 'ACTIVE', 2),
-       ('1978-09-20', 'user3@mail.ru', 'Mike Johnson', '$2a$12$eYmYCplG.4GUqIR.hkoPpOWA1arpFak9uwjoqkojo5bY51PmfaCZe',
-        'LOCAL', 'ROLE_STUDENT', 'iACTIVE', 3),
-       ('1992-06-10', 'user4@mail.ru', 'Emily Williams', '$2a$12$eYmYCplG.4GUqIR.hkoPpOWA1arpFak9uwjoqkojo5bY51PmfaCZe',
+       ('1978-09-20', 'user3@mail.ru', 'Mike Johnson', '$2a$12$eYmYCplG.4GUqIR.hkoPpOWA1arpFak9uwjoqkojo5bY51PmfaCZe', 'default-course-image.jpg',
+        'LOCAL', 'ROLE_STUDENT', 'ACTIVE', 3),
+       ('1992-06-10', 'user4@mail.ru', 'Emily Williams', '$2a$12$eYmYCplG.4GUqIR.hkoPpOWA1arpFak9uwjoqkojo5bY51PmfaCZe', 'default-course-image.jpg',
         'LOCAL', 'ROLE_STUDENT', 'ACTIVE', 4),
-       ('1987-03-25', 'user5@mail.ru', 'David Brown', '$2a$12$eYmYCplG.4GUqIR.hkoPpOWA1arpFak9uwjoqkojo5bY51PmfaCZe',
+       ('1987-03-25', 'user5@mail.ru', 'David Brown', '$2a$12$eYmYCplG.4GUqIR.hkoPpOWA1arpFak9uwjoqkojo5bY51PmfaCZe', 'default-course-image.jpg',
         'LOCAL', 'ROLE_STUDENT', 'ACTIVE', 5),
-       ('1995-11-08', 'user6@mail.ru', 'Sarah Jones', '$2a$12$eYmYCplG.4GUqIR.hkoPpOWA1arpFak9uwjoqkojo5bY51PmfaCZe',
+       ('1995-11-08', 'user6@mail.ru', 'Sarah Jones', '$2a$12$eYmYCplG.4GUqIR.hkoPpOWA1arpFak9uwjoqkojo5bY51PmfaCZe', 'default-course-image.jpg',
         'LOCAL', 'ROLE_STUDENT', 'ACTIVE', 6);
 
 INSERT INTO categories (title)

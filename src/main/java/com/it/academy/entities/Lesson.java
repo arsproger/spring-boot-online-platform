@@ -36,10 +36,10 @@ public class Lesson {
     @JoinColumn(name = "section_id", referencedColumnName = "id")
     private Section section;
 
-    @OneToMany(mappedBy = "lesson")
+    @OneToMany(mappedBy = "lesson", fetch = FetchType.LAZY)
     private List<Article> articles;
 
-    @OneToMany(mappedBy = "lesson")
+    @OneToMany(mappedBy = "lesson", fetch = FetchType.LAZY)
     private List<Comment> comments;
 
 }

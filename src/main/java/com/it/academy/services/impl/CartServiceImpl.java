@@ -38,4 +38,9 @@ public class CartServiceImpl implements CartService {
         cartDao.removeCourseFromCart(userId, courseId);
     }
 
+    @Override
+    public Double getUserCartCoursesPriceSum(Long id) {
+        return cartDao.getUserCartCoursesPriceSum(id);
+    }
+
 }

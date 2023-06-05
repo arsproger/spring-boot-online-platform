@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Component
@@ -26,6 +28,30 @@ public class UserDao {
     public void setImageUrl(String imageUrl, Long userId) {
         daoValidate.checkUserExistsById(userId);
         jdbcTemplate.update("UPDATE users set image_url = ? where id = ?", imageUrl, userId);
+    }
+
+    public Integer getCountOfAllUsers() {
+        return jdbcTemplate.queryForObject("SELECT count(*) FROM users", Integer.class);
+    }
+
+    public Integer getCountOfAllUsersToday() {
+        return jdbcTemplate.queryForObject("SELECT count(*) FROM users WHERE created_date = current_date", Integer.class);
+    }
+
+    public void updateUserById(Long userId, User user) {
+        daoValidate.checkUserExistsById(userId);
+        jdbcTemplate.update("UPDATE users SET full_name = ?, date_of_birth = ? WHERE users.id = ?",
+                user.getFullName(), user.getDateOfBirth(), user.getId());
+    }
+
+    public void updateUserResetTokenByEmail(String email, String resetToken, LocalDateTime resetTokenExpireTime) {
+        jdbcTemplate.update("UPDATE users SET reset_token = ?, reset_token_expire_time = ? where email = ?",
+                resetToken, resetTokenExpireTime, email);
+    }
+
+    public void updateUserResetTokenAfterReset(String newPassword, String resetToken) {
+        jdbcTemplate.update("UPDATE users SET password = ?, reset_token = NULL, reset_token_expire_time = NULL WHERE reset_token = ?",
+                newPassword, resetToken);
     }
 
 }

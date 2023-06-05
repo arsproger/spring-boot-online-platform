@@ -11,6 +11,8 @@ import lombok.Setter;
 @Getter
 @Schema(description = "Сущность статьи")
 public class ArticleDto {
+    private Long id;
+
     @NotEmpty(message = "Title cannot be empty!")
     @Size(max = 155, message = "Title must have a maximum of 155 characters!")
     private String title;

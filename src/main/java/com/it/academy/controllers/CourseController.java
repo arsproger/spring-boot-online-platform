@@ -81,24 +81,26 @@ public class CourseController {
         return new ResponseEntity<>(courses, HttpStatus.OK);
     }
 
-    @GetMapping("/filter/price")
-    @Operation(summary = "Фильтрация курса по цене",
+    @GetMapping("/filter/price/{categoryId}")
+    @Operation(summary = "Фильтрация курса по цене и категории",
             description = "По умолчанию фильтрацию будет по возрастанию, " +
                     "для фильтрации по убыванию нужно передать параметр filter как desc")
     public ResponseEntity<List<CourseDto>> priceFilter(
+            @PathVariable Long categoryId,
             @RequestParam(defaultValue = "ask")
             @Parameter(description = "Тип фильтрации по возрастанию и по убыванию") String filter) {
-        List<CourseDto> courses = filter.equals("desc")
-                ? mapper.map(courseService.filterByPriceDesc())
-                : mapper.map(courseService.filterByPriceAsk());
+        List<CourseDto> courses = filter.equalsIgnoreCase("desc")
+                ? mapper.map(courseService.filterByPriceDesc(categoryId))
+                : mapper.map(courseService.filterByPriceAsk(categoryId));
 
         return new ResponseEntity<>(courses, HttpStatus.OK);
     }
 
-    @GetMapping("/language/{language}")
-    @Operation(summary = "Получение всех курсов по определенному языку")
-    public ResponseEntity<List<CourseDto>> getByLanguage(@PathVariable String language) {
-        List<CourseDto> courses = mapper.map(courseService.getCoursesByLanguage(language));
+    @GetMapping("/language/{language}/{categoryId}")
+    @Operation(summary = "Получение всех курсов по определенному языку и категории")
+    public ResponseEntity<List<CourseDto>> getByLanguage(@PathVariable String language,
+                                                         @PathVariable Long categoryId) {
+        List<CourseDto> courses = mapper.map(courseService.getCoursesByLanguage(language, categoryId));
         return new ResponseEntity<>(courses, HttpStatus.OK);
     }
 
@@ -109,7 +111,7 @@ public class CourseController {
         return new ResponseEntity<>(courses, HttpStatus.OK);
     }
 
-    @GetMapping("name/{name}")
+    @GetMapping("/name/{name}")
     @Operation(summary = "Получение курсов по имени")
     public ResponseEntity<List<CourseDto>> getCourseByName(@PathVariable String name) {
         List<CourseDto> courses = mapper.map(courseService.getCoursesByName(name));
@@ -121,6 +123,13 @@ public class CourseController {
     public ResponseEntity<Double> getCourseDurationSum(@PathVariable Long courseId) {
         Double durationSun = courseService.getCourseDuration(courseId);
         return new ResponseEntity<>(durationSun, HttpStatus.OK);
+    }
+
+    @GetMapping("/count")
+    @Operation(summary = "Получение количества всех курсов")
+    public ResponseEntity<Integer> getCountOfAllCourses() {
+        Integer courseCount = courseService.getCountOfAllCourses();
+        return new ResponseEntity<>(courseCount, HttpStatus.OK);
     }
 
 }

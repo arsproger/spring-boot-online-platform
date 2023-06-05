@@ -49,9 +49,10 @@ public class CourseDaoTest {
 
     @Test
     public void testFilterByPriceAsk() {
-        Course course1 = Course.builder().price(new BigDecimal(700)).build();
-        Course course2 = Course.builder().price(new BigDecimal(800)).build();
-        Course course3 = Course.builder().price(new BigDecimal(500)).build();
+        Category category = Category.builder().id(1L).title("IT").build();
+        Course course1 = Course.builder().category(category).price(new BigDecimal(700)).build();
+        Course course2 = Course.builder().category(category).price(new BigDecimal(800)).build();
+        Course course3 = Course.builder().category(category).price(new BigDecimal(500)).build();
         List<Course> expectedCourses = Arrays.asList(course1, course2, course3);
         expectedCourses = expectedCourses.stream()
                 .sorted(Comparator.comparing(Course::getPrice)).collect(Collectors.toList());
@@ -59,7 +60,7 @@ public class CourseDaoTest {
         when(jdbcTemplate.query(anyString(), any(CourseRowMapper.class)))
                 .thenReturn(expectedCourses);
 
-        List<Course> actualCourses = courseDao.filterByPriceAsk();
+        List<Course> actualCourses = courseDao.filterByPriceAsk(category.getId());
 
         assertThat(actualCourses).isEqualTo(expectedCourses);
 
@@ -69,9 +70,10 @@ public class CourseDaoTest {
 
     @Test
     public void testFilterByPriceDesc() {
-        Course course1 = Course.builder().price(new BigDecimal(700)).build();
-        Course course2 = Course.builder().price(new BigDecimal(800)).build();
-        Course course3 = Course.builder().price(new BigDecimal(500)).build();
+        Category category = Category.builder().id(1L).title("IT").build();
+        Course course1 = Course.builder().category(category).price(new BigDecimal(700)).build();
+        Course course2 = Course.builder().category(category).price(new BigDecimal(800)).build();
+        Course course3 = Course.builder().category(category).price(new BigDecimal(500)).build();
         List<Course> expectedCourses = Arrays.asList(course1, course2, course3);
         expectedCourses = expectedCourses.stream()
                 .sorted(Comparator.comparing(Course::getPrice).reversed()).collect(Collectors.toList());
@@ -79,7 +81,7 @@ public class CourseDaoTest {
         when(jdbcTemplate.query(anyString(), any(CourseRowMapper.class)))
                 .thenReturn(expectedCourses);
 
-        List<Course> actualCourses = courseDao.filterByPriceDesc();
+        List<Course> actualCourses = courseDao.filterByPriceDesc(category.getId());
 
         assertThat(actualCourses).isEqualTo(expectedCourses);
 
@@ -89,14 +91,15 @@ public class CourseDaoTest {
 
     @Test
     public void testGetByLanguage() {
-        Course course1 = Course.builder().id(1L).language("ru").build();
-        Course course2 = Course.builder().id(2L).language("ru").build();
+        Category category = Category.builder().id(1L).title("IT").build();
+        Course course1 = Course.builder().id(1L).category(category).language("ru").build();
+        Course course2 = Course.builder().id(2L).category(category).language("ru").build();
         List<Course> expectedCourses = Arrays.asList(course1, course2);
 
         when(jdbcTemplate.query(anyString(), any(CourseRowMapper.class), anyString()))
                 .thenReturn(expectedCourses);
 
-        List<Course> actualCourses = courseDao.getByLanguage("ru");
+        List<Course> actualCourses = courseDao.getByLanguage("ru", category.getId());
 
         assertThat(actualCourses).isEqualTo(expectedCourses);
 

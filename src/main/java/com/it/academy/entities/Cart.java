@@ -20,7 +20,7 @@ public class Cart {
     @OneToOne(mappedBy = "cart")
     private User user;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(
             name = "carts_courses",
             joinColumns = @JoinColumn(name = "cart_id"),

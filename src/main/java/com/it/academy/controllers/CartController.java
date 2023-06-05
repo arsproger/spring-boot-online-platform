@@ -29,6 +29,13 @@ public class CartController {
         return new ResponseEntity<>(courses, HttpStatus.OK);
     }
 
+    @GetMapping("/sum")
+    @Operation(summary = "Получение итоговой суммы корзины текущего пользователя")
+    public ResponseEntity<Double> getUserCartCoursesPriceSum(@AuthenticationPrincipal DetailsUser detailsUser) {
+        Double cartCoursesSum = cartService.getUserCartCoursesPriceSum(detailsUser.getUser().getId());
+        return new ResponseEntity<>(cartCoursesSum, HttpStatus.OK);
+    }
+
     @PutMapping("/add/{courseId}")
     public HttpStatus addCourseToCart(@AuthenticationPrincipal DetailsUser detailsUser, @PathVariable Long courseId) {
         cartService.addCourseToCart(detailsUser.getUser().getId(), courseId);

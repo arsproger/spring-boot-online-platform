@@ -38,15 +38,12 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public Long save(Course course) {
-        return courseRepository.save(course).getId();
-    }
-
-    @Override
     public Long create(Long authorId, Long categoryId, Course course) {
         User author = userService.getById(authorId);
         author.setRole(Role.ROLE_TRAINER);
         userService.save(author);
+
+        if (course.getImageUrl() == null) course.setImageUrl("default-course-image.jpg");
 
         Course createdCourse = Course.builder()
                 .author(author)
@@ -59,6 +56,7 @@ public class CourseServiceImpl implements CourseService {
                 .price(course.getPrice())
                 .subscriptions(course.getSubscriptions())
                 .created(LocalDate.now())
+                .imageUrl(course.getImageUrl())
                 .build();
 
         if (author.getStripeAccountId() == null || author.getStripeAccountId().isEmpty()) return null;
@@ -107,8 +105,8 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public List<Course> getCoursesByLanguage(String language) {
-        return courseDao.getByLanguage(language);
+    public List<Course> getCoursesByLanguage(String language, Long categoryId) {
+        return courseDao.getByLanguage(language, categoryId);
     }
 
     @Override
@@ -121,13 +119,18 @@ public class CourseServiceImpl implements CourseService {
         return courseDao.getByAuthorId(authorId);
     }
 
-    public List<Course> filterByPriceDesc() {
-        return courseDao.filterByPriceDesc();
+    @Override
+    public Integer getCountOfAllCourses() {
+        return courseDao.getCountOfAllCourses();
+    }
+
+    public List<Course> filterByPriceDesc(Long categoryId) {
+        return courseDao.filterByPriceDesc(categoryId);
     }
 
     @Override
-    public List<Course> filterByPriceAsk() {
-        return courseDao.filterByPriceAsk();
+    public List<Course> filterByPriceAsk(Long categoryId) {
+        return courseDao.filterByPriceAsk(categoryId);
     }
 
 }

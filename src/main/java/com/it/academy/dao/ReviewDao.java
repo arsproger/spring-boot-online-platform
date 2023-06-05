@@ -36,4 +36,8 @@ public class ReviewDao {
                 Double.class, courseId);
     }
 
+    public Integer getCountOfAllReviews() {
+        return jdbcTemplate.queryForObject("SELECT count(*) FROM reviews", Integer.class);
+    }
+
 }

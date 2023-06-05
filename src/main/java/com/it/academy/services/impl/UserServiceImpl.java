@@ -1,11 +1,12 @@
 package com.it.academy.services.impl;
 
+import com.it.academy.dao.UserDao;
 import com.it.academy.entities.Cart;
+import com.it.academy.entities.User;
 import com.it.academy.enums.Provider;
 import com.it.academy.enums.Role;
 import com.it.academy.enums.UserStatus;
 import com.it.academy.exceptions.AppException;
-import com.it.academy.entities.User;
 import com.it.academy.repositories.UserRepository;
 import com.it.academy.services.CartService;
 import com.it.academy.services.UserService;
@@ -15,6 +16,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,6 +26,7 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final CartService cartService;
+    private final UserDao userDao;
 
     @Override
     @PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -44,10 +47,11 @@ public class UserServiceImpl implements UserService {
         user.setRole(Role.ROLE_STUDENT);
         user.setProvider(Provider.LOCAL);
         user.setCart(cartService.save(new Cart()));
+        user.setCreatedDate(LocalDate.now());
+        if (user.getImageUrl() == null) user.setImageUrl("user-default.png");
 
         return userRepository.save(user).getId();
     }
-
 
     @Override
     public Long save(User user) {
@@ -58,18 +62,19 @@ public class UserServiceImpl implements UserService {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Long deleteById(Long id) {
         User user = getById(id);
-        user.setStatus(UserStatus.DELETED); // todo
+        user.setStatus(UserStatus.DELETED);
         return userRepository.save(user).getId();
     }
 
     @Override
-    public Long updateById(Long id, User updatedUser) {
+    public void updateById(Long id, User updatedUser) {
         User user = getById(id);
 
         user.setFullName(updatedUser.getFullName());
+        user.setEmail(updatedUser.getEmail());
         user.setDateOfBirth(updatedUser.getDateOfBirth());
 
-        return userRepository.save(user).getId();
+        userDao.updateUserById(id, user);
     }
 
     @Override
@@ -93,11 +98,27 @@ public class UserServiceImpl implements UserService {
                     .fullName(name)
                     .email(username)
                     .status(UserStatus.ACTIVE)
+                    .imageUrl("user-default.png")
+                    .createdDate(LocalDate.now())
                     .build();
 
             userRepository.save(user);
         }
     }
 
+    @Override
+    public List<User> getUserByCourseId(Long courseId) {
+        return userDao.getUserByCourseId(courseId);
+    }
+
+    @Override
+    public Integer getCountOfAllUsers() {
+        return userDao.getCountOfAllUsers();
+    }
+
+    @Override
+    public Integer getCountOfAllUsersToday() {
+        return userDao.getCountOfAllUsersToday();
+    }
 
 }

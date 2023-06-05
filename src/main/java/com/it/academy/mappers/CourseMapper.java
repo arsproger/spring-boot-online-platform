@@ -12,9 +12,11 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface CourseMapper {
     @Mapping(source = "author", target = "author.fullName")
+    @Mapping(source = "authorId", target = "author.id")
     Course map(CourseDto dto);
 
     @Mapping(source = "author.fullName", target = "author")
+    @Mapping(source = "author.id", target = "authorId")
     CourseDto map(Course entity);
 
     List<CourseDto> map(List<Course> entity);

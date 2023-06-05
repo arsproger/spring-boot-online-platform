@@ -1,7 +1,7 @@
 package com.it.academy.controllers;
 
-import com.it.academy.dao.UserDao;
 import com.it.academy.dto.UserDto;
+import com.it.academy.dto.UserUpdateDto;
 import com.it.academy.mappers.UserMapper;
 import com.it.academy.security.DetailsUser;
 import com.it.academy.services.UserService;
@@ -22,7 +22,6 @@ import java.util.List;
 @Tag(name = "Контроллер пользователя")
 public class UserController {
     private final UserService userService;
-    private final UserDao userDao;
     private final UserMapper mapper;
 
     @GetMapping
@@ -50,18 +49,33 @@ public class UserController {
         return new ResponseEntity<>(deletedId, HttpStatus.OK);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Long> updateUserById(@PathVariable Long id, @RequestBody @Valid UserDto user) {
-        Long updatedId = userService.updateById(id, mapper.map(user));
-        return new ResponseEntity<>(updatedId, HttpStatus.OK);
+    @PutMapping
+    public HttpStatus updateUserById(@AuthenticationPrincipal DetailsUser detailsUser,
+                                     @RequestBody @Valid UserUpdateDto userDto) {
+        userService.updateById(detailsUser.getUser().getId(), mapper.map(userDto));
+        return HttpStatus.OK;
     }
 
     @GetMapping("/course/{courseId}")
     @Operation(summary = "Получение всех пользователей курса",
             description = "При получении всех пользователей определенного курса, нужно передать id курса")
     public ResponseEntity<List<UserDto>> getByCourseId(@PathVariable Long courseId) {
-        List<UserDto> users = mapper.map(userDao.getUserByCourseId(courseId));
+        List<UserDto> users = mapper.map(userService.getUserByCourseId(courseId));
         return new ResponseEntity<>(users, HttpStatus.OK);
+    }
+
+    @GetMapping("/count")
+    @Operation(summary = "Получение количества всех пользователей")
+    public ResponseEntity<Integer> getCountOfAllUsers() {
+        Integer userCount = userService.getCountOfAllUsers();
+        return new ResponseEntity<>(userCount, HttpStatus.OK);
+    }
+
+    @GetMapping("/count/today")
+    @Operation(summary = "Получение количества всех пользователей зарегистрированных сегодня")
+    public ResponseEntity<Integer> getCountOfAllUsersToday() {
+        Integer userCount = userService.getCountOfAllUsersToday();
+        return new ResponseEntity<>(userCount, HttpStatus.OK);
     }
 
 }

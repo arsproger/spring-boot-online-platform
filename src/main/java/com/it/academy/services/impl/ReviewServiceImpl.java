@@ -94,4 +94,9 @@ public class ReviewServiceImpl implements ReviewService {
         return reviewRepository.save(review).getId();
     }
 
+    @Override
+    public Integer getCountOfAllReviews() {
+        return reviewDao.getCountOfAllReviews();
+    }
+
 }

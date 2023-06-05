@@ -19,6 +19,7 @@ public class CourseRowMapper implements RowMapper<Course> {
         course.setPrice(rs.getBigDecimal("price"));
         course.setLanguage(rs.getString("language"));
         course.setCreated(rs.getDate("created").toLocalDate());
+        course.setImageUrl(rs.getString("image_url"));
         User author = new User();
         author.setId(rs.getLong("author_id"));
         author.setFullName(rs.getString("full_name"));
