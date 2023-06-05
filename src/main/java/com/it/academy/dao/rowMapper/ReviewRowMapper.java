@@ -23,6 +23,9 @@ public class ReviewRowMapper implements RowMapper<Review> {
         review.setDate(rs.getObject("date", LocalDate.class));
         User user = new User();
         user.setId(rs.getLong("user_id"));
+        user.setFullName("full_name");
+        user.setEmail("email");
+        user.setImageUrl("image_url");
         review.setUser(user);
         return review;
     }

@@ -3,6 +3,7 @@ package com.it.academy.controllers;
 import com.it.academy.dto.CategoryDto;
 import com.it.academy.mappers.CategoryMapper;
 import com.it.academy.services.CategoryService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -51,6 +52,7 @@ public class CategoryController {
     }
 
     @GetMapping("/title/{title}")
+    @Operation(summary = "Получение категорий по заголовку")
     public ResponseEntity<List<CategoryDto>> getCategoriesByTitle(@PathVariable String title) {
         List<CategoryDto> comments = categoryMapper.map(categoryService.getCategoriesByTitle(title));
         return new ResponseEntity<>(comments, HttpStatus.OK);
