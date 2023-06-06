@@ -11,10 +11,12 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,6 +24,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/course")
 @AllArgsConstructor
+@Validated
 @Tag(name = "Контроллер для курса")
 public class CourseController {
     private final CourseService courseService;
@@ -76,13 +79,13 @@ public class CourseController {
         return new ResponseEntity<>(courses, HttpStatus.OK);
     }
 
-    @GetMapping("/filter/price/{categoryId}")
+    @GetMapping("/filter/price/")
     @Operation(summary = "Фильтрация курса по цене и категории",
             description = "По умолчанию фильтрацию будет по возрастанию, " +
                     "для фильтрации по убыванию нужно передать параметр filter как desc")
     public ResponseEntity<CoursePaginationDto> priceFilter(
-            @PathVariable Long categoryId,
-            @RequestParam Integer pageNumber,
+            @RequestParam Long categoryId,
+            @RequestParam(defaultValue = "1") @Min(value = 1) Integer pageNumber,
             @RequestParam(defaultValue = "10") Integer pageSize,
             @RequestParam(defaultValue = "ask")
             @Parameter(description = "Тип фильтрации по возрастанию и по убыванию") String filter) {
@@ -91,7 +94,10 @@ public class CourseController {
                 : mapper.map(courseService.filterByPriceAsk(categoryId, pageNumber, pageSize));
         CoursePaginationDto coursePaginationDto = CoursePaginationDto.builder()
                 .courses(courses)
-                .amountPage((courseService
+                .amountPage(filter.equalsIgnoreCase("desc")
+                        ? (courseService
+                        .filterByPriceDesc(categoryId, pageNumber, courseService.getAll().size()).size() + 9) / pageSize
+                        : (courseService
                         .filterByPriceAsk(categoryId, pageNumber, courseService.getAll().size()).size() + 9) / pageSize)
                 .build();
 
@@ -100,16 +106,17 @@ public class CourseController {
 
     @GetMapping("/language")
     @Operation(summary = "Получение всех курсов по определенному языку и категории")
-    public ResponseEntity<CoursePaginationDto> getByLanguage(@RequestParam String language,
-                                                             @RequestParam Long categoryId,
-                                                             @RequestParam Integer pageNumber,
-                                                             @RequestParam(defaultValue = "10") Integer pageSize) {
+    public ResponseEntity<CoursePaginationDto> getByLanguage(
+            @RequestParam String language,
+            @RequestParam Long categoryId,
+            @RequestParam(defaultValue = "1") @Min(value = 1) Integer pageNumber,
+            @RequestParam(defaultValue = "10") Integer pageSize) {
         List<CourseDto> courses =
                 mapper.map(courseService.getCoursesByLanguage(language, categoryId, pageNumber, pageSize));
         CoursePaginationDto coursePaginationDto = CoursePaginationDto.builder()
                 .courses(courses)
                 .amountPage((courseService
-                        .filterByPriceAsk(categoryId, pageNumber, courseService.getAll().size()).size() + 9) / pageSize)
+                        .getCoursesByLanguage(language, categoryId, pageNumber, courseService.getAll().size()).size() + 9) / pageSize)
                 .build();
 
         return new ResponseEntity<>(coursePaginationDto, HttpStatus.OK);
@@ -117,15 +124,16 @@ public class CourseController {
 
     @GetMapping("/category")
     @Operation(summary = "Получение всех курсов по определенной категории")
-    public ResponseEntity<CoursePaginationDto> getCourseByCategoryId(@RequestParam Long categoryId,
-                                                                     @RequestParam Integer pageNumber,
-                                                                     @RequestParam(defaultValue = "10") Integer pageSize) {
+    public ResponseEntity<CoursePaginationDto> getCourseByCategoryId(
+            @RequestParam Long categoryId,
+            @RequestParam(defaultValue = "1") @Min(value = 1) Integer pageNumber,
+            @RequestParam(defaultValue = "10") Integer pageSize) {
         List<CourseDto> courses = mapper.map(courseService.getCoursesByCategory(categoryId, pageNumber, pageSize));
 
         CoursePaginationDto coursePaginationDto = CoursePaginationDto.builder()
                 .courses(courses)
                 .amountPage((courseService
-                        .filterByPriceAsk(categoryId, pageNumber, courseService.getAll().size()).size() + 9) / pageSize)
+                        .getCoursesByCategory(categoryId, pageNumber, courseService.getAll().size()).size() + 9) / pageSize)
                 .build();
         return new ResponseEntity<>(coursePaginationDto, HttpStatus.OK);
     }
