@@ -1,6 +1,5 @@
 package com.it.academy.dao;
 
-import com.it.academy.dao.rowMapper.SectionRowMapper;
 import com.it.academy.dao.rowMapper.SubscriptionRowMapper;
 import com.it.academy.entities.Subscription;
 import com.it.academy.entities.User;
@@ -13,8 +12,7 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;

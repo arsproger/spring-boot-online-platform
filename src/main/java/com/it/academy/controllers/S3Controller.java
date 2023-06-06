@@ -36,6 +36,12 @@ public class S3Controller {
         return s3Service.saveUserImage(userId, file);
     }
 
+    @PostMapping("/upload/categoryge/image")
+    @Operation(summary = "Загрузка фото для пользователя на сервер")
+    public String uploadCategoryImage(@RequestParam Long categoryId, @RequestParam("file") MultipartFile file) {
+        return s3Service.saveCategoryImage(categoryId, file);
+    }
+
     @GetMapping("/download/{filename:.+}")
     @Operation(summary = "Получение файла из сервера по его имени")
     public ResponseEntity<byte[]> download(@PathVariable("filename") String filename) {
@@ -52,7 +58,7 @@ public class S3Controller {
             contentType = "application/octet-stream";
         }
 
-        headers.add("Content-type", contentType); // image/jpeg, video/mp4
+        headers.add("Content-type", contentType);
         headers.add("Content-Disposition", "attachment; filename=" + filename);
         byte[] bytes = s3Service.downloadFile(filename);
         return ResponseEntity.status(HttpStatus.OK).headers(headers).body(bytes);

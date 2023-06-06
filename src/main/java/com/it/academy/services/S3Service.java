@@ -11,6 +11,8 @@ public interface S3Service {
 
     String saveUserImage(Long userId, MultipartFile file);
 
+    String saveCategoryImage(Long categoryId, MultipartFile file);
+
     String pushFile(MultipartFile file);
 
     byte[] downloadFile(String filename);
