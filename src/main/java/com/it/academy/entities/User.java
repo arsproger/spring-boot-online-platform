@@ -5,6 +5,7 @@ import com.it.academy.enums.Role;
 import com.it.academy.enums.UserStatus;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -31,6 +32,7 @@ public class User {
     @NotEmpty
     private String email;
 
+    @NotEmpty
     private String password;
 
     private String imageUrl;

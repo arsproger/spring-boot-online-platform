@@ -81,27 +81,30 @@ public class CourseController {
                     "для фильтрации по убыванию нужно передать параметр filter как desc")
     public ResponseEntity<List<CourseDto>> priceFilter(
             @PathVariable Long categoryId,
+            @RequestParam Integer pageNumber,
             @RequestParam(defaultValue = "ask")
             @Parameter(description = "Тип фильтрации по возрастанию и по убыванию") String filter) {
         List<CourseDto> courses = filter.equalsIgnoreCase("desc")
-                ? mapper.map(courseService.filterByPriceDesc(categoryId))
-                : mapper.map(courseService.filterByPriceAsk(categoryId));
+                ? mapper.map(courseService.filterByPriceDesc(categoryId, pageNumber))
+                : mapper.map(courseService.filterByPriceAsk(categoryId, pageNumber));
 
         return new ResponseEntity<>(courses, HttpStatus.OK);
     }
 
-    @GetMapping("/language/{language}/{categoryId}")
+    @GetMapping("/language")
     @Operation(summary = "Получение всех курсов по определенному языку и категории")
-    public ResponseEntity<List<CourseDto>> getByLanguage(@PathVariable String language,
-                                                         @PathVariable Long categoryId) {
-        List<CourseDto> courses = mapper.map(courseService.getCoursesByLanguage(language, categoryId));
+    public ResponseEntity<List<CourseDto>> getByLanguage(@RequestParam String language,
+                                                         @RequestParam Long categoryId,
+                                                         @RequestParam Integer pageNumber) {
+        List<CourseDto> courses = mapper.map(courseService.getCoursesByLanguage(language, categoryId, pageNumber));
         return new ResponseEntity<>(courses, HttpStatus.OK);
     }
 
-    @GetMapping("/category/{categoryId}")
+    @GetMapping("/category")
     @Operation(summary = "Получение всех курсов по определенной категории")
-    public ResponseEntity<List<CourseDto>> getCourseByCategoryId(@PathVariable Long categoryId) {
-        List<CourseDto> courses = mapper.map(courseService.getCoursesByCategory(categoryId));
+    public ResponseEntity<List<CourseDto>> getCourseByCategoryId(@RequestParam Long categoryId,
+                                                                 @RequestParam Integer pageNumber) {
+        List<CourseDto> courses = mapper.map(courseService.getCoursesByCategory(categoryId, pageNumber));
         return new ResponseEntity<>(courses, HttpStatus.OK);
     }
 
