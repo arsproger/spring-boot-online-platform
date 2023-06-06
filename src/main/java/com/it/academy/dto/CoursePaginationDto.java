@@ -11,5 +11,5 @@ import java.util.List;
 @Builder
 public class CoursePaginationDto {
     private List<CourseDto> courses;
-    private Integer amountPage;
+    private List<Integer> amountPage;
 }

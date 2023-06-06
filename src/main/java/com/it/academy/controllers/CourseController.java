@@ -20,6 +20,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @RestController
 @RequestMapping("/course")
@@ -79,7 +81,7 @@ public class CourseController {
         return new ResponseEntity<>(courses, HttpStatus.OK);
     }
 
-    @GetMapping("/filter/price/")
+    @GetMapping("/filter/price")
     @Operation(summary = "Фильтрация курса по цене и категории",
             description = "По умолчанию фильтрацию будет по возрастанию, " +
                     "для фильтрации по убыванию нужно передать параметр filter как desc")
@@ -95,10 +97,12 @@ public class CourseController {
         CoursePaginationDto coursePaginationDto = CoursePaginationDto.builder()
                 .courses(courses)
                 .amountPage(filter.equalsIgnoreCase("desc")
-                        ? (courseService
-                        .filterByPriceDesc(categoryId, pageNumber, courseService.getAll().size()).size() + 9) / pageSize
-                        : (courseService
-                        .filterByPriceAsk(categoryId, pageNumber, courseService.getAll().size()).size() + 9) / pageSize)
+                        ? IntStream.rangeClosed(1, (courseService
+                                .filterByPriceDesc(categoryId, 1, courseService.getAll().size()).size() + 9) / pageSize)
+                        .boxed().collect(Collectors.toList())
+                        : IntStream.rangeClosed(1, (courseService
+                                .filterByPriceAsk(categoryId, 1, courseService.getAll().size()).size() + 9) / pageSize)
+                        .boxed().collect(Collectors.toList()))
                 .build();
 
         return new ResponseEntity<>(coursePaginationDto, HttpStatus.OK);
@@ -115,8 +119,9 @@ public class CourseController {
                 mapper.map(courseService.getCoursesByLanguage(language, categoryId, pageNumber, pageSize));
         CoursePaginationDto coursePaginationDto = CoursePaginationDto.builder()
                 .courses(courses)
-                .amountPage((courseService
-                        .getCoursesByLanguage(language, categoryId, pageNumber, courseService.getAll().size()).size() + 9) / pageSize)
+                .amountPage(IntStream.rangeClosed(1, (courseService
+                                .getCoursesByLanguage(language, categoryId, 1, courseService.getAll().size()).size() + 9) / pageSize)
+                        .boxed().collect(Collectors.toList()))
                 .build();
 
         return new ResponseEntity<>(coursePaginationDto, HttpStatus.OK);
@@ -132,8 +137,9 @@ public class CourseController {
 
         CoursePaginationDto coursePaginationDto = CoursePaginationDto.builder()
                 .courses(courses)
-                .amountPage((courseService
-                        .getCoursesByCategory(categoryId, pageNumber, courseService.getAll().size()).size() + 9) / pageSize)
+                .amountPage(IntStream.rangeClosed(1, (courseService
+                                .getCoursesByCategory(categoryId, 1, courseService.getAll().size()).size() + 9) / pageSize)
+                        .boxed().collect(Collectors.toList()))
                 .build();
         return new ResponseEntity<>(coursePaginationDto, HttpStatus.OK);
     }

@@ -28,7 +28,7 @@ public class CourseServiceImpl implements CourseService {
     private final CourseDao courseDao;
 
     @Override
-    @PreAuthorize("permitAll")
+    @PreAuthorize("permitAll()")
     public Course getById(Long id) {
         return courseRepository.findById(id).orElseThrow(
                 () -> new AppException("Course not found with id: " + id, HttpStatus.NOT_FOUND));
