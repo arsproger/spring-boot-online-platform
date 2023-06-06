@@ -3,6 +3,7 @@ package com.it.academy.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.it.academy.controllers.S3Controller;
 import com.it.academy.enums.Role;
+import com.it.academy.enums.UserStatus;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -36,6 +37,8 @@ public class UserDto {
     private Role role;
 
     private LocalDate createdDate;
+
+    private UserStatus status;
 
     @JsonProperty("imageName")
     private String imageUrl;

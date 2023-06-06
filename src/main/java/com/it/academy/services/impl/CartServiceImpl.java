@@ -40,7 +40,8 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public Double getUserCartCoursesPriceSum(Long id) {
-        return cartDao.getUserCartCoursesPriceSum(id);
+        Double cartCoursesSum = cartDao.getUserCartCoursesPriceSum(id);
+        return cartCoursesSum != null ? cartCoursesSum : 0.0;
     }
 
 }
