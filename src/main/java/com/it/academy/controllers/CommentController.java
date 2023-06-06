@@ -50,6 +50,7 @@ public class CommentController {
     }
 
     @GetMapping("/lesson/{lessonId}")
+    @Operation(summary = "Получение комментариев по id урока")
     public ResponseEntity<List<CommentDto>> getCommentsByLessonId(@PathVariable Long lessonId) {
         List<CommentDto> dtos = mapper.map(service.getCommentsByLessonId(lessonId));
         return new ResponseEntity<>(dtos, HttpStatus.OK);

@@ -4,6 +4,7 @@ import com.it.academy.dto.LessonDto;
 import com.it.academy.mappers.LessonMapper;
 import com.it.academy.security.DetailsUser;
 import com.it.academy.services.impl.LessonServiceImpl;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -22,7 +23,8 @@ public class LessonController {
     private final LessonServiceImpl lessonService;
     private final LessonMapper mapper;
 
-    @GetMapping("section/{sectionId}")
+    @GetMapping("/section/{sectionId}")
+    @Operation(summary = "Получение уроков по id раздела")
     public ResponseEntity<List<LessonDto>> getLessonsBySection(@PathVariable Long sectionId) {
         List<LessonDto> lessons = mapper.map(lessonService.getLessonsBySection(sectionId));
         return new ResponseEntity<>(lessons, HttpStatus.OK);

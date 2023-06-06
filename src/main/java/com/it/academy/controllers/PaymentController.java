@@ -3,6 +3,7 @@ package com.it.academy.controllers;
 import com.it.academy.security.DetailsUser;
 import com.it.academy.services.PaymentService;
 import com.stripe.exception.StripeException;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -18,6 +19,7 @@ public class PaymentController {
     private final PaymentService paymentService;
 
     @PostMapping("/pay")
+    @Operation(summary = "Оплата для курса")
     public ResponseEntity<String> makePayment(
             @AuthenticationPrincipal DetailsUser detailsUser,
             @RequestParam Long courseId,

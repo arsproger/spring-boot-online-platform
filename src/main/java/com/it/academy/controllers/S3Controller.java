@@ -37,7 +37,7 @@ public class S3Controller {
     }
 
     @GetMapping("/download/{filename:.+}")
-    @Operation(summary = "Получение видео из сервера по его имени")
+    @Operation(summary = "Получение файла из сервера по его имени")
     public ResponseEntity<byte[]> download(@PathVariable("filename") String filename) {
         HttpHeaders headers = new HttpHeaders();
 
