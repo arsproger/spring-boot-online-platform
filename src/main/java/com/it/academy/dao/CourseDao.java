@@ -14,7 +14,6 @@ import java.util.List;
 public class CourseDao {
     private final JdbcTemplate jdbcTemplate;
     private final DaoValidate daoValidate;
-    private final Integer pageSize = 10;
 
     public List<Course> getByAuthorId(Long authorId) {
         daoValidate.checkUserExistsById(authorId);
@@ -22,7 +21,7 @@ public class CourseDao {
                 new CourseRowMapper(), authorId);
     }
 
-    public List<Course> filterByPriceAsk(Long categoryId, Integer pageNumber) {
+    public List<Course> filterByPriceAsk(Long categoryId, Integer pageNumber, Integer pageSize) {
         int offset = (pageNumber - 1) * pageSize;
 
         return jdbcTemplate.query("SELECT * FROM courses join users u on u.id = courses.author_id " +
@@ -30,7 +29,7 @@ public class CourseDao {
                 new CourseRowMapper(), categoryId, pageSize, offset);
     }
 
-    public List<Course> filterByPriceDesc(Long categoryId, Integer pageNumber) {
+    public List<Course> filterByPriceDesc(Long categoryId, Integer pageNumber, Integer pageSize) {
         int offset = (pageNumber - 1) * pageSize;
 
         return jdbcTemplate.query("SELECT * FROM courses join users u on u.id = courses.author_id " +
@@ -38,7 +37,7 @@ public class CourseDao {
                 new CourseRowMapper(), categoryId, pageSize, offset);
     }
 
-    public List<Course> getByLanguage(String language, Long categoryId, Integer pageNumber) {
+    public List<Course> getByLanguage(String language, Long categoryId, Integer pageNumber, Integer pageSize) {
         int offset = (pageNumber - 1) * pageSize;
 
         return jdbcTemplate.query("SELECT * FROM Courses join users u on u.id = courses.author_id " +
@@ -54,7 +53,7 @@ public class CourseDao {
                 new CourseRowMapper(), userId);
     }
 
-    public List<Course> getCourseByCategoryId(Long categoryId, Integer pageNumber) {
+    public List<Course> getCourseByCategoryId(Long categoryId, Integer pageNumber, Integer pageSize) {
         int offset = (pageNumber - 1) * pageSize;
 
         daoValidate.checkCategoryExistsById(categoryId);

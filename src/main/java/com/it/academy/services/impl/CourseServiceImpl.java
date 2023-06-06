@@ -111,14 +111,14 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     @PreAuthorize("permitAll()")
-    public List<Course> getCoursesByLanguage(String language, Long categoryId, Integer pageNumber) {
-        return courseDao.getByLanguage(language, categoryId, pageNumber);
+    public List<Course> getCoursesByLanguage(String language, Long categoryId, Integer pageNumber, Integer pageSize) {
+        return courseDao.getByLanguage(language, categoryId, pageNumber, pageSize);
     }
 
     @Override
     @PreAuthorize("permitAll()")
-    public List<Course> getCoursesByCategory(Long categoryId, Integer pageNumber) {
-        return courseDao.getCourseByCategoryId(categoryId, pageNumber);
+    public List<Course> getCoursesByCategory(Long categoryId, Integer pageNumber, Integer pageSize) {
+        return courseDao.getCourseByCategoryId(categoryId, pageNumber, pageSize);
     }
 
     @Override
@@ -135,14 +135,14 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     @PreAuthorize("permitAll()")
-    public List<Course> filterByPriceDesc(Long categoryId, Integer pageNumber) {
-        return courseDao.filterByPriceDesc(categoryId, pageNumber);
+    public List<Course> filterByPriceDesc(Long categoryId, Integer pageNumber, Integer pageSize) {
+        return courseDao.filterByPriceDesc(categoryId, pageNumber, pageSize);
     }
 
     @Override
     @PreAuthorize("permitAll()")
-    public List<Course> filterByPriceAsk(Long categoryId, Integer pageNumber) {
-        return courseDao.filterByPriceAsk(categoryId, pageNumber);
+    public List<Course> filterByPriceAsk(Long categoryId, Integer pageNumber, Integer pageSize) {
+        return courseDao.filterByPriceAsk(categoryId, pageNumber, pageSize);
     }
 
 }

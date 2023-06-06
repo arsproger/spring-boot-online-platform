@@ -17,15 +17,15 @@ public interface CourseService {
 
     Double getCourseDuration(Long courseId);
 
-    List<Course> getCoursesByCategory(Long categoryId, Integer pageNumber);
+    List<Course> getCoursesByCategory(Long categoryId, Integer pageNumber, Integer pageSize);
 
-    List<Course> getCoursesByLanguage(String language, Long categoryId, Integer pageNumber);
+    List<Course> getCoursesByLanguage(String language, Long categoryId, Integer pageNumber, Integer pageSize);
 
     List<Course> getCoursesByName(String name);
 
-    List<Course> filterByPriceAsk(Long categoryId, Integer pageNumber);
+    List<Course> filterByPriceAsk(Long categoryId, Integer pageNumber, Integer pageSize);
 
-    List<Course> filterByPriceDesc(Long categoryId, Integer pageNumber);
+    List<Course> filterByPriceDesc(Long categoryId, Integer pageNumber, Integer pageSize);
 
     List<Course> getCoursesByAuthor(Long authorId);
 
