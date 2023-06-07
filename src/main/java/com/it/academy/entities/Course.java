@@ -29,6 +29,7 @@ public class Course {
     private String name;
 
     @NotEmpty
+    @Size(max = 1000)
     private String description;
 
     private String imageUrl;

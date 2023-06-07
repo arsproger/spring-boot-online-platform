@@ -58,9 +58,12 @@ public class UserDao {
         daoValidate.checkCourseExistsById(courseId);
         Integer count;
 
+        String userRole = jdbcTemplate.queryForObject("SELECT role FROM users WHERE id = ?",
+                String.class, userId);
+
         count = jdbcTemplate.queryForObject("SELECT count(*) FROM courses WHERE author_id = ? AND id = ?",
                 Integer.class, userId, courseId);
-        if (count != null && count > 0) return true;
+        if (count != null && count > 0 || userRole != null && userRole.equals("ROLE_ADMIN")) return true;
 
         count = jdbcTemplate.queryForObject(
                 "SELECT count(*) FROM subscriptions WHERE user_id = ? AND course_id = ?",
