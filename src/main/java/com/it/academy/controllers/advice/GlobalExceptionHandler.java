@@ -72,5 +72,6 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handleException(StripeException e) {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
     }
+
 }
 

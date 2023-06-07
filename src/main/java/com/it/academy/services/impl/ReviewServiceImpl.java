@@ -45,7 +45,9 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public Double getCourseAvgGrade(Long courseId) {
-        return Double.parseDouble(new DecimalFormat("#.#").format(reviewDao.getCourseAvgGrade(courseId)));
+        String avgGradeString = new DecimalFormat("#.#").format(reviewDao.getCourseAvgGrade(courseId));
+        avgGradeString = avgGradeString.replace(",", ".");
+        return Double.parseDouble(avgGradeString);
     }
 
     @Override
