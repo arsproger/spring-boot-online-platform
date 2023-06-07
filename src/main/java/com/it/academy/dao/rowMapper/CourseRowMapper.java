@@ -23,6 +23,7 @@ public class CourseRowMapper implements RowMapper<Course> {
         User author = new User();
         author.setId(rs.getLong("author_id"));
         author.setFullName(rs.getString("full_name"));
+        author.setStripeAccountId(rs.getString("stripe_account_id"));
         course.setAuthor(author);
 
         return course;
