@@ -30,7 +30,6 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     }
 
     @Override
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public List<Subscription> getAll() {
         return subscriptionRepository.findAll();
     }
@@ -47,7 +46,6 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     }
 
     @Override
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Long deleteById(Long id) {
         subscriptionRepository.deleteById(id);
         return id;

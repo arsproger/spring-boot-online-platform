@@ -10,6 +10,7 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,6 +37,7 @@ public class SectionController {
         return new ResponseEntity<>(sections, HttpStatus.OK);
     }
 
+    @PreAuthorize("isAuthenticated()")
     @PostMapping
     public ResponseEntity<Long> createSection(
             @AuthenticationPrincipal DetailsUser detailsUser,
@@ -45,6 +47,7 @@ public class SectionController {
         return new ResponseEntity<>(id, HttpStatus.CREATED);
     }
 
+    @PreAuthorize("isAuthenticated()")
     @DeleteMapping("/{id}")
     public ResponseEntity<Long> deleteSectionById(@AuthenticationPrincipal DetailsUser detailsUser,
                                                   @PathVariable Long id) {
@@ -52,6 +55,7 @@ public class SectionController {
         return new ResponseEntity<>(deletedId, HttpStatus.OK);
     }
 
+    @PreAuthorize("isAuthenticated()")
     @PutMapping("/{id}")
     public ResponseEntity<Long> updateSectionById(@AuthenticationPrincipal DetailsUser detailsUser,
                                                   @PathVariable Long id,

@@ -28,7 +28,7 @@ public class ReviewDto {
     private Double grade;
     private LocalDate date;
 
-    private Long userFullname;
+    private String userFullname;
     private String userEmail;
     @JsonProperty("userImageName")
     private String userImageUrl;

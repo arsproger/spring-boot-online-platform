@@ -15,6 +15,7 @@ import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -45,6 +46,7 @@ public class CourseController {
         return new ResponseEntity<>(course, HttpStatus.OK);
     }
 
+    @PreAuthorize("isAuthenticated()")
     @PostMapping("{categoryId}")
     @Operation(summary = "Создание курса",
             description = "Автором курса будет назначен текущий пользователь")
@@ -59,6 +61,7 @@ public class CourseController {
         return new ResponseEntity<>(id, HttpStatus.CREATED);
     }
 
+    @PreAuthorize("isAuthenticated()")
     @DeleteMapping("/{courseId}")
     public ResponseEntity<Long> deleteCourseById(@AuthenticationPrincipal DetailsUser detailsUser,
                                                  @PathVariable Long courseId) {
@@ -66,6 +69,7 @@ public class CourseController {
         return new ResponseEntity<>(deletedId, HttpStatus.OK);
     }
 
+    @PreAuthorize("isAuthenticated()")
     @PutMapping("/{courseId}")
     public ResponseEntity<Long> updateCourseById(@AuthenticationPrincipal DetailsUser detailsUser,
                                                  @PathVariable Long courseId,

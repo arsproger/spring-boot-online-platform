@@ -34,7 +34,6 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public List<Review> getAll() {
         return reviewRepository.findAll();
     }

@@ -12,7 +12,6 @@ import com.it.academy.services.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -28,14 +27,12 @@ public class CourseServiceImpl implements CourseService {
     private final CourseDao courseDao;
 
     @Override
-    @PreAuthorize("permitAll()")
     public Course getById(Long id) {
         return courseRepository.findById(id).orElseThrow(
                 () -> new AppException("Course not found with id: " + id, HttpStatus.NOT_FOUND));
     }
 
     @Override
-    @PreAuthorize("permitAll()")
     public List<Course> getAll() {
         return courseRepository.findAll();
     }
@@ -97,50 +94,42 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    @PreAuthorize("permitAll()")
     public Double getCourseDuration(Long courseId) {
         Double courseDurationSum = courseDao.getCourseDurationSum(courseId);
         return courseDurationSum != null ? courseDurationSum : 0.0;
     }
 
     @Override
-    @PreAuthorize("permitAll()")
     public List<Course> getCoursesByName(String name) {
         return courseDao.getCourseByName(name);
     }
 
     @Override
-    @PreAuthorize("permitAll()")
     public List<Course> getCoursesByLanguage(String language, Long categoryId, Integer pageNumber, Integer pageSize) {
         return courseDao.getByLanguage(language, categoryId, pageNumber, pageSize);
     }
 
     @Override
-    @PreAuthorize("permitAll()")
     public List<Course> getCoursesByCategory(Long categoryId, Integer pageNumber, Integer pageSize) {
         return courseDao.getCourseByCategoryId(categoryId, pageNumber, pageSize);
     }
 
     @Override
-    @PreAuthorize("permitAll()")
     public List<Course> getCoursesByAuthor(Long authorId) {
         return courseDao.getByAuthorId(authorId);
     }
 
     @Override
-    @PreAuthorize("permitAll()")
     public Integer getCountOfAllCourses() {
         return courseDao.getCountOfAllCourses();
     }
 
     @Override
-    @PreAuthorize("permitAll()")
     public List<Course> filterByPriceDesc(Long categoryId, Integer pageNumber, Integer pageSize) {
         return courseDao.filterByPriceDesc(categoryId, pageNumber, pageSize);
     }
 
     @Override
-    @PreAuthorize("permitAll()")
     public List<Course> filterByPriceAsk(Long categoryId, Integer pageNumber, Integer pageSize) {
         return courseDao.filterByPriceAsk(categoryId, pageNumber, pageSize);
     }

@@ -12,7 +12,6 @@ import com.it.academy.services.CartService;
 import com.it.academy.services.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -27,9 +26,7 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
     private final CartService cartService;
     private final UserDao userDao;
-
     @Override
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public List<User> getAll() {
         return userRepository.findAll();
     }
@@ -59,7 +56,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Long deleteById(Long id) {
         User user = getById(id);
         user.setStatus(UserStatus.DELETED);

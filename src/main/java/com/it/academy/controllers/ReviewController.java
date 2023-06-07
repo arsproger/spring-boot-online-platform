@@ -10,6 +10,7 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,6 +24,7 @@ public class ReviewController {
     private final ReviewService reviewService;
     private final ReviewMapper mapper;
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping
     public ResponseEntity<List<ReviewDto>> getAllReviews() {
         List<ReviewDto> comments = mapper.map(reviewService.getAll());
@@ -51,6 +53,7 @@ public class ReviewController {
         return new ResponseEntity<>(avgGrade, HttpStatus.OK);
     }
 
+    @PreAuthorize("isAuthenticated()")
     @PostMapping("/{courseId}")
     @Operation(summary = "Создание отзыва к курсу",
             description = "Автором отзыва будет назначен текущий пользователь")
@@ -62,6 +65,7 @@ public class ReviewController {
         return new ResponseEntity<>(id, HttpStatus.CREATED);
     }
 
+    @PreAuthorize("isAuthenticated()")
     @DeleteMapping("/{reviewId}")
     public ResponseEntity<Long> deleteReviewById(@AuthenticationPrincipal DetailsUser detailsUser,
                                                  @PathVariable Long reviewId) {
@@ -69,6 +73,7 @@ public class ReviewController {
         return new ResponseEntity<>(deletedId, HttpStatus.OK);
     }
 
+    @PreAuthorize("isAuthenticated()")
     @PutMapping("/{reviewId}")
     public ResponseEntity<Long> updateReviewById(@AuthenticationPrincipal DetailsUser detailsUser,
                                                  @PathVariable Long reviewId,

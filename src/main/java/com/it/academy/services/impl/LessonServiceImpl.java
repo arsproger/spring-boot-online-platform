@@ -10,6 +10,7 @@ import com.it.academy.services.SectionService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,8 +32,9 @@ public class LessonServiceImpl implements LessonService {
     public Long create(Long userId, Long sectionId, Lesson lesson) {
         Section section = sectionService.getById(sectionId);
 
-        if(!userId.equals(section.getCourse().getAuthor().getId())) {
-            throw new AccessDeniedException("You can't create lesson for this course!");}
+        if (!userId.equals(section.getCourse().getAuthor().getId())) {
+            throw new AccessDeniedException("You can't create lesson for this course!");
+        }
 
         lesson.setSection(sectionService.getById(sectionId));
         return lessonRepository.save(lesson).getId();
@@ -43,7 +45,8 @@ public class LessonServiceImpl implements LessonService {
         Lesson lesson = getById(lessonId);
 
         if (!lesson.getSection().getCourse().getAuthor().getId().equals(userId)) {
-            throw new AccessDeniedException("You can't delete this lesson!");}
+            throw new AccessDeniedException("You can't delete this lesson!");
+        }
 
         lessonRepository.deleteById(lessonId);
         return lessonId;
@@ -54,7 +57,8 @@ public class LessonServiceImpl implements LessonService {
         Lesson lesson = getById(lessonId);
 
         if (!lesson.getSection().getCourse().getAuthor().getId().equals(userId)) {
-            throw new AccessDeniedException("You can't update this lesson!");}
+            throw new AccessDeniedException("You can't update this lesson!");
+        }
 
         lesson.setTitle(updatedLesson.getTitle());
         lesson.setDescription(updatedLesson.getDescription());

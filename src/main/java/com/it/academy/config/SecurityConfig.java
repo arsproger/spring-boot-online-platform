@@ -42,16 +42,21 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
-//                .exceptionHandling().authenticationEntryPoint(userAuthenticationEntryPoint)
-//                .and()
+                .exceptionHandling().authenticationEntryPoint(userAuthenticationEntryPoint)
+                .and()
                 .csrf().disable()
                 .cors()
                 .and()
                 .authorizeHttpRequests()
-                .requestMatchers("/auth/**", "/oauth2/**", "/password/**", "/swagger-ui/**",
-                        "/v3/api-docs/**", "/review/count/**", "/user/count/**",
-                        "/course/count/**", "/s3/**", "/course/**").permitAll()
-                .requestMatchers("/admin/**").hasRole("ADMIN")
+                .requestMatchers("/auth/**", "/oauth2/**", "/password/**").permitAll()
+                .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                .requestMatchers("/s3/**").permitAll()
+                .requestMatchers("/user/**").permitAll()
+                .requestMatchers("/course/**").permitAll()
+                .requestMatchers("/review/**").permitAll()
+                .requestMatchers("/category/**").permitAll()
+                .requestMatchers("/section/**").permitAll()
+                .requestMatchers("/lesson/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
