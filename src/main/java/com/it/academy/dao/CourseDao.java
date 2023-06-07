@@ -38,19 +38,19 @@ public class CourseDao {
 
     public List<Course> getCoursesByUserCart(Long userId) {
         daoValidate.checkUserExistsById(userId);
-        return jdbcTemplate.query("SELECT * FROM courses WHERE id IN " +
+        return jdbcTemplate.query("SELECT * FROM courses join users u on u.id = courses.author_id WHERE courses.id IN " +
                         "(SELECT course_id FROM carts_courses WHERE cart_id IN " +
-                        "(SELECT cart_id FROM users WHERE id = ?))",
+                        "(SELECT cart_id FROM users WHERE users.id = ?))",
                 new CourseRowMapper(), userId);
     }
 
     public List<Course> getCourseByCategoryId(Long categoryId) {
         daoValidate.checkCategoryExistsById(categoryId);
-        return jdbcTemplate.query("SELECT * FROM courses WHERE category_id = ?", new CourseRowMapper(), categoryId);
+        return jdbcTemplate.query("SELECT * FROM courses join users u on u.id = courses.author_id WHERE category_id = ?", new CourseRowMapper(), categoryId);
     }
 
     public List<Course> getCourseByName(String name) {
-        return jdbcTemplate.query("SELECT id, name, description, price, language, created FROM courses WHERE name ILIKE ?",
+        return jdbcTemplate.query("SELECT * FROM courses join users u on u.id = courses.author_id WHERE name ILIKE ?",
                 new CourseRowMapper(), ("%" + name + "%"));
     }
 

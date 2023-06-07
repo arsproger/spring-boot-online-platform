@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/stripe")
 @AllArgsConstructor
@@ -29,4 +31,15 @@ public class PaymentController {
         paymentService.makePayment(courseId, detailsUser.getUser().getId(), cardNumber, expMonth, expYear, cvc);
         return ResponseEntity.ok("Payment successful");
     }
+
+    @PostMapping("/cart")
+    public ResponseEntity<String> makeCartPayment(@AuthenticationPrincipal DetailsUser detailsUser,
+                                                  @RequestParam String cardNumber,
+                                                  @RequestParam String expMonth,
+                                                  @RequestParam String expYear,
+                                                  @RequestParam String cvc) throws StripeException {
+        paymentService.makeCartPayment(detailsUser.getUser().getId(), cardNumber, expMonth, expYear, cvc);
+        return ResponseEntity.ok("Payment successful");
+    }
+
 }
