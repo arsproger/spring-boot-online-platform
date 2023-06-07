@@ -126,4 +126,9 @@ public class UserServiceImpl implements UserService {
         return userDao.getCountOfAllUsersToday();
     }
 
+    @Override
+    public Boolean coursePurchaseCheck(Long userId, Long courseId) {
+        return userDao.coursePurchaseCheck(userId, courseId);
+    }
+
 }

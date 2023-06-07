@@ -32,4 +32,6 @@ public interface UserService {
 
     Integer getCountOfAllUsersToday();
 
+    Boolean coursePurchaseCheck(Long userId, Long courseId);
+
 }

@@ -91,4 +91,13 @@ public class UserController {
         return new ResponseEntity<>(userCount, HttpStatus.OK);
     }
 
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/course/isPurchase/{courseId}")
+    @Operation(summary = "Проверка на покупку курса по id")
+    public ResponseEntity<Boolean> coursePurchaseCheck(@PathVariable Long courseId,
+                                                       @AuthenticationPrincipal DetailsUser detailsUser) {
+        Boolean res = userService.coursePurchaseCheck(detailsUser.getUser().getId(), courseId);
+        return new ResponseEntity<>(res, HttpStatus.OK);
+    }
+
 }

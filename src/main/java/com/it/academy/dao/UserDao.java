@@ -53,4 +53,14 @@ public class UserDao {
                 newPassword, resetToken);
     }
 
+    public Boolean coursePurchaseCheck(Long userId, Long courseId) {
+        daoValidate.checkUserExistsById(userId);
+        daoValidate.checkCourseExistsById(courseId);
+
+        Integer count = jdbcTemplate.queryForObject(
+                "SELECT count(*) FROM subscriptions WHERE user_id = ? AND course_id = ?",
+                Integer.class, userId, courseId);
+        return count != null && count > 0;
+    }
+
 }
