@@ -1,6 +1,6 @@
 package com.it.academy.config;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -13,7 +13,7 @@ import java.util.Objects;
 
 @Configuration
 @PropertySource("classpath:application.yml")
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class DaoConfig {
     private final Environment environment;
 

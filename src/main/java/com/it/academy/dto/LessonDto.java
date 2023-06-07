@@ -1,6 +1,5 @@
 package com.it.academy.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.it.academy.controllers.S3Controller;
 import io.swagger.v3.oas.annotations.media.Schema;

@@ -2,7 +2,6 @@ package com.it.academy.services.impl;
 
 import com.it.academy.dao.UserDao;
 import com.it.academy.entities.User;
-import com.it.academy.exceptions.AppException;
 import com.it.academy.services.EmailService;
 import com.it.academy.services.PasswordResetService;
 import com.it.academy.services.UserService;
@@ -33,7 +32,8 @@ public class PasswordResetServiceImpl implements PasswordResetService {
     public ResponseEntity<Map<String, String>> resetPassword(String email) {
         Optional<User> user = userService.getByEmail(email);
         if (user.isEmpty()) {
-            throw new AppException("Пользователь с такой почтой не найден!", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(
+                    Map.of("message", "Пользователь с такой почтой не найден"), HttpStatus.NOT_FOUND);
         }
 
         String resetToken = UUID.randomUUID().toString();
@@ -52,8 +52,10 @@ public class PasswordResetServiceImpl implements PasswordResetService {
     @Override
     public ResponseEntity<Map<String, String>> saveNewPassword(String resetToken, String newPassword) {
         Optional<User> user = userService.getByResetToken(resetToken);
-        if (user.isEmpty() || user.get().getResetTokenExpireTime().isBefore(LocalDateTime.now()))
-            throw new AppException("Неверный токен!", HttpStatus.FORBIDDEN);
+        if (user.isEmpty() || user.get().getResetTokenExpireTime().isBefore(LocalDateTime.now())) {
+            return new ResponseEntity<>(Map.of("message",
+                    "Срок действия истек, отправьте запрос на восстановление еще раз!"), HttpStatus.FORBIDDEN);
+        }
 
         String password = passwordEncoder.encode(newPassword);
         userDao.updateUserResetTokenAfterReset(password, resetToken);

@@ -4,7 +4,7 @@ import com.it.academy.security.DetailsUser;
 import com.it.academy.services.PaymentService;
 import com.stripe.exception.StripeException;
 import io.swagger.v3.oas.annotations.Operation;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/stripe")
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class PaymentController {
     private final PaymentService paymentService;
 
@@ -31,4 +31,5 @@ public class PaymentController {
         paymentService.makePayment(courseId, detailsUser.getUser().getId(), cardNumber, expMonth, expYear, cvc);
         return ResponseEntity.ok("Payment successful");
     }
+
 }

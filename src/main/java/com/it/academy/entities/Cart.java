@@ -1,8 +1,7 @@
 package com.it.academy.entities;
 
-import lombok.*;
-
 import jakarta.persistence.*;
+import lombok.*;
 import org.hibernate.annotations.Cascade;
 
 import java.util.List;

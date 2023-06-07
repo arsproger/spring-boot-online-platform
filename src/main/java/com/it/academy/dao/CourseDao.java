@@ -22,6 +22,7 @@ public class CourseDao {
     }
 
     public List<Course> filterByPriceAsk(Long categoryId, Integer pageNumber, Integer pageSize) {
+        daoValidate.checkCategoryExistsById(categoryId);
         int offset = (pageNumber - 1) * pageSize;
 
         return jdbcTemplate.query("SELECT * FROM courses join users u on u.id = courses.author_id " +
@@ -30,6 +31,7 @@ public class CourseDao {
     }
 
     public List<Course> filterByPriceDesc(Long categoryId, Integer pageNumber, Integer pageSize) {
+        daoValidate.checkCategoryExistsById(categoryId);
         int offset = (pageNumber - 1) * pageSize;
 
         return jdbcTemplate.query("SELECT * FROM courses join users u on u.id = courses.author_id " +
@@ -38,6 +40,7 @@ public class CourseDao {
     }
 
     public List<Course> getByLanguage(String language, Long categoryId, Integer pageNumber, Integer pageSize) {
+        daoValidate.checkCategoryExistsById(categoryId);
         int offset = (pageNumber - 1) * pageSize;
 
         return jdbcTemplate.query("SELECT * FROM Courses join users u on u.id = courses.author_id " +
@@ -54,11 +57,12 @@ public class CourseDao {
     }
 
     public List<Course> getCourseByCategoryId(Long categoryId, Integer pageNumber, Integer pageSize) {
+        daoValidate.checkCategoryExistsById(categoryId);
         int offset = (pageNumber - 1) * pageSize;
 
         daoValidate.checkCategoryExistsById(categoryId);
         return jdbcTemplate.query("SELECT * FROM courses join users u on u.id = courses.author_id " +
-                "WHERE category_id = ? LIMIT ? OFFSET ?",
+                        "WHERE category_id = ? LIMIT ? OFFSET ?",
                 new CourseRowMapper(), categoryId, pageSize, offset);
     }
 

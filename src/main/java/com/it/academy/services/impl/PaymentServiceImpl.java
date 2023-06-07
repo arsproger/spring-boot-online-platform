@@ -63,33 +63,33 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public String createStripeAccount(Long userId) throws StripeException {
-            User user = userService.getById(userId);
-            String email = user.getEmail();
-            String fullName = user.getFullName();
+        User user = userService.getById(userId);
+        String email = user.getEmail();
+        String fullName = user.getFullName();
 
-            Stripe.apiKey = stripe.getKey();
+        Stripe.apiKey = stripe.getKey();
 
-            AccountCreateParams params = AccountCreateParams.builder()
-                    .setType(AccountCreateParams.Type.EXPRESS)
-                    .setEmail(email)
-                    .setBusinessType(AccountCreateParams.BusinessType.INDIVIDUAL)
-                    .setCapabilities(AccountCreateParams.Capabilities.builder()
-                            .setTransfers(AccountCreateParams.Capabilities.Transfers.builder().build())
-                            .build())
-                    .setIndividual(
-                            AccountCreateParams.Individual.builder()
-                                    .setFirstName(fullName)
-                                    .build()
-                    )
-                    .build();
+        AccountCreateParams params = AccountCreateParams.builder()
+                .setType(AccountCreateParams.Type.EXPRESS)
+                .setEmail(email)
+                .setBusinessType(AccountCreateParams.BusinessType.INDIVIDUAL)
+                .setCapabilities(AccountCreateParams.Capabilities.builder()
+                        .setTransfers(AccountCreateParams.Capabilities.Transfers.builder().build())
+                        .build())
+                .setIndividual(
+                        AccountCreateParams.Individual.builder()
+                                .setFirstName(fullName)
+                                .build()
+                )
+                .build();
 
-            Account account = Account.create(params);
+        Account account = Account.create(params);
 
-            user.setStripeAccountId(account.getId());
-            userService.save(user);
+        user.setStripeAccountId(account.getId());
+        userService.save(user);
 
-            return account.getId();
-        }
+        return account.getId();
+    }
 
     @Override
     public String generateOnboardingLink(String accountId) throws StripeException {

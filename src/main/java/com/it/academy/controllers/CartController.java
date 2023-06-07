@@ -6,7 +6,7 @@ import com.it.academy.security.DetailsUser;
 import com.it.academy.services.CartService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/cart")
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Tag(name = "Контроллер корзины пользователя")
 public class CartController {
     private final CourseMapper mapper;

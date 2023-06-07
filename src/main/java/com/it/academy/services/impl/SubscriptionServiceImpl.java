@@ -1,15 +1,14 @@
 package com.it.academy.services.impl;
 
 import com.it.academy.dao.SubscriptionDao;
-import com.it.academy.exceptions.AppException;
 import com.it.academy.entities.Subscription;
+import com.it.academy.exceptions.AppException;
 import com.it.academy.repositories.SubscriptionRepository;
 import com.it.academy.services.CourseService;
 import com.it.academy.services.SubscriptionService;
 import com.it.academy.services.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
