@@ -60,7 +60,9 @@ public class PaymentServiceImpl implements PaymentService {
             Token token = createToken(cardNumber, expMonth, expYear, cvc);
 
             Map<String, Object> chargeParams = createChargeParams(course, token.getId());
-            chargeParams.put("transfer_data", Collections.singletonMap("destination", course.getAuthor().getStripeAccountId()));
+            Map<String, Object> transferDataParams = new HashMap<>();
+            transferDataParams.put("destination", course.getAuthor().getStripeAccountId());
+            chargeParams.put("transfer_data", transferDataParams);
 
             subscriptionService.save(userId, course.getId());
 
