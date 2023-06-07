@@ -4,7 +4,9 @@ import com.it.academy.services.S3Service;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.*;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -36,8 +38,14 @@ public class S3Controller {
         return s3Service.saveUserImage(userId, file);
     }
 
+    @PostMapping("/upload/category/image")
+    @Operation(summary = "Загрузка фото для пользователя на сервер")
+    public String uploadCategoryImage(@RequestParam Long categoryId, @RequestParam("file") MultipartFile file) {
+        return s3Service.saveCategoryImage(categoryId, file);
+    }
+
     @GetMapping("/download/{filename:.+}")
-    @Operation(summary = "Получение видео из сервера по его имени")
+    @Operation(summary = "Получение файла из сервера по его имени")
     public ResponseEntity<byte[]> download(@PathVariable("filename") String filename) {
         HttpHeaders headers = new HttpHeaders();
 
@@ -52,7 +60,7 @@ public class S3Controller {
             contentType = "application/octet-stream";
         }
 
-        headers.add("Content-type", contentType); // image/jpeg, video/mp4
+        headers.add("Content-type", contentType);
         headers.add("Content-Disposition", "attachment; filename=" + filename);
         byte[] bytes = s3Service.downloadFile(filename);
         return ResponseEntity.status(HttpStatus.OK).headers(headers).body(bytes);

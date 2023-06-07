@@ -8,8 +8,8 @@ import java.util.Map;
 @Component
 public interface PasswordResetService {
     ResponseEntity<Map<String, String>> resetPassword(String email);
-    ResponseEntity<Map<String, String>> saveNewPassword(String resetToken, String newPassword);
 
+    ResponseEntity<Map<String, String>> saveNewPassword(String resetToken, String newPassword);
 
 
 }

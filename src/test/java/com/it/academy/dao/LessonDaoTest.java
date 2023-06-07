@@ -1,6 +1,7 @@
 package com.it.academy.dao;
 
 import com.it.academy.dao.rowMapper.LessonRowMapper;
+import com.it.academy.dao.validate.DaoValidate;
 import com.it.academy.entities.Lesson;
 import com.it.academy.entities.Section;
 import org.junit.jupiter.api.Test;
@@ -20,6 +21,8 @@ import static org.mockito.Mockito.*;
 class LessonDaoTest {
     @Mock
     private JdbcTemplate jdbcTemplate;
+    @Mock
+    private DaoValidate daoValidate;
 
     @InjectMocks
     private LessonDao lessonDao;
@@ -32,6 +35,7 @@ class LessonDaoTest {
                 Lesson.builder().id(2L).title("Lesson 2").section(section).build()
         );
 
+        doNothing().when(daoValidate).checkSectionExistsById(section.getId());
         when(jdbcTemplate.query(anyString(), any(LessonRowMapper.class), eq(section.getId())))
                 .thenReturn(expectedLessons);
 
@@ -40,4 +44,5 @@ class LessonDaoTest {
         assertThat(actualLessons).isEqualTo(expectedLessons);
         verify(jdbcTemplate, times(1)).query(anyString(), any(LessonRowMapper.class), eq(section.getId()));
     }
+
 }

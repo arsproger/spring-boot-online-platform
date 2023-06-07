@@ -9,7 +9,6 @@ import com.it.academy.repositories.CourseRepository;
 import com.it.academy.services.CategoryService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -38,7 +37,6 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Long create(Category category) {
         Category createdCategory = new Category();
         createdCategory.setTitle(category.getTitle());
@@ -46,7 +44,6 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Long deleteById(Long id) {
         Category category = getById(id);
 
@@ -59,7 +56,6 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Long update(Long id, Category updatedCategory) {
         Category category = getById(id);
         category.setTitle(updatedCategory.getTitle());

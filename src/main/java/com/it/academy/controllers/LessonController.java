@@ -4,11 +4,13 @@ import com.it.academy.dto.LessonDto;
 import com.it.academy.mappers.LessonMapper;
 import com.it.academy.security.DetailsUser;
 import com.it.academy.services.impl.LessonServiceImpl;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,13 +18,14 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/lesson")
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Tag(name = "Контроллер для уроков")
 public class LessonController {
     private final LessonServiceImpl lessonService;
     private final LessonMapper mapper;
 
-    @GetMapping("section/{sectionId}")
+    @GetMapping("/section/{sectionId}")
+    @Operation(summary = "Получение уроков по id раздела")
     public ResponseEntity<List<LessonDto>> getLessonsBySection(@PathVariable Long sectionId) {
         List<LessonDto> lessons = mapper.map(lessonService.getLessonsBySection(sectionId));
         return new ResponseEntity<>(lessons, HttpStatus.OK);
@@ -34,6 +37,7 @@ public class LessonController {
         return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 
+    @PreAuthorize("isAuthenticated()")
     @PostMapping("/{sectionId}")
     public ResponseEntity<Long> createLesson(@AuthenticationPrincipal DetailsUser detailsUser,
                                              @PathVariable Long sectionId,
@@ -42,6 +46,7 @@ public class LessonController {
         return new ResponseEntity<>(id, HttpStatus.CREATED);
     }
 
+    @PreAuthorize("isAuthenticated()")
     @DeleteMapping("/{id}")
     public ResponseEntity<Long> deleteLessonById(@AuthenticationPrincipal DetailsUser detailsUser,
                                                  @PathVariable Long id) {
@@ -49,6 +54,7 @@ public class LessonController {
         return new ResponseEntity<>(deletedId, HttpStatus.OK);
     }
 
+    @PreAuthorize("isAuthenticated()")
     @PutMapping("/{id}")
     public ResponseEntity<Long> updateLessonById(@AuthenticationPrincipal DetailsUser detailsUser,
                                                  @PathVariable Long id,

@@ -11,9 +11,12 @@ public interface UserService {
     User getById(Long id);
 
     Long create(User user);
+
     Long save(User user);
 
-    Long deleteById(Long id);
+    Long block(Long id);
+
+    Long unlock(Long id);
 
     void updateById(Long id, User updatedUser);
 
@@ -28,5 +31,7 @@ public interface UserService {
     Integer getCountOfAllUsers();
 
     Integer getCountOfAllUsersToday();
+
+    Boolean coursePurchaseCheck(Long userId, Long courseId);
 
 }

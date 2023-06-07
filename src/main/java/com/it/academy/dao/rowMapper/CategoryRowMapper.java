@@ -16,4 +16,5 @@ public class CategoryRowMapper implements RowMapper<Category> {
         category.setImageUrl(resultSet.getString("image_url"));
         return category;
     }
+
 }

@@ -6,22 +6,24 @@ import com.it.academy.security.DetailsUser;
 import com.it.academy.services.SubscriptionService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/subscription")
-@AllArgsConstructor
 @Tag(name = "Контроллер подписок пользователя на курсы")
 public class SubscriptionController {
     private final SubscriptionService subscriptionService;
     private final SubscriptionMapper subscriptionMapper;
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping
     public ResponseEntity<List<SubscriptionDto>> getAllSubscriptions() {
         List<SubscriptionDto> subscriptions = subscriptionMapper.map(subscriptionService.getAll());
@@ -41,9 +43,11 @@ public class SubscriptionController {
         return new ResponseEntity<>(subscriptions, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Long> deleteSubscriptionById(@PathVariable Long id) {
         Long deletedId = subscriptionService.deleteById(id);
         return new ResponseEntity<>(deletedId, HttpStatus.OK);
     }
+
 }

@@ -19,4 +19,5 @@ public class CommentRowMapper implements RowMapper<Comment> {
 
         return comment;
     }
+
 }

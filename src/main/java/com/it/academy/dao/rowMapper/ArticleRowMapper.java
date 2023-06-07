@@ -22,4 +22,5 @@ public class ArticleRowMapper implements RowMapper<Article> {
 
         return article;
     }
+
 }

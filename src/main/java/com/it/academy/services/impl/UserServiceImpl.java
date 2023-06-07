@@ -7,12 +7,11 @@ import com.it.academy.enums.Provider;
 import com.it.academy.enums.Role;
 import com.it.academy.enums.UserStatus;
 import com.it.academy.exceptions.AppException;
+import com.it.academy.repositories.CartRepository;
 import com.it.academy.repositories.UserRepository;
-import com.it.academy.services.CartService;
 import com.it.academy.services.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -25,11 +24,10 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-    private final CartService cartService;
+    private final CartRepository cartService;
     private final UserDao userDao;
 
     @Override
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public List<User> getAll() {
         return userRepository.findAll();
     }
@@ -59,10 +57,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public Long deleteById(Long id) {
+    public Long block(Long id) {
         User user = getById(id);
         user.setStatus(UserStatus.DELETED);
+        return userRepository.save(user).getId();
+    }
+
+    @Override
+    public Long unlock(Long id) {
+        User user = getById(id);
+        user.setStatus(UserStatus.ACTIVE);
         return userRepository.save(user).getId();
     }
 
@@ -120,6 +124,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public Integer getCountOfAllUsersToday() {
         return userDao.getCountOfAllUsersToday();
+    }
+
+    @Override
+    public Boolean coursePurchaseCheck(Long userId, Long courseId) {
+        return userDao.coursePurchaseCheck(userId, courseId);
     }
 
 }

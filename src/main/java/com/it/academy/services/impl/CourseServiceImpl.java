@@ -105,13 +105,13 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public List<Course> getCoursesByLanguage(String language, Long categoryId) {
-        return courseDao.getByLanguage(language, categoryId);
+    public List<Course> getCoursesByLanguage(String language, Long categoryId, Integer pageNumber, Integer pageSize) {
+        return courseDao.getByLanguage(language, categoryId, pageNumber, pageSize);
     }
 
     @Override
-    public List<Course> getCoursesByCategory(Long categoryId) {
-        return courseDao.getCourseByCategoryId(categoryId);
+    public List<Course> getCoursesByCategory(Long categoryId, Integer pageNumber, Integer pageSize) {
+        return courseDao.getCourseByCategoryId(categoryId, pageNumber, pageSize);
     }
 
     @Override
@@ -124,13 +124,20 @@ public class CourseServiceImpl implements CourseService {
         return courseDao.getCountOfAllCourses();
     }
 
-    public List<Course> filterByPriceDesc(Long categoryId) {
-        return courseDao.filterByPriceDesc(categoryId);
+    @Override
+    public List<Course> purchasedCoursesOfTheCurrentUser(Long userId) {
+        return courseDao.purchasedCoursesOfTheCurrentUser(userId);
     }
 
     @Override
-    public List<Course> filterByPriceAsk(Long categoryId) {
-        return courseDao.filterByPriceAsk(categoryId);
+    public List<Course> filterByPriceDesc(Long categoryId, Integer pageNumber, Integer pageSize) {
+        return courseDao.filterByPriceDesc(categoryId, pageNumber, pageSize);
     }
+
+    @Override
+    public List<Course> filterByPriceAsk(Long categoryId, Integer pageNumber, Integer pageSize) {
+        return courseDao.filterByPriceAsk(categoryId, pageNumber, pageSize);
+    }
+
 
 }

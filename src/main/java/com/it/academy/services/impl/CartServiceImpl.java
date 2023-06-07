@@ -4,8 +4,11 @@ import com.it.academy.dao.CartDao;
 import com.it.academy.dao.CourseDao;
 import com.it.academy.entities.Cart;
 import com.it.academy.entities.Course;
+import com.it.academy.entities.User;
 import com.it.academy.repositories.CartRepository;
 import com.it.academy.services.CartService;
+import com.it.academy.services.CourseService;
+import com.it.academy.services.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +20,8 @@ public class CartServiceImpl implements CartService {
     private final CartRepository cartRepository;
     private final CartDao cartDao;
     private final CourseDao courseDao;
+    private final UserService userService;
+    private final CourseService courseService;
 
     @Override
     public Cart save(Cart cart) {
@@ -30,6 +35,10 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public void addCourseToCart(Long userId, Long courseId) {
+        User user = userService.getById(userId);
+        Course course = courseService.getById(courseId);
+        user.getCourses().add(course);
+        userService.save(user);
         cartDao.addCourseToCart(userId, courseId);
     }
 
