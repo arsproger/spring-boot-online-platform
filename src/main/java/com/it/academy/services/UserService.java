@@ -11,6 +11,7 @@ public interface UserService {
     User getById(Long id);
 
     Long create(User user);
+
     Long save(User user);
 
     Long deleteById(Long id);

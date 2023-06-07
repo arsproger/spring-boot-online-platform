@@ -1,16 +1,15 @@
 package com.it.academy.services.impl;
 
 import com.it.academy.dao.LessonDao;
+import com.it.academy.entities.Lesson;
 import com.it.academy.entities.Section;
 import com.it.academy.exceptions.AppException;
-import com.it.academy.entities.Lesson;
 import com.it.academy.repositories.LessonRepository;
 import com.it.academy.services.LessonService;
 import com.it.academy.services.SectionService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

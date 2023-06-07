@@ -8,7 +8,7 @@ import com.it.academy.services.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/user")
-@AllArgsConstructor
 @Tag(name = "Контроллер пользователя")
 public class UserController {
     private final UserService userService;
@@ -76,7 +76,7 @@ public class UserController {
         Integer userCount = userService.getCountOfAllUsers();
         return new ResponseEntity<>(userCount, HttpStatus.OK);
     }
-    
+
     @GetMapping("/count/today")
     @Operation(summary = "Получение количества всех пользователей зарегистрированных сегодня")
     public ResponseEntity<Integer> getCountOfAllUsersToday() {

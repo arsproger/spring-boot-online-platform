@@ -1,6 +1,7 @@
 package com.it.academy.dao;
 
 import com.it.academy.dao.rowMapper.ReviewRowMapper;
+import com.it.academy.dao.validate.DaoValidate;
 import com.it.academy.entities.Course;
 import com.it.academy.entities.Review;
 import com.it.academy.entities.User;
@@ -14,7 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
@@ -22,6 +23,8 @@ import static org.mockito.Mockito.*;
 class ReviewDaoTest {
     @Mock
     private JdbcTemplate jdbcTemplate;
+    @Mock
+    private DaoValidate daoValidate;
 
     @InjectMocks
     private ReviewDao reviewDao;
@@ -34,6 +37,7 @@ class ReviewDaoTest {
                 Review.builder().id(1L).title("Review 1").course(course).build(),
                 Review.builder().id(2L).title("Review 2").course(course).build());
 
+        doNothing().when(daoValidate).checkUserExistsById(author.getId());
         when(jdbcTemplate.query(anyString(), any(ReviewRowMapper.class), anyLong()))
                 .thenReturn(expectedReviews);
 
@@ -51,6 +55,7 @@ class ReviewDaoTest {
                 Review.builder().id(1L).title("Review 1").course(course).build(),
                 Review.builder().id(2L).title("Review 2").course(course).build());
 
+        doNothing().when(daoValidate).checkCourseExistsById(course.getId());
         when(jdbcTemplate.query(anyString(), any(ReviewRowMapper.class), anyLong()))
                 .thenReturn(expectedReviews);
 
@@ -66,6 +71,7 @@ class ReviewDaoTest {
         Long courseId = 1L;
         Double expectedAvgGrade = 4.5;
 
+        doNothing().when(daoValidate).checkCourseExistsById(courseId);
         when(jdbcTemplate.queryForObject(anyString(), eq(Double.class), eq(courseId))).thenReturn(expectedAvgGrade);
 
         Double actualAvgGrade = reviewDao.getCourseAvgGrade(courseId);
@@ -73,4 +79,5 @@ class ReviewDaoTest {
         assertEquals(expectedAvgGrade, actualAvgGrade);
         verify(jdbcTemplate).queryForObject(anyString(), eq(Double.class), eq(courseId));
     }
+
 }

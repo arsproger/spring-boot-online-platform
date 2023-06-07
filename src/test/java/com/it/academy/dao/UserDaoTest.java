@@ -1,6 +1,7 @@
 package com.it.academy.dao;
 
 import com.it.academy.dao.rowMapper.UserRowMapper;
+import com.it.academy.dao.validate.DaoValidate;
 import com.it.academy.entities.Course;
 import com.it.academy.entities.Subscription;
 import com.it.academy.entities.User;
@@ -23,6 +24,8 @@ import static org.mockito.Mockito.*;
 public class UserDaoTest {
     @Mock
     private JdbcTemplate jdbcTemplate;
+    @Mock
+    private DaoValidate daoValidate;
 
     @InjectMocks
     private UserDao userDao;
@@ -44,6 +47,7 @@ public class UserDaoTest {
         List<User> expectedCourseStudents = course.getSubscriptions()
                 .stream().map(Subscription::getUser).collect(Collectors.toList());
 
+        doNothing().when(daoValidate).checkCourseExistsById(course.getId());
         when(jdbcTemplate.query(anyString(), any(UserRowMapper.class), anyLong()))
                 .thenReturn(expectedCourseStudents);
 
@@ -60,6 +64,7 @@ public class UserDaoTest {
         User user = User.builder().id(1L).fullName("Bob").build();
         String imageUrl = "bob.jpg";
 
+        doNothing().when(daoValidate).checkUserExistsById(user.getId());
         when(jdbcTemplate.update(anyString(), anyString(), anyLong()))
                 .thenReturn(0);
 

@@ -20,4 +20,5 @@ public class LessonRowMapper implements RowMapper<Lesson> {
 
         return lesson;
     }
+
 }

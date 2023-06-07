@@ -20,4 +20,5 @@ public class ArticleDao {
         return jdbcTemplate.query("SELECT * FROM articles WHERE lesson_id = ?",
                 new ArticleRowMapper(), lessonId);
     }
+
 }

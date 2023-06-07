@@ -1,10 +1,10 @@
 package com.it.academy.services.impl;
 
 import com.it.academy.dao.ArticleDao;
+import com.it.academy.entities.Article;
 import com.it.academy.entities.Lesson;
 import com.it.academy.entities.User;
 import com.it.academy.exceptions.AppException;
-import com.it.academy.entities.Article;
 import com.it.academy.repositories.ArticleRepository;
 import com.it.academy.services.ArticleService;
 import com.it.academy.services.LessonService;
@@ -33,8 +33,9 @@ public class ArticleServiceImpl implements ArticleService {
         Lesson lesson = lessonService.getById(lessonId);
         User author = lesson.getSection().getCourse().getAuthor();
 
-        if(!userId.equals(author.getId())) {
-            throw new AccessDeniedException("You can't create article for this course!");}
+        if (!userId.equals(author.getId())) {
+            throw new AccessDeniedException("You can't create article for this course!");
+        }
 
         Article createdArticle = Article.builder()
                 .lesson(lesson)
@@ -49,8 +50,9 @@ public class ArticleServiceImpl implements ArticleService {
         Article article = getById(id);
         User author = article.getLesson().getSection().getCourse().getAuthor();
 
-        if(!userId.equals(author.getId())) {
-            throw new AccessDeniedException("You can't delete this article!");}
+        if (!userId.equals(author.getId())) {
+            throw new AccessDeniedException("You can't delete this article!");
+        }
 
         articleRepository.deleteById(id);
         return id;
@@ -61,8 +63,9 @@ public class ArticleServiceImpl implements ArticleService {
         Article article = getById(id);
         User author = article.getLesson().getSection().getCourse().getAuthor();
 
-        if(!userId.equals(author.getId())) {
-            throw new AccessDeniedException("You can't update this article!");}
+        if (!userId.equals(author.getId())) {
+            throw new AccessDeniedException("You can't update this article!");
+        }
 
         article.setText(updatedArticle.getText());
         article.setTitle(updatedArticle.getTitle());

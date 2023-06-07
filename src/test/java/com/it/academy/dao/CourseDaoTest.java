@@ -1,6 +1,7 @@
 package com.it.academy.dao;
 
 import com.it.academy.dao.rowMapper.CourseRowMapper;
+import com.it.academy.dao.validate.DaoValidate;
 import com.it.academy.entities.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,6 +26,8 @@ public class CourseDaoTest {
 
     @Mock
     private JdbcTemplate jdbcTemplate;
+    @Mock
+    private DaoValidate daoValidate;
 
     @InjectMocks
     private CourseDao courseDao;
@@ -36,6 +39,7 @@ public class CourseDaoTest {
         Course course2 = Course.builder().id(2L).author(user).build();
         List<Course> expectedCourses = Arrays.asList(course1, course2);
 
+        doNothing().when(daoValidate).checkUserExistsById(user.getId());
         when(jdbcTemplate.query(anyString(), any(CourseRowMapper.class), anyLong()))
                 .thenReturn(expectedCourses);
 
@@ -57,15 +61,16 @@ public class CourseDaoTest {
         expectedCourses = expectedCourses.stream()
                 .sorted(Comparator.comparing(Course::getPrice)).collect(Collectors.toList());
 
-        when(jdbcTemplate.query(anyString(), any(CourseRowMapper.class)))
+        doNothing().when(daoValidate).checkCategoryExistsById(category.getId());
+        when(jdbcTemplate.query(anyString(), any(CourseRowMapper.class), anyLong(), anyInt(), anyInt()))
                 .thenReturn(expectedCourses);
 
-        List<Course> actualCourses = courseDao.filterByPriceAsk(category.getId(), anyInt(), anyInt());
+        List<Course> actualCourses = courseDao.filterByPriceAsk(category.getId(), 1, 10);
 
         assertThat(actualCourses).isEqualTo(expectedCourses);
 
         verify(jdbcTemplate, times(1))
-                .query(anyString(), any(CourseRowMapper.class));
+                .query(anyString(), any(CourseRowMapper.class), anyLong(), anyInt(), anyInt());
     }
 
     @Test
@@ -78,15 +83,16 @@ public class CourseDaoTest {
         expectedCourses = expectedCourses.stream()
                 .sorted(Comparator.comparing(Course::getPrice).reversed()).collect(Collectors.toList());
 
-        when(jdbcTemplate.query(anyString(), any(CourseRowMapper.class)))
+        doNothing().when(daoValidate).checkCategoryExistsById(category.getId());
+        when(jdbcTemplate.query(anyString(), any(CourseRowMapper.class), anyLong(), anyInt(), anyInt()))
                 .thenReturn(expectedCourses);
 
-        List<Course> actualCourses = courseDao.filterByPriceDesc(category.getId(), anyInt(), anyInt());
+        List<Course> actualCourses = courseDao.filterByPriceDesc(category.getId(), 1, 10);
 
         assertThat(actualCourses).isEqualTo(expectedCourses);
 
         verify(jdbcTemplate, times(1))
-                .query(anyString(), any(CourseRowMapper.class));
+                .query(anyString(), any(CourseRowMapper.class), anyLong(), anyInt(), anyInt());
     }
 
     @Test
@@ -96,15 +102,16 @@ public class CourseDaoTest {
         Course course2 = Course.builder().id(2L).category(category).language("ru").build();
         List<Course> expectedCourses = Arrays.asList(course1, course2);
 
-        when(jdbcTemplate.query(anyString(), any(CourseRowMapper.class), anyString()))
+        doNothing().when(daoValidate).checkCategoryExistsById(category.getId());
+        when(jdbcTemplate.query(anyString(), any(CourseRowMapper.class), anyString(), anyLong(), anyInt(), anyInt()))
                 .thenReturn(expectedCourses);
 
-        List<Course> actualCourses = courseDao.getByLanguage("ru", category.getId(), anyInt(), anyInt());
+        List<Course> actualCourses = courseDao.getByLanguage("en", category.getId(), 1, 10);
 
         assertThat(actualCourses).isEqualTo(expectedCourses);
 
         verify(jdbcTemplate, times(1))
-                .query(anyString(), any(CourseRowMapper.class), anyString());
+                .query(anyString(), any(CourseRowMapper.class), anyString(), anyLong(), anyInt(), anyInt());
     }
 
     @Test
@@ -116,6 +123,7 @@ public class CourseDaoTest {
         Cart cart = Cart.builder().id(1L).courses(expectedCourses).build();
         User user = User.builder().id(1L).fullName("Arsen Bekboev").cart(cart).build();
 
+        doNothing().when(daoValidate).checkUserExistsById(user.getId());
         when(jdbcTemplate.query(anyString(), any(CourseRowMapper.class), anyLong()))
                 .thenReturn(expectedCourses);
 
@@ -136,15 +144,16 @@ public class CourseDaoTest {
 
         List<Course> expectedCourses = Arrays.asList(course1, course2, course3);
 
-        when(jdbcTemplate.query(anyString(), any(CourseRowMapper.class), anyLong()))
+        doNothing().when(daoValidate).checkCategoryExistsById(category.getId());
+        when(jdbcTemplate.query(anyString(), any(CourseRowMapper.class), anyLong(), anyInt(), anyInt()))
                 .thenReturn(expectedCourses);
 
-        List<Course> actualCourses = courseDao.getCourseByCategoryId(category.getId(), anyInt(), anyInt());
+        List<Course> actualCourses = courseDao.getCourseByCategoryId(category.getId(), 1, 10);
 
         assertThat(actualCourses).isEqualTo(expectedCourses);
 
         verify(jdbcTemplate, times(1))
-                .query(anyString(), any(CourseRowMapper.class), anyLong());
+                .query(anyString(), any(CourseRowMapper.class), anyLong(), anyInt(), anyInt());
     }
 
     @Test
@@ -181,6 +190,7 @@ public class CourseDaoTest {
                 .stream().flatMapToDouble(element -> element.getLessons()
                         .stream().mapToDouble(Lesson::getDuration)).average().orElse(0);
 
+        doNothing().when(daoValidate).checkCourseExistsById(course.getId());
         when(jdbcTemplate.queryForObject(anyString(), eq(Double.class), anyLong()))
                 .thenReturn(expectedDurationSum);
 
@@ -192,12 +202,12 @@ public class CourseDaoTest {
                 .queryForObject(anyString(), eq(Double.class), anyLong());
     }
 
-
     @Test
     public void testSetImageUrl() {
         Course course = Course.builder().id(1L).name("Java").build();
         String imageUrl = "java.mp4";
 
+        doNothing().when(daoValidate).checkCourseExistsById(course.getId());
         when(jdbcTemplate.update(anyString(), anyString(), anyLong()))
                 .thenReturn(0);
 

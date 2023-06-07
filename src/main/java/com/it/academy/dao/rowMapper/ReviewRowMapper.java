@@ -1,6 +1,5 @@
 package com.it.academy.dao.rowMapper;
 
-import com.it.academy.entities.Course;
 import com.it.academy.entities.Review;
 import com.it.academy.entities.User;
 import org.springframework.jdbc.core.RowMapper;
@@ -29,4 +28,5 @@ public class ReviewRowMapper implements RowMapper<Review> {
         review.setUser(user);
         return review;
     }
+
 }
