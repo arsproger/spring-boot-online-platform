@@ -115,4 +115,6 @@
 СУБД, необходимо будет изменить настройки в файле application.properties.
 
 Postman коллекции:
-...
+
+https://api.postman.com/collections/25575265-45b03e20-5b1b-4fca-b145-62caddad5788?access_key=PMAT-01H2BCTMRE8N1G7AMEWXEFMFB2
+

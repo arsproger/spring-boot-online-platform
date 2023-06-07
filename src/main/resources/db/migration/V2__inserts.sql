@@ -83,15 +83,11 @@ VALUES ('1989-06-07', 'isabella.thomas@example.com', 'Isabella Thomas', '$2a$12$
 
 
 INSERT INTO categories (title) VALUES ('Разработка веб-сайтов');
-INSERT INTO categories (title) VALUES ('Мобильная разработка');
 INSERT INTO categories (title) VALUES ('Искусственный интеллект');
 INSERT INTO categories (title) VALUES ('Машинное обучение');
 INSERT INTO categories (title) VALUES ('Блокчейн и криптовалюты');
-INSERT INTO categories (title) VALUES ('Дизайн интерфейсов');
-INSERT INTO categories (title) VALUES ('Графический дизайн');
-INSERT INTO categories (title) VALUES ('Музыкальное производство');
-INSERT INTO categories (title) VALUES ('Фотография и видеосъемка');
 INSERT INTO categories (title) VALUES ('Маркетинг и продвижение');
+
 -- INSERT INTO categories (title) VALUES ('Финансы и инвестиции');
 -- INSERT INTO categories (title) VALUES ('Бизнес-стратегия');
 -- INSERT INTO categories (title) VALUES ('Личностный рост и саморазвитие');
@@ -120,19 +116,19 @@ INSERT INTO courses (created, description, image_url, language, name, price, aut
 VALUES ('2023-06-03', 'Изучите основы блокчейна и криптовалют, создайте свою собственную криптовалюту. В этом курсе вы узнаете, как работает технология блокчейн, изучите основы криптографии и узнаете о различных типах криптовалют. Вы также научитесь создавать свою собственную криптовалюту на базе блокчейн.', 'https://example.com/course5.jpg', 'Русский', 'Основы блокчейна и криптовалют', 69.99, 5, 5);
 
 INSERT INTO courses (created, description, image_url, language, name, price, author_id, category_id)
-VALUES ('2023-06-07', 'Изучите современные подходы к дизайну интерфейсов. В этом курсе вы узнаете о принципах пользовательского опыта (UX) и пользовательского интерфейса (UI) дизайна. Вы изучите различные методики проектирования интерфейсов, проведете исследование пользователей и создадите прототипы своих проектов.', 'https://example.com/course6.jpg', 'Русский', 'Дизайн интерфейсов: современные подходы', 59.99, 6, 6);
+VALUES ('2023-06-07', 'Изучите современные подходы к дизайну интерфейсов. В этом курсе вы узнаете о принципах пользовательского опыта (UX) и пользовательского интерфейса (UI) дизайна. Вы изучите различные методики проектирования интерфейсов, проведете исследование пользователей и создадите прототипы своих проектов.', 'https://example.com/course6.jpg', 'Русский', 'Дизайн интерфейсов: современные подходы', 59.99, 6, 5);
 
 INSERT INTO courses (created, description, image_url, language, name, price, author_id, category_id)
-VALUES ('2023-06-06', 'Основы графического дизайна: цвет, композиция, типографика. В этом курсе вы познакомитесь с основами графического дизайна, включая цветовую теорию, композицию и типографику. Вы изучите различные инструменты и техники графического дизайна и научитесь создавать привлекательные и эффективные дизайны.', 'https://example.com/course7.jpg', 'Русский', 'Основы графического дизайна', 79.99, 7, 7);
+VALUES ('2023-06-06', 'Основы графического дизайна: цвет, композиция, типографика. В этом курсе вы познакомитесь с основами графического дизайна, включая цветовую теорию, композицию и типографику. Вы изучите различные инструменты и техники графического дизайна и научитесь создавать привлекательные и эффективные дизайны.', 'https://example.com/course7.jpg', 'Русский', 'Основы графического дизайна', 79.99, 7, 1);
 
 INSERT INTO courses (created, description, image_url, language, name, price, author_id, category_id)
-VALUES ('2023-06-05', 'Научитесь создавать динамические веб-приложения с использованием JavaScript и фреймворка React. В этом курсе вы изучите основы JavaScript, включая работу с переменными, функциями, циклами и событиями. Вы также научитесь использовать фреймворк React для создания современных веб-приложений.', 'https://example.com/course8.jpg', 'Русский', 'JavaScript и React', 89.99, 8, 8);
+VALUES ('2023-06-05', 'Научитесь создавать динамические веб-приложения с использованием JavaScript и фреймворка React. В этом курсе вы изучите основы JavaScript, включая работу с переменными, функциями, циклами и событиями. Вы также научитесь использовать фреймворк React для создания современных веб-приложений.', 'https://example.com/course8.jpg', 'Русский', 'JavaScript и React', 89.99, 8, 1);
 
 INSERT INTO courses (created, description, image_url, language, name, price, author_id, category_id)
-VALUES ('2023-06-04', 'Изучите основы анализа данных и машинного обучения с использованием языка программирования Python. В этом курсе вы узнаете, как использовать Python для сбора, обработки и визуализации данных. Вы также изучите различные алгоритмы машинного обучения и примените их к реальным наборам данных.', 'https://example.com/course9.jpg', 'Русский', 'Python для анализа данных и машинного обучения', 99.99, 9, 9);
+VALUES ('2023-06-04', 'Изучите основы анализа данных и машинного обучения с использованием языка программирования Python. В этом курсе вы узнаете, как использовать Python для сбора, обработки и визуализации данных. Вы также изучите различные алгоритмы машинного обучения и примените их к реальным наборам данных.', 'https://example.com/course9.jpg', 'Русский', 'Python для анализа данных и машинного обучения', 99.99, 9, 2);
 
 INSERT INTO courses (created, description, image_url, language, name, price, author_id, category_id)
-VALUES ('2023-06-03', 'Научитесь создавать современные веб-приложения с использованием фреймворка Django. В этом курсе вы изучите основы веб-разработки с использованием языка программирования Python и фреймворка Django. Вы научитесь создавать модели данных, обрабатывать формы, авторизацию пользователей и развертывать свои приложения на сервере.', 'https://example.com/course10.jpg', 'Русский', 'Web-разработка с Django', 79.99, 10, 10);
+VALUES ('2023-06-03', 'Научитесь создавать современные веб-приложения с использованием фреймворка Django. В этом курсе вы изучите основы веб-разработки с использованием языка программирования Python и фреймворка Django. Вы научитесь создавать модели данных, обрабатывать формы, авторизацию пользователей и развертывать свои приложения на сервере.', 'https://example.com/course10.jpg', 'Русский', 'Web-разработка с Django', 79.99, 10, 2);
 
 INSERT INTO courses (created, description, image_url, language, name, price, author_id, category_id)
 VALUES ('2023-06-07', 'Изучите основы финансового анализа и планирования. В этом курсе вы познакомитесь с ключевыми понятиями и методами финансового анализа, научитесь оценивать финансовое состояние компании и разрабатывать финансовые планы. Вы также изучите методы оценки инвестиций и принятия финансовых решений.', 'https://example.com/course11.jpg', 'Русский', 'Основы финансового анализа', 69.99, 1, 1);
@@ -150,71 +146,142 @@ INSERT INTO courses (created, description, image_url, language, name, price, aut
 VALUES ('2023-06-03', 'Изучите основы маркетинга и привлечения клиентов в интернете. В этом курсе вы узнаете о ключевых понятиях маркетинга, методах привлечения и удержания клиентов в интернете. Вы изучите различные инструменты и стратегии интернет-маркетинга и научитесь применять их на практике.', 'https://example.com/course15.jpg', 'Русский', 'Основы интернет-маркетинга', 69.99, 5, 5);
 
 INSERT INTO courses (created, description, image_url, language, name, price, author_id, category_id)
-VALUES ('2023-06-07', 'Научитесь создавать динамические веб-приложения с использованием JavaScript и фреймворка React. В этом курсе вы изучите основы JavaScript, включая работу с переменными, функциями, циклами и событиями. Вы также научитесь использовать фреймворк React для создания современных веб-приложений.', 'https://example.com/course16.jpg', 'Русский', 'JavaScript и React', 89.99, 6, 6);
+VALUES ('2023-06-07', 'Научитесь создавать динамические веб-приложения с использованием JavaScript и фреймворка React. В этом курсе вы изучите основы JavaScript, включая работу с переменными, функциями, циклами и событиями. Вы также научитесь использовать фреймворк React для создания современных веб-приложений.', 'https://example.com/course16.jpg', 'Русский', 'JavaScript и React', 89.99, 6, 1);
 
 INSERT INTO courses (created, description, image_url, language, name, price, author_id, category_id)
-VALUES ('2023-06-06', 'Основы графического дизайна: цвет, композиция, типографика. В этом курсе вы познакомитесь с основами графического дизайна, включая цветовую теорию, композицию и типографику. Вы изучите различные инструменты и техники графического дизайна и научитесь создавать привлекательные и эффективные дизайны.', 'https://example.com/course17.jpg', 'Русский', 'Основы графического дизайна', 79.99, 7, 7);
+VALUES ('2023-06-06', 'Основы графического дизайна: цвет, композиция, типографика. В этом курсе вы познакомитесь с основами графического дизайна, включая цветовую теорию, композицию и типографику. Вы изучите различные инструменты и техники графического дизайна и научитесь создавать привлекательные и эффективные дизайны.', 'https://example.com/course17.jpg', 'Русский', 'Основы графического дизайна', 79.99, 7, 2);
 
 INSERT INTO courses (created, description, image_url, language, name, price, author_id, category_id)
-VALUES ('2023-06-05', 'Научитесь разрабатывать мобильные приложения для iOS с использованием Swift. В этом курсе вы изучите основы языка программирования Swift, особенности разработки для платформы iOS и создадите свое первое мобильное приложение. Вы также узнаете о процессе публикации приложений в App Store.', 'https://example.com/course18.jpg', 'Русский', 'Разработка мобильных приложений для iOS', 89.99, 8, 8);
+VALUES ('2023-06-05', 'Научитесь разрабатывать мобильные приложения для iOS с использованием Swift. В этом курсе вы изучите основы языка программирования Swift, особенности разработки для платформы iOS и создадите свое первое мобильное приложение. Вы также узнаете о процессе публикации приложений в App Store.', 'https://example.com/course18.jpg', 'Русский', 'Разработка мобильных приложений для iOS', 89.99, 8, 3);
 
 INSERT INTO courses (created, description, image_url, language, name, price, author_id, category_id)
-VALUES ('2023-06-04', 'Научитесь создавать динамические веб-сайты с использованием PHP и баз данных MySQL. В этом курсе вы изучите основы PHP, включая работу с переменными, функциями, циклами и работу с базами данных MySQL. Вы создадите несколько проектов, чтобы закрепить полученные знания.', 'https://example.com/course19.jpg', 'Русский', 'PHP и MySQL', 79.99, 9, 9);
+VALUES ('2023-06-04', 'Научитесь создавать динамические веб-сайты с использованием PHP и баз данных MySQL. В этом курсе вы изучите основы PHP, включая работу с переменными, функциями, циклами и работу с базами данных MySQL. Вы создадите несколько проектов, чтобы закрепить полученные знания.', 'https://example.com/course19.jpg', 'Русский', 'PHP и MySQL', 79.99, 9, 4);
 
 INSERT INTO courses (created, description, image_url, language, name, price, author_id, category_id)
-VALUES ('2023-06-03', 'Изучите основы искусственного интеллекта и машинного обучения. В этом курсе вы узнаете о ключевых концепциях и методах искусственного интеллекта, а также о принципах и алгоритмах машинного обучения. Вы также примените полученные знания на практике, разработав свою собственную модель машинного обучения.', 'https://example.com/course20.jpg', 'Русский', 'Основы искусственного интеллекта и машинного обучения', 99.99, 2, 10);
+VALUES ('2023-06-03', 'Изучите основы искусственного интеллекта и машинного обучения. В этом курсе вы узнаете о ключевых концепциях и методах искусственного интеллекта, а также о принципах и алгоритмах машинного обучения. Вы также примените полученные знания на практике, разработав свою собственную модель машинного обучения.', 'https://example.com/course20.jpg', 'Русский', 'Основы искусственного интеллекта и машинного обучения', 99.99, 2, 5);
+
+
+
+
+
+
+
+
+
+INSERT INTO courses (created, description, image_url, language, name, price, author_id, category_id)
+VALUES ('2023-06-07', 'Изучите основы разработки веб-сайтов с помощью HTML и CSS. В этом курсе вы познакомитесь с основными принципами HTML и CSS, научитесь создавать веб-страницы и стилизовать их. Вы также изучите различные техники верстки и узнаете о современных подходах к созданию адаптивных веб-сайтов.', 'https://example.com/course1.jpg', 'Русский', 'Полное руководство по HTML и CSS', 49.99, 1, 1);
+
+INSERT INTO courses (created, description, image_url, language, name, price, author_id, category_id)
+VALUES ('2023-06-06', 'Научитесь создавать мобильные приложения для iOS и Android. В этом курсе вы изучите основы разработки мобильных приложений с использованием популярных фреймворков и инструментов. Вы научитесь создавать интерфейсы, добавлять функциональность и тестировать свои приложения на различных устройствах.', 'https://example.com/course2.jpg', 'Русский', 'Разработка мобильных приложений на iOS и Android', 79.99, 2, 2);
+
+INSERT INTO courses (created, description, image_url, language, name, price, author_id, category_id)
+VALUES ('2023-06-05', 'Основы искусственного интеллекта и его применение в реальном мире. В этом курсе вы узнаете основы искусственного интеллекта, включая различные подходы и алгоритмы. Вы изучите примеры применения искусственного интеллекта в различных областях, таких как медицина, финансы и автоматизация.', 'https://example.com/course3.jpg', 'Русский', 'Основы искусственного интеллекта', 59.99, 3, 3);
+
+INSERT INTO courses (created, description, image_url, language, name, price, author_id, category_id)
+VALUES ('2023-06-04', 'Изучите алгоритмы машинного обучения и их применение. В этом курсе вы познакомитесь с различными алгоритмами машинного обучения, такими как линейная регрессия, решающие деревья, ансамбли моделей и нейронные сети. Вы также узнаете, как применять эти алгоритмы к реальным задачам и оценивать их производительность.', 'https://example.com/course4.jpg', 'Русский', 'Введение в машинное обучение', 89.99, 4, 4);
+
+INSERT INTO courses (created, description, image_url, language, name, price, author_id, category_id)
+VALUES ('2023-06-03', 'Изучите основы блокчейна и криптовалют, создайте свою собственную криптовалюту. В этом курсе вы узнаете, как работает технология блокчейн, изучите основы криптографии и узнаете о различных типах криптовалют. Вы также научитесь создавать свою собственную криптовалюту на базе блокчейн.', 'https://example.com/course5.jpg', 'Русский', 'Основы блокчейна и криптовалют', 69.99, 5, 5);
+
+INSERT INTO courses (created, description, image_url, language, name, price, author_id, category_id)
+VALUES ('2023-06-07', 'Изучите современные подходы к дизайну интерфейсов. В этом курсе вы узнаете о принципах пользовательского опыта (UX) и пользовательского интерфейса (UI) дизайна. Вы изучите различные методики проектирования интерфейсов, проведете исследование пользователей и создадите прототипы своих проектов.', 'https://example.com/course6.jpg', 'Русский', 'Дизайн интерфейсов: современные подходы', 59.99, 6, 1);
+
+INSERT INTO courses (created, description, image_url, language, name, price, author_id, category_id)
+VALUES ('2023-06-06', 'Основы графического дизайна: цвет, композиция, типографика. В этом курсе вы познакомитесь с основами графического дизайна, включая цветовую теорию, композицию и типографику. Вы изучите различные инструменты и техники графического дизайна и научитесь создавать привлекательные и эффективные дизайны.', 'https://example.com/course7.jpg', 'Русский', 'Основы графического дизайна', 79.99, 7, 2);
+
+INSERT INTO courses (created, description, image_url, language, name, price, author_id, category_id)
+VALUES ('2023-06-05', 'Научитесь создавать динамические веб-приложения с использованием JavaScript и фреймворка React. В этом курсе вы изучите основы JavaScript, включая работу с переменными, функциями, циклами и событиями. Вы также научитесь использовать фреймворк React для создания современных веб-приложений.', 'https://example.com/course8.jpg', 'Русский', 'JavaScript и React', 89.99, 8, 3);
+
+INSERT INTO courses (created, description, image_url, language, name, price, author_id, category_id)
+VALUES ('2023-06-04', 'Изучите основы анализа данных и машинного обучения с использованием языка программирования Python. В этом курсе вы узнаете, как использовать Python для сбора, обработки и визуализации данных. Вы также изучите различные алгоритмы машинного обучения и примените их к реальным наборам данных.', 'https://example.com/course9.jpg', 'Русский', 'Python для анализа данных и машинного обучения', 99.99, 9, 4);
+
+INSERT INTO courses (created, description, image_url, language, name, price, author_id, category_id)
+VALUES ('2023-06-03', 'Научитесь создавать современные веб-приложения с использованием фреймворка Django. В этом курсе вы изучите основы веб-разработки с использованием языка программирования Python и фреймворка Django. Вы научитесь создавать модели данных, обрабатывать формы, авторизацию пользователей и развертывать свои приложения на сервере.', 'https://example.com/course10.jpg', 'Русский', 'Web-разработка с Django', 79.99, 10, 5);
+
+
+
+INSERT INTO courses (created, description, image_url, language, name, price, author_id, category_id)
+VALUES ('2023-06-07', 'Основы управления проектами: планирование, выполнение и контроль. В этом курсе вы узнаете о ключевых принципах и методах управления проектами. Вы научитесь составлять планы проектов, распределять ресурсы, контролировать выполнение задач и оценивать результаты проектов.', 'https://example.com/course21.jpg', 'Русский', 'Основы управления проектами', 69.99, 3, 1);
+
+INSERT INTO courses (created, description, image_url, language, name, price, author_id, category_id)
+VALUES ('2023-06-06', 'Научитесь создавать динамические веб-приложения с использованием фреймворка Angular. В этом курсе вы изучите основы Angular, включая компоненты, сервисы, маршрутизацию и обработку форм. Вы разработаете несколько проектов, чтобы закрепить полученные знания.', 'https://example.com/course22.jpg', 'Русский', 'Разработка веб-приложений с Angular', 79.99, 4, 2);
+
+INSERT INTO courses (created, description, image_url, language, name, price, author_id, category_id)
+VALUES ('2023-06-05', 'Основы кибербезопасности: защита информации и противодействие киберугрозам. В этом курсе вы узнаете о ключевых аспектах кибербезопасности, методах защиты информации и противодействии киберугрозам. Вы изучите основные уязвимости и атаки, а также научитесь применять меры по обеспечению безопасности в сети.', 'https://example.com/course23.jpg', 'Русский', 'Основы кибербезопасности', 59.99, 5, 3);
+
+INSERT INTO courses (created, description, image_url, language, name, price, author_id, category_id)
+VALUES ('2023-06-04', 'Научитесь создавать анимацию и спецэффекты с использованием программы Adobe After Effects. В этом курсе вы изучите основы работы с интерфейсом After Effects, создания анимации, добавления визуальных эффектов и композитинга. Вы создадите несколько проектов, чтобы закрепить полученные навыки.', 'https://example.com/course24.jpg', 'Русский', 'Анимация и спецэффекты с After Effects', 89.99, 6, 1);
+
+INSERT INTO courses (created, description, image_url, language, name, price, author_id, category_id)
+VALUES ('2023-06-03', 'Изучите основы разработки игр с использованием движка Unity. В этом курсе вы научитесь создавать игровые сцены, добавлять персонажей, управление и логику игры. Вы также изучите основы моделирования 3D-объектов и добавления анимации в игровой процесс.', 'https://example.com/course25.jpg', 'Русский', 'Разработка игр с Unity', 79.99, 7, 4);
+
+INSERT INTO courses (created, description, image_url, language, name, price, author_id, category_id)
+VALUES ('2023-06-07', 'Основы аналитики данных: сбор, обработка и визуализация данных. В этом курсе вы узнаете о процессе анализа данных, включая сбор, очистку, преобразование и визуализацию данных. Вы научитесь использовать популярные инструменты аналитики данных и применять различные методы анализа.', 'https://example.com/course26.jpg', 'Русский', 'Основы аналитики данных', 89.99, 8, 2);
+
+INSERT INTO courses (created, description, image_url, language, name, price, author_id, category_id)
+VALUES ('2023-06-06', 'Научитесь создавать динамические веб-приложения с использованием фреймворка Laravel. В этом курсе вы изучите основы разработки веб-приложений с использованием языка программирования PHP и фреймворка Laravel. Вы научитесь создавать модели данных, обрабатывать формы, работать с базой данных и развертывать свои приложения на сервере.', 'https://example.com/course27.jpg', 'Русский', 'Web-разработка с Laravel', 79.99, 9, 3);
+
+INSERT INTO courses (created, description, image_url, language, name, price, author_id, category_id)
+VALUES ('2023-06-05', 'Изучите основы машинного обучения с использованием языка программирования R. В этом курсе вы узнаете о ключевых концепциях и методах машинного обучения, а также научитесь применять их с помощью языка программирования R. Вы разработаете свою собственную модель машинного обучения и примените ее к реальным данным.', 'https://example.com/course28.jpg', 'Русский', 'Машинное обучение с R', 89.99, 10, 1);
+
+INSERT INTO courses (created, description, image_url, language, name, price, author_id, category_id)
+VALUES ('2023-06-04', 'Научитесь разрабатывать приложения для Android с использованием языка программирования Kotlin. В этом курсе вы изучите основы разработки для платформы Android, включая создание пользовательского интерфейса, обработку событий, работу с базами данных и взаимодействие с внешними сервисами.', 'https://example.com/course29.jpg', 'Русский', 'Разработка Android-приложений с Kotlin', 99.99, 1, 2);
+
+INSERT INTO courses (created, description, image_url, language, name, price, author_id, category_id)
+VALUES ('2023-06-03', 'Основы кибербезопасности и защиты данных. В этом курсе вы узнаете о ключевых аспектах кибербезопасности, включая угрозы информационной безопасности, методы защиты данных и аудит безопасности. Вы научитесь применять современные технологии и методы для обеспечения безопасности информационных систем.', 'https://example.com/course30.jpg', 'Русский', 'Основы кибербезопасности', 69.99, 2, 3);
+
 
 
 INSERT INTO sections (name, course_id)
-VALUES ('Введение в программирование', 1);
+VALUES ('Введение в программирование', 7);
 
 INSERT INTO sections (name, course_id)
-VALUES ('Основы языка JavaScript', 1);
+VALUES ('Основы языка JavaScript', 11);
 
 INSERT INTO sections (name, course_id)
-VALUES ('Углубленное изучение JavaScript', 1);
+VALUES ('Углубленное изучение JavaScript', 12);
 
 INSERT INTO sections (name, course_id)
-VALUES ('Введение в алгоритмы', 2);
+VALUES ('Введение в алгоритмы', 34);
 
 INSERT INTO sections (name, course_id)
-VALUES ('Сортировка и поиск', 2);
+VALUES ('Сортировка и поиск', 34);
 
 INSERT INTO sections (name, course_id)
-VALUES ('Структуры данных', 2);
+VALUES ('Структуры данных', 35);
 
 INSERT INTO sections (name, course_id)
-VALUES ('Основы дизайна интерфейсов', 3);
+VALUES ('Основы дизайна интерфейсов', 35);
 
 INSERT INTO sections (name, course_id)
-VALUES ('Проектирование пользовательских интерфейсов', 3);
+VALUES ('Проектирование пользовательских интерфейсов', 36);
 
 INSERT INTO sections (name, course_id)
-VALUES ('Введение в базы данных', 3);
+VALUES ('Введение в базы данных', 36);
 
 INSERT INTO sections (name, course_id)
-VALUES ('Основы фотографии', 4);
+VALUES ('Основы фотографии', 37);
 
 INSERT INTO sections (name, course_id)
-VALUES ('Композиция и свет', 4);
+VALUES ('Композиция и свет', 37);
 
 INSERT INTO sections (name, course_id)
-VALUES ('Обработка изображений', 4);
+VALUES ('Обработка изображений', 38);
 
 INSERT INTO sections (name, course_id)
-VALUES ('Введение в мобильную разработку', 5);
+VALUES ('Введение в мобильную разработку', 38);
 
 INSERT INTO sections (name, course_id)
-VALUES ('Основы разработки под Android', 5);
+VALUES ('Основы разработки под Android', 39);
 
 INSERT INTO sections (name, course_id)
-VALUES ('Введение в машинное обучение', 6);
+VALUES ('Введение в машинное обучение', 40);
 
 INSERT INTO sections (name, course_id)
-VALUES ('Линейные модели', 6);
+VALUES ('Линейные модели', 40);
 
 INSERT INTO sections (name, course_id)
-VALUES ('Деревья решений и ансамбли', 6);
+VALUES ('Деревья решений и ансамбли', 5);
 
 INSERT INTO sections (name, course_id)
 VALUES ('Основы финансов', 7);
@@ -226,10 +293,10 @@ INSERT INTO sections (name, course_id)
 VALUES ('Финансовый анализ', 7);
 
 INSERT INTO sections (name, course_id)
-VALUES ('Введение в маркетинг', 8);
+VALUES ('Введение в маркетинг', 9);
 
 INSERT INTO sections (name, course_id)
-VALUES ('Маркетинговые стратегии', 8);
+VALUES ('Маркетинговые стратегии', 9);
 
 INSERT INTO sections (name, course_id)
 VALUES ('Основы программирования на Python', 9);
@@ -276,104 +343,344 @@ VALUES ('Основы бизнеса', 14);
 INSERT INTO sections (name, course_id)
 VALUES ('Управление проектами', 14);
 
+INSERT INTO sections (name, course_id)
+VALUES ('Основы финансового учета', 14);
+
+INSERT INTO sections (name, course_id)
+VALUES ('Введение в робототехнику', 15);
+
+INSERT INTO sections (name, course_id)
+VALUES ('Основы программирования роботов', 15);
+
+INSERT INTO sections (name, course_id)
+VALUES ('Компьютерная графика', 16);
+
+INSERT INTO sections (name, course_id)
+VALUES ('Алгоритмы компьютерной графики', 16);
+
+INSERT INTO sections (name, course_id)
+VALUES ('Виртуальная реальность', 16);
+
+INSERT INTO sections (name, course_id)
+VALUES ('Основы экономики', 17);
+
+INSERT INTO sections (name, course_id)
+VALUES ('Макроэкономика', 17);
+
+INSERT INTO sections (name, course_id)
+VALUES ('Микроэкономика', 17);
+
+INSERT INTO sections (name, course_id)
+VALUES ('Основы статистики', 18);
+
+INSERT INTO sections (name, course_id)
+VALUES ('Регрессионный анализ', 18);
+
+INSERT INTO sections (name, course_id)
+VALUES ('Статистические тесты', 18);
+
+INSERT INTO sections (name, course_id)
+VALUES ('Введение в искусственный интеллект', 19);
+
+INSERT INTO sections (name, course_id)
+VALUES ('Обучение с учителем', 19);
+
+INSERT INTO sections (name, course_id)
+VALUES ('Глубокое обучение', 19);
+
+INSERT INTO sections (name, course_id)
+VALUES ('Основы права', 20);
+
+INSERT INTO sections (name, course_id)
+VALUES ('Гражданское право', 20);
+
+INSERT INTO sections (name, course_id)
+VALUES ('Трудовое право', 20);
 
 
 INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
-    ('Введение в основы программирования', 45.5, 'Основы программирования: понятия и принципы', 'https://www.youtube.com/watch?v=abc123', 1);
+    ('Введение в основы программирования', 45.5, 'Основы программирования: понятия и принципы', 'https://www.youtube.com/watch?v=abc123', 45);
 
 INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
-    ('Переменные и типы данных', 60.2, 'Основы программирования: переменные и типы данных', 'https://www.youtube.com/watch?v=def456', 1);
+    ('Переменные и типы данных', 60.2, 'Основы программирования: переменные и типы данных', 'https://www.youtube.com/watch?v=def456', 46);
 
 INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
-    ('Условные операторы и циклы', 75.8, 'Основы программирования: условные операторы и циклы', 'https://www.youtube.com/watch?v=ghi789', 1);
+    ('Условные операторы и циклы', 75.8, 'Основы программирования: условные операторы и циклы', 'https://www.youtube.com/watch?v=ghi789', 47);
 
 INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
-    ('Введение в JavaScript', 30.5, 'Основы языка JavaScript: введение и история', 'https://www.youtube.com/watch?v=abc123', 2);
+    ('Введение в JavaScript', 30.5, 'Основы языка JavaScript: введение и история', 'https://www.youtube.com/watch?v=abc123', 48);
 
 INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
-    ('Переменные и типы данных в JavaScript', 45.2, 'Основы языка JavaScript: переменные и типы данных', 'https://www.youtube.com/watch?v=def456', 2);
+    ('Переменные и типы данных в JavaScript', 45.2, 'Основы языка JavaScript: переменные и типы данных', 'https://www.youtube.com/watch?v=def456', 49);
 
 INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
-    ('Условные операторы и циклы в JavaScript', 60.8, 'Основы языка JavaScript: условные операторы и циклы', 'https://www.youtube.com/watch?v=ghi789', 2);
+    ('Условные операторы и циклы в JavaScript', 60.8, 'Основы языка JavaScript: условные операторы и циклы', 'https://www.youtube.com/watch?v=ghi789', 50);
 
 INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
-    ('Функции высшего порядка в JavaScript', 50.5, 'Углубленное изучение JavaScript: функции высшего порядка', 'https://www.youtube.com/watch?v=abc123', 3);
+    ('Функции высшего порядка в JavaScript', 50.5, 'Углубленное изучение JavaScript: функции высшего порядка', 'https://www.youtube.com/watch?v=abc123', 51);
 
 INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
-    ('Прототипное наследование в JavaScript', 65.2, 'Углубленное изучение JavaScript: прототипное наследование', 'https://www.youtube.com/watch?v=def456', 3);
+    ('Прототипное наследование в JavaScript', 65.2, 'Углубленное изучение JavaScript: прототипное наследование', 'https://www.youtube.com/watch?v=def456', 52);
 
 
 
-INSERT INTO articles (text, title, lesson_id) VALUES
-    ('Основы программирования – это фундаментальные концепции и принципы, которые необходимы для понимания и написания программного кода. В этой статье мы рассмотрим основные принципы, такие как переменные, операторы, условные выражения и циклы.', 'Основы программирования: введение', 1);
+INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
+    ('Введение в основы программирования', 45.5, 'Основы программирования: понятия и принципы', 'https://www.youtube.com/watch?v=abc123', 53);
 
-INSERT INTO articles (text, title, lesson_id) VALUES
-    ('Переменные в программировании представляют собой контейнеры, которые используются для хранения данных. В этой статье мы изучим, как объявлять переменные, присваивать им значения и работать с различными типами данных.', 'Основы программирования: переменные', 1);
+INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
+    ('Переменные и типы данных', 60.2, 'Основы программирования: переменные и типы данных', 'https://www.youtube.com/watch?v=def456', 54);
 
-INSERT INTO articles (text, title, lesson_id) VALUES
-    ('Условные операторы и циклы являются важными инструментами в программировании. Они позволяют нам принимать решения на основе определенных условий и выполнять повторяющиеся действия. В этой статье мы рассмотрим различные типы условных операторов и циклов и их использование в программировании.', 'Основы программирования: условные операторы и циклы', 1);
+INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
+    ('Условные операторы и циклы', 75.8, 'Основы программирования: условные операторы и циклы', 'https://www.youtube.com/watch?v=ghi789', 55);
 
-INSERT INTO articles (text, title, lesson_id) VALUES
-    ('Переменные в программировании используются для хранения и обработки данных. В этой статье мы рассмотрим основные принципы объявления переменных, их типы данных и способы инициализации.', 'Переменные в программировании', 2);
+INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
+    ('Введение в JavaScript', 30.5, 'Основы языка JavaScript: введение и история', 'https://www.youtube.com/watch?v=abc123', 55);
 
-INSERT INTO articles (text, title, lesson_id) VALUES
-    ('Типы данных в программировании определяют, какую информацию может содержать переменная и какие операции можно выполнять над ней. В этой статье мы рассмотрим различные типы данных, такие как числа, строки и булевые значения.', 'Типы данных в программировании', 2);
+INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
+    ('Переменные и типы данных в JavaScript', 45.2, 'Основы языка JavaScript: переменные и типы данных', 'https://www.youtube.com/watch?v=def456', 55);
 
-INSERT INTO articles (text, title, lesson_id) VALUES
-    ('Преобразование типов данных позволяет изменять тип переменных в программе. В этой статье мы изучим различные методы преобразования типов данных и узнаем, как они могут быть полезными в программировании.', 'Преобразование типов данных', 2);
+INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
+    ('Условные операторы и циклы в JavaScript', 60.8, 'Основы языка JavaScript: условные операторы и циклы', 'https://www.youtube.com/watch?v=ghi789', 58);
 
-INSERT INTO articles (text, title, lesson_id) VALUES
-    ('Условные операторы позволяют программе принимать решения на основе заданных условий. В этой статье мы изучим различные типы условных операторов, такие как if-else и switch, и узнаем, как правильно их применять.', 'Условные операторы в программировании', 3);
+INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
+    ('Функции высшего порядка в JavaScript', 50.5, 'Углубленное изучение JavaScript: функции высшего порядка', 'https://www.youtube.com/watch?v=abc123', 59);
 
-INSERT INTO articles (text, title, lesson_id) VALUES
-    ('Циклы позволяют программе выполнять повторяющиеся действия. В этой статье мы рассмотрим различные типы циклов, такие как for, while и do-while, и научимся эффективно использовать их в программировании.', 'Циклы в программировании', 3);
+INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
+    ('Прототипное наследование в JavaScript', 65.2, 'Углубленное изучение JavaScript: прототипное наследование', 'https://www.youtube.com/watch?v=def456', 60);
 
-INSERT INTO articles (text, title, lesson_id) VALUES
-    ('Комбинация условных операторов и циклов является мощным инструментом в программировании. В этой статье мы рассмотрим примеры использования условий и циклов вместе и узнаем, как создавать сложные алгоритмы с их помощью.', 'Условия и циклы вместе', 3);
-INSERT INTO articles (text, title, lesson_id) VALUES
-    ('JavaScript - это мощный язык программирования, который часто используется для создания интерактивных веб-страниц. В этой статье мы рассмотрим основы JavaScript, включая синтаксис, переменные, операторы и функции.', 'Основы JavaScript', 4);
 
-INSERT INTO articles (text, title, lesson_id) VALUES
-    ('Переменные в JavaScript используются для хранения данных. В этой статье мы изучим, как объявлять переменные, присваивать им значения и работать с различными типами данных в JavaScript.', 'Переменные в JavaScript', 4);
 
-INSERT INTO articles (text, title, lesson_id) VALUES
-    ('Функции в JavaScript являются основными строительными блоками программы. В этой статье мы рассмотрим, как определять и вызывать функции, передавать параметры и возвращать значения в JavaScript.', 'Функции в JavaScript', 4);
+INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
+    ('Введение в основы программирования', 45.5, 'Основы программирования: понятия и принципы', 'https://www.youtube.com/watch?v=abc123', 61);
 
-INSERT INTO articles (text, title, lesson_id) VALUES
-    ('Переменные в JavaScript используются для хранения и работы с данными. В этой статье мы рассмотрим, как объявлять переменные, присваивать им значения и работать с различными типами данных, такими как числа, строки, булевы значения и другие.', 'Основы переменных в JavaScript', 5);
+INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
+    ('Переменные и типы данных', 60.2, 'Основы программирования: переменные и типы данных', 'https://www.youtube.com/watch?v=def456', 62);
 
-INSERT INTO articles (text, title, lesson_id) VALUES
-    ('Числовые типы данных в JavaScript позволяют работать с числами и выполнять математические операции. В этой статье мы изучим различные типы чисел, операторы и методы, которые можно использовать для работы с числами в JavaScript.', 'Числовые типы данных в JavaScript', 5);
+INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
+    ('Условные операторы и циклы', 75.8, 'Основы программирования: условные операторы и циклы', 'https://www.youtube.com/watch?v=ghi789', 63);
 
-INSERT INTO articles (text, title, lesson_id) VALUES
-    ('Строковые типы данных в JavaScript представляют собой последовательность символов и используются для работы с текстом. В этой статье мы рассмотрим различные операции и методы работы со строками в JavaScript.', 'Строковые типы данных в JavaScript', 5);
+INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
+    ('Введение в JavaScript', 30.5, 'Основы языка JavaScript: введение и история', 'https://www.youtube.com/watch?v=abc123', 64);
 
-INSERT INTO articles (text, title, lesson_id) VALUES
-    ('Условные операторы в JavaScript позволяют программе принимать решения на основе заданных условий. В этой статье мы рассмотрим различные типы условных операторов, такие как if, else if и switch, и узнаем, как использовать их для управления выполнением кода.', 'Условные операторы в JavaScript', 6);
+INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
+    ('Переменные и типы данных в JavaScript', 45.2, 'Основы языка JavaScript: переменные и типы данных', 'https://www.youtube.com/watch?v=def456', 65);
 
-INSERT INTO articles (text, title, lesson_id) VALUES
-    ('Циклы в JavaScript позволяют программе выполнять повторяющиеся действия. В этой статье мы изучим различные типы циклов, такие как for, while и do-while, и узнаем, как использовать их для эффективного выполнения повторяющихся задач.', 'Циклы в JavaScript', 6);
+INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
+    ('Условные операторы и циклы в JavaScript', 60.8, 'Основы языка JavaScript: условные операторы и циклы', 'https://www.youtube.com/watch?v=ghi789', 66);
 
-INSERT INTO articles (text, title, lesson_id) VALUES
-    ('Комбинация условных операторов и циклов в JavaScript является мощным инструментом для создания гибкого и динамичного кода. В этой статье мы рассмотрим примеры использования условий и циклов вместе и научимся создавать сложные алгоритмы с их помощью.', 'Условия и циклы в JavaScript', 6);
+INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
+    ('Функции высшего порядка в JavaScript', 50.5, 'Углубленное изучение JavaScript: функции высшего порядка', 'https://www.youtube.com/watch?v=abc123', 67);
 
-INSERT INTO articles (text, title, lesson_id) VALUES
-    ('Функции высшего порядка в JavaScript - это функции, которые могут принимать другие функции в качестве аргументов или возвращать функции в качестве результата. В этой статье мы рассмотрим примеры использования функций высшего порядка и их преимущества в JavaScript.', 'Основы функций высшего порядка в JavaScript', 7);
+INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
+    ('Прототипное наследование в JavaScript', 65.2, 'Углубленное изучение JavaScript: прототипное наследование', 'https://www.youtube.com/watch?v=def456', 68);
 
-INSERT INTO articles (text, title, lesson_id) VALUES
-    ('Коллбэки в JavaScript являются одним из основных механизмов функций высшего порядка. В этой статье мы изучим, как передавать функции в качестве коллбэков и использовать их для обработки асинхронных операций и событий.', 'Коллбэки в JavaScript', 7);
 
-INSERT INTO articles (text, title, lesson_id) VALUES
-    ('Замыкания в JavaScript - это мощный механизм, который позволяет функциям сохранять доступ к переменным из внешней области видимости. В этой статье мы изучим, как создавать и использовать замыкания в JavaScript и для чего они полезны.', 'Замыкания в JavaScript', 7);
+INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
+    ('Введение в основы программирования', 45.5, 'Основы программирования: понятия и принципы', 'https://www.youtube.com/watch?v=abc123', 69);
 
-INSERT INTO articles (text, title, lesson_id) VALUES
-    ('Прототипное наследование в JavaScript - это механизм, который позволяет объектам наследовать свойства и методы других объектов. В этой статье мы рассмотрим, как создавать прототипы, наследовать и расширять функциональность объектов в JavaScript.', 'Основы прототипного наследования в JavaScript', 8);
+INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
+    ('Переменные и типы данных', 60.2, 'Основы программирования: переменные и типы данных', 'https://www.youtube.com/watch?v=def456', 70);
 
-INSERT INTO articles (text, title, lesson_id) VALUES
-    ('Конструкторы и прототипы в JavaScript позволяют создавать объекты с общими свойствами и методами. В этой статье мы изучим, как использовать конструкторы и прототипы для создания объектов и реализации прототипного наследования.', 'Конструкторы и прототипы в JavaScript', 8);
+INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
+    ('Условные операторы и циклы', 75.8, 'Основы программирования: условные операторы и циклы', 'https://www.youtube.com/watch?v=ghi789', 71);
 
-INSERT INTO articles (text, title, lesson_id) VALUES
-    ('Наследование через классы в JavaScript стало возможным с появлением синтаксиса ES6. В этой статье мы рассмотрим, как использовать классы и ключевые слова extends и super для реализации прототипного наследования в современном JavaScript.', 'Наследование через классы в JavaScript', 8);
+INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
+    ('Введение в JavaScript', 30.5, 'Основы языка JavaScript: введение и история', 'https://www.youtube.com/watch?v=abc123', 14);
+
+INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
+    ('Переменные и типы данных в JavaScript', 45.2, 'Основы языка JavaScript: переменные и типы данных', 'https://www.youtube.com/watch?v=def456', 14);
+
+INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
+    ('Условные операторы и циклы в JavaScript', 60.8, 'Основы языка JavaScript: условные операторы и циклы', 'https://www.youtube.com/watch?v=ghi789', 16);
+
+INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
+    ('Функции высшего порядка в JavaScript', 50.5, 'Углубленное изучение JavaScript: функции высшего порядка', 'https://www.youtube.com/watch?v=abc123', 16);
+
+INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
+    ('Прототипное наследование в JavaScript', 65.2, 'Углубленное изучение JavaScript: прототипное наследование', 'https://www.youtube.com/watch?v=def456', 16);
+
+
+
+INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
+    ('Введение в основы программирования', 45.5, 'Основы программирования: понятия и принципы', 'https://www.youtube.com/watch?v=abc123', 17);
+
+INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
+    ('Переменные и типы данных', 60.2, 'Основы программирования: переменные и типы данных', 'https://www.youtube.com/watch?v=def456', 17);
+
+INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
+    ('Условные операторы и циклы', 75.8, 'Основы программирования: условные операторы и циклы', 'https://www.youtube.com/watch?v=ghi789', 18);
+
+INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
+    ('Введение в JavaScript', 30.5, 'Основы языка JavaScript: введение и история', 'https://www.youtube.com/watch?v=abc123', 18);
+
+INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
+    ('Переменные и типы данных в JavaScript', 45.2, 'Основы языка JavaScript: переменные и типы данных', 'https://www.youtube.com/watch?v=def456', 19);
+
+INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
+    ('Условные операторы и циклы в JavaScript', 60.8, 'Основы языка JavaScript: условные операторы и циклы', 'https://www.youtube.com/watch?v=ghi789', 19);
+
+INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
+    ('Функции высшего порядка в JavaScript', 50.5, 'Углубленное изучение JavaScript: функции высшего порядка', 'https://www.youtube.com/watch?v=abc123', 20);
+
+INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
+    ('Прототипное наследование в JavaScript', 65.2, 'Углубленное изучение JavaScript: прототипное наследование', 'https://www.youtube.com/watch?v=def456', 20);
+
+
+
+INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
+    ('Введение в основы программирования', 45.5, 'Основы программирования: понятия и принципы', 'https://www.youtube.com/watch?v=abc123', 21);
+
+INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
+    ('Переменные и типы данных', 60.2, 'Основы программирования: переменные и типы данных', 'https://www.youtube.com/watch?v=def456', 21);
+
+INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
+    ('Условные операторы и циклы', 75.8, 'Основы программирования: условные операторы и циклы', 'https://www.youtube.com/watch?v=ghi789', 21);
+
+INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
+    ('Введение в JavaScript', 30.5, 'Основы языка JavaScript: введение и история', 'https://www.youtube.com/watch?v=abc123', 23);
+
+INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
+    ('Переменные и типы данных в JavaScript', 45.2, 'Основы языка JavaScript: переменные и типы данных', 'https://www.youtube.com/watch?v=def456', 23);
+
+INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
+    ('Условные операторы и циклы в JavaScript', 60.8, 'Основы языка JavaScript: условные операторы и циклы', 'https://www.youtube.com/watch?v=ghi789', 23);
+
+INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
+    ('Функции высшего порядка в JavaScript', 50.5, 'Углубленное изучение JavaScript: функции высшего порядка', 'https://www.youtube.com/watch?v=abc123', 24);
+
+INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
+    ('Прототипное наследование в JavaScript', 65.2, 'Углубленное изучение JavaScript: прототипное наследование', 'https://www.youtube.com/watch?v=def456', 24);
+
+
+INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
+    ('Введение в основы программирования', 45.5, 'Основы программирования: понятия и принципы', 'https://www.youtube.com/watch?v=abc123', 25);
+
+INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
+    ('Переменные и типы данных', 60.2, 'Основы программирования: переменные и типы данных', 'https://www.youtube.com/watch?v=def456', 25);
+
+INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
+    ('Условные операторы и циклы', 75.8, 'Основы программирования: условные операторы и циклы', 'https://www.youtube.com/watch?v=ghi789', 26);
+
+INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
+    ('Введение в JavaScript', 30.5, 'Основы языка JavaScript: введение и история', 'https://www.youtube.com/watch?v=abc123', 26);
+
+INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
+    ('Переменные и типы данных в JavaScript', 45.2, 'Основы языка JavaScript: переменные и типы данных', 'https://www.youtube.com/watch?v=def456', 27);
+
+INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
+    ('Условные операторы и циклы в JavaScript', 60.8, 'Основы языка JavaScript: условные операторы и циклы', 'https://www.youtube.com/watch?v=ghi789', 27);
+
+INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
+    ('Функции высшего порядка в JavaScript', 50.5, 'Углубленное изучение JavaScript: функции высшего порядка', 'https://www.youtube.com/watch?v=abc123', 28);
+
+INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
+    ('Прототипное наследование в JavaScript', 65.2, 'Углубленное изучение JavaScript: прототипное наследование', 'https://www.youtube.com/watch?v=def456', 28);
+
+
+
+INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
+    ('Введение в основы программирования', 45.5, 'Основы программирования: понятия и принципы', 'https://www.youtube.com/watch?v=abc123', 29);
+
+INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
+    ('Переменные и типы данных', 60.2, 'Основы программирования: переменные и типы данных', 'https://www.youtube.com/watch?v=def456', 29);
+
+INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
+    ('Условные операторы и циклы', 75.8, 'Основы программирования: условные операторы и циклы', 'https://www.youtube.com/watch?v=ghi789', 30);
+
+INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
+    ('Введение в JavaScript', 30.5, 'Основы языка JavaScript: введение и история', 'https://www.youtube.com/watch?v=abc123', 30);
+
+
+
+INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
+    ('Введение в основы программирования', 45.5, 'Основы программирования: понятия и принципы', 'https://www.youtube.com/watch?v=abc123', 31);
+
+INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
+    ('Переменные и типы данных', 60.2, 'Основы программирования: переменные и типы данных', 'https://www.youtube.com/watch?v=def456', 31);
+
+INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
+    ('Условные операторы и циклы', 75.8, 'Основы программирования: условные операторы и циклы', 'https://www.youtube.com/watch?v=ghi789', 32);
+
+INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
+    ('Введение в JavaScript', 30.5, 'Основы языка JavaScript: введение и история', 'https://www.youtube.com/watch?v=abc123', 32);
+
+INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
+    ('Переменные и типы данных в JavaScript', 45.2, 'Основы языка JavaScript: переменные и типы данных', 'https://www.youtube.com/watch?v=def456', 33);
+
+INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
+    ('Условные операторы и циклы в JavaScript', 60.8, 'Основы языка JavaScript: условные операторы и циклы', 'https://www.youtube.com/watch?v=ghi789', 33);
+
+INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
+    ('Функции высшего порядка в JavaScript', 50.5, 'Углубленное изучение JavaScript: функции высшего порядка', 'https://www.youtube.com/watch?v=abc123', 34);
+
+INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
+    ('Прототипное наследование в JavaScript', 65.2, 'Углубленное изучение JavaScript: прототипное наследование', 'https://www.youtube.com/watch?v=def456', 34);
+
+
+INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
+    ('Введение в основы программирования', 45.5, 'Основы программирования: понятия и принципы', 'https://www.youtube.com/watch?v=abc123', 35);
+
+INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
+    ('Переменные и типы данных', 60.2, 'Основы программирования: переменные и типы данных', 'https://www.youtube.com/watch?v=def456', 35);
+
+INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
+    ('Условные операторы и циклы', 75.8, 'Основы программирования: условные операторы и циклы', 'https://www.youtube.com/watch?v=ghi789', 36);
+
+INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
+    ('Введение в JavaScript', 30.5, 'Основы языка JavaScript: введение и история', 'https://www.youtube.com/watch?v=abc123', 36);
+
+INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
+    ('Переменные и типы данных в JavaScript', 45.2, 'Основы языка JavaScript: переменные и типы данных', 'https://www.youtube.com/watch?v=def456', 37);
+
+INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
+    ('Условные операторы и циклы в JavaScript', 60.8, 'Основы языка JavaScript: условные операторы и циклы', 'https://www.youtube.com/watch?v=ghi789', 37);
+
+INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
+    ('Функции высшего порядка в JavaScript', 50.5, 'Углубленное изучение JavaScript: функции высшего порядка', 'https://www.youtube.com/watch?v=abc123', 38);
+
+INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
+    ('Прототипное наследование в JavaScript', 65.2, 'Углубленное изучение JavaScript: прототипное наследование', 'https://www.youtube.com/watch?v=def456', 38);
+
+
+
+INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
+    ('Введение в основы программирования', 45.5, 'Основы программирования: понятия и принципы', 'https://www.youtube.com/watch?v=abc123', 39);
+
+INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
+    ('Переменные и типы данных', 60.2, 'Основы программирования: переменные и типы данных', 'https://www.youtube.com/watch?v=def456', 39);
+
+INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
+    ('Условные операторы и циклы', 75.8, 'Основы программирования: условные операторы и циклы', 'https://www.youtube.com/watch?v=ghi789', 30);
+
+INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
+    ('Введение в JavaScript', 30.5, 'Основы языка JavaScript: введение и история', 'https://www.youtube.com/watch?v=abc123', 40);
+
+INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
+    ('Введение в JavaScript', 30.5, 'Основы языка JavaScript: введение и история', 'https://www.youtube.com/watch?v=abc123', 40);
+
+
+INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
+    ('Переменные и типы данных', 60.2, 'Основы программирования: переменные и типы данных', 'https://www.youtube.com/watch?v=def456', 41);
+
+INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
+    ('Условные операторы и циклы', 75.8, 'Основы программирования: условные операторы и циклы', 'https://www.youtube.com/watch?v=ghi789', 42);
+
+INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
+    ('Введение в JavaScript', 30.5, 'Основы языка JavaScript: введение и история', 'https://www.youtube.com/watch?v=abc123', 42);
+
+INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
+    ('Переменные и типы данных в JavaScript', 45.2, 'Основы языка JavaScript: переменные и типы данных', 'https://www.youtube.com/watch?v=def456', 43);
+
+INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
+    ('Условные операторы и циклы в JavaScript', 60.8, 'Основы языка JavaScript: условные операторы и циклы', 'https://www.youtube.com/watch?v=ghi789', 43);
+
+INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
+    ('Функции высшего порядка в JavaScript', 50.5, 'Углубленное изучение JavaScript: функции высшего порядка', 'https://www.youtube.com/watch?v=abc123', 44);
+
+INSERT INTO lessons (description, duration, title, video_url, section_id) VALUES
+    ('Прототипное наследование в JavaScript', 65.2, 'Углубленное изучение JavaScript: прототипное наследование', 'https://www.youtube.com/watch?v=def456', 44);
+
+
 
 
 INSERT INTO comments (date, description, title, lesson_id, user_id) VALUES
@@ -469,13 +776,13 @@ INSERT INTO reviews (date, description, grade, title, course_id, user_id) VALUES
     ('2023-06-03', 'Отличный курс по структурам данных! Я научился применять различные структуры данных для оптимизации своего кода. Преподаватели были компетентными и отзывчивыми.', 4.6, 'Отзыв о курсе "Структуры данных"', 5, 14);
 
 INSERT INTO reviews (date, description, grade, title, course_id, user_id) VALUES
-    ('2023-06-02', 'Курс по сортировке и поиску был очень полезным. Я научился различным алгоритмам сортировки и методам поиска. Рекомендую этот курс всем, кто хочет улучшить свои навыки программирования.', 4.3, 'Отзыв о курсе "Сортировка и поиск"', 6, 15);
+    ('2023-06-02', 'Курс по сортировке и поиску был очень полезным. Я научился различным алгоритмам сортировки и методам поиска. Рекомендую этот курс всем, кто хочет улучшить свои навыки программирования.', 4.3, 'Отзыв о курсе "Сортировка и поиск"', 7, 15);
 
 INSERT INTO reviews (date, description, grade, title, course_id, user_id) VALUES
     ('2023-06-01', 'Курс "Основы программирования" был отличным стартом для меня. Я научился писать свои первые программы и разобрался с базовыми концепциями программирования. Спасибо за курс!', 4.0, 'Отзыв о курсе "Основы программирования"', 7, 16);
 
 INSERT INTO reviews (date, description, grade, title, course_id, user_id) VALUES
-    ('2023-05-31', 'Курс "Введение в JavaScript" был очень полезным. Я изучил основы языка и получил практические навыки программирования на JavaScript. Рекомендую для начинающих!', 4.2, 'Отзыв о курсе "Введение в JavaScript"', 8, 17);
+    ('2023-05-31', 'Курс "Введение в JavaScript" был очень полезным. Я изучил основы языка и получил практические навыки программирования на JavaScript. Рекомендую для начинающих!', 4.2, 'Отзыв о курсе "Введение в JavaScript"', 9, 17);
 
 INSERT INTO reviews (date, description, grade, title, course_id, user_id) VALUES
     ('2023-05-30', 'Курс "Переменные и типы данных в JavaScript" был очень информативным. Я лучше понял, как работать с переменными и различными типами данных в JavaScript.', 4.1, 'Отзыв о курсе "Переменные и типы данных в JavaScript"', 9, 18);
@@ -487,6 +794,21 @@ INSERT INTO reviews (date, description, grade, title, course_id, user_id) VALUES
     ('2023-05-28', 'Курс "Функции высшего порядка в JavaScript" был очень полезным для меня. Я научился работать с функциями высшего порядка и использовать их в своих проектах.', 4.4, 'Отзыв о курсе "Функции высшего порядка в JavaScript"', 11, 20);
 
 
+
+-- INSERT INTO courses (created, description, image_url, language, name, price, author_id, category_id)
+-- SELECT
+--         '2023-06-09'::date + (random() * 365)::integer, -- случайная дата в пределах 1 года от текущей даты
+--         'Description ' || (random() * 100)::integer, -- случайное описание
+--         'https://example.com/image' || (random() * 100)::integer || '.jpg', -- случайный URL изображения
+--         CASE (random() * 2)::integer
+--             WHEN 0 THEN 'Russian'
+--             WHEN 1 THEN 'English'
+--             END, -- случайный язык: Russian или English
+--         'Course ' || (random() * 100)::integer, -- случайное название курса
+--         (random() * 1000)::numeric(38, 2), -- случайная цена в пределах 1000
+--         floor(random() * 21)::bigint + 1, -- случайный автор_id от 1 до 21
+--         floor(random() * 5)::bigint + 1 -- случайный category_id от 1 до 5
+-- FROM generate_series(1, 100); -- генерируем 100 записей
 
 
 

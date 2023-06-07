@@ -31,7 +31,6 @@ public class User {
     @NotEmpty
     private String email;
 
-    @NotEmpty
     private String password;
 
     private String imageUrl;

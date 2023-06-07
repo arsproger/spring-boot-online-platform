@@ -9,7 +9,7 @@ spring:
         format_sql: true
 
     generate-ddl: true
-    show-sql: true
+    show-sql: false
     hibernate:
       ddl-auto: update
 
@@ -68,7 +68,7 @@ spring:
             redirect-uri: ${config.oauth2.github.redirect-uri}
             authorization-grant-type: ${config.oauth2.github.authorization-grant-type}
 
-oauth2-success-redirect-url: http://localhost:3000/settings/userSettings
+oauth2-success-redirect-url: http://localhost:3000/setting/userSettings
 logoutSuccessUrl: http://localhost:3000
 resetUrl: http://localhost:3000/password/newPassword
 

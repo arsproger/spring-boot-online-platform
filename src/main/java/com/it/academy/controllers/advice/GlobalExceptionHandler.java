@@ -67,7 +67,6 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
     }
 
-
     @ExceptionHandler(StripeException.class)
     public ResponseEntity<String> handleException(StripeException e) {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
