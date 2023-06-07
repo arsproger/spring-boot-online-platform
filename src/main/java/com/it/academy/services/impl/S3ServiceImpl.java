@@ -6,15 +6,16 @@ import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
 import com.amazonaws.util.IOUtils;
+import com.it.academy.dao.CategoryDao;
 import com.it.academy.dao.CourseDao;
 import com.it.academy.dao.LessonDao;
 import com.it.academy.dao.UserDao;
-import com.it.academy.services.CourseService;
-import com.it.academy.services.LessonService;
 import com.it.academy.services.S3Service;
-import com.it.academy.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
@@ -28,40 +29,43 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@CacheConfig(cacheNames = "file")
 public class S3ServiceImpl implements S3Service {
     @Value("${aws-s3-bucketName}")
     private String bucketName;
 
     private final AmazonS3 amazonS3;
-    private final LessonService lessonService;
-    private final CourseService courseService;
     private final UserDao userDao;
     private final CourseDao courseDao;
     private final LessonDao lessonDao;
-    private final UserService userService;
+    private final CategoryDao categoryDao;
 
     @Override
     public String saveLessonVideo(Long lessonId, MultipartFile file) {
-        lessonService.getById(lessonId);
         lessonDao.setVideoUrl(file.getOriginalFilename(), lessonId);
         return pushFile(file);
     }
 
     @Override
     public String saveUserImage(Long userId, MultipartFile file) {
-        userService.getById(userId);
         userDao.setImageUrl(file.getOriginalFilename(), userId);
         return pushFile(file);
     }
 
     @Override
+    public String saveCategoryImage(Long categoryId, MultipartFile file) {
+        categoryDao.setImageUrl(file.getOriginalFilename(), categoryId);
+        return pushFile(file);
+    }
+
+    @Override
     public String saveCourseImage(Long courseId, MultipartFile file) {
-        courseService.getById(courseId);
         courseDao.setImageUrl(file.getOriginalFilename(), courseId);
         return pushFile(file);
     }
 
     @Override
+    @CachePut(key = "#file.originalFilename")
     public String pushFile(MultipartFile file) {
         try {
             amazonS3.putObject(bucketName, file.getOriginalFilename(), convertMultiPartToFile(file));
@@ -71,10 +75,10 @@ public class S3ServiceImpl implements S3Service {
         }
     }
 
-    @Cacheable("file")
+    @Cacheable(key = "#fileName")
     @Override
-    public byte[] downloadFile(String filename) {
-        S3Object s3Object = amazonS3.getObject(bucketName, filename);
+    public byte[] downloadFile(String fileName) {
+        S3Object s3Object = amazonS3.getObject(bucketName, fileName);
         S3ObjectInputStream objectContent = s3Object.getObjectContent();
         try {
             return IOUtils.toByteArray(objectContent);
@@ -92,8 +96,9 @@ public class S3ServiceImpl implements S3Service {
     }
 
     @Override
-    public String deleteFile(String filename) {
-        amazonS3.deleteObject(bucketName, filename);
+    @CacheEvict(key = "#fileName")
+    public String deleteFile(String fileName) {
+        amazonS3.deleteObject(bucketName, fileName);
         return "File deleted";
     }
 

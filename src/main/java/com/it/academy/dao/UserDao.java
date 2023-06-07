@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -52,6 +51,16 @@ public class UserDao {
     public void updateUserResetTokenAfterReset(String newPassword, String resetToken) {
         jdbcTemplate.update("UPDATE users SET password = ?, reset_token = NULL, reset_token_expire_time = NULL WHERE reset_token = ?",
                 newPassword, resetToken);
+    }
+
+    public Boolean coursePurchaseCheck(Long userId, Long courseId) {
+        daoValidate.checkUserExistsById(userId);
+        daoValidate.checkCourseExistsById(courseId);
+
+        Integer count = jdbcTemplate.queryForObject(
+                "SELECT count(*) FROM subscriptions WHERE user_id = ? AND course_id = ?",
+                Integer.class, userId, courseId);
+        return count != null && count > 0;
     }
 
 }

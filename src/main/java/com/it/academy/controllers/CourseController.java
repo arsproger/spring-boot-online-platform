@@ -1,6 +1,7 @@
 package com.it.academy.controllers;
 
 import com.it.academy.dto.CourseDto;
+import com.it.academy.dto.CoursePaginationDto;
 import com.it.academy.mappers.CourseMapper;
 import com.it.academy.security.DetailsUser;
 import com.it.academy.services.CourseService;
@@ -10,19 +11,25 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
+import jakarta.validation.constraints.Min;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @RestController
 @RequestMapping("/course")
-@AllArgsConstructor
+@RequiredArgsConstructor
+@Validated
 @Tag(name = "Контроллер для курса")
 public class CourseController {
     private final CourseService courseService;
@@ -41,6 +48,14 @@ public class CourseController {
         return new ResponseEntity<>(course, HttpStatus.OK);
     }
 
+    @GetMapping("/current")
+    @Operation(summary = "Получение всех купленных курсов текущего пользователя")
+    public ResponseEntity<List<CourseDto>> purchasedCoursesOfTheCurrentUser(@AuthenticationPrincipal DetailsUser detailsUser) {
+        List<CourseDto> course = mapper.map(courseService.purchasedCoursesOfTheCurrentUser(detailsUser.getUser().getId()));
+        return new ResponseEntity<>(course, HttpStatus.OK);
+    }
+
+    @PreAuthorize("isAuthenticated()")
     @PostMapping("{categoryId}")
     @Operation(summary = "Создание курса",
             description = "Автором курса будет назначен текущий пользователь")
@@ -59,6 +74,7 @@ public class CourseController {
         return new ResponseEntity<>(id, HttpStatus.CREATED);
     }
 
+    @PreAuthorize("isAuthenticated()")
     @DeleteMapping("/{courseId}")
     public ResponseEntity<Long> deleteCourseById(@AuthenticationPrincipal DetailsUser detailsUser,
                                                  @PathVariable Long courseId) {
@@ -66,10 +82,11 @@ public class CourseController {
         return new ResponseEntity<>(deletedId, HttpStatus.OK);
     }
 
+    @PreAuthorize("isAuthenticated()")
     @PutMapping("/{courseId}")
     public ResponseEntity<Long> updateCourseById(@AuthenticationPrincipal DetailsUser detailsUser,
-                                              @PathVariable Long courseId,
-                                              @RequestBody CourseDto course) {
+                                                 @PathVariable Long courseId,
+                                                 @RequestBody CourseDto course) {
         Long updatedId = courseService.update(detailsUser.getUser().getId(), courseId, mapper.map(course));
         return new ResponseEntity<>(updatedId, HttpStatus.OK);
     }
@@ -81,34 +98,67 @@ public class CourseController {
         return new ResponseEntity<>(courses, HttpStatus.OK);
     }
 
-    @GetMapping("/filter/price/{categoryId}")
+    @GetMapping("/filter/price")
     @Operation(summary = "Фильтрация курса по цене и категории",
             description = "По умолчанию фильтрацию будет по возрастанию, " +
                     "для фильтрации по убыванию нужно передать параметр filter как desc")
-    public ResponseEntity<List<CourseDto>> priceFilter(
-            @PathVariable Long categoryId,
+    public ResponseEntity<CoursePaginationDto> priceFilter(
+            @RequestParam Long categoryId,
+            @RequestParam(defaultValue = "1") @Min(value = 1) Integer pageNumber,
+            @RequestParam(defaultValue = "10") Integer pageSize,
             @RequestParam(defaultValue = "ask")
             @Parameter(description = "Тип фильтрации по возрастанию и по убыванию") String filter) {
         List<CourseDto> courses = filter.equalsIgnoreCase("desc")
-                ? mapper.map(courseService.filterByPriceDesc(categoryId))
-                : mapper.map(courseService.filterByPriceAsk(categoryId));
+                ? mapper.map(courseService.filterByPriceDesc(categoryId, pageNumber, pageSize))
+                : mapper.map(courseService.filterByPriceAsk(categoryId, pageNumber, pageSize));
+        CoursePaginationDto coursePaginationDto = CoursePaginationDto.builder()
+                .courses(courses)
+                .amountPage(filter.equalsIgnoreCase("desc")
+                        ? IntStream.rangeClosed(1, (courseService
+                                .filterByPriceDesc(categoryId, 1, courseService.getAll().size()).size() + 9) / pageSize)
+                        .boxed().collect(Collectors.toList())
+                        : IntStream.rangeClosed(1, (courseService
+                                .filterByPriceAsk(categoryId, 1, courseService.getAll().size()).size() + 9) / pageSize)
+                        .boxed().collect(Collectors.toList()))
+                .build();
 
-        return new ResponseEntity<>(courses, HttpStatus.OK);
+        return new ResponseEntity<>(coursePaginationDto, HttpStatus.OK);
     }
 
-    @GetMapping("/language/{language}/{categoryId}")
+    @GetMapping("/language")
     @Operation(summary = "Получение всех курсов по определенному языку и категории")
-    public ResponseEntity<List<CourseDto>> getByLanguage(@PathVariable String language,
-                                                         @PathVariable Long categoryId) {
-        List<CourseDto> courses = mapper.map(courseService.getCoursesByLanguage(language, categoryId));
-        return new ResponseEntity<>(courses, HttpStatus.OK);
+    public ResponseEntity<CoursePaginationDto> getByLanguage(
+            @RequestParam String language,
+            @RequestParam Long categoryId,
+            @RequestParam(defaultValue = "1") @Min(value = 1) Integer pageNumber,
+            @RequestParam(defaultValue = "10") Integer pageSize) {
+        List<CourseDto> courses =
+                mapper.map(courseService.getCoursesByLanguage(language, categoryId, pageNumber, pageSize));
+        CoursePaginationDto coursePaginationDto = CoursePaginationDto.builder()
+                .courses(courses)
+                .amountPage(IntStream.rangeClosed(1, (courseService
+                                .getCoursesByLanguage(language, categoryId, 1, courseService.getAll().size()).size() + 9) / pageSize)
+                        .boxed().collect(Collectors.toList()))
+                .build();
+
+        return new ResponseEntity<>(coursePaginationDto, HttpStatus.OK);
     }
 
-    @GetMapping("/category/{categoryId}")
+    @GetMapping("/category")
     @Operation(summary = "Получение всех курсов по определенной категории")
-    public ResponseEntity<List<CourseDto>> getCourseByCategoryId(@PathVariable Long categoryId) {
-        List<CourseDto> courses = mapper.map(courseService.getCoursesByCategory(categoryId));
-        return new ResponseEntity<>(courses, HttpStatus.OK);
+    public ResponseEntity<CoursePaginationDto> getCourseByCategoryId(
+            @RequestParam Long categoryId,
+            @RequestParam(defaultValue = "1") @Min(value = 1) Integer pageNumber,
+            @RequestParam(defaultValue = "10") Integer pageSize) {
+        List<CourseDto> courses = mapper.map(courseService.getCoursesByCategory(categoryId, pageNumber, pageSize));
+
+        CoursePaginationDto coursePaginationDto = CoursePaginationDto.builder()
+                .courses(courses)
+                .amountPage(IntStream.rangeClosed(1, (courseService
+                                .getCoursesByCategory(categoryId, 1, courseService.getAll().size()).size() + 9) / pageSize)
+                        .boxed().collect(Collectors.toList()))
+                .build();
+        return new ResponseEntity<>(coursePaginationDto, HttpStatus.OK);
     }
 
     @GetMapping("/name/{name}")

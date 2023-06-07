@@ -1,12 +1,16 @@
 package com.it.academy.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.it.academy.controllers.S3Controller;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Setter
 @Getter
@@ -20,9 +24,23 @@ public class ReviewDto {
 
     @NotBlank(message = "Description cannot be empty!")
     private String description;
+
+    @NotNull
+    @Min(value = 1)
+    @Max(value = 5)
     private Double grade;
     private LocalDate date;
 
-    private Long userId;
+    private String userFullname;
+
+    private String userEmail;
+
+    @JsonProperty("userImageName")
+    private String userImageUrl;
+
+    @JsonProperty("userImageUrl")
+    public String getPhotoUrl() {
+        return linkTo(methodOn(S3Controller.class).download(userImageUrl)).withRel("image").getHref();
+    }
 
 }

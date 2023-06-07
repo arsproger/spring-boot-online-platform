@@ -40,6 +40,7 @@ spring:
             enable: true
           ssl:
             enable: true
+    test-connection: true
 
   servlet:
     multipart:
@@ -67,9 +68,9 @@ spring:
             redirect-uri: ${config.oauth2.github.redirect-uri}
             authorization-grant-type: ${config.oauth2.github.authorization-grant-type}
 
-oauth2-success-redirect-url: http://localhost:3000/setting/setting
-logoutSuccessUrl: https://final-project-two-theta.vercel.app
-resetUrl: http://localhost:3000/password/newPassword/newPassword
+oauth2-success-redirect-url: http://localhost:3000/settings/userSettings
+logoutSuccessUrl: http://localhost:3000
+resetUrl: http://localhost:3000/password/newPassword
 
 jwt_secret: ${config.jwt.secret}
 

@@ -20,4 +20,5 @@ public class CommentDao {
         return jdbcTemplate.query("SELECT * FROM comments WHERE lesson_id = ?",
                 new CommentRowMapper(), lessonId);
     }
+
 }

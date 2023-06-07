@@ -1,8 +1,9 @@
 package com.it.academy.entities;
 
-import lombok.*;
-
 import jakarta.persistence.*;
+import lombok.*;
+import org.hibernate.annotations.Cascade;
+
 import java.util.List;
 
 @Entity
@@ -25,5 +26,6 @@ public class Cart {
             name = "carts_courses",
             joinColumns = @JoinColumn(name = "cart_id"),
             inverseJoinColumns = @JoinColumn(name = "course_id"))
+    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
     private List<Course> courses;
 }

@@ -23,7 +23,7 @@ public class EmailServiceImpl implements EmailService {
             message.setText(text);
             mailSender.send(message);
         } catch (MailException e) {
-            throw new AppException(e.getMessage(), HttpStatus.BAD_REQUEST);
+            throw new AppException(e.getMessage(), HttpStatus.UNAUTHORIZED);
         }
 
     }

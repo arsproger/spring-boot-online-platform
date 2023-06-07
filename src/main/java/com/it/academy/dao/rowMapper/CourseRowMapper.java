@@ -27,4 +27,5 @@ public class CourseRowMapper implements RowMapper<Course> {
 
         return course;
     }
+
 }

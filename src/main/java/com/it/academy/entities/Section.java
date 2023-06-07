@@ -1,11 +1,11 @@
 package com.it.academy.entities;
 
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
-import jakarta.persistence.*;
 import java.util.List;
 
 @Entity

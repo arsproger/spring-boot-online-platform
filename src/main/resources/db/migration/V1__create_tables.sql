@@ -4,43 +4,38 @@ create table articles (
                           title varchar(155),
                           lesson_id bigint not null,
                           primary key (id)
-)
-    ;
+);
 
 create table carts (
                        id bigserial not null,
                        primary key (id)
-)
-    ;
+);
 
 create table carts_courses (
                                cart_id bigint not null,
                                course_id bigint not null
-)
-    ;
+);
 
 create table categories (
                             id bigserial not null,
                             title varchar(155),
                             primary key (id)
-)
-    ;
+);
 
 create table comments (
                           id bigserial not null,
                           date date not null,
-                          description varchar(255),
+                          description varchar(1000),
                           title varchar(155),
                           lesson_id bigint not null,
                           user_id bigint not null,
                           primary key (id)
-)
-    ;
+);
 
 create table courses (
                          id bigserial not null,
                          created date not null,
-                         description varchar(255),
+                         description varchar(1000),
                          image_url varchar(255),
                          language varchar(155),
                          name varchar(155),
@@ -48,12 +43,11 @@ create table courses (
                          author_id bigint not null,
                          category_id bigint,
                          primary key (id)
-)
-    ;
+);
 
 create table lessons (
                          id bigserial not null,
-                         description varchar(255),
+                         description varchar(1000),
                          duration float(53),
                          title varchar(155),
                          video_url varchar(255),
@@ -65,7 +59,7 @@ create table lessons (
 create table reviews (
                          id bigserial not null,
                          date date,
-                         description varchar(255),
+                         description varchar(1000),
                          grade float(53) not null,
                          title varchar(155),
                          course_id bigint not null,

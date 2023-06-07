@@ -1,6 +1,8 @@
 package com.it.academy.security;
 
 import com.it.academy.entities.User;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -8,12 +10,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.Collections;
 
+@RequiredArgsConstructor
+@Getter
 public class DetailsUser implements UserDetails {
     private final User user;
-
-    public DetailsUser(User user) {
-        this.user = user;
-    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -48,10 +48,6 @@ public class DetailsUser implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
-    }
-
-    public User getUser() {
-        return this.user;
     }
 
 }

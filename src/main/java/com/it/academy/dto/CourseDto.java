@@ -48,4 +48,5 @@ public class CourseDto {
     public String getPhotoUrl() {
         return linkTo(methodOn(S3Controller.class).download(imageUrl)).withRel("image").getHref();
     }
+
 }

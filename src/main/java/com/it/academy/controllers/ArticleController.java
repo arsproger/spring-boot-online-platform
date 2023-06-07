@@ -6,7 +6,7 @@ import com.it.academy.security.DetailsUser;
 import com.it.academy.services.ArticleService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/article")
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Tag(name = "Контроллер для статей к урокам")
 public class ArticleController {
     private final ArticleService service;

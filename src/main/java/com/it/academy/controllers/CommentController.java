@@ -7,7 +7,7 @@ import com.it.academy.services.CommentService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -17,7 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/comment")
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Tag(name = "Контроллер комментариев к урокам")
 public class CommentController {
     private final CommentService service;
@@ -50,6 +50,7 @@ public class CommentController {
     }
 
     @GetMapping("/lesson/{lessonId}")
+    @Operation(summary = "Получение комментариев по id урока")
     public ResponseEntity<List<CommentDto>> getCommentsByLessonId(@PathVariable Long lessonId) {
         List<CommentDto> dtos = mapper.map(service.getCommentsByLessonId(lessonId));
         return new ResponseEntity<>(dtos, HttpStatus.OK);

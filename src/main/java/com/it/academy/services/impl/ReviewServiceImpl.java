@@ -13,9 +13,9 @@ import com.it.academy.services.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -34,7 +34,6 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public List<Review> getAll() {
         return reviewRepository.findAll();
     }
@@ -46,7 +45,9 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public Double getCourseAvgGrade(Long courseId) {
-        return reviewDao.getCourseAvgGrade(courseId);
+        String avgGradeString = new DecimalFormat("#.#").format(reviewDao.getCourseAvgGrade(courseId));
+        avgGradeString = avgGradeString.replace(",", ".");
+        return Double.parseDouble(avgGradeString);
     }
 
     @Override
