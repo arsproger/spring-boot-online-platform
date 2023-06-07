@@ -89,8 +89,9 @@ public class CourseDao {
 
     public List<Course> purchasedCoursesOfTheCurrentUser(Long userId) {
         daoValidate.checkUserExistsById(userId);
-        return jdbcTemplate.query("SELECT * FROM courses WHERE id IN " +
-                "(SELECT course_id FROM subscriptions WHERE user_id = 1)", new CourseRowMapper(), userId);
+        return jdbcTemplate.query("SELECT * FROM courses " +
+                "JOIN users ON(courses.author_id = users.id) WHERE users.id IN " +
+                "(SELECT course_id FROM subscriptions WHERE user_id = ?)", new CourseRowMapper(), userId);
     }
 
 }

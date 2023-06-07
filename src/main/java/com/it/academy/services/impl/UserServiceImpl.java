@@ -57,9 +57,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Long deleteById(Long id) {
+    public Long block(Long id) {
         User user = getById(id);
         user.setStatus(UserStatus.DELETED);
+        return userRepository.save(user).getId();
+    }
+
+    @Override
+    public Long unlock(Long id) {
+        User user = getById(id);
+        user.setStatus(UserStatus.ACTIVE);
         return userRepository.save(user).getId();
     }
 

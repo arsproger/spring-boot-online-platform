@@ -47,10 +47,17 @@ public class UserController {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-    @PreAuthorize("isAuthenticated()")
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Long> deleteUserById(@PathVariable Long id) {
-        Long deletedId = userService.deleteById(id);
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PatchMapping("/block/{id}")
+    public ResponseEntity<Long> blockUserById(@PathVariable Long id) {
+        Long deletedId = userService.block(id);
+        return new ResponseEntity<>(deletedId, HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PatchMapping("/unlock/{id}")
+    public ResponseEntity<Long> unlockUserById(@PathVariable Long id) {
+        Long deletedId = userService.unlock(id);
         return new ResponseEntity<>(deletedId, HttpStatus.OK);
     }
 
