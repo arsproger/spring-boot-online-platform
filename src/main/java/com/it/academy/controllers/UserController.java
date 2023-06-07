@@ -32,12 +32,14 @@ public class UserController {
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/{id}")
     public ResponseEntity<UserDto> getUserById(@PathVariable Long id) {
         UserDto user = mapper.map(userService.getById(id));
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/current")
     @Operation(summary = "Получение текущего авторизованного пользователя")
     public ResponseEntity<UserDto> getCurrentUser(@AuthenticationPrincipal DetailsUser detailsUser) {
@@ -74,7 +76,7 @@ public class UserController {
         Integer userCount = userService.getCountOfAllUsers();
         return new ResponseEntity<>(userCount, HttpStatus.OK);
     }
-
+    
     @GetMapping("/count/today")
     @Operation(summary = "Получение количества всех пользователей зарегистрированных сегодня")
     public ResponseEntity<Integer> getCountOfAllUsersToday() {

@@ -83,4 +83,10 @@ public class CourseDao {
         return jdbcTemplate.queryForObject("SELECT count(*) FROM courses", Integer.class);
     }
 
+    public List<Course> purchasedCoursesOfTheCurrentUser(Long userId) {
+        daoValidate.checkUserExistsById(userId);
+        return jdbcTemplate.query("SELECT * FROM courses WHERE id IN " +
+                "(SELECT course_id FROM subscriptions WHERE user_id = 1)", new CourseRowMapper(), userId);
+    }
+
 }

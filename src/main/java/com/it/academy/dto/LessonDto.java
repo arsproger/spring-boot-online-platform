@@ -34,4 +34,5 @@ public class LessonDto {
     public String getPhotoUrl() {
         return linkTo(methodOn(S3Controller.class).download(videoUrl)).withRel("video").getHref();
     }
+
 }

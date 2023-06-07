@@ -46,6 +46,13 @@ public class CourseController {
         return new ResponseEntity<>(course, HttpStatus.OK);
     }
 
+    @GetMapping("/current")
+    @Operation(summary = "Получение всех купленных курсов текущего пользователя")
+    public ResponseEntity<List<CourseDto>> purchasedCoursesOfTheCurrentUser(@AuthenticationPrincipal DetailsUser detailsUser) {
+        List<CourseDto> course = mapper.map(courseService.purchasedCoursesOfTheCurrentUser(detailsUser.getUser().getId()));
+        return new ResponseEntity<>(course, HttpStatus.OK);
+    }
+
     @PreAuthorize("isAuthenticated()")
     @PostMapping("{categoryId}")
     @Operation(summary = "Создание курса",

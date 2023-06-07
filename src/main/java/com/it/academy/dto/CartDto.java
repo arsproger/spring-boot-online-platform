@@ -12,6 +12,5 @@ import java.util.List;
 @Schema(description = "Сущность для корзины пользователя")
 public class CartDto {
     private Long id;
-
     private List<Course> courses;
 }

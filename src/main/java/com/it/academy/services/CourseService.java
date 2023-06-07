@@ -31,4 +31,6 @@ public interface CourseService {
 
     Integer getCountOfAllCourses();
 
+    List<Course> purchasedCoursesOfTheCurrentUser(Long userId);
+
 }

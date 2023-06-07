@@ -125,6 +125,11 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
+    public List<Course> purchasedCoursesOfTheCurrentUser(Long userId) {
+        return courseDao.purchasedCoursesOfTheCurrentUser(userId);
+    }
+
+    @Override
     public List<Course> filterByPriceDesc(Long categoryId, Integer pageNumber, Integer pageSize) {
         return courseDao.filterByPriceDesc(categoryId, pageNumber, pageSize);
     }
@@ -133,5 +138,7 @@ public class CourseServiceImpl implements CourseService {
     public List<Course> filterByPriceAsk(Long categoryId, Integer pageNumber, Integer pageSize) {
         return courseDao.filterByPriceAsk(categoryId, pageNumber, pageSize);
     }
+
+
 
 }

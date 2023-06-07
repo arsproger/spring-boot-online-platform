@@ -1,8 +1,6 @@
 package com.it.academy.entities;
 
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -29,6 +27,8 @@ public class Review {
     private String description;
 
     @NotNull
+    @Min(value = 1)
+    @Max(value = 5)
     private Double grade;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
