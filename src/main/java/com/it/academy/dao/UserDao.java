@@ -56,10 +56,16 @@ public class UserDao {
     public Boolean coursePurchaseCheck(Long userId, Long courseId) {
         daoValidate.checkUserExistsById(userId);
         daoValidate.checkCourseExistsById(courseId);
+        Integer count;
 
-        Integer count = jdbcTemplate.queryForObject(
+        count = jdbcTemplate.queryForObject("SELECT count(*) FROM courses WHERE author_id = ? AND id = ?",
+                Integer.class, userId, courseId);
+        if (count != null && count > 0) return true;
+
+        count = jdbcTemplate.queryForObject(
                 "SELECT count(*) FROM subscriptions WHERE user_id = ? AND course_id = ?",
                 Integer.class, userId, courseId);
+
         return count != null && count > 0;
     }
 
