@@ -3,6 +3,7 @@ package com.it.academy.controllers.advice;
 import com.amazonaws.AmazonServiceException;
 import com.it.academy.exceptions.AppErrorResponse;
 import com.it.academy.exceptions.AppException;
+import com.stripe.exception.StripeException;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
@@ -66,5 +67,10 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
     }
 
+
+    @ExceptionHandler(StripeException.class)
+    public ResponseEntity<String> handleException(StripeException e) {
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+    }
 }
 

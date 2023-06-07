@@ -9,4 +9,6 @@ public interface PaymentService {
 
     void makePayment(Long courseId, Long userId, String cardNumber, String expMonth, String expYear, String cvc) throws StripeException;
 
+    void makeCartPayment(Long userId, String cardNumber, String expMonth, String expYear, String cvc) throws StripeException;
+
 }

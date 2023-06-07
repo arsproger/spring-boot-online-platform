@@ -11,6 +11,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
+import org.springframework.http.HttpHeaders;
 import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -20,6 +22,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -62,8 +65,12 @@ public class CourseController {
                                           @RequestBody @Valid CourseDto course) throws StripeException {
         Long id = courseService.create(detailsUser.getUser().getId(), categoryId, mapper.map(course));
         if (id == null) {
+            HttpHeaders headers = new HttpHeaders();
             String link = paymentService.generateOnboardingLink(paymentService.createStripeAccount(detailsUser.getUser().getId()));
-            return new ResponseEntity<>(link, HttpStatus.FOUND);
+            headers.setLocation(URI.create(link));
+            return new ResponseEntity<>(headers, HttpStatus.FOUND);
+//            String link = paymentService.generateOnboardingLink(paymentService.createStripeAccount(detailsUser.getUser().getId()));
+//            return new ResponseEntity<>(link, HttpStatus.FOUND);
         }
         return new ResponseEntity<>(id, HttpStatus.CREATED);
     }
