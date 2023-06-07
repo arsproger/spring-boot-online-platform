@@ -139,5 +139,4 @@ public class CourseServiceImpl implements CourseService {
         return courseDao.filterByPriceAsk(categoryId, pageNumber, pageSize);
     }
 
-
 }

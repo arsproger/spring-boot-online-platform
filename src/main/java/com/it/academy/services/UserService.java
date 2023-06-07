@@ -14,7 +14,9 @@ public interface UserService {
 
     Long save(User user);
 
-    Long deleteById(Long id);
+    Long block(Long id);
+
+    Long unlock(Long id);
 
     void updateById(Long id, User updatedUser);
 

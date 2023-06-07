@@ -38,7 +38,7 @@ public class S3Controller {
         return s3Service.saveUserImage(userId, file);
     }
 
-    @PostMapping("/upload/categoryge/image")
+    @PostMapping("/upload/category/image")
     @Operation(summary = "Загрузка фото для пользователя на сервер")
     public String uploadCategoryImage(@RequestParam Long categoryId, @RequestParam("file") MultipartFile file) {
         return s3Service.saveCategoryImage(categoryId, file);

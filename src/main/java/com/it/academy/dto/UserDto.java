@@ -1,5 +1,6 @@
 package com.it.academy.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.it.academy.controllers.S3Controller;
 import com.it.academy.enums.Role;
@@ -38,7 +39,13 @@ public class UserDto {
 
     private LocalDate createdDate;
 
+    @JsonIgnore
     private UserStatus status;
+
+    @JsonProperty("isActive")
+    public Boolean isActive() {
+        return status.equals(UserStatus.ACTIVE);
+    }
 
     @JsonProperty("imageName")
     private String imageUrl;
