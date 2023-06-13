@@ -13,50 +13,34 @@ import com.stripe.model.Charge;
 import com.stripe.model.Token;
 import com.stripe.param.AccountCreateParams;
 import com.stripe.param.AccountLinkCreateParams;
-import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
 @Data
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class PaymentServiceImpl implements PaymentService {
-    private UserService userService;
-    private SubscriptionService subscriptionService;
-    private CourseService courseService;
-    private StripeConfig stripe;
-    private CartService cartService;
+    private final UserService userService;
+    private final SubscriptionService subscriptionService;
+    private final CourseService courseService;
+    private final StripeConfig stripe;
+    private final CartService cartService;
 
     @Override
     public void makePayment(Long courseId, Long userId, String cardNumber, String expMonth, String expYear, String cvc) throws StripeException {
         Stripe.apiKey = stripe.getKey();
         Course course = courseService.getById(courseId);
-
-        Map<String, Object> cardParams = new HashMap<>();
-        cardParams.put("number", cardNumber);
-        cardParams.put("exp_month", expMonth);
-        cardParams.put("exp_year", expYear);
-        cardParams.put("cvc", cvc);
-
-        Map<String, Object> tokenParams = new HashMap<>();
-        tokenParams.put("card", cardParams);
-
-        Token token = Token.create(tokenParams);
-
-        Map<String, Object> chargeParams = new HashMap<>();
-        chargeParams.put("amount", course.getPrice().multiply(new BigDecimal(100)).intValue());
-        chargeParams.put("currency", "USD");
-        chargeParams.put("description", "Payment for subscription to the course " + course.getName());
-        chargeParams.put("source", token.getId());
-        chargeParams.put("application_fee_amount", (course.getPrice().multiply(new BigDecimal(0.1)).intValue()));
-        chargeParams.put("transfer_data", Collections.singletonMap("destination", course.getAuthor().getStripeAccountId()));
-
+        Map<String, Object> chargeParams = createPaymentParams(course, cardNumber, expMonth, expYear, cvc);
         subscriptionService.save(userId, courseId);
-        Charge charge = Charge.create(chargeParams);
+        Charge.create(chargeParams);
     }
 
     @Override
@@ -93,7 +77,6 @@ public class PaymentServiceImpl implements PaymentService {
     public void makeCartPayment(Long userId, String cardNumber, String expMonth, String expYear, String cvc) throws StripeException {
         Stripe.apiKey = stripe.getKey();
 
-        List<Charge> charges = new ArrayList<>();
         List<Course> courses = cartService.getCoursesByUserCart(userId);
 
         if (courses.isEmpty()) {
@@ -101,36 +84,12 @@ public class PaymentServiceImpl implements PaymentService {
         }
 
         for (Course course : courses) {
-
-            Map<String, Object> cardParams = new HashMap<>();
-            cardParams.put("number", cardNumber);
-            cardParams.put("exp_month", expMonth);
-            cardParams.put("exp_year", expYear);
-            cardParams.put("cvc", cvc);
-
-            Map<String, Object> tokenParams = new HashMap<>();
-            tokenParams.put("card", cardParams);
-
-            Token token = Token.create(tokenParams);
-
-            Map<String, Object> chargeParams = new HashMap<>();
-            chargeParams.put("amount", course.getPrice().multiply(new BigDecimal(100)).intValue());
-            chargeParams.put("currency", "USD");
-            chargeParams.put("description", "Payment for subscription to the course " + course.getName());
-            chargeParams.put("source", token.getId());
-            chargeParams.put("application_fee_amount", (course.getPrice().multiply(new BigDecimal(0.1)).intValue()));
-            chargeParams.put("transfer_data", Collections.singletonMap("destination", course.getAuthor().getStripeAccountId()));
-
+            Map<String, Object> chargeParams = createPaymentParams(course, cardNumber, expMonth, expYear, cvc);
             subscriptionService.save(userId, course.getId());
-
-            Charge charge = Charge.create(chargeParams);
-            charges.add(charge);
-
+            Charge.create(chargeParams);
         }
+
     }
-
-
-
 
     @Override
     public String generateOnboardingLink(String accountId) throws StripeException {
@@ -145,4 +104,28 @@ public class PaymentServiceImpl implements PaymentService {
 
         return accountLink.getUrl();
     }
+
+    private Map<String, Object> createPaymentParams(Course course, String cardNumber, String expMonth, String expYear, String cvc) throws StripeException {
+        Map<String, Object> cardParams = new HashMap<>();
+        cardParams.put("number", cardNumber);
+        cardParams.put("exp_month", expMonth);
+        cardParams.put("exp_year", expYear);
+        cardParams.put("cvc", cvc);
+
+        Map<String, Object> tokenParams = new HashMap<>();
+        tokenParams.put("card", cardParams);
+
+        Token token = Token.create(tokenParams);
+
+        Map<String, Object> chargeParams = new HashMap<>();
+        chargeParams.put("amount", course.getPrice().multiply(new BigDecimal(100)).intValue());
+        chargeParams.put("currency", "USD");
+        chargeParams.put("description", "Payment for subscription to the course " + course.getName());
+        chargeParams.put("source", token.getId());
+        chargeParams.put("application_fee_amount", (course.getPrice().multiply(new BigDecimal("0.1")).intValue()));
+        chargeParams.put("transfer_data", Collections.singletonMap("destination", course.getAuthor().getStripeAccountId()));
+
+        return chargeParams;
+    }
+
 }
