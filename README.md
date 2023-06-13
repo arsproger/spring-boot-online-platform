@@ -114,6 +114,11 @@
 Если вы захотите использовать другую реляционную
 СУБД, необходимо будет изменить настройки в файле application.properties.
 
+## Были покрыты тестами все методы находящиеся в пакете dao
+### При написании тестов использовал JUnit5, Mockito и AssertJ
+
+## Была подключена Spring doc документация к API 
+
 Postman коллекции:
 
 https://api.postman.com/collections/25575265-45b03e20-5b1b-4fca-b145-62caddad5788?access_key=PMAT-01H2BCTMRE8N1G7AMEWXEFMFB2
