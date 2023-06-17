@@ -1,0 +1,23 @@
+services:
+
+  app:
+    build: ./
+    container_name: java-app
+    ports:
+      - '8080:8080'
+    depends_on:
+      - db
+
+  db:
+    image: postgres
+    container_name: java-postgres
+    environment:
+      POSTGRES_DB: online_platform
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: hr
+
+  adminer:
+    image: adminer
+    container_name: java-adminer
+    ports:
+      - '8888:8080'
