@@ -28,7 +28,6 @@
 
 ### Реализует следующие запросы:
 
-* GET /city — получение всех городов из базы
 * POST /auth/register - регистрация для пользователя
 * POST /auth/login - вход для пользователя
 * GET /cart - получение корзины текущего пользователя
@@ -43,7 +42,7 @@
 * GET /course/duration/{courseId} - получение длительности курса по его id
 * GET /course/count - получение количества всех курсов
 * GET /lesson/section/{sectionId} - получение уроков по id раздела
-* POST /password/reset - Запрос на восстановление пароля
+* POST /password/reset - запрос на восстановление пароля
 * POST /password/reset/{resetToken} - проверка и установление нового пароля
 * POST /stripe/pay - оплата для курса
 * GET /review/author/{authorId} - получение всех отзывов определенного автора
